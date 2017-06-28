@@ -37,7 +37,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 SoulBound.IsValidTarget(SpellClass.R.Range) &&
                 SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
-                HealthPrediction.Implementation.GetPrediction(SoulBound, (int)(250 + Game.Ping / 2f)) <= SoulBound.MaxHealth / 4 &&
+                HealthPrediction.Implementation.GetPrediction(SoulBound, 250 + Game.Ping) <= SoulBound.MaxHealth / 4 &&
                 MenuClass.Spells["r"]["lifesaver"].As<MenuBool>().Enabled)
             {
                 SpellClass.R.Cast();
@@ -72,7 +72,7 @@ namespace AIO.Champions
                 ///     The E Before death Logic.
                 /// </summary>
                 if (MenuClass.Spells["e"]["ondeath"].As<MenuBool>().Enabled &&
-                    HealthPrediction.Implementation.GetPrediction(UtilityClass.Player, (int)(1000 + Game.Ping / 2f)) <= 0)
+                    HealthPrediction.Implementation.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
                 {
                     SpellClass.E.Cast();
                 }
