@@ -14,8 +14,6 @@ namespace AIO.Champions
 
     using AIO.Utilities;
 
-    using Geometry = Utilities.Geometry;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>

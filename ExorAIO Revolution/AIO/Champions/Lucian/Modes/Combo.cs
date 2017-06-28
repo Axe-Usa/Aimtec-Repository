@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
@@ -45,7 +47,6 @@ namespace AIO.Champions
                 }
             }
 
-            /*
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
@@ -53,14 +54,13 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["extended"]["combo"].As<MenuBool>().Enabled)
             {
                 foreach (var minion in from minion in UtilityClass.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
-                    let polygon = new Geometry.Rectangle(UtilityClass.Player.Position, UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
-                    where polygon.IsInside(SpellClass.Q2.GetPrediction(UtilityClass.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range)))
+                    let polygon = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
+                    where !polygon.IsOutside((Vector2)SpellClass.Q2.GetPrediction(UtilityClass.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range)).PredictedPosition)
                     select minion)
                 {
                     SpellClass.Q.CastOnUnit(minion);
                 }
             }
-            */
         }
 
         #endregion

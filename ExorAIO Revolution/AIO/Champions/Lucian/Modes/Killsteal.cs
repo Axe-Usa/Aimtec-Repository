@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -41,21 +43,19 @@ namespace AIO.Champions
                     }
                 }
 
-                /*
                 /// <summary>
                 ///     Extended.
                 /// </summary>
                 if (MenuClass.Spells["q"]["extended"]["killsteal"].As<MenuBool>().Enabled)
                 {
                     foreach (var minion in from minion in UtilityClass.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
-                        let polygon = new Geometry.Rectangle(UtilityClass.Player.Position, UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
-                        where polygon.IsInside(SpellClass.Q2.GetPrediction(SpellClass.Q.GetBestKillableHero(DamageType.Physical)))
+                        let polygon = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
+                        where !polygon.IsOutside((Vector2)SpellClass.Q2.GetPrediction(SpellClass.Q.GetBestKillableHero(DamageType.Physical)).PredictedPosition)
                         select minion)
                     {
                         SpellClass.Q.CastOnUnit(minion);
                     }
                 }
-                */
             }
 
             /// <summary>
