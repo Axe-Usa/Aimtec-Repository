@@ -119,9 +119,9 @@
             return self[self.Count - 1];
         }
 
-        public static Vector3 SwitchYz(this Vector3 v)
+        public static Vector3 SwitchZy(this Vector3 v)
         {
-            return new Vector3(v.X, v.Z, v.Y);
+            return new Vector3(v.X, v.Y, v.Z);
         }
 
         /// <summary>
