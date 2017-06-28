@@ -58,8 +58,8 @@
                 pointList.Add(
                     new Vector3(
                         center.X + radius * (float)Math.Cos(angle),
-                        center.Y + radius * (float)Math.Sin(angle),
-                        center.Z));
+                        center.Z,
+                        center.Y + radius * (float)Math.Sin(angle)));
             }
             for (var i = 0; i < pointList.Count; i++)
             {
