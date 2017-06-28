@@ -87,6 +87,16 @@
             return Clipper.PointInPolygon(p, poly.ToClipperPath()) != 1;
         }
 
+        public static bool IsInside(this Vector3 point, Polygon poly)
+        {
+            return !point.IsOutside(poly);
+        }
+
+        public static bool IsInside(this Vector2 point, Polygon poly)
+        {
+            return !point.IsOutside(poly);
+        }
+
         /// <summary>
         ///     Returns the position on the path after t milliseconds at speed speed.
         /// </summary>
@@ -231,6 +241,11 @@
             {
                 var p = new IntPoint(point.X, point.Y);
                 return Clipper.PointInPolygon(p, this.ToClipperPath()) != 1;
+            }
+
+            public bool IsInside(Vector2 point)
+            {
+                return !this.IsOutside(point);
             }
 
             public List<IntPoint> ToClipperPath()

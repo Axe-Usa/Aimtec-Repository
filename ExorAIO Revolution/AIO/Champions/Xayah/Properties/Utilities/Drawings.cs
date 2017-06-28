@@ -41,7 +41,7 @@ namespace AIO.Champions
                 foreach (var feather in GameObjects.AllyMinions.Where(m => m.IsValid && m.Name == "Feather"))
                 {
                     Geometry.Rectangle hitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Position, SpellClass.Q.Width);
-                    Geometry.Util.DrawLineInWorld(UtilityClass.Player.Position, feather.Position, 1, GameObjects.EnemyHeroes.Any(h => !hitbox.IsOutside((Vector2)h.Position)) ? Color.Blue : Color.OrangeRed);
+                    Geometry.Util.DrawLineInWorld(UtilityClass.Player.Position, feather.Position, 1, GameObjects.EnemyHeroes.Any(h => hitbox.IsInside((Vector2)h.Position)) ? Color.Blue : Color.OrangeRed);
                 }
             }
 

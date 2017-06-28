@@ -37,7 +37,7 @@ namespace AIO.Champions
         public static int CountFeathersHitOnUnit(Obj_AI_Base unit)
         {
             return Feathers.Values.Count(featherPos =>
-                !new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)featherPos, SpellClass.Q.Width).IsOutside((Vector2)unit.Position));
+                new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)featherPos, SpellClass.Q.Width).IsInside((Vector2)unit.Position));
         }
 
         /// <summary>
