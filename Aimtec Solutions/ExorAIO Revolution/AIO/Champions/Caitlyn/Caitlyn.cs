@@ -137,7 +137,6 @@ namespace AIO.Champions
                                 }
                                 break;
                         }
-
                         break;
                 }
             }

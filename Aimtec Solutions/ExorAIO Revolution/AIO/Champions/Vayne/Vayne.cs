@@ -87,10 +87,6 @@ namespace AIO.Champions
                 {
                     Orbwalker.Implementation.ForceTarget(forceTarget);
                 }
-                else
-                {
-                    Orbwalker.Implementation.ForceTarget(null);
-                }
             }
         }
 
@@ -110,7 +106,7 @@ namespace AIO.Champions
                     Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    //Laneclear(sender, args);
+                    Laneclear(sender, args);
                     Jungleclear(sender, args);
                     Buildingclear(sender, args);
                     break;
@@ -197,7 +193,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            //Logics.Killsteal();
+            Killsteal();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.

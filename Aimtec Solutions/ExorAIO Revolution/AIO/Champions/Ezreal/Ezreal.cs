@@ -88,9 +88,9 @@ namespace AIO.Champions
                 case OrbwalkingMode.Mixed:
                     if (SpellClass.Q.Ready &&
                         minion.GetRealHealth() <
-                        UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
+                            UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
                         UtilityClass.Player.ManaPercent() >
-                        ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
+                            ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
                         MenuClass.Spells["q"]["farmhelper"].As<MenuSliderBool>().Enabled)
                     {
                         SpellClass.Q.Cast(minion);

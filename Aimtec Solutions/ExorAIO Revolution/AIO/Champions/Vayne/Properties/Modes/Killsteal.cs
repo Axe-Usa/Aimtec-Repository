@@ -3,8 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System;
-
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -22,8 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        /// <param name="args">The <see cref="EventArgs" /> instance containing the event data.</param>
-        public static void Killsteal(EventArgs args)
+        public static void Killsteal()
         {
             /// <summary>
             ///     The Q KillSteal Logic.
@@ -49,8 +46,10 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical);
+                var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
                 if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
+                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) +
+                    (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.E.CastOnUnit(bestTarget);
                 }

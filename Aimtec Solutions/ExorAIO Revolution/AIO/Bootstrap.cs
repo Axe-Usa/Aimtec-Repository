@@ -206,7 +206,8 @@ namespace AIO.Core
                     MenuClass.General.Add(new MenuBool("disableaa", "Disable AutoAttacks in Combo", false));
 
                     MenuClass.General.Add(new MenuSeperator("sheenseparator1", "If enabled, the character will not cast spells on"));
-                    MenuClass.General.Add(new MenuSeperator("sheenseparator2", "targets in autoattack range, if the player can autoattack."));
+                    MenuClass.General.Add(new MenuSeperator("sheenseparator2", "targets in autoattack range, if the player can"));
+                    MenuClass.General.Add(new MenuSeperator("sheenseparator3", "AutoAttack and it has a Sheen-Like item/passive."));
                     MenuClass.General.Add(new MenuBool("usesheen", "Use Sheen Weaving Power"));
                 }
                 MenuClass.Root.Add(MenuClass.General);

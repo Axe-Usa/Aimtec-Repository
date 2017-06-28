@@ -131,10 +131,6 @@ namespace AIO.Champions
                 {
                     Orbwalker.Implementation.ForceTarget(forceTarget);
                 }
-                else
-                {
-                    Orbwalker.Implementation.ForceTarget(null);
-                }
             }
         }
 

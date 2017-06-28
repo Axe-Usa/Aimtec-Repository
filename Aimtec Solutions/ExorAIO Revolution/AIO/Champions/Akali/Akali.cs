@@ -81,7 +81,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            //Killsteal();
+            Killsteal();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
