@@ -76,10 +76,11 @@ namespace AIO.Core
                 case "Jhin":
                     new Jhin().OnLoad();
                     break;
-                case "Jinx":
-                    new Jinx().OnLoad();
-                    break;
                 */
+                case "Jinx":
+                    Jinx.OnLoad();
+                    break;
+
                 case "Kalista":
                     Kalista.OnLoad();
                     break;

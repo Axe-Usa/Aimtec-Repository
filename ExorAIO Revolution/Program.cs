@@ -75,7 +75,7 @@ namespace ExorAIO
         }
 
         /// <summary>
-        ///     Called on tick update.
+        ///     Fired when the game is updated.
         /// </summary>
         private static void OnPreAttack(object sender, PreAttackEventArgs args)
         {
