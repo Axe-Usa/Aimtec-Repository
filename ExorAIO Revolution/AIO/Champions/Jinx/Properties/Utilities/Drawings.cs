@@ -26,7 +26,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Loads the Q drawing.
             /// </summary>
-            if (SpellClass.Q.Ready&&
+            if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
                 RenderManager.RenderCircle(UtilityClass.Player.Position, UtilityClass.Player.HasBuff("JinxQ") ? SpellClass.Q.Range : SpellClass.Q2.Range, 100, Color.LightGreen);

@@ -3,9 +3,12 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
 
@@ -15,6 +18,32 @@ namespace AIO.Champions
     internal partial class Jinx
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        ///     Called on orbwalker action.
+        /// </summary>
+        /// <param name="sender">The object.</param>
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public static void Harass(object sender, PreAttackEventArgs args)
+        {
+            /// <summary>
+            ///     The Harass Q Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                UtilityClass.Player.ManaPercent() >
+                    MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value &&
+                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
+            {
+                if (!UtilityClass.Player.HasBuff("JinxQ"))
+                {
+                    if (!UtilityClass.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
+                        UtilityClass.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Any())
+                    {
+                        SpellClass.Q.Cast();
+                    }
+                }
+            }
+        }
 
         /// <summary>
         ///     Fired when the game is updated.
