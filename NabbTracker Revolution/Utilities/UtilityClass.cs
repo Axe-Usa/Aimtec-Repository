@@ -191,12 +191,8 @@ namespace NabbTracker
                 return Color.Gray;
             }
 
-            if (unit.IsMe && unitSpell.State.HasFlag(SpellState.Surpressed))
-            {
-                return Color.Purple;
-            }
-
-            if (unitSpell.State.HasFlag(SpellState.Disabled))
+            if (unit.IsMe && unitSpell.State.HasFlag(SpellState.Surpressed) ||
+                unitSpell.State.HasFlag(SpellState.Disabled))
             {
                 return Color.Purple;
             }
@@ -231,12 +227,8 @@ namespace NabbTracker
         public static Color GetUnitSummonerSpellStateColor(Obj_AI_Hero unit, int summonerSpell)
         {
             var unitSummonerSpell = unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]);
-            if (unit.IsMe && unitSummonerSpell.State.HasFlag(SpellState.Surpressed))
-            {
-                return Color.Purple;
-            }
-
-            if (unitSummonerSpell.State.HasFlag(SpellState.Disabled))
+            if (unit.IsMe && unitSummonerSpell.State.HasFlag(SpellState.Surpressed) ||
+                unitSummonerSpell.State.HasFlag(SpellState.Disabled))
             {
                 return Color.Purple;
             }
