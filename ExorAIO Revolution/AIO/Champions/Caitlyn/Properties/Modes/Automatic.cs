@@ -8,6 +8,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
 
@@ -19,7 +20,7 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on tick update.
+        ///     Fired when the game is updated.
         /// </summary>
         public static void Automatic()
         {
@@ -31,22 +32,15 @@ namespace AIO.Champions
             /// <summary>
             ///     The Automatic W Logic. 
             /// </summary>
-            if (SpellClass.W.Ready)
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
-                if (MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                    !t.Name.Equals("Target Dummy") &&
+                    !t.ActionState.HasFlag(ActionState.CanMove) &&
+                    t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
-                    foreach (var target in GameObjects.EnemyHeroes.Where(t => !t.ActionState.HasFlag(ActionState.CanMove) && t.Distance(UtilityClass.Player) < SpellClass.W.Range && !t.Name.Equals("Target Dummy")))
-                    {
-                        SpellClass.W.Cast(target);
-                    }
-                }
-
-                if (MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
-                {
-                    foreach (var target in GameObjects.EnemyMinions.Where(t => t.Buffs.Any(b => b.Caster.IsEnemy && b.Name.Equals("teleport_target")) && t.Distance(UtilityClass.Player) < SpellClass.W.Range))
-                    {
-                        SpellClass.W.Cast(target);
-                    }
+                    SpellClass.W.Cast(target.Position);
                 }
             }
 
@@ -55,6 +49,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) <= 3 &&
+                Orbwalker.Implementation.Mode != OrbwalkingMode.None &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.Q.Range) && t.HasBuff("caitlynyordletrapdebuff")))

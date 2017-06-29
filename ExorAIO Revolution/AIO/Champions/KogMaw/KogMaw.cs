@@ -30,11 +30,6 @@ namespace AIO.Champions
             ///     Initializes the methods.
             /// </summary>
             Methods();
-
-            /// <summary>
-            ///     Updates the spells.
-            /// </summary>
-            Spells();
         }
 
         /// <summary>
@@ -104,6 +99,11 @@ namespace AIO.Champions
             {
                 return;
             }
+
+            /// <summary>
+            ///     Updates the spells.
+            /// </summary>
+            Spells();
 
             /// <summary>
             ///     Initializes the Automatic actions.

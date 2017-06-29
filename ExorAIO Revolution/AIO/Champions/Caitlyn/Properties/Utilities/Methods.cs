@@ -20,6 +20,8 @@ namespace AIO.Champions
             RenderManager.OnPresent += OnPresent;
             Orbwalker.Implementation.PostAttack += OnPostAttack;
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
+            Obj_AI_Base.OnTeleport += OnTeleport;
+
             //Events.OnGapCloser += OnGapCloser;
             //Events.OnInterruptableTarget += OnInterruptableTarget;
         }

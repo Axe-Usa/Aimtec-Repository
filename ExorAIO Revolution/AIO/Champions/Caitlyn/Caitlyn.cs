@@ -33,11 +33,6 @@ namespace AIO.Champions
             ///     Initializes the methods.
             /// </summary>
             Methods();
-
-            /// <summary>
-            ///     Updates the spells.
-            /// </summary>
-            Spells();
         }
 
         /// <summary>
@@ -49,6 +44,30 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             Drawings();
+        }
+
+        /// <summary>
+        ///     Called on teleport issued.
+        /// </summary>
+        /// <param name="sender">The object.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseTeleportEventArgs" /> instance containing the event data.</param>
+        public static void OnTeleport(Obj_AI_Base sender, Obj_AI_BaseTeleportEventArgs args)
+        {
+            if (sender.IsEnemy)
+            {
+                if (SpellClass.W.Ready &&
+                    MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
+                {
+                    foreach (var target in GameObjects.EnemyMinions.Where(t =>
+                        t.Buffs.Any(b =>
+                            b.Caster.IsEnemy &&
+                            b.Name.Equals("teleport_target")) &&
+                        t.Distance(UtilityClass.Player) <= SpellClass.W.Range))
+                    {
+                        SpellClass.W.Cast(target.Position);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -209,6 +228,11 @@ namespace AIO.Champions
             {
                 return;
             }
+
+            /// <summary>
+            ///     Updates the spells.
+            /// </summary>
+            Spells();
 
             /// <summary>
             ///     Initializes the Automatic actions.

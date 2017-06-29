@@ -21,7 +21,7 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on tick update.
+        ///     Fired when the game is updated.
         /// </summary>
         public static void Combo()
         {

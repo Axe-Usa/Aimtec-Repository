@@ -96,7 +96,7 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuSeperator("esep4", "Always Short: This Logic will make you always dash at the minimum distance."));
                     MenuClass.E.Add(new MenuSeperator("esep5", "None: It will not use E in Combo."));
 
-                    MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Exory", "Always Long", "Always Short", "Don't use E in Combo" }, 1));
+                    MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Exory", "Always Long", "Always Short", "Don't use E in Combo" }, 0));
                     MenuClass.E.Add(new MenuBool("engage", "Engage"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));

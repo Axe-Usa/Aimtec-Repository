@@ -5,12 +5,11 @@ namespace AIO.Champions
 {
     using System.Linq;
 
+    using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Util;
 
     using AIO.Utilities;
-
-    using Menu = Aimtec.SDK.Menu.Menu;
 
     /// <summary>
     ///     The menu class.
@@ -71,7 +70,7 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuBool("teleport", "On Teleport"));
                     MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
-                    MenuClass.W.Add(new MenuBool("interrupter", "Interrupt Channelling Targets"));
+                    MenuClass.W.Add(new MenuBool("interrupter", "On Channelling Immobile Targets"));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 
@@ -103,14 +102,14 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the menu for the R Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList = new Menu("whitelist", "Ultimate: Whitelist");
+                        MenuClass.WhiteList2 = new Menu("whitelist", "Ultimate: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
+                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
                             }
                         }
-                        MenuClass.R.Add(MenuClass.WhiteList);
+                        MenuClass.R.Add(MenuClass.WhiteList2);
                     }
                     else
                     {
