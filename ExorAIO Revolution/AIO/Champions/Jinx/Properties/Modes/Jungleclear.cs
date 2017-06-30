@@ -11,7 +11,7 @@ namespace AIO.Champions
     using AIO.Utilities;
 
     /// <summary>
-    ///     The logics class.
+    ///     The champion class.
     /// </summary>
     internal partial class Jinx
     {
@@ -41,16 +41,14 @@ namespace AIO.Champions
                 var minionsInRange = GameObjects.EnemyMinions.Count(m => m.Distance(minionTarget) < MenuClass.Miscellaneous["qoptions"]["splashrange"].Value);
                 if (UtilityClass.Player.HasBuff("JinxQ"))
                 {
-                    if (!MenuClass.Miscellaneous["qoptions"]["jungleclear"].Enabled ||
-                        minionsInRange < MenuClass.Miscellaneous["qoptions"]["jungleclear"].Value)
+                    if (minionsInRange < MenuClass.Miscellaneous["qoptions"]["jungleclear"].Value)
                     {
                         SpellClass.Q.Cast();
                     }
                 }
                 else
                 {
-                    if (MenuClass.Miscellaneous["qoptions"]["jungleclear"].Enabled &&
-                        minionsInRange >= MenuClass.Miscellaneous["qoptions"]["jungleclear"].Value)
+                    if (minionsInRange >= MenuClass.Miscellaneous["qoptions"]["jungleclear"].Value)
                     {
                         SpellClass.Q.Cast();
                     }

@@ -1,4 +1,5 @@
 ﻿
+// ReSharper disable MergeConditionalExpression
 #pragma warning disable 1587
 
 namespace AIO.Champions
@@ -69,18 +70,8 @@ namespace AIO.Champions
                             var jungleList = UtilityClass.JungleList;
                             var mobOffset = DrawingClass.JungleHpBarOffsetList.FirstOrDefault(x => x.UnitSkinName.Equals(unit.UnitSkinName));
 
-                            bool contains = false;
-                            foreach (var s in jungleList)
-                            {
-                                if (Equals(s, unit.UnitSkinName))
-                                {
-                                    contains = true;
-                                    break;
-                                }
-                            }
-
                             int width;
-                            if (contains)
+                            if (jungleList.Contains(unit.UnitSkinName))
                             {
                                 width = mobOffset != null ? mobOffset.Width : DrawingClass.SWidth;
                             }
@@ -88,6 +79,7 @@ namespace AIO.Champions
                             {
                                 width = DrawingClass.SWidth;
                             }
+
                             int height;
                             if (jungleList.Contains(unit.UnitSkinName))
                             {
@@ -97,6 +89,7 @@ namespace AIO.Champions
                             {
                                 height = DrawingClass.SHeight;
                             }
+
                             int xOffset;
                             if (jungleList.Contains(unit.UnitSkinName))
                             {
@@ -106,6 +99,7 @@ namespace AIO.Champions
                             {
                                 xOffset = DrawingClass.SxOffset(heroUnit);
                             }
+
                             int yOffset;
                             if (jungleList.Contains(unit.UnitSkinName))
                             {

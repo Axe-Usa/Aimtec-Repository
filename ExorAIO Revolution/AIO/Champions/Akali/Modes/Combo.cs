@@ -12,7 +12,7 @@ namespace AIO.Champions
     using AIO.Utilities;
 
     /// <summary>
-    ///     The logics class.
+    ///     The champion class.
     /// </summary>
     internal partial class Akali
     {

@@ -3,8 +3,6 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Orbwalking;
 
-    using AIO.Utilities;
-
     /// <summary>
     ///     The methods class.
     /// </summary>

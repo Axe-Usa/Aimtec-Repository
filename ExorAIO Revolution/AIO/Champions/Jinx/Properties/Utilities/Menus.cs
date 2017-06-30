@@ -147,7 +147,7 @@ namespace AIO.Champions
                 MenuClass.Miscellaneous.Add(new MenuSliderBool("wsafetycheck", "W only if enemies in Fishbones Range <= x", true, 2, 1, GameObjects.EnemyHeroes.Count()));
 
                 /// <summary>
-                ///     Sets the menu for the Q.
+                ///     Sets the menu for the Q customization.
                 /// </summary>
                 MenuClass.Q2 = new Menu("qoptions", "Fishbones Customization:");
                 {
@@ -155,10 +155,10 @@ namespace AIO.Champions
                     MenuClass.Q2.Add(new MenuSlider("splashrange", "Splash damage radius", 160, 125, 175));
                     MenuClass.Q2.Add(new MenuSeperator("separator2"));
                     MenuClass.Q2.Add(new MenuSeperator("separator3", "Laneclear Options:"));
-                    MenuClass.Q2.Add(new MenuSliderBool("laneclear", "Use Fishbones / Only if Hittable minions >= x", true, 3, 2, 5));
+                    MenuClass.Q2.Add(new MenuSlider("laneclear", "Use Fishbones only if Hittable minions >= x", 3, 2, 5));
                     MenuClass.Q2.Add(new MenuSeperator("separator4"));
                     MenuClass.Q2.Add(new MenuSeperator("separator5", "Jungleclear Options:"));
-                    MenuClass.Q2.Add(new MenuSliderBool("jungleclear", "Use Fishbones / Only if Hittable minions >= x", true, 1, 2, 5));
+                    MenuClass.Q2.Add(new MenuSlider("jungleclear", "Use Fishbones only if Hittable minions >= x", 1, 2, 5));
                 }
                 MenuClass.Miscellaneous.Add(MenuClass.Q2);
             }

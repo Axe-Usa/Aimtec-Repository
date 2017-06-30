@@ -5,7 +5,7 @@ namespace AIO.Champions
 {
 
     /// <summary>
-    ///     The logics class.
+    ///     The champion class.
     /// </summary>
     internal partial class Vayne
     {

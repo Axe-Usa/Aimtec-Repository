@@ -5,15 +5,13 @@ namespace AIO.Champions
 {
     using System.Linq;
 
-    using Aimtec;
-    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
     using AIO.Utilities;
 
     /// <summary>
-    ///     The logics class.
+    ///     The champion class.
     /// </summary>
     internal partial class Kalista
     {
@@ -32,8 +30,8 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var farmLocation = UtilityClass.GetAllGenericMinionsTargets().Where(m => m.Health < (float)UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList();
                 /*
+                var farmLocation = UtilityClass.GetAllGenericMinionsTargets().Where(m => m.Health < (float)UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList();
                 if (SpellClass.Q.GetLineFarmLocation(farmLocation, SpellClass.Q.Width).MinionsHit >= 3)
                 {
                     SpellClass.Q.Cast(SpellClass.Q.GetLineFarmLocation(farmLocation, SpellClass.Q.Width).Position);

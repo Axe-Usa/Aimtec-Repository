@@ -1,4 +1,5 @@
-﻿namespace AIO.Utilities
+﻿// ReSharper disable ArrangeAccessorOwnerBody
+namespace AIO.Utilities
 {
     using System.Collections.Generic;
     using System.Linq;

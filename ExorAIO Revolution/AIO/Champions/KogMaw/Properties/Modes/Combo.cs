@@ -3,7 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System;
     using System.Linq;
 
     using Aimtec;
@@ -13,7 +12,7 @@ namespace AIO.Champions
     using AIO.Utilities;
 
     /// <summary>
-    ///     The logics class.
+    ///     The champion class.
     /// </summary>
     internal partial class KogMaw
     {

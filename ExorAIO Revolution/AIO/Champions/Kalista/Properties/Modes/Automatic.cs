@@ -15,7 +15,7 @@ namespace AIO.Champions
     using AIO.Utilities;
 
     /// <summary>
-    ///     The logics class.
+    ///     The champion class.
     /// </summary>
     internal partial class Kalista
     {
@@ -95,10 +95,17 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The E JungleClear Logic.
                 /// </summary>
-                if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Enabled &&
-                    UtilityClass.GetGenericJungleMinionsTargets().Any(m => IsPerfectRendTarget(m) && m.Health < GetTotalRendDamage(m)))
+                if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Enabled)
                 {
-                    SpellClass.E.Cast();
+                    foreach (var minion in UtilityClass.GetLargeJungleMinionsTargets().Concat(UtilityClass.GetLegendaryJungleMinionsTargets()))
+                    {
+                        if (IsPerfectRendTarget(minion) &&
+                            minion.Health < GetTotalRendDamage(minion) &&
+                            MenuClass.WhiteList[minion.Name].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.E.Cast();
+                        }
+                    }
                 }
             }
         }

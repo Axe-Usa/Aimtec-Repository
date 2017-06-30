@@ -75,8 +75,18 @@
         public static Menu E { get; set; }
 
         /// <summary>
+        ///     Gets or sets the E2 Spell menu.
+        /// </summary>
+        public static Menu E2 { get; set; }
+
+        /// <summary>
         ///     Gets or sets the R Spell menu.
         /// </summary>
         public static Menu R { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the R2 Spell menu.
+        /// </summary>
+        public static Menu R2 { get; set; }
     }
 }

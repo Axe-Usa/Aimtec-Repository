@@ -1,9 +1,7 @@
 namespace AIO.Champions
 {
-    using System;
-
     /// <summary>
-    ///     The logics class.
+    ///     The champion class.
     /// </summary>
     internal partial class Ezreal
     {

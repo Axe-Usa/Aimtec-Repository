@@ -1,4 +1,6 @@
-﻿namespace AIO.Utilities
+﻿// ReSharper disable ArrangeAccessorOwnerBody
+// ReSharper disable ArrangeConstructorOrDestructorBody
+namespace AIO.Utilities
 {
     using System;
     using System.Collections.Generic;

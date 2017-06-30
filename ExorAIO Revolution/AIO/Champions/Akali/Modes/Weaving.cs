@@ -3,8 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System;
-
     using Aimtec;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -12,7 +10,7 @@ namespace AIO.Champions
     using AIO.Utilities;
 
     /// <summary>
-    ///     The logics class.
+    ///     The champion class.
     /// </summary>
     internal partial class Akali
     {
