@@ -30,8 +30,8 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Physical);
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) > bestTarget.GetRealHealth())
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
+                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.W.Cast(bestTarget);
                 }

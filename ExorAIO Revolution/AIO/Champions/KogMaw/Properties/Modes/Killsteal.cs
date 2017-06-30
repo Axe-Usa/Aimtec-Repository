@@ -31,7 +31,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) > bestTarget.GetRealHealth())
                 {
                     SpellClass.Q.Cast(bestTarget);
@@ -46,7 +46,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.E.Cast(bestTarget);
@@ -63,7 +63,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R, bestTarget.HealthPercent() < 40 ? DamageStage.Empowered : DamageStage.Default) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.R.Cast(bestTarget);

@@ -32,7 +32,7 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                !heroTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast(heroTarget);

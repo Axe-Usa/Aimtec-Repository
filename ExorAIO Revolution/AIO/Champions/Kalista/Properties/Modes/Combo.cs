@@ -28,10 +28,10 @@ namespace AIO.Champions
             /// <summary>
             ///     Orbwalk on minions.
             /// </summary>
-            var minionsInAaRange = UtilityClass.GetAllGenericMinionsTargetsInRange(UtilityClass.Player.AttackRange);
+            var minionsInAaRange = UtilityClass.GetAllGenericMinionsTargets().Where(m => m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m))).ToArray();
             if (minionsInAaRange.Any() &&
                 UtilityClass.Player.HasItem(ItemId.RunaansHurricane) &&
-                !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.AttackRange)) &&
+                !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
                 MenuClass.Miscellaneous["minionsorbwalk"].As<MenuBool>().Enabled)
             {
                 UtilityClass.Player.IssueOrder(OrderType.AttackUnit, minionsInAaRange.FirstOrDefault());
@@ -53,7 +53,7 @@ namespace AIO.Champions
                     playerSpellbook.GetSpell(SpellSlot.Q).Cost +
                     playerSpellbook.GetSpell(SpellSlot.E).Cost &&
                 bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var collisions = (IList<Obj_AI_Base>)SpellClass.Q.GetPrediction(bestTarget).Collisions;

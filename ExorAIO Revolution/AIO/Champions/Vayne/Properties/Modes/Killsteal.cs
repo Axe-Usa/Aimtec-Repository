@@ -31,7 +31,7 @@ namespace AIO.Champions
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
                 var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) +
                     (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
                 {

@@ -36,7 +36,7 @@ namespace AIO.Champions
                 {
                     var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
                     if (bestTarget != null &&
-                        !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                        !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                         UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                     {
                         SpellClass.Q.CastOnUnit(bestTarget);
@@ -65,7 +65,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.W.Cast(bestTarget);

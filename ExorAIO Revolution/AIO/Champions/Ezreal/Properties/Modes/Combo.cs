@@ -33,7 +33,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast(bestTarget);

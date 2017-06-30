@@ -35,7 +35,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 bestTarget.IsValidTarget(SpellClass.E.Range) &&
-                !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange) &&
+                !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                 MenuClass.Spells["e"]["engage"].As<MenuBool>().Enabled)
             {
                 var posAfterE = UtilityClass.Player.Position.Extend(Game.CursorPos, 425f);

@@ -33,7 +33,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.AttackRange))
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
                     var collisions = SpellClass.Q.GetPrediction(bestTarget).Collisions;
                     if (collisions.Any())
