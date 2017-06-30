@@ -148,9 +148,11 @@ namespace AIO.Core
                 case "Tryndamere":
                     new Tryndamere().OnLoad();
                     break;
+                */
                 case "Twitch":
-                    new Twitch().OnLoad();
+                    Twitch.OnLoad();
                     break;
+                /*
                 case "Udyr":
                     new Udyr().OnLoad();
                     break;
