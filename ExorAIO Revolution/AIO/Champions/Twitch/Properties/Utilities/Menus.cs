@@ -48,6 +48,26 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the W Whitelist.
+                        /// </summary>
+                        MenuClass.WhiteList = new Menu("whitelist", "Harass: Whitelist");
+                        {
+                            MenuClass.WhiteList.Add(new MenuSeperator("extendedsep", "Note: The Whitelist only works for Harass."));
+                            foreach (var target in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                            }
+                        }
+                        MenuClass.W.Add(MenuClass.WhiteList);
+                    }
+                    else
+                    {
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 
@@ -67,14 +87,14 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Sets the menu for the E Whitelist.
                 /// </summary>
-                MenuClass.WhiteList = new Menu("whitelist", "Junglesteal Expunge: Whitelist");
+                MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Expunge: Whitelist");
                 {
                     foreach (var target in UtilityClass.GetLargeJungleMinionsTargets().Concat(UtilityClass.GetLegendaryJungleMinionsTargets()))
                     {
-                        MenuClass.WhiteList.Add(new MenuBool(target.Name, "Expunge: " + target.Name));
+                        MenuClass.WhiteList2.Add(new MenuBool(target.Name, "Expunge: " + target.Name));
                     }
                 }
-                MenuClass.E.Add(MenuClass.WhiteList);
+                MenuClass.E.Add(MenuClass.WhiteList2);
             }
             MenuClass.Root.Add(MenuClass.Spells);
 
