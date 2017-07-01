@@ -235,14 +235,19 @@ namespace AIO.Champions
             Spells();
 
             /// <summary>
-            ///     Initializes the Automatic actions.
-            /// </summary>
-            Automatic();
-
-            /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
             Killsteal();
+
+            if (Orbwalker.Implementation.IsWindingUp)
+            {
+                return;
+            }
+
+            /// <summary>
+            ///     Initializes the Automatic actions.
+            /// </summary>
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.

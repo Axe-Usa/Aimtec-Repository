@@ -1,4 +1,4 @@
-﻿namespace DeveloperSharp
+﻿namespace AimDev
 {
     using System;
     using System.Drawing;
@@ -6,10 +6,9 @@
 
     using Aimtec;
     using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Util;
-
-    using Menu = Aimtec.SDK.Menu.Menu;
 
     internal static class Program
     {
