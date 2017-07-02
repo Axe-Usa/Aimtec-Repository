@@ -77,6 +77,9 @@
     <Compile Include="AIO\Champions\Jinx\Properties\Utilities\Menus.cs" />
     <Compile Include="AIO\Champions\Jinx\Properties\Utilities\Methods.cs" />
     <Compile Include="AIO\Champions\Jinx\Properties\Utilities\Spells.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Buildingclear.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Laneclear.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Utilities\Drawings.cs" />
     <Compile Include="AIO\Champions\Twitch\Properties\Modes\Automatic.cs" />
     <Compile Include="AIO\Champions\Twitch\Properties\Modes\Buildingclear.cs" />
     <Compile Include="AIO\Champions\Twitch\Properties\Modes\Jungleclear.cs" />
@@ -186,6 +189,17 @@
     <Compile Include="AIO\Champions\Vayne\Properties\Utilities\Methods.cs" />
     <Compile Include="AIO\Champions\Vayne\Properties\Utilities\Spells.cs" />
     <Compile Include="AIO\Champions\Vayne\Vayne.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Automatic.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Jungleclear.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Lasthit.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Combo.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Harass.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Killsteal.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Modes\Weaving.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Utilities\Menus.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Utilities\Methods.cs" />
+    <Compile Include="AIO\Champions\Tristana\Properties\Utilities\Spells.cs" />
+    <Compile Include="AIO\Champions\Tristana\Tristana.cs" />
     <Compile Include="AIO\Utilities\Helpers\GameObjects.cs" />
     <Compile Include="AIO\Utilities\Helpers\Geometry.cs" />
     <Compile Include="AIO\Utilities\Helpers\Invulnerable.cs" />

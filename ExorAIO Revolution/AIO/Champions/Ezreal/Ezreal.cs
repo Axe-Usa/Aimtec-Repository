@@ -62,7 +62,8 @@ namespace AIO.Champions
                 SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["antigrab"].As<MenuBool>().Value)
             {
-                if (buff.Name.Equals("ThreshQ") || buff.Name.Equals("rocketgrab2"))
+                if (buff.Name.Equals("ThreshQ") ||
+                    buff.Name.Equals("rocketgrab2"))
                 {
                     SpellClass.E.Cast(UtilityClass.Player.Position.Extend(buff.Caster.Position, -SpellClass.E.Range));
                 }

@@ -142,9 +142,11 @@ namespace AIO.Core
                 case "Taliyah":
                     new Taliyah().OnLoad();
                     break;
+                */
                 case "Tristana":
-                    new Tristana().OnLoad();
+                    Tristana.OnLoad();
                     break;
+                /*
                 case "Tryndamere":
                     new Tryndamere().OnLoad();
                     break;

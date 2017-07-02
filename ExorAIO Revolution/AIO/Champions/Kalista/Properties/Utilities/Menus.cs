@@ -94,8 +94,7 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
-                MenuClass.Miscellaneous.Add(new MenuBool("focusw", "Focus enemies to proc W Passive mark"));
-                MenuClass.Miscellaneous.Add(new MenuBool("minionsorbwalk", "Orbwalk on Minions in Combo (Only works if you have Runaan's Hurricane)"));
+                MenuClass.Miscellaneous.Add(new MenuBool("focuse", "Focus E-charged enemies"));
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);
 
