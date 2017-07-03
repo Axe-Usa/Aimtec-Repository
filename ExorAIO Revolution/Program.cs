@@ -9,7 +9,7 @@ namespace ExorAIO
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     using AIO.Core;
 

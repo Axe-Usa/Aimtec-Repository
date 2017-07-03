@@ -97,7 +97,7 @@ namespace AIO.Champions
                 }
             }
         }
-        
+
         #endregion
     }
 }
