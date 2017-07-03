@@ -134,6 +134,7 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
+                MenuClass.Miscellaneous.Add(new MenuBool("speedw", "Use W to speed Orianna up while chasing in combo", false));
                 MenuClass.Miscellaneous.Add(new MenuBool("blockr", "Block Manual R if it will not hit any enemy"));
 
                 /// <summary>

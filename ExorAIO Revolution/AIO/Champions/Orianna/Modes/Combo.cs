@@ -74,7 +74,7 @@ namespace AIO.Champions
                 bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
             {
-                if (bestTarget.Distance(BallPosition) > bestTarget.Distance(UtilityClass.Player)+100f)
+                if (bestTarget.Distance(BallPosition) > bestTarget.Distance(UtilityClass.Player) + 100f)
                 {
                     if (SpellClass.E.Ready &&
                         MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
@@ -87,8 +87,17 @@ namespace AIO.Champions
                     SpellClass.Q.Cast(bestTarget);
                 }
             }
+            else
+            {
+                if (SpellClass.W.Ready &&
+                    bestTarget.IsValidTarget(SpellClass.Q.Range + 300f) &&
+                    MenuClass.Miscellaneous["speedw"].As<MenuBool>().Value)
+                {
+                    SpellClass.W.Cast();
+                }
+            }
         }
-
+        
         #endregion
     }
 }
