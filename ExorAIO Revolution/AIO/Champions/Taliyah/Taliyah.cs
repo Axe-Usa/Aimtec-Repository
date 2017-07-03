@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The champion class.

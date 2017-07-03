@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The drawings class.

@@ -12,7 +12,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The drawings class.

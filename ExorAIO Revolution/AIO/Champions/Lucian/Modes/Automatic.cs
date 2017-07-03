@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Util;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The champion class.

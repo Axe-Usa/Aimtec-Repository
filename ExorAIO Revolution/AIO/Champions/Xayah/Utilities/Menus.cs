@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Util;
 
-    using AIO.Utilities;
+    using Utilities;
 
     using Menu = Aimtec.SDK.Menu.Menu;
 
@@ -55,7 +55,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for an Extended Q Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);

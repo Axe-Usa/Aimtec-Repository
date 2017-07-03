@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The menu class.

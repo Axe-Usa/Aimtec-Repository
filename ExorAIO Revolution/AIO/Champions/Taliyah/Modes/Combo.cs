@@ -11,7 +11,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -25,6 +25,35 @@ namespace AIO.Champions
         /// </summary>
         public static void Combo()
         {
+            /// <summary>
+            ///     The W->Boulders Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
+            {
+                var bestTargets = UtilityClass.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range);
+                foreach (var target in bestTargets)
+                {
+                    if (bestTargets.Count() == 1 ||
+                        MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value < 3)
+                    {
+                        continue;
+                    }
+
+                    foreach (var boulder in MineField)
+                    {
+                        var boulderPos = boulder.Value;
+                        if (target.Distance(boulderPos) < SpellClass.E.Range &&
+                            UtilityClass.Player.Distance(boulderPos) < SpellClass.W.Range)
+                        {
+                            /*
+                            SpellClass.W.Cast(bestTarget, boulderPos);
+                            */
+                        }
+                    }
+                }
+            }
+
             var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Magical))
@@ -133,39 +162,10 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 bestTarget.IsValidTarget(SpellClass.W.Range) &&
-                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).CooldownEnd - Game.ClockTime <= 3.5f &&
+                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).CooldownEnd - Game.ClockTime <= 3f &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
             {
                 SpellClass.E.Cast(bestTarget.Position);
-            }
-
-            /// <summary>
-            ///     The W->Boulders Combo Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
-            {
-                var bestTargets = UtilityClass.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range);
-                foreach (var target in bestTargets)
-                {
-                    if (bestTargets.Count() == 1 ||
-                        MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value < 3)
-                    {
-                        continue;
-                    }
-
-                    foreach (var boulder in MineField)
-                    {
-                        var boulderPos = boulder.Value;
-                        if (target.Distance(boulderPos) < SpellClass.E.Range &&
-                            UtilityClass.Player.Distance(boulderPos) < SpellClass.W.Range)
-                        {
-                            /*
-                            SpellClass.W.Cast(bestTarget, boulderPos);
-                            */
-                        }
-                    }
-                }
             }
 
             /// <summary>

@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Prediction;
     using Aimtec.SDK.Prediction.Skillshots;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The champion class.

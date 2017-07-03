@@ -5,7 +5,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Orbwalking;
     using Aimtec.SDK.Prediction.Skillshots;
 
-    using AIO.Utilities;
+    using Utilities;
 
     using Spell = Aimtec.SDK.Spell;
 
