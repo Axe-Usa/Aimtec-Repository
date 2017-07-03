@@ -139,10 +139,10 @@ namespace AIO.Core
                 case "Sona":
                     new Sona().OnLoad();
                     break;
-                case "Taliyah":
-                    new Taliyah().OnLoad();
-                    break;
                 */
+                case "Taliyah":
+                    Taliyah.OnLoad();
+                    break;
                 case "Tristana":
                     Tristana.OnLoad();
                     break;
