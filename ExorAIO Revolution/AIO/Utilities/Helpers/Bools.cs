@@ -23,12 +23,8 @@ namespace AIO.Utilities
         /// </returns>
         public static bool HasSheenLikeBuff(this Obj_AI_Hero unit)
         {
-            return
-                unit.HasBuff("sheen") ||
-                unit.HasBuff("LichBane") ||
-                unit.HasBuff("dianaarcready") ||
-                unit.HasBuff("ItemFrozenFist") ||
-                unit.HasBuff("sonapassiveattack");
+            var sheenLikeBuffNames = new [] { "sheen", "LichBane", "dianaarcready", "ItemFrozenFist", "sonapassiveattack" };
+            return unit.Buffs.Any(b => sheenLikeBuffNames.Contains(b.Name));
         }
 
         /// <returns>
@@ -36,7 +32,7 @@ namespace AIO.Utilities
         /// </returns>
         public static bool IsBuilding(this GameObject unit)
         {
-            return unit is Obj_AI_Turret;
+            return unit is Obj_AI_Turret; // TODO: Add enemy Nexus and enemy Inhibitors once API is ready.
         }
 
         /// <summary>
@@ -44,7 +40,9 @@ namespace AIO.Utilities
         /// </summary>
         public static bool ShouldPreserveSheen(this Obj_AI_Hero source)
         {
-            return source.HasSheenLikeBuff() && source.ActionState.HasFlag(ActionState.CanAttack);
+            return
+                source.HasSheenLikeBuff() &&
+                source.ActionState.HasFlag(ActionState.CanAttack);
         }
 
         /// <summary>
@@ -52,10 +50,15 @@ namespace AIO.Utilities
         /// </summary>
         public static bool HasTearLikeItem(this Obj_AI_Hero unit)
         {
+            if (Game.MapId.Equals(GameMapId.SummonersRift))
+            {
+                return
+                    unit.HasItem(ItemId.Manamune) ||
+                    unit.HasItem(ItemId.ArchangelsStaff) ||
+                    unit.HasItem(ItemId.TearoftheGoddess);
+            }
+
             return
-                unit.HasItem(ItemId.Manamune) ||
-                unit.HasItem(ItemId.ArchangelsStaff) ||
-                unit.HasItem(ItemId.TearoftheGoddess) ||
                 unit.HasItem(ItemId.ManamuneQuickCharge) ||
                 unit.HasItem(ItemId.ArchangelsStaffQuickCharge) ||
                 unit.HasItem(ItemId.TearoftheGoddessQuickCharge);

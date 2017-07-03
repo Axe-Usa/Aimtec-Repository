@@ -56,7 +56,9 @@ namespace AIO.Champions
         /// </summary>
         public static void OnCreate(GameObject obj)
         {
-            if (obj.IsValid && GameObjects.AllyMinions.Contains(obj) && obj.Name == "Feather")
+            if (obj.IsValid &&
+                obj.Name == "Feather" &&
+                GameObjects.AllyMinions.Contains(obj))
             {
                 Feathers.Add(obj.NetworkId, obj.Position);
             }
@@ -67,7 +69,7 @@ namespace AIO.Champions
         /// </summary>
         public static void OnDestroy(GameObject obj)
         {
-            if (GameObjects.AllyMinions.Contains(obj) && obj.Name == "Feather")
+            if (Feathers.Any(o => o.Key == obj.NetworkId))
             {
                 Feathers.Remove(obj.NetworkId);
             }

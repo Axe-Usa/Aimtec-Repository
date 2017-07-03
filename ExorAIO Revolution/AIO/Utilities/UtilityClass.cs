@@ -46,22 +46,17 @@ namespace AIO.Utilities
         /// <summary>
         ///     Returns true if there is a Wall between X pos and Y pos.
         /// </summary>
-        public static bool AnyWallInBetween(Vector2 startPos, Vector2 endPos)
+        public static bool AnyWallInBetween(Vector3 startPos, Vector3 endPos)
         {
-            var boool = false;
             for (var i = 0; i < startPos.Distance(endPos); i++)
             {
-                var point = NavMesh.WorldToCell((Vector3)startPos.Extend(endPos, i)).Flags;
-                if (point.HasFlag(NavCellFlags.Wall) || point.HasFlag(NavCellFlags.Building))
+                var point = NavMesh.WorldToCell(startPos.Extend(endPos, i));
+                if (point.Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building))
                 {
-                    boool = true;
+                    return true;
                 }
             }
 
-            if (boool)
-            {
-                return true;
-            }
             return false;
         }
 

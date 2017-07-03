@@ -186,23 +186,25 @@ namespace NabbTracker
         public static Color GetUnitSpellStateColor(Obj_AI_Hero unit, int spell)
         {
             var unitSpell = unit.SpellBook.GetSpell(SpellSlots[spell]);
-            if (unitSpell.State.HasFlag(SpellState.NotLearned))
+            var unitSpellState = unitSpell.State;
+            if (unitSpellState.HasFlag(SpellState.NotLearned))
             {
                 return Color.Gray;
             }
 
-            if (unit.IsMe && unitSpell.State.HasFlag(SpellState.Surpressed) ||
-                unitSpell.State.HasFlag(SpellState.Disabled))
+            if (unit.IsMe &&
+                unitSpellState.HasFlag(SpellState.Disabled) ||
+                unitSpellState.HasFlag(SpellState.Surpressed))
             {
                 return Color.Purple;
             }
 
-            if (unitSpell.State.HasFlag(SpellState.NoMana))
+            if (unitSpellState.HasFlag(SpellState.NoMana))
             {
                 return Color.Cyan;
             }
 
-            if (unitSpell.State.HasFlag(SpellState.Cooldown))
+            if (unitSpellState.HasFlag(SpellState.Cooldown))
             {
                 var unitSpellCooldown = unitSpell.CooldownEnd - Game.ClockTime;
                 if (unitSpellCooldown <= 5)
@@ -213,7 +215,7 @@ namespace NabbTracker
                 return Color.Yellow;
             }
 
-            if (unitSpell.State.HasFlag(SpellState.Ready))
+            if (unitSpellState.HasFlag(SpellState.Ready))
             {
                 return Color.LightGreen;
             }
@@ -227,13 +229,15 @@ namespace NabbTracker
         public static Color GetUnitSummonerSpellStateColor(Obj_AI_Hero unit, int summonerSpell)
         {
             var unitSummonerSpell = unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]);
-            if (unit.IsMe && unitSummonerSpell.State.HasFlag(SpellState.Surpressed) ||
-                unitSummonerSpell.State.HasFlag(SpellState.Disabled))
+            var unitSummonerSpellState = unitSummonerSpell.State;
+            if (unit.IsMe &&
+                unitSummonerSpellState.HasFlag(SpellState.Disabled) ||
+                unitSummonerSpellState.HasFlag(SpellState.Surpressed))
             {
                 return Color.Purple;
             }
 
-            if (unitSummonerSpell.State.HasFlag(SpellState.Cooldown))
+            if (unitSummonerSpellState.HasFlag(SpellState.Cooldown))
             {
                 var unitSpellCooldown = unitSummonerSpell.CooldownEnd - Game.ClockTime;
                 if (unitSpellCooldown <= 5)
@@ -244,7 +248,7 @@ namespace NabbTracker
                 return Color.Yellow;
             }
 
-            if (unitSummonerSpell.State.HasFlag(SpellState.Ready))
+            if (unitSummonerSpellState.HasFlag(SpellState.Ready))
             {
                 return Color.LightGreen;
             }

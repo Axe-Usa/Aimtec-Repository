@@ -48,8 +48,8 @@ namespace AIO.Champions
             ///     The Automatic Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) <= 3 &&
                 Orbwalker.Implementation.Mode != OrbwalkingMode.None &&
+                UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) <= 3 &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.Q.Range) && t.HasBuff("caitlynyordletrapdebuff")))

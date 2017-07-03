@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
@@ -24,6 +26,21 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
         public static void Laneclear(object sender, PreAttackEventArgs args)
         {
+            /// <summary>
+            ///     The Laneclear E Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                UtilityClass.Player.ManaPercent() >
+                    ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
+                MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
+            {
+                var idealMinion = UtilityClass.GetEnemyLaneMinionsTargets().FirstOrDefault(m => m.IsValidTarget(SpellClass.E.Range) && UtilityClass.GetEnemyLaneMinionsTargets().Count(m2 => m2.Distance(m) < 200f) >= 3);
+                if (idealMinion != null)
+                {
+                    SpellClass.E.Cast(idealMinion);
+                }
+            }
+
             var minionTarget = (Obj_AI_Minion)Orbwalker.Implementation.GetTarget();
             if (!UtilityClass.GetEnemyLaneMinionsTargets().Contains(minionTarget))
             {
@@ -37,17 +54,6 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["laneclear"].As<MenuBool>().Value)
             {
                 SpellClass.Q.Cast();
-            }
-
-            /// <summary>
-            ///     The Laneclear E Logic.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
-                MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
-            {
-                SpellClass.E.Cast(minionTarget);
             }
         }
 
