@@ -4,6 +4,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -105,7 +107,7 @@ namespace AIO.Champions
 
                             case 3:
                                 if (!GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(SpellClass.W.Range) &&
-                                    MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value < 3))
+                                    MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
                                 {
                                     SpellClass.W.Cast(target, UtilityClass.Player.Position.Extend(target.Position, UtilityClass.Player.Distance(target) * 2));
                                 }
@@ -143,15 +145,25 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
             {
-                foreach (var boulder in MineField)
+                var bestTargets = UtilityClass.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range);
+                foreach (var target in bestTargets)
                 {
-                    var boulderPos = boulder.Value;
-                    if (bestTarget.Distance(boulderPos) < SpellClass.E.Range &&
-                        UtilityClass.Player.Distance(boulderPos) < SpellClass.W.Range)
+                    if (bestTargets.Count() == 1 ||
+                        MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value < 3)
                     {
-                        /*
-                        SpellClass.W.Cast(bestTarget, boulderPos);
-                        */
+                        continue;
+                    }
+
+                    foreach (var boulder in MineField)
+                    {
+                        var boulderPos = boulder.Value;
+                        if (target.Distance(boulderPos) < SpellClass.E.Range &&
+                            UtilityClass.Player.Distance(boulderPos) < SpellClass.W.Range)
+                        {
+                            /*
+                            SpellClass.W.Cast(bestTarget, boulderPos);
+                            */
+                        }
                     }
                 }
             }
