@@ -200,6 +200,22 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Gets the valid ally heroes targets in the game inside a determined range.
+        /// </summary>
+        public static List<Obj_AI_Hero> GetAllyHeroesTargetsInRange(float range)
+        {
+            return GameObjects.AllyHeroes.Where(h => h.IsValidTarget(range)).ToList();
+        }
+
+        /// <summary>
+        ///     Gets the valid ally heroes targets in the game.
+        /// </summary>
+        public static List<Obj_AI_Hero> GetAllyHeroesTargets()
+        {
+            return GetAllyHeroesTargetsInRange(float.MaxValue);
+        }
+
+        /// <summary>
         ///     Gets the valid generic (lane or jungle) minions targets in the game inside a determined range.
         /// </summary>
         public static List<Obj_AI_Minion> GetAllGenericMinionsTargetsInRange(float range)

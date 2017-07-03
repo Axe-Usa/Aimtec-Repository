@@ -35,6 +35,17 @@ namespace AIO.Utilities
             return unit is Obj_AI_Turret; // TODO: Add enemy Nexus and enemy Inhibitors once API is ready.
         }
 
+        /// <returns>
+        ///     true if the sender is a hero, a turret or an important jungle monster; otherwise, false.
+        /// </returns>
+        public static bool ShouldShieldAgainstSender(Obj_AI_Base sender)
+        {
+            return
+                GameObjects.EnemyHeroes.Contains(sender) ||
+                GameObjects.EnemyTurrets.Contains(sender) ||
+                UtilityClass.GetGenericJungleMinionsTargets().Contains(sender);
+        }
+
         /// <summary>
         ///     Checks whether the unit should preserve the sheen buff.
         /// </summary>
