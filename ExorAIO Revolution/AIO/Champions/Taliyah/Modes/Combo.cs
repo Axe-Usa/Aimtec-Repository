@@ -4,8 +4,6 @@
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -36,17 +34,22 @@ namespace AIO.Champions
             ///     The Rylai Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range) &&
+                bestTarget.IsValidTarget(SpellClass.Q.Range - 50f) &&
                 UtilityClass.Player.HasItem(ItemId.RylaisCrystalScepter) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
             {
-                if (IsNearWorkedGround() &&
-                    MenuClass.Spells["q"]["combofull"].As<MenuBool>().Value)
+                switch (MenuClass.Spells["q"]["combomode"][bestTarget.ChampionName.ToLower()].As<MenuList>().Value)
                 {
-                    return;
+                    case 0:
+                        if (!IsNearWorkedGround())
+                        {
+                            SpellClass.Q.Cast(bestTarget);
+                        }
+                        break;
+                    case 1:
+                        SpellClass.Q.Cast(bestTarget);
+                        break;
                 }
-
-                SpellClass.Q.Cast(bestTarget);
             }
 
             foreach (var target in GameObjects.EnemyHeroes)
@@ -110,6 +113,16 @@ namespace AIO.Champions
                         }
                     }
                     */
+
+                    /// <summary>
+                    ///     The W->E Combo Logic.
+                    /// </summary>
+                    if (SpellClass.E.Ready &&
+                        bestTarget.IsValidTarget(SpellClass.W.Range) &&
+                        MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
+                    {
+                        SpellClass.E.Cast(bestTarget.Position);
+                    }
                 }
             }
 
@@ -125,19 +138,43 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The W->Boulders Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
+            {
+                foreach (var boulder in MineField)
+                {
+                    var boulderPos = boulder.Value;
+                    if (bestTarget.Distance(boulderPos) < SpellClass.E.Range &&
+                        UtilityClass.Player.Distance(boulderPos) < SpellClass.W.Range)
+                    {
+                        /*
+                        SpellClass.W.Cast(bestTarget, boulderPos);
+                        */
+                    }
+                }
+            }
+
+            /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 bestTarget.IsValidTarget(SpellClass.Q.Range - 50f) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
             {
-                if (IsNearWorkedGround() &&
-                    MenuClass.Spells["q"]["combofull"].As<MenuBool>().Value)
+                switch (MenuClass.Spells["q"]["combomode"][bestTarget.ChampionName.ToLower()].As<MenuList>().Value)
                 {
-                    return;
+                    case 0:
+                        if (!IsNearWorkedGround())
+                        {
+                            SpellClass.Q.Cast(bestTarget);
+                        }
+                        break;
+                    case 1:
+                        SpellClass.Q.Cast(bestTarget);
+                        break;
                 }
-
-                SpellClass.Q.Cast(bestTarget);
             }
         }
 

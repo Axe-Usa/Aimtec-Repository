@@ -32,7 +32,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
-                    MenuClass.Q.Add(new MenuList("modecombo", "Cast Mode", new[] { "Full Q only", "Full + Partial Q", "Don't use Q in Combo" }, 0));
+                    MenuClass.Q.Add(new MenuList("combomode", "Cast Mode", new[] { "Full Q only", "Full + Partial Q", "Don't use Q in Combo" }, 0));
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
