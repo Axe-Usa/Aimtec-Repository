@@ -6,7 +6,7 @@ namespace AIO.Core
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Champions;
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The bootstrap class.
@@ -118,9 +118,11 @@ namespace AIO.Core
                 case "Olaf":
                     new Olaf().OnLoad();
                     break;
+                */
                 case "Orianna":
-                    new Orianna().OnLoad();
+                    Orianna.OnLoad();
                     break;
+                /*
                 case "Pantheon":
                     new Pantheon().OnLoad();
                     break;
