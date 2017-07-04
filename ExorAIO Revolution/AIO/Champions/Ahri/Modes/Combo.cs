@@ -39,6 +39,16 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The E Combo Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                heroTarget.IsValidTarget(SpellClass.E.Range) &&
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+            {
+                SpellClass.E.Cast(heroTarget);
+            }
+
+            /// <summary>
             ///     The R Combo Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
@@ -52,16 +62,6 @@ namespace AIO.Champions
                 {
                     SpellClass.R.Cast(position);
                 }
-            }
-
-            /// <summary>
-            ///     The E Combo Logic.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                heroTarget.IsValidTarget(SpellClass.E.Range) &&
-                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
-            {
-                SpellClass.E.Cast(heroTarget);
             }
 
             /// <summary>
