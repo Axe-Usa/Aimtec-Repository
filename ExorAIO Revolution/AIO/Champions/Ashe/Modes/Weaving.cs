@@ -40,13 +40,13 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The W Combo Logic.
+            ///     The W Weaving Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 if (!UtilityClass.Player.HasBuff("AsheQ") ||
-                    !MenuClass.Miscellaneous["nowflurry"].As<MenuBool>().Enabled)
+                    !MenuClass.Spells["q"]["customization"]["nowflurry"].As<MenuBool>().Enabled)
                 {
                     SpellClass.W.Cast(heroTarget);
                 }

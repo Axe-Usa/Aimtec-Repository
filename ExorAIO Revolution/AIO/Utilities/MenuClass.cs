@@ -50,6 +50,11 @@
         public static Menu WhiteList3 { get; set; }
 
         /// <summary>
+        ///     Gets or sets the fourth Whitelist menu.
+        /// </summary>
+        public static Menu WhiteList4 { get; set; }
+
+        /// <summary>
         ///     Gets or sets the Q Spell menu.
         /// </summary>
         public static Menu Q { get; set; }
@@ -58,6 +63,11 @@
         ///     Gets or sets the Q2 Spell menu.
         /// </summary>
         public static Menu Q2 { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the Q3 Spell menu.
+        /// </summary>
+        public static Menu Q3 { get; set; }
 
         /// <summary>
         ///     Gets or sets the W Spell menu.

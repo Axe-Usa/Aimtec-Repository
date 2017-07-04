@@ -33,7 +33,7 @@ namespace AIO.Champions
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
-                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / If Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -47,7 +47,22 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the W spell.
+                    /// </summary>
+                    MenuClass.W2 = new Menu("customization", "W Customization:");
+                    {
+                        MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
+                        MenuClass.W2.Add(new MenuBool("dontwinr", "Don't use W while using R"));
+                        MenuClass.W2.Add(new MenuSeperator("separator2"));
+                        MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
+                        MenuClass.W2.Add(new MenuSeperator("separator4", "v (Will only take into account minions) v:"));
+                        MenuClass.W2.Add(new MenuSeperator("separator5", "v (with less than or equal 4 venom stacks) v:"));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
+                    }
+                    MenuClass.W.Add(MenuClass.W2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -81,6 +96,16 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("junglesteal", "Junglesteal"));
                     MenuClass.E.Add(new MenuSliderBool("logical", "Automatic / If stacks >= x", true, 6, 1, 6));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if killable minions >= x%", 3, 1, 10));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 
@@ -89,7 +114,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Expunge: Whitelist");
                 {
-                    foreach (var target in UtilityClass.GetLargeJungleMinionsTargets().Concat(UtilityClass.GetLegendaryJungleMinionsTargets()))
+                    foreach (var target in Extensions.GetLargeJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                     {
                         MenuClass.WhiteList2.Add(new MenuBool(target.Name, "Expunge: " + target.Name));
                     }
@@ -104,17 +129,6 @@ namespace AIO.Champions
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
                 MenuClass.Miscellaneous.Add(new MenuBool("stealthrecall", "Use Stealth Recall"));
-                MenuClass.Miscellaneous.Add(new MenuBool("dontwinr", "Don't use W while using R"));
-
-                /// <summary>
-                ///     Sets the menu for the E customization.
-                /// </summary>
-                MenuClass.E2 = new Menu("e2", "Expunge Customization:");
-                {
-                    MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear Options:"));
-                    MenuClass.E2.Add(new MenuSlider("laneclear", "Laneclear / If can Kill >= x minions", 3, 1, 5));
-                }
-                MenuClass.Miscellaneous.Add(MenuClass.E2);
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);
 

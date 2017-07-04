@@ -20,14 +20,14 @@ namespace AIO.Champions
         /// </summary>
         public static void Combo()
         {
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget())
             {
                 return;
             }
 
             /// <summary>
-            ///     The W Harass Logic.
+            ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
                 bestTarget.IsValidTarget(SpellClass.W.Range) &&

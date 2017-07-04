@@ -25,7 +25,7 @@ namespace AIO.Champions
         public static void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = (Obj_AI_Minion)args.Target;
-            if (!UtilityClass.GetGenericJungleMinionsTargets().Contains(jungleTarget))
+            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;
             }
@@ -35,8 +35,8 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
-                MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
+                MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
 
                 SpellClass.Q.Cast(jungleTarget);

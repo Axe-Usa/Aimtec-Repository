@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Harass()
         {
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Physical))
             {
@@ -33,8 +33,8 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 bestTarget.IsValidTarget(SpellClass.W.Range) &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
                 MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {

@@ -31,8 +31,8 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var farmLocation = SpellClass.W.GetCircularFarmLocation(UtilityClass.GetEnemyLaneMinionsTargets().Where(m => m.GetBuffCount("twitchdeadlyvenom") <= 4).ToList(), SpellClass.W.Width);
-                if (farmLocation.MinionsHit >= 3))
+                var farmLocation = SpellClass.W.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets().Where(m => m.GetBuffCount("twitchdeadlyvenom") <= 4).ToList(), SpellClass.W.Width);
+                if (farmLocation.MinionsHit >= Spells["w"]["customization"]["laneclear"].As<MenuSlider>().Value))
                 {
                     SpellClass.W.Cast(farmLocation.Position);
                 }
@@ -47,8 +47,8 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var perfectlyKillableMinions = UtilityClass.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count(m => IsPerfectExpungeTarget(m) && GetTotalExpungeDamage(m) > m.Health);
-                if (perfectlyKillableMinions >= MenuClass.Miscellaneous["e2"]["laneclear"].As<MenuSlider>().Value)
+                var perfectlyKillableMinions = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count(m => IsPerfectExpungeTarget(m) && GetTotalExpungeDamage(m) > m.Health);
+                if (perfectlyKillableMinions >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.Cast();
                 }

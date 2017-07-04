@@ -5,12 +5,11 @@ namespace AIO.Champions
 {
     using System.Linq;
 
+    using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Util;
 
     using Utilities;
-
-    using Menu = Aimtec.SDK.Menu.Menu;
 
     /// <summary>
     ///     The menu class.
@@ -37,7 +36,17 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the Q spell.
+                    /// </summary>
+                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    {
+                        MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
+                    }
+                    MenuClass.Q.Add(MenuClass.Q2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -67,7 +76,7 @@ namespace AIO.Champions
                 {
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("buildingclear", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -83,7 +92,17 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuSeperator("separator3"));
                     MenuClass.E.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if killable minions >= x%", 3, 1, 10));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 

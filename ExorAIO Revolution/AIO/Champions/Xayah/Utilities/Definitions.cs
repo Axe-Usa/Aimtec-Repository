@@ -45,7 +45,7 @@ namespace AIO.Champions
         /// </summary>
         public static int CountFeathersKillableMinions()
         {
-            return UtilityClass.GetAllGenericMinionsTargets().Count(m => GetPerfectFeatherDamage(m, CountFeathersHitOnUnit(m)) > m.Health);
+            return Extensions.GetAllGenericMinionsTargets().Count(m => GetPerfectFeatherDamage(m, CountFeathersHitOnUnit(m)) > m.Health);
         }
 
         /// <summary>

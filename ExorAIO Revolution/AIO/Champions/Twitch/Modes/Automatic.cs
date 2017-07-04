@@ -62,7 +62,7 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Value)
                 {
-                    foreach (var minion in UtilityClass.GetLargeJungleMinionsTargets().Concat(UtilityClass.GetLegendaryJungleMinionsTargets()))
+                    foreach (var minion in Extensions.GetLargeJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                     {
                         if (IsPerfectExpungeTarget(minion) &&
                             minion.Health < GetTotalExpungeDamage(minion) &&

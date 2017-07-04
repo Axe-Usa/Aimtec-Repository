@@ -152,7 +152,7 @@ namespace AIO.Champions
             {
                 if (SpellClass.R.Ready &&
                     args.SpellSlot.Equals(SpellSlot.R) &&
-                    MenuClass.Miscellaneous["mountr"].As<MenuBool>().Value)
+                    MenuClass.Spells["r"]["mountr"].As<MenuBool>().Value)
                 {
                     SpellClass.R.Cast();
                 }

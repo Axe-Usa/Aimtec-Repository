@@ -39,7 +39,7 @@ namespace AIO.Champions
                     if (collisions.Any())
                     {
                         if (collisions.All(c =>
-                            UtilityClass.GetAllGenericUnitTargets().Contains(c) &&
+                            Extensions.GetAllGenericUnitTargets().Contains(c) &&
                             ((Obj_AI_Base)c).GetRealHealth() < UtilityClass.Player.GetSpellDamage((Obj_AI_Base)c, SpellSlot.Q)))
                         {
                             SpellClass.Q.Cast(bestTarget);

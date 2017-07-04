@@ -33,7 +33,7 @@ namespace AIO.Champions
                 SpellClass.W.Cast();
             }
 
-            var heroTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var heroTarget = Extensions.GetBestEnemyHeroTarget();
             if (!heroTarget.IsValidTarget() ||
                 Invulnerable.Check(heroTarget, DamageType.Magical))
             {

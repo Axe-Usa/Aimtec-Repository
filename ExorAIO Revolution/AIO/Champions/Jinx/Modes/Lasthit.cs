@@ -29,8 +29,8 @@ namespace AIO.Champions
             ///     The Lasthit Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    MenuClass.Spells["q"]["lasthit"].As<MenuSliderBool>().Value &&
+                UtilityClass.Player.ManaPercent()
+                    > MenuClass.Spells["q"]["lasthit"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["q"]["lasthit"].As<MenuSliderBool>().Enabled)
             {
                 if (UtilityClass.Player.HasBuff("JinxQ"))

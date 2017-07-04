@@ -77,7 +77,7 @@ namespace AIO.Champions
                     SpellClass.E.Cast();
                 }
 
-                var validMinions = UtilityClass.GetAllGenericMinionsTargets().Where(m => IsPerfectRendTarget(m) && m.GetRealHealth() < GetTotalRendDamage(m));
+                var validMinions = Extensions.GetAllGenericMinionsTargets().Where(m => IsPerfectRendTarget(m) && m.GetRealHealth() < GetTotalRendDamage(m));
                 var validTargets = GameObjects.EnemyHeroes.Where(IsPerfectRendTarget);
 
                 var rendableHeroes = validTargets as IList<Obj_AI_Hero> ?? validTargets.ToList();
@@ -93,11 +93,11 @@ namespace AIO.Champions
                 }
 
                 /// <summary>
-                ///     The E JungleClear Logic.
+                ///     The E Jungleclear Logic.
                 /// </summary>
                 if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Enabled)
                 {
-                    foreach (var minion in UtilityClass.GetLargeJungleMinionsTargets().Concat(UtilityClass.GetLegendaryJungleMinionsTargets()))
+                    foreach (var minion in Extensions.GetLargeJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                     {
                         if (IsPerfectRendTarget(minion) &&
                             minion.Health < GetTotalRendDamage(minion) &&

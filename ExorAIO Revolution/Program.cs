@@ -55,7 +55,7 @@ namespace ExorAIO
                 {
                     // Basically means it wont cast anything if the player has a sheen buff and the target is inside the aa range and the player can attack.
                     if (!UtilityClass.Player.HasTearLikeItem() &&
-                        !UtilityClass.GetBestEnemyHeroesTargetsInRange(2000f).Any() &&
+                        !Extensions.GetBestEnemyHeroesTargetsInRange(2000f).Any() &&
                         UtilityClass.Player.ShouldPreserveSheen() &&
                         UtilityClass.Player.Distance(args.End) <= UtilityClass.Player.AttackRange)
                     {
@@ -66,7 +66,7 @@ namespace ExorAIO
                 /// <summary>
                 ///     The 'Support Mode' Logic.
                 /// </summary>
-                if (UtilityClass.GetEnemyLaneMinionsTargets().Contains(args.Target) &&
+                if (Extensions.GetEnemyLaneMinionsTargets().Contains(args.Target) &&
                     MenuClass.General["supportmode"].Enabled)
                 {
                     args.Process = GameObjects.AllyHeroes.Any(a => a.Distance(UtilityClass.Player) >= 2500);
@@ -98,7 +98,7 @@ namespace ExorAIO
                 case OrbwalkingMode.Mixed:
                 case OrbwalkingMode.Lasthit:
                 case OrbwalkingMode.Laneclear:
-                    if (UtilityClass.GetEnemyLaneMinionsTargets().Contains(args.Target) &&
+                    if (Extensions.GetEnemyLaneMinionsTargets().Contains(args.Target) &&
                         MenuClass.General["supportmode"].Enabled)
                     {
                         args.Cancel = GameObjects.AllyHeroes.Any(a => a.Distance(UtilityClass.Player) < 2500);

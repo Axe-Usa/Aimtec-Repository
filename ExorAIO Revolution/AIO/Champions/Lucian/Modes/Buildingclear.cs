@@ -34,8 +34,8 @@ namespace AIO.Champions
             ///     The E BuildingClear Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
                 MenuClass.Spells["e"]["buildings"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.E.Cast(UtilityClass.Player.Position.Extend(Game.CursorPos, 25));
@@ -46,8 +46,8 @@ namespace AIO.Champions
             ///     The W BuildingClear Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["buildings"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["buildings"]) &&
                 MenuClass.Spells["w"]["buildings"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast(Game.CursorPos);

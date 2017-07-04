@@ -31,11 +31,29 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var minions = UtilityClass.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range);
                 var farmLocation = SpellClass.E.GetLineFarmLocation(minions, SpellClass.E.Width);
-                if (farmLocation.MinionsHit >= 3)
+                if (farmLocation.MinionsHit >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.Cast(farmLocation.Position);
+                }
+                */
+            }
+
+            /// <summary>
+            ///     The Laneclear R Logic.
+            /// </summary>
+            if (SpellClass.R.Ready &&
+                UtilityClass.Player.Mana >
+                    UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
+                MenuClass.Spells["r"]["laneclear"].As<MenuSliderBool>().Enabled &&
+                MenuClass.Spells["r"]["laneclear"].As<MenuSliderBool>().Value >
+                    UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
+            {
+                /*
+                var farmLocation = SpellClass.R.GetCircularFarmLocation(minions, SpellClass.R.Width);
+                if (farmLocation.MinionsHit >= MenuClass.Spells["r"]["customization"]["laneclear"].As<MenuSlider>().Value)
+                {
+                    SpellClass.R.Cast(farmLocation.Position);
                 }
                 */
             }
@@ -45,7 +63,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["laneclear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["laneclear"]) &&
                 MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 if (UtilityClass.Player.HasItem(ItemId.RunaansHurricane))

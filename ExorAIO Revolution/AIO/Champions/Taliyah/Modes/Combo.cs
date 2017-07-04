@@ -31,7 +31,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
             {
-                var bestTargets = UtilityClass.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range);
+                var bestTargets = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range);
                 foreach (var target in bestTargets)
                 {
                     if (bestTargets.Count() == 1 ||
@@ -54,7 +54,7 @@ namespace AIO.Champions
                 }
             }
 
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Magical))
             {
@@ -105,7 +105,7 @@ namespace AIO.Champions
                     else
                     {
                         if (!SpellClass.E.Ready &&
-                            MenuClass.Miscellaneous["onlyeready"].As<MenuBool>().Value)
+                            MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Value)
                         {
                             return;
                         }

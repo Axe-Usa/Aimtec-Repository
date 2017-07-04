@@ -52,7 +52,10 @@ namespace AIO.Champions
                 UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) <= 3 &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.Q.Range) && t.HasBuff("caitlynyordletrapdebuff")))
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                    t.IsValidTarget(SpellClass.Q.Range) &&
+                    !Invulnerable.Check(t, DamageType.Physical) &&
+                    t.HasBuff("caitlynyordletrapdebuff")))
                 {
                     SpellClass.Q.Cast(target);
                 }

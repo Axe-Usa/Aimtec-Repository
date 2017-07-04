@@ -28,7 +28,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Orbwalk on minions.
             /// </summary>
-            var minionsInAaRange = UtilityClass.GetAllGenericMinionsTargets().Where(m => m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m))).ToArray();
+            var minionsInAaRange = Extensions.GetAllGenericMinionsTargets().Where(m => m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m))).ToArray();
             if (minionsInAaRange.Any() &&
                 UtilityClass.Player.HasItem(ItemId.RunaansHurricane) &&
                 !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
@@ -37,7 +37,7 @@ namespace AIO.Champions
                 UtilityClass.Player.IssueOrder(OrderType.AttackUnit, minionsInAaRange.FirstOrDefault());
             }
 
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Physical))
             {
@@ -59,7 +59,7 @@ namespace AIO.Champions
                 var collisions = (IList<Obj_AI_Base>)SpellClass.Q.GetPrediction(bestTarget).Collisions;
                 if (collisions.Any())
                 {
-                    if (collisions.All(c => UtilityClass.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() < UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
+                    if (collisions.All(c => Extensions.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() < UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
                     {
                         SpellClass.Q.Cast(bestTarget);
                     }

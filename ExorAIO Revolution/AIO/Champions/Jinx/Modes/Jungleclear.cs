@@ -34,21 +34,23 @@ namespace AIO.Champions
             ///     The Jungleclear Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Value &&
-                MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
+                UtilityClass.Player.ManaPercent()
+                    > MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Value &&
+                MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                var minionsInRange = GameObjects.EnemyMinions.Count(m => m.Distance(minionTarget) < MenuClass.Miscellaneous["qoptions"]["splashrange"].Value);
+                var minionsInRange = GameObjects.EnemyMinions.Count(m =>
+                    m.Distance(minionTarget) < MenuClass.Spells["q"]["customization"]["splashrange"].Value);
+
                 if (UtilityClass.Player.HasBuff("JinxQ"))
                 {
-                    if (minionsInRange < MenuClass.Miscellaneous["qoptions"]["jungleclear"].Value)
+                    if (minionsInRange < MenuClass.Spells["q"]["customization"]["Jungleclear"].Value)
                     {
                         SpellClass.Q.Cast();
                     }
                 }
                 else
                 {
-                    if (minionsInRange >= MenuClass.Miscellaneous["qoptions"]["jungleclear"].Value)
+                    if (minionsInRange >= MenuClass.Spells["q"]["customization"]["Jungleclear"].Value)
                     {
                         SpellClass.Q.Cast();
                     }
@@ -60,9 +62,9 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 minionTarget.IsValidTarget(SpellClass.W.Range) &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
-                MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["Jungleclear"]) &&
+                MenuClass.Spells["w"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast(minionTarget);
             }

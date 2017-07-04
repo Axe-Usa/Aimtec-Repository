@@ -3,6 +3,11 @@
 
 namespace AIO.Champions
 {
+    using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu.Components;
+
+    using AIO.Utilities;
+
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -15,29 +20,22 @@ namespace AIO.Champions
         /// </summary>
         public static void Laneclear()
         {
-            /*
             /// <summary>
             ///     The Laneclear Q Logics.
             /// </summary>
-            if (SpellClass.Q.Ready)
+            if (SpellClass.Q.Ready &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
+                MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                /// <summary>
-                ///     The Laneclear Q Logic.
-                /// </summary>
-                if (SpellClass.Q.Ready &&
-                    UtilityClass.Player.ManaPercent() >
-                        ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
-                    MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
+                var farmLocation = SpellClass.Q.GetLineFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width);
+                if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
-                    var farmLocation = SpellClass.Q.GetLineFarmLocation(UtilityClass.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width);
-                    if (farmLocation.MinionsHit >= 3)
-                    {
-                        SpellClass.Q.Cast(farmLocation.Position);
-                    }
+                    SpellClass.Q.Cast(farmLocation.Position);
                 }
+                */
             }
-            */
         }
 
         #endregion

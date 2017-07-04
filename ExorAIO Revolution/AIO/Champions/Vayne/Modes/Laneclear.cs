@@ -31,12 +31,12 @@ namespace AIO.Champions
             ///     The Q FarmHelper Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
                 MenuClass.Spells["q"]["farmhelper"].As<MenuSliderBool>().Enabled)
             {
                 var posAfterQ = UtilityClass.Player.Position.Extend(Game.CursorPos, 300f);
-                if (UtilityClass.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any(m =>
+                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any(m =>
                         m.Distance(posAfterQ) < UtilityClass.Player.GetFullAttackRange(m) &&
                         posAfterQ.CountEnemyHeroesInRange(UtilityClass.Player.GetFullAttackRange(m)) <= 2 &&
                         m.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(m) + UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)))

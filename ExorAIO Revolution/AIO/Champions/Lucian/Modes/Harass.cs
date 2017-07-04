@@ -27,16 +27,20 @@ namespace AIO.Champions
             ///     The Extended Q Mixed Harass Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["extended"]["mixed"]) &&
-                MenuClass.Spells["q"]["extended"]["mixed"].As<MenuSliderBool>().Enabled)
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["extendedq"]["mixed"]) &&
+                MenuClass.Spells["extendedq"]["mixed"].As<MenuSliderBool>().Enabled)
             {
-                foreach (var minion in from minion in UtilityClass.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
+                var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
                     let polygon = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
-                    where polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(UtilityClass.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range)).PredictedPosition)
+                    where polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).PredictedPosition)
                     select minion)
                 {
-                    SpellClass.Q.CastOnUnit(minion);
+                    if (MenuClass.Spells["extendedq"]["whitelist"][target.ChampionName.ToLower()].Enabled)
+                    {
+                        SpellClass.Q.CastOnUnit(minion);
+                    }
                 }
             }
         }

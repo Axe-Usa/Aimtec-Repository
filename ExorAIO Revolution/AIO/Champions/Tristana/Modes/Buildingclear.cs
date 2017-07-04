@@ -41,8 +41,8 @@ namespace AIO.Champions
             ///     The E Harass Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
                 MenuClass.Spells["e"]["buildings"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.E.Cast(target);

@@ -42,7 +42,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Value)
             {
-                foreach (var target in UtilityClass.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range))
+                foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range))
                 {
                     if (target.IsValidTarget(SpellClass.W.Width, false, BallPosition) &&
                         UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) >= target.GetRealHealth())

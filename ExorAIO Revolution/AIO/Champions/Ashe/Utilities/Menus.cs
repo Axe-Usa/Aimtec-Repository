@@ -35,7 +35,7 @@ namespace AIO.Champions
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / If Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -49,7 +49,20 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the W spell.
+                    /// </summary>
+                    MenuClass.W2 = new Menu("customization", "Q Customization:");
+                    {
+                        MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
+                        MenuClass.W2.Add(new MenuBool("nowflurry", "Don't W while flurring AAs with Q"));
+                        MenuClass.W2.Add(new MenuSeperator("separator2"));
+                        MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 4, 1, 10));
+                    }
+                    MenuClass.W.Add(MenuClass.W2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -119,16 +132,6 @@ namespace AIO.Champions
                 MenuClass.Spells.Add(MenuClass.R);
             }
             MenuClass.Root.Add(MenuClass.Spells);
-
-
-            /// <summary>
-            ///     Sets the miscellaneous menu.
-            /// </summary>
-            MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
-            {
-                MenuClass.Miscellaneous.Add(new MenuBool("nowflurry", "Don't W while flurring AAs with Q"));
-            }
-            MenuClass.Root.Add(MenuClass.Miscellaneous);
 
             /// <summary>
             ///     Sets the menu for the drawings.

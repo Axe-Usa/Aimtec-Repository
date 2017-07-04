@@ -24,12 +24,15 @@ namespace AIO.Champions
             ///     The E Laneclear Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                UtilityClass.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count >= 3 &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.Cast();
+                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count >=
+                        MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
+                {
+                    SpellClass.E.Cast();
+                }
             }
         }
 

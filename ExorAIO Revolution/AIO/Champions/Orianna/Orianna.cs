@@ -118,7 +118,7 @@ namespace AIO.Champions
         {
             var target = args.Target as Obj_AI_Hero;
             if (target == null ||
-                !UtilityClass.GetAllyHeroesTargetsInRange(SpellClass.E.Range).Contains(target))
+                !Extensions.GetAllyHeroesTargetsInRange(SpellClass.E.Range).Contains(target))
             {
                 return;
             }

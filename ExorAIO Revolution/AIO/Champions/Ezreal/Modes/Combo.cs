@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Combo()
         {
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Physical))
             {

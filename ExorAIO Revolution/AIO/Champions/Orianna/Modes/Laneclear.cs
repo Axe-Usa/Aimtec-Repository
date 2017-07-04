@@ -31,7 +31,8 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["laneclear"]) &&
                 MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                if (UtilityClass.GetEnemyLaneMinionsTargets().Count(m => m.IsValidTarget(SpellClass.W.Width, false, BallPosition)) >= MenuClass.Miscellaneous["w"]["laneclear"].As<MenuSlider>().Value)
+                if (Extensions.GetEnemyLaneMinionsTargets().Count(m => m.IsValidTarget(SpellClass.W.Width, false, BallPosition))
+                        >= MenuClass.Spells["w"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.W.Cast();
                 }
@@ -50,7 +51,8 @@ namespace AIO.Champions
                     (Vector2)UtilityClass.Player.Position.Extend(BallPosition, UtilityClass.Player.Distance(BallPosition)),
                     SpellClass.E.Width);
 
-                if (UtilityClass.GetEnemyLaneMinionsTargets().Count(t => t.IsValidTarget() && !polygon.IsOutside((Vector2)t.Position)) >= MenuClass.Miscellaneous["e"]["laneclear"].As<MenuSlider>().Value)
+                if (Extensions.GetEnemyLaneMinionsTargets().Count(t => t.IsValidTarget() && !polygon.IsOutside((Vector2)t.Position))
+                        >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.CastOnUnit(UtilityClass.Player);
                 }
@@ -65,8 +67,8 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var farmLocation = SpellClass.Q.GetLinearFarmLocation(UtilityClass.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width);
-                if (farmLocation.MinionsHit >= MenuClass.Miscellaneous["q"]["laneclear"].As<MenuSlider>().Value)
+                var farmLocation = SpellClass.Q.GetLinearFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width);
+                if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.Q.Cast(farmLocation.Position);
                 }

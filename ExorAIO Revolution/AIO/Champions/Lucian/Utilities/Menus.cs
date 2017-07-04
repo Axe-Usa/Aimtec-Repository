@@ -36,41 +36,50 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the Q spell.
+                    /// </summary>
+                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    {
+                        MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                    }
+                    MenuClass.Q.Add(MenuClass.Q2);
+                }
+                MenuClass.Spells.Add(MenuClass.Q2);
+
+                /// <summary>
+                ///     Sets the Extended Q menu.
+                /// </summary>
+                MenuClass.Q3 = new Menu("extendedq", "Use Extended Q in:");
+                {
+                    MenuClass.Q3.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.Q3.Add(new MenuBool("killsteal", "Killsteal"));
+                    MenuClass.Q3.Add(new MenuSliderBool("mixed", "Harass / if Mana >= %", true, 50, 0, 99));
+                    MenuClass.Q3.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= %", true, 50, 0, 99));
+
+                    if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
-                        ///     Sets the Extended Q menu.
+                        ///     Sets the Whitelist menu for the Extended Q.
                         /// </summary>
-                        MenuClass.Q2 = new Menu("extended", "Use Extended Q in:");
+                        MenuClass.WhiteList = new Menu("whitelist", "Extended Harass: Whitelist");
                         {
-                            MenuClass.Q2.Add(new MenuBool("combo", "Combo"));
-                            MenuClass.Q2.Add(new MenuBool("killsteal", "Killsteal"));
-                            MenuClass.Q2.Add(new MenuSliderBool("mixed", "Harass / if Mana >= %", true, 50, 0, 99));
-                            MenuClass.Q2.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= %", true, 50, 0, 99));
-                        }
-                        MenuClass.Q.Add(MenuClass.Q2);
-
-                        if (GameObjects.EnemyHeroes.Any())
-                        {
-                            /// <summary>
-                            ///     Sets the Whitelist menu for the Extended Q.
-                            /// </summary>
-                            MenuClass.WhiteList = new Menu("whitelist", "Extended Harass: Whitelist");
+                            MenuClass.WhiteList.Add(new MenuSeperator("extendedsep", "Note: The Whitelist only works for Mixed and Laneclear."));
+                            foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList.Add(new MenuSeperator("extendedsep", "Note: The Whitelist only works for Mixed and Laneclear."));
-                                foreach (var target in GameObjects.EnemyHeroes)
-                                {
-                                    MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
-                                }
+                                MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
                             }
-                            MenuClass.Q.Add(MenuClass.WhiteList);
                         }
-                        else
-                        {
-                            MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
-                        }
+                        MenuClass.Q3.Add(MenuClass.WhiteList);
+                    }
+                    else
+                    {
+                        MenuClass.Q3.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
-                MenuClass.Spells.Add(MenuClass.Q);
+                MenuClass.Spells.Add(MenuClass.Q3);
 
                 /// <summary>
                 ///     Sets the menu for the W.
@@ -82,6 +91,16 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the W spell.
+                    /// </summary>
+                    MenuClass.W2 = new Menu("customization", "W Customization:");
+                    {
+                        MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                    }
+                    MenuClass.W.Add(MenuClass.W2);
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 

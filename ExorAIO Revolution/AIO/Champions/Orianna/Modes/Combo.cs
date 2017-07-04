@@ -60,7 +60,7 @@ namespace AIO.Champions
                 }
             }
 
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Magical))
             {

@@ -23,7 +23,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Combo()
         {
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Magical))
             {
@@ -51,11 +51,11 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["extended"]["combo"].As<MenuBool>().Enabled)
+                MenuClass.Spells["extendedq"]["combo"].As<MenuBool>().Enabled)
             {
-                foreach (var minion in from minion in UtilityClass.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
+                foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
                     let polygon = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
-                    where polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(UtilityClass.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range)).PredictedPosition)
+                    where polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range)).PredictedPosition)
                     select minion)
                 {
                     SpellClass.Q.CastOnUnit(minion);

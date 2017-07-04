@@ -30,11 +30,15 @@ namespace AIO.Champions
             ///     The Laneclear E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var idealMinion = UtilityClass.GetEnemyLaneMinionsTargets().FirstOrDefault(m => m.IsValidTarget(SpellClass.E.Range) && UtilityClass.GetEnemyLaneMinionsTargets().Count(m2 => m2.Distance(m) < 200f) >= 3);
+                var idealMinion = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(m =>
+                        m.IsValidTarget(SpellClass.E.Range) &&
+                        Extensions.GetEnemyLaneMinionsTargets()
+                            .Count(m2 => m2.Distance(m) < 200f) >= MenuClass.Spells["e"]["customization"]["laneclear"].Value);
+
                 if (idealMinion != null)
                 {
                     SpellClass.E.Cast(idealMinion);
@@ -42,7 +46,7 @@ namespace AIO.Champions
             }
 
             var minionTarget = (Obj_AI_Minion)Orbwalker.Implementation.GetTarget();
-            if (!UtilityClass.GetEnemyLaneMinionsTargets().Contains(minionTarget))
+            if (!Extensions.GetEnemyLaneMinionsTargets().Contains(minionTarget))
             {
                 return;
             }

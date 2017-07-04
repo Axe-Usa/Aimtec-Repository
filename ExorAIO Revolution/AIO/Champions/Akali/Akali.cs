@@ -60,6 +60,7 @@ namespace AIO.Champions
             {
                 case OrbwalkingMode.Combo:
                     Weaving(sender, args);
+                    Harass(sender, args);
                     break;
 
                 case OrbwalkingMode.Laneclear:

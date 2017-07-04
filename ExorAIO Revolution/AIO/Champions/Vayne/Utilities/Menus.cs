@@ -35,7 +35,7 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Help to farm / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "JungleClear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -49,7 +49,7 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
-                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "JungleClear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     if (GameObjects.EnemyHeroes.Any())
                     {

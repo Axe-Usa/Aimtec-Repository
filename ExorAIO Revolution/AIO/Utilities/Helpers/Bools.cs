@@ -43,7 +43,7 @@ namespace AIO.Utilities
             return
                 GameObjects.EnemyHeroes.Contains(sender) ||
                 GameObjects.EnemyTurrets.Contains(sender) ||
-                UtilityClass.GetGenericJungleMinionsTargets().Contains(sender);
+                Extensions.GetGenericJungleMinionsTargets().Contains(sender);
         }
 
         /// <summary>

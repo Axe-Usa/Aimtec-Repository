@@ -100,7 +100,7 @@ namespace AIO.Champions
 
                     case SpellSlot.W:
                         if (UtilityClass.Player.HasBuff("TwitchSprayAndPray") &&
-                            MenuClass.Miscellaneous["dontwinr"].As<MenuBool>().Value)
+                            MenuClass.Spells["w"]["customization"]["dontwinr"].As<MenuBool>().Value)
                         {
                             args.Process = false;
                         }

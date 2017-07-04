@@ -22,7 +22,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Automatic()
         {
-            var bestHero = UtilityClass.GetBestEnemyHeroTarget();
+            var bestHero = Extensions.GetBestEnemyHeroTarget();
 
             /// <summary>
             ///     The Automatic R Orbwalking.

@@ -43,8 +43,8 @@ namespace AIO.Champions
             ///     The E Harass Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["harass"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["harass"]) &&
                 MenuClass.Spells["e"]["harass"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["e"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {

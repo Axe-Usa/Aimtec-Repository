@@ -1,7 +1,5 @@
 namespace AIO.Champions
 {
-    using System;
-
     /// <summary>
     ///     The logics class.
     /// </summary>

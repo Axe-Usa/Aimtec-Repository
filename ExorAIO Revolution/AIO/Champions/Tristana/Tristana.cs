@@ -76,7 +76,7 @@ namespace AIO.Champions
             if (MenuClass.Miscellaneous["focuse"].As<MenuBool>().Enabled)
             {
                 var orbTarget = args.Target as Obj_AI_Hero;
-                var forceTarget = UtilityClass.GetBestEnemyHeroesTargetsInRange(UtilityClass.Player.AttackRange).FirstOrDefault(t => t.HasBuff("TristanaECharge"));
+                var forceTarget = Extensions.GetBestEnemyHeroesTargetsInRange(UtilityClass.Player.AttackRange).FirstOrDefault(t => t.HasBuff("TristanaECharge"));
 
                 if (orbTarget != null &&
                     forceTarget != null &&

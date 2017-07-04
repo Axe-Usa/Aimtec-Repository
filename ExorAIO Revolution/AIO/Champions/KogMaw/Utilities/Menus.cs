@@ -37,7 +37,7 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "JungleClear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -66,8 +66,28 @@ namespace AIO.Champions
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the Q Harass Whitelist.
+                        /// </summary>
+                        MenuClass.WhiteList2 = new Menu("whitelist", "Harass: Whitelist");
+                        {
+                            foreach (var target in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                            }
+                        }
+                        MenuClass.W.Add(MenuClass.WhiteList2);
+                    }
+                    else
+                    {
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 
@@ -84,19 +104,29 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 4, 1, 10));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
+
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
                         ///     Sets the menu for the E Harass Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList2 = new Menu("whitelist", "Harass: Whitelist");
+                        MenuClass.WhiteList3 = new Menu("whitelist", "Harass: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                                MenuClass.WhiteList3.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
                             }
                         }
-                        MenuClass.E.Add(MenuClass.WhiteList2);
+                        MenuClass.E.Add(MenuClass.WhiteList3);
                     }
                     else
                     {
@@ -112,22 +142,33 @@ namespace AIO.Champions
                 {
                     MenuClass.R.Add(new MenuSliderBool("combo", "Combo / if Stacks <= x", true, 1, 1, 10));
                     MenuClass.R.Add(new MenuSliderBool("killsteal", "KillSteal / if Stacks <= x", true, 3, 1, 10));
+                    MenuClass.R.Add(new MenuSliderBool("laneclear", "Laneclear / if Stacks <= x", true, 3, 1, 10));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the R spell.
+                    /// </summary>
+                    MenuClass.R2 = new Menu("customization", "R Customization:");
+                    {
+                        MenuClass.R2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.R2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 4, 1, 10));
+                    }
+                    MenuClass.R.Add(MenuClass.R2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
                         ///     Sets the menu for the R Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList3 = new Menu("whitelist", "Ultimate: Whitelist");
+                        MenuClass.WhiteList4 = new Menu("whitelist", "Ultimate: Whitelist");
                         {
-                            MenuClass.WhiteList3.Add(new MenuSeperator("separator1", "WhiteList only works for Combo"));
-                            MenuClass.WhiteList3.Add(new MenuSeperator("separator2", "not Killsteal (Automatic)"));
+                            MenuClass.WhiteList4.Add(new MenuSeperator("separator1", "WhiteList only works for Combo"));
+                            MenuClass.WhiteList4.Add(new MenuSeperator("separator2", "not Killsteal (Automatic)"));
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList3.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
+                                MenuClass.WhiteList4.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
                             }
                         }
-                        MenuClass.R.Add(MenuClass.WhiteList3);
+                        MenuClass.R.Add(MenuClass.WhiteList4);
                     }
                     else
                     {

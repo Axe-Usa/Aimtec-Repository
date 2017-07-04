@@ -36,12 +36,28 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSeperator("separator1"));
-                    MenuClass.Q.Add(new MenuSeperator("separator2", "Threaded Volley Options:"));
-                    MenuClass.Q.Add(new MenuBool("harassfull", "Harass: Only with full Q.", false));
-                    MenuClass.Q.Add(new MenuBool("laneclearfull", "Laneclear: Only with full Q."));
-                    MenuClass.Q.Add(new MenuBool("jungleclearfull", "Jungleclear: Only with full Q."));
+                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the Q spell.
+                    /// </summary>
+                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    {
+                        //MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
+                        //MenuClass.Q2.Add(new MenuBool("qlock", "Automatically Lock Q on Enemy"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator2"));
+                        MenuClass.Q2.Add(new MenuSeperator("separator3", "Harass Settings:"));
+                        MenuClass.Q2.Add(new MenuBool("harassfull", "Harass: Only with full Q.", false));
+                        MenuClass.Q2.Add(new MenuSeperator("separator4"));
+                        MenuClass.Q2.Add(new MenuSeperator("separator5", "Laneclear settings:"));
+                        MenuClass.Q2.Add(new MenuBool("laneclearfull", "Laneclear: Only with full Q."));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.Q2.Add(new MenuSeperator("separator6"));
+                        MenuClass.Q2.Add(new MenuSeperator("separator7", "Jungleclear settings:"));
+                        MenuClass.Q2.Add(new MenuBool("jungleclearfull", "Jungleclear: Only with full Q."));
+                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Jungleclear / if Minions Hit >= x%", 3, 1, 10));
+                    }
+                    MenuClass.Q.Add(MenuClass.Q2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -72,26 +88,38 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "JungleClear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.W.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the W spell.
+                    /// </summary>
+                    MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
-                        /// <summary>
-                        ///     Sets the menu for the selection.
-                        /// </summary>
-                        MenuClass.WhiteList = new Menu("selection", "Combo: Pull / Push Selection");
-                        {
-                            foreach (var enemy in GameObjects.EnemyHeroes)
-                            {
-                                MenuClass.WhiteList.Add(
-                                    new MenuList(
-                                        enemy.ChampionName.ToLower(),
-                                        enemy.ChampionName,
-                                        new[] { "Always Pull", "Always Push", "Pull if Killable else Push", "Ignore if possible" }, 0));
-                            }
-                        }
-                        MenuClass.W.Add(MenuClass.WhiteList);
+                        MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
+                        MenuClass.W2.Add(new MenuBool("onlyeready", "Don't Cast W if E is on cooldown"));
+                        MenuClass.W2.Add(new MenuSeperator("separator2"));
+                        MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
                     }
+                    MenuClass.W.Add(MenuClass.W2);
+
+                    /// <summary>
+                    ///     Sets the menu for the selection.
+                    /// </summary>
+                    MenuClass.WhiteList = new Menu("selection", "Combo: Pull / Push Selection");
+                    {
+                        foreach (var enemy in GameObjects.EnemyHeroes)
+                        {
+                            MenuClass.WhiteList.Add(
+                                new MenuList(
+                                    enemy.ChampionName.ToLower(),
+                                    enemy.ChampionName,
+                                    new[] { "Always Pull", "Always Push", "Pull if Killable else Push", "Ignore if possible" }, 0));
+                        }
+                    }
+                    MenuClass.W.Add(MenuClass.WhiteList);
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 
@@ -103,23 +131,30 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "JungleClear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        MenuClass.E2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
-            }
 
+                /// <summary>
+                ///     Sets the menu for the R.
+                /// </summary>
+                MenuClass.R = new Menu("r", "Use R to:");
+                {
+                    MenuClass.R.Add(new MenuBool("mountr", "Automatically Mount on R"));
+                }
+                MenuClass.Spells.Add(MenuClass.R);
+            }
             MenuClass.Root.Add(MenuClass.Spells);
-
-            /// <summary>
-            ///     Sets the miscellaneous menu.
-            /// </summary>
-            MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
-            {
-                MenuClass.Miscellaneous.Add(new MenuBool("mountr", "Automatically Mount on R"));
-                MenuClass.Miscellaneous.Add(new MenuBool("onlyeready", "Don't Cast W if E is on cooldown"));
-                MenuClass.Miscellaneous.Add(new MenuBool("qlock", "Automatically Lock Q on Enemy"));
-            }
-            MenuClass.Root.Add(MenuClass.Miscellaneous);
 
             /// <summary>
             ///     Sets the menu for the drawings.

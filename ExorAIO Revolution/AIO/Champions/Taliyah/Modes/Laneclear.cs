@@ -29,8 +29,8 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var farmLocation = SpellClass.W.GetCircularFarmLocation(UtilityClass.GetEnemyLaneMinionsTargets(), SpellClass.W.Width);
-                if (farmLocation.MinionsHit >= 3)
+                var farmLocation = SpellClass.W.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.W.Width);
+                if (farmLocation.MinionsHit >= MenuClass.Spells["w"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.W.Cast(farmLocation.Position);
                 }
@@ -46,8 +46,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var farmLocation = SpellClass.E.GetConicalFarmLocation(UtilityClass.GetEnemyLaneMinionsTargets(), SpellClass.E.Width);
-                if (farmLocation.MinionsHit >= 3)
+                var farmLocation = SpellClass.E.GetConicalFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.E.Width);
+                if (farmLocation.MinionsHit >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.Cast(farmLocation.Position);
                 }
@@ -63,8 +63,8 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var farmLocation = SpellClass.Q.GetCircularFarmLocation(UtilityClass.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width*2);
-                if (farmLocation.MinionsHit >= 2)
+                var farmLocation = SpellClass.Q.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width*2);
+                if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value))
                 {
                     SpellClass.Q.Cast(farmLocation.Position);
                 }

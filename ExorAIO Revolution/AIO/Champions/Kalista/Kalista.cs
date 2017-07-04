@@ -123,7 +123,7 @@ namespace AIO.Champions
             if (MenuClass.Miscellaneous["focusw"].As<MenuBool>().Enabled)
             {
                 var orbTarget = args.Target as Obj_AI_Hero;
-                var forceTarget = UtilityClass.GetBestEnemyHeroesTargets().FirstOrDefault(t =>
+                var forceTarget = Extensions.GetBestEnemyHeroesTargets().FirstOrDefault(t =>
                         t.HasBuff("kalistacoopstrikemarkally") &&
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
 

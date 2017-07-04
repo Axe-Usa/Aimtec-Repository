@@ -24,7 +24,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Harass()
         {
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Physical))
             {
@@ -36,15 +36,15 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 !Invulnerable.Check(bestTarget) &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var collisions = SpellClass.Q.GetPrediction(bestTarget).Collisions;
                 if (collisions.Any())
                 {
                     if (collisions.All(c =>
-                            UtilityClass.GetAllGenericUnitTargets().Contains(c) &&
+                            Extensions.GetAllGenericUnitTargets().Contains(c) &&
                             ((Obj_AI_Base)c).GetRealHealth() < (float)UtilityClass.Player.GetSpellDamage((Obj_AI_Base)c, SpellSlot.Q)))
                     {
                         SpellClass.Q.Cast(bestTarget);

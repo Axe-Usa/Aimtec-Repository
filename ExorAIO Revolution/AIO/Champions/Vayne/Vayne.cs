@@ -79,7 +79,7 @@ namespace AIO.Champions
             if (MenuClass.Miscellaneous["focusw"].As<MenuBool>().Enabled)
             {
                 var orbTarget = args.Target as Obj_AI_Hero;
-                var forceTarget = UtilityClass.GetBestEnemyHeroesTargetsInRange(UtilityClass.Player.AttackRange).FirstOrDefault(t => t.GetBuffCount("vaynesilvereddebuff") == 2);
+                var forceTarget = Extensions.GetBestEnemyHeroesTargetsInRange(UtilityClass.Player.AttackRange).FirstOrDefault(t => t.GetBuffCount("vaynesilvereddebuff") == 2);
 
                 if (orbTarget != null &&
                     forceTarget != null &&

@@ -38,7 +38,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuSliderBool>().Enabled)
             {
-                float splashRange = MenuClass.Miscellaneous["qoptions"]["splashrange"].Value;
+                float splashRange = MenuClass.Spells["q"]["customization"]["splashrange"].Value;
                 var minSplashRangeEnemies = MenuClass.Spells["q"]["combo"].As<MenuSliderBool>().Value;
 
                 if (UtilityClass.Player.HasBuff("JinxQ"))
@@ -74,8 +74,8 @@ namespace AIO.Champions
             {
                 if (!UtilityClass.Player.HasBuff("JinxQ"))
                 {
-                    if (!UtilityClass.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
-                        UtilityClass.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Any())
+                    if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
+                        Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Any())
                     {
                         SpellClass.Q.Cast();
                     }
@@ -100,7 +100,7 @@ namespace AIO.Champions
                 }
             }
 
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Physical))
             {
@@ -116,7 +116,7 @@ namespace AIO.Champions
                 if (MenuClass.Miscellaneous["wsafetycheck"].As<MenuSliderBool>().Enabled &&
                     UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q2.Range) < MenuClass.Miscellaneous["wsafetycheck"].As<MenuSliderBool>().Value)
                 {
-                    var target = UtilityClass.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
+                    var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
                     switch (MenuClass.Spells["w"]["combo"].As<MenuList>().Value)
                     {
                         case 0:

@@ -30,14 +30,14 @@ namespace AIO.Champions
             ///     The Harass Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent() >
-                    MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value &&
+                UtilityClass.Player.ManaPercent()
+                    > MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 if (!UtilityClass.Player.HasBuff("JinxQ"))
                 {
-                    if (!UtilityClass.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
-                        UtilityClass.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Any())
+                    if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
+                        Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Any())
                     {
                         SpellClass.Q.Cast();
                     }
@@ -50,7 +50,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Harass()
         {
-            var bestTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
                 Invulnerable.Check(bestTarget, DamageType.Physical))
             {
@@ -62,8 +62,8 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 bestTarget.IsValidTarget(SpellClass.W.Range) &&
-                UtilityClass.Player.ManaPercent() >
-                    ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
                 MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {

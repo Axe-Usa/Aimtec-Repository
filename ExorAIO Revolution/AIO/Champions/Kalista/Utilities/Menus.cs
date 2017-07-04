@@ -36,7 +36,7 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
 
@@ -69,7 +69,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.WhiteList = new Menu("whitelist", "Junglesteal Rend: Whitelist");
                     {
-                        foreach (var target in UtilityClass.GetLargeJungleMinionsTargets().Concat(UtilityClass.GetLegendaryJungleMinionsTargets()))
+                        foreach (var target in Extensions.GetLargeJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                         {
                             MenuClass.WhiteList.Add(new MenuBool(target.Name, "Rend: " + target.Name));
                         }

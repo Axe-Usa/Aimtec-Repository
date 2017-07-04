@@ -25,17 +25,17 @@ namespace AIO.Champions
         public static void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = (Obj_AI_Minion)args.Target;
-            if (!UtilityClass.GetGenericJungleMinionsTargets().Contains(jungleTarget))
+            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;
             }
 
             /// <summary>
-            ///     The Q JungleClear Logic.
+            ///     The Q Jungleclear Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast(jungleTarget);

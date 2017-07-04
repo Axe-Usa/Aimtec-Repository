@@ -23,7 +23,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Combo()
         {
-            var heroTarget = UtilityClass.GetBestEnemyHeroTarget();
+            var heroTarget = Extensions.GetBestEnemyHeroTarget();
             if (!heroTarget.IsValidTarget() ||
                 Invulnerable.Check(heroTarget, DamageType.Magical))
             {
@@ -38,11 +38,11 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
             {
                 if ((!heroTarget.IsUnderEnemyTurret() ||
-                    !MenuClass.Miscellaneous["safe"].As<MenuBool>().Enabled) &&
+                    !MenuClass.Spells["r"]["customization"]["safe"].As<MenuBool>().Enabled) &&
                     (UtilityClass.Player.GetBuffCount("AkaliShadowDance") >
-                        MenuClass.Miscellaneous["keepstacks"].As<MenuSliderBool>().Value ||
-                    !MenuClass.Miscellaneous["keepstacks"].As<MenuSliderBool>().Enabled) &&
-                    MenuClass.WhiteList[heroTarget.ChampionName.ToLower()].Enabled)
+                        MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSliderBool>().Value ||
+                    !MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSliderBool>().Enabled) &&
+                    MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].Enabled)
                 {
                     SpellClass.R.CastOnUnit(heroTarget);
                 }
@@ -66,10 +66,10 @@ namespace AIO.Champions
                 !heroTarget.IsValidTarget(SpellClass.R.Range) &&
                 heroTarget.IsValidTarget(SpellClass.R.Range * 2) &&
                 UtilityClass.Player.GetBuffCount("AkaliShadowDance")
-                    >= MenuClass.Miscellaneous["gapclose"].As<MenuSliderBool>().Value &&
-                MenuClass.Miscellaneous["gapclose"].As<MenuSliderBool>().Enabled)
+                    >= MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value &&
+                MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Enabled)
             {
-                var bestMinion = UtilityClass.GetAllGenericMinionsTargetsInRange(SpellClass.R.Range)
+                var bestMinion = Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.R.Range)
                     .Where(m => m.Distance(heroTarget) < SpellClass.Q.Range)
                     .OrderBy(m => m.Distance(heroTarget))
                     .FirstOrDefault();

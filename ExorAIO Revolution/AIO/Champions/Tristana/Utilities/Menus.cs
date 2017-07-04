@@ -36,7 +36,7 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("harass", "Harass"));
                     MenuClass.Q.Add(new MenuBool("buildings", "Demolish buildings"));
                     MenuClass.Q.Add(new MenuBool("laneclear", "Laneclear"));
-                    MenuClass.Q.Add(new MenuBool("jungleclear", "Jungleclear"));
+                    MenuClass.Q.Add(new MenuBool("Jungleclear", "Jungleclear"));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
 
@@ -59,14 +59,24 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions around target >= x%", 3, 1, 10));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
                         ///     Sets the menu for the Q Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList = new Menu("whitelist", "E Harass: Whitelist");
+                        MenuClass.WhiteList = new Menu("whitelist", "Harass: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
@@ -94,15 +104,6 @@ namespace AIO.Champions
                 MenuClass.Spells.Add(MenuClass.R);
             }
             MenuClass.Root.Add(MenuClass.Spells);
-
-            /// <summary>
-            ///     Sets the miscellaneous menu.
-            /// </summary>
-            MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
-            {
-                MenuClass.Miscellaneous.Add(new MenuBool("focuse", "Focus E-charged enemies"));
-            }
-            MenuClass.Root.Add(MenuClass.Miscellaneous);
 
             /// <summary>
             ///     Sets the drawings menu.
