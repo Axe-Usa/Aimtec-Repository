@@ -128,7 +128,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Value &&
                 MenuClass.Spells["e"]["whitelist"][target.ChampionName.ToLower()].As<MenuBool>().Value)
             {
-                ObjectManager.GetLocalPlayer().SpellBook.CastSpell(SpellSlot.E, (Obj_AI_Hero)args.Target);
+                SpellClass.E.CastOnUnit(target);
             }
         }
 
