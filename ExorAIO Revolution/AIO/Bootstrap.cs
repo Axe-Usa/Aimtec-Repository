@@ -22,6 +22,10 @@ namespace AIO.Core
         {
             switch (UtilityClass.Player.ChampionName)
             {
+                case "Ahri":
+                    Ahri.OnLoad();
+                    return;
+
                 case "Akali":
                     Akali.OnLoad();
                     return;
