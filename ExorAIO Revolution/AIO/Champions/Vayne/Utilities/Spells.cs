@@ -2,7 +2,6 @@ namespace AIO.Champions
 {
     using Aimtec;
     using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Orbwalking;
     using Aimtec.SDK.Prediction.Skillshots;
 
     using Utilities;
@@ -21,7 +20,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Spells()
         {
-            var target = Orbwalker.Implementation.GetTarget();
+            var target = UtilityClass.Orbwalker.GetTarget();
             SpellClass.Q = new Spell(SpellSlot.Q, (target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange) + 300f);
             SpellClass.W = new Spell(SpellSlot.W);
             SpellClass.E = new Spell(SpellSlot.E, 550f + UtilityClass.Player.BoundingRadius);

@@ -1,7 +1,8 @@
 namespace AIO.Champions
 {
     using Aimtec;
-    using Aimtec.SDK.Orbwalking;
+
+    using AIO.Utilities;
 
     /// <summary>
     ///     The methods class.
@@ -16,11 +17,12 @@ namespace AIO.Champions
         public static void Methods()
         {
             Game.OnUpdate += OnUpdate;
-            Orbwalker.Implementation.PostAttack += OnPostAttack;
-            //Events.OnGapCloser += OnGapCloser;
+            UtilityClass.Orbwalker.PostAttack += OnPostAttack;
             BuffManager.OnAddBuff += OnAddBuff;
-            Orbwalker.Implementation.OnNonKillableMinion += OnNonKillableMinion;
+            UtilityClass.Orbwalker.OnNonKillableMinion += OnNonKillableMinion;
             RenderManager.OnPresent += OnPresent;
+
+            //Events.OnGapCloser += OnGapCloser;
         }
 
         #endregion

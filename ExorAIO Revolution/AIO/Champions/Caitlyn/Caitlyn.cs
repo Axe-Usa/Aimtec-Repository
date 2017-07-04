@@ -80,7 +80,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (Orbwalker.Implementation.Mode)
+            switch (UtilityClass.Orbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Weaving(sender, args);
@@ -115,7 +115,7 @@ namespace AIO.Champions
                             return;
                         }
 
-                        if (Orbwalker.Implementation.Mode == OrbwalkingMode.None &&
+                        if (UtilityClass.Orbwalker.Mode == OrbwalkingMode.None &&
                             MenuClass.Miscellaneous["reversede"].As<MenuBool>().Enabled)
                         {
                             UtilityClass.LastTick = Game.TickCount;
@@ -138,7 +138,7 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Initializes the orbwalkingmodes.
                 /// </summary>
-                switch (Orbwalker.Implementation.Mode)
+                switch (UtilityClass.Orbwalker.Mode)
                 {
                     case OrbwalkingMode.Combo:
                         switch (args.SpellData.Name)
@@ -239,7 +239,7 @@ namespace AIO.Champions
             /// </summary>
             Killsteal();
 
-            if (Orbwalker.Implementation.IsWindingUp)
+            if (UtilityClass.Orbwalker.IsWindingUp)
             {
                 return;
             }
@@ -252,7 +252,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (Orbwalker.Implementation.Mode)
+            switch (UtilityClass.Orbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Combo();

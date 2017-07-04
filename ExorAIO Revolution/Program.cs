@@ -3,9 +3,7 @@ namespace AIO
 {
     using System;
 
-    using Aimtec;
     using Aimtec.SDK.Events;
-    using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
 

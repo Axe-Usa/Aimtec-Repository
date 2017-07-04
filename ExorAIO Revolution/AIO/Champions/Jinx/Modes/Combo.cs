@@ -55,7 +55,7 @@ namespace AIO.Champions
                         heroTarget.IsValidTarget(SpellClass.Q2.Range))
                     {
                         SpellClass.Q.Cast();
-                        Orbwalker.Implementation.ForceTarget(heroTarget);
+                        UtilityClass.Orbwalker.ForceTarget(heroTarget);
                     }
                 }
             }

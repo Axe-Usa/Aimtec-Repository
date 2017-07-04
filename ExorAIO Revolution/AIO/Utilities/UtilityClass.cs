@@ -6,6 +6,10 @@ namespace AIO.Utilities
 {
     using Aimtec;
     using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Orbwalking;
+    using Aimtec.SDK.Prediction.Health;
+    using Aimtec.SDK.Prediction.Skillshots;
+    using Aimtec.SDK.TargetSelector;
 
     /// <summary>
     ///     The UtilityData class.
@@ -18,6 +22,26 @@ namespace AIO.Utilities
         ///     Gets the Player.
         /// </summary>
         public static Obj_AI_Hero Player = ObjectManager.GetLocalPlayer();
+
+        /// <summary>
+        ///     Gets the Orbwalker implementation.
+        /// </summary>
+        public static Orbwalker Orbwalker = (Orbwalker)Orbwalker.Implementation;
+
+        /// <summary>
+        ///     Gets the TargetSelector implementation.
+        /// </summary>
+        public static TargetSelector TargetSelector = (TargetSelector)TargetSelector.Implementation;
+
+        /// <summary>
+        ///     Gets the HealthPrediction implementation.
+        /// </summary>
+        public static HealthPrediction HealthPrediction = (HealthPrediction)HealthPrediction.Implementation;
+
+        /// <summary>
+        ///     Gets the Prediction implementation.
+        /// </summary>
+        public static Prediction Prediction = (Prediction)Prediction.Implementation;
 
         /// <summary>
         ///     The last tick.

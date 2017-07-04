@@ -179,7 +179,7 @@ namespace AIO.Champions
             /// </summary>
             Killsteal();
 
-            if (Orbwalker.Implementation.IsWindingUp)
+            if (UtilityClass.Orbwalker.IsWindingUp)
             {
                 return;
             }
@@ -192,7 +192,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (Orbwalker.Implementation.Mode)
+            switch (UtilityClass.Orbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Combo();

@@ -7,7 +7,6 @@ namespace AIO.Champions
 
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.TargetSelector;
 
     using Utilities;
 
@@ -41,7 +40,7 @@ namespace AIO.Champions
                                                 t.IsImmobile() &&
                                                 !Invulnerable.Check(t) &&
                                                 t.IsValidTarget(range))
-                                        .OrderBy(o => TargetSelector.Implementation.GetOrderedTargets(range)).FirstOrDefault();
+                                        .OrderBy(o => UtilityClass.TargetSelector.GetOrderedTargets(range)).FirstOrDefault();
                 if (target != null)
                 {
                     SpellClass.E.Cast(target);

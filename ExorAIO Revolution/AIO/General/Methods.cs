@@ -2,7 +2,8 @@
 namespace AIO
 {
     using Aimtec;
-    using Aimtec.SDK.Orbwalking;
+
+    using AIO.Utilities;
 
     /// <summary>
     ///     The general class.
@@ -15,7 +16,7 @@ namespace AIO
         public static void Methods()
         {
             SpellBook.OnCastSpell += OnCastSpell;
-            Orbwalker.Implementation.PreAttack += OnPreAttack;
+            UtilityClass.Orbwalker.PreAttack += OnPreAttack;
         }
     }
 }

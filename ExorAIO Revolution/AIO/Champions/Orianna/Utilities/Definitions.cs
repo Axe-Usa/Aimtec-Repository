@@ -4,11 +4,9 @@
 namespace AIO.Champions
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
 
     using Aimtec;
-    using Aimtec.SDK.Extensions;
 
     using Utilities;
 

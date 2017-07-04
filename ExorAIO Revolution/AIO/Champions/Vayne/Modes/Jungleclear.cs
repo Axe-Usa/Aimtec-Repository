@@ -6,7 +6,6 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
     using Aimtec.SDK.Prediction;
-    using Aimtec.SDK.Prediction.Skillshots;
 
     using Utilities;
 
@@ -22,7 +21,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public static void Jungleclear(object sender, PostAttackEventArgs args)
         {
-            var jungleTarget = (Obj_AI_Minion)Orbwalker.Implementation.GetTarget();
+            var jungleTarget = (Obj_AI_Minion)UtilityClass.Orbwalker.GetTarget();
             if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;
@@ -61,8 +60,8 @@ namespace AIO.Champions
                                                         Target = jungleTarget,
                                                         Unit = UtilityClass.Player
                                                     };
-                    var firstPrediction = Prediction.Implementation.GetPrediction(firstPredictionInput);
-                    var secondPrediction = Prediction.Implementation.GetPrediction(secondPredictionInput);
+                    var firstPrediction = UtilityClass.Prediction.GetPrediction(firstPredictionInput);
+                    var secondPrediction = UtilityClass.Prediction.GetPrediction(secondPredictionInput);
 
                     for (var i = 1; i < 10; i++)
                     {

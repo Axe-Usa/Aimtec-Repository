@@ -3,7 +3,6 @@ namespace AIO
 {
     using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
 
@@ -25,7 +24,7 @@ namespace AIO
                 /// <summary>
                 ///     Loads the orbwalker menu.
                 /// </summary>
-                Orbwalker.Implementation.Attach(MenuClass.Root);
+                UtilityClass.Orbwalker.Attach(MenuClass.Root);
 
                 /// <summary>
                 ///     Loads the general menu.

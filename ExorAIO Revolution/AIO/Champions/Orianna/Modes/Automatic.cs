@@ -4,7 +4,6 @@
 namespace AIO.Champions
 {
     using System.Linq;
-    using System.Windows.Forms.VisualStyles;
 
     using Aimtec;
     using Aimtec.SDK.Extensions;

@@ -82,11 +82,11 @@ namespace AIO.Champions
                     forceTarget != null &&
                     orbTarget.NetworkId != forceTarget.NetworkId)
                 {
-                    Orbwalker.Implementation.ForceTarget(forceTarget);
+                    UtilityClass.Orbwalker.ForceTarget(forceTarget);
                 }
             }
 
-            switch (Orbwalker.Implementation.Mode)
+            switch (UtilityClass.Orbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Combo(sender, args);
@@ -199,7 +199,7 @@ namespace AIO.Champions
             ///     Initializes the Killsteal events.
             /// </summary>
             Killsteal();
-            if (Orbwalker.Implementation.IsWindingUp)
+            if (UtilityClass.Orbwalker.IsWindingUp)
             {
                 return;
             }

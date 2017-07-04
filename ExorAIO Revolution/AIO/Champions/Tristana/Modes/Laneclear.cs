@@ -45,7 +45,7 @@ namespace AIO.Champions
                 }
             }
 
-            var minionTarget = (Obj_AI_Minion)Orbwalker.Implementation.GetTarget();
+            var minionTarget = (Obj_AI_Minion)UtilityClass.Orbwalker.GetTarget();
             if (!Extensions.GetEnemyLaneMinionsTargets().Contains(minionTarget))
             {
                 return;

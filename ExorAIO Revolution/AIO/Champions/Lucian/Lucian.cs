@@ -73,7 +73,7 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Initializes the orbwalkingmodes.
                 /// </summary>
-                switch (Orbwalker.Implementation.Mode)
+                switch (UtilityClass.Orbwalker.Mode)
                 {
                     case OrbwalkingMode.Combo:
                         Weaving(sender, args);
@@ -120,7 +120,7 @@ namespace AIO.Champions
         public static void OnPlayAnimation(Obj_AI_Base sender, Obj_AI_BasePlayAnimationEventArgs args)
         {
             if (sender.IsMe &&
-                Orbwalker.Implementation.Mode != OrbwalkingMode.None)
+                UtilityClass.Orbwalker.Mode != OrbwalkingMode.None)
             {
                 if (args.Animation.Equals("Spell1") || args.Animation.Equals("Spell2"))
                 {
@@ -144,7 +144,7 @@ namespace AIO.Champions
             /// </summary>
             Killsteal();
 
-            if (Orbwalker.Implementation.IsWindingUp)
+            if (UtilityClass.Orbwalker.IsWindingUp)
             {
                 return;
             }
@@ -162,7 +162,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (Orbwalker.Implementation.Mode)
+            switch (UtilityClass.Orbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Combo();

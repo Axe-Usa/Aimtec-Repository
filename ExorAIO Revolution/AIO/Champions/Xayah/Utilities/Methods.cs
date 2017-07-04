@@ -1,7 +1,8 @@
 namespace AIO.Champions
 {
     using Aimtec;
-    using Aimtec.SDK.Orbwalking;
+
+    using AIO.Utilities;
 
     /// <summary>
     ///     The methods class.
@@ -18,7 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += OnUpdate;
             SpellBook.OnCastSpell += OnCastSpell;
             RenderManager.OnPresent += OnPresent;
-            Orbwalker.Implementation.PostAttack += OnPostAttack;
+            UtilityClass.Orbwalker.PostAttack += OnPostAttack;
             //Events.OnGapCloser += OnGapCloser;
             GameObject.OnCreate += OnCreate;
             GameObject.OnDestroy += OnDestroy;

@@ -177,8 +177,8 @@
         /// </summary>
         public static Obj_AI_Hero GetBestEnemyHeroTargetInRange(float range)
         {
-            var ts = TargetSelector.Implementation;
-            var target = ts.GetTarget(range);
+            var ts = UtilityClass.TargetSelector;
+            var target = TargetSelector.GetTarget(range); //TODO: ts.GetTarget(range);
             if (target != null && !Invulnerable.Check(target))
             {
                 return target;
@@ -200,7 +200,7 @@
         /// </summary>
         public static IOrderedEnumerable<Obj_AI_Hero> GetBestEnemyHeroesTargetsInRange(float range)
         {
-            return TargetSelector.Implementation.GetOrderedTargets(range);
+            return UtilityClass.TargetSelector.GetOrderedTargets(range);
         }
 
         /// <summary>
@@ -233,7 +233,7 @@
                               .Where(t =>
                                   t.IsValidTarget(spell.Range) &&
                                   !Invulnerable.Check(t, damageType, ignoreShields))
-                              .OrderBy(o => TargetSelector.Implementation.GetOrderedTargets(spell.Range))
+                              .OrderBy(o => UtilityClass.TargetSelector.GetOrderedTargets(spell.Range))
                               .FirstOrDefault();
         }
     }

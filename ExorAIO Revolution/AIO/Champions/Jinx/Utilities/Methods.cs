@@ -1,7 +1,8 @@
 namespace AIO.Champions
 {
     using Aimtec;
-    using Aimtec.SDK.Orbwalking;
+
+    using AIO.Utilities;
 
     /// <summary>
     ///     The methods class.
@@ -16,7 +17,7 @@ namespace AIO.Champions
         public static void Methods()
         {
             Game.OnUpdate += OnUpdate;
-            Orbwalker.Implementation.PreAttack += OnPreAttack;
+            UtilityClass.Orbwalker.PreAttack += OnPreAttack;
             RenderManager.OnPresent += OnPresent;
             Obj_AI_Base.OnTeleport += OnTeleport;
 

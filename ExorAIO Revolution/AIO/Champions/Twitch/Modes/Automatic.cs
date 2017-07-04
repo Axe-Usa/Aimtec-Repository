@@ -8,7 +8,6 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Prediction.Health;
 
     using Utilities;
 
@@ -38,7 +37,7 @@ namespace AIO.Champions
                 ///     The E Before death Logic.
                 /// </summary>
                 if (MenuClass.Spells["e"]["ondeath"].As<MenuBool>().Enabled &&
-                    HealthPrediction.Implementation.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
+                    UtilityClass.HealthPrediction.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
                 {
                     SpellClass.E.Cast();
                 }

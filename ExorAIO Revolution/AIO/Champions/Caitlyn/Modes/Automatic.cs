@@ -48,7 +48,7 @@ namespace AIO.Champions
             ///     The Automatic Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                Orbwalker.Implementation.Mode != OrbwalkingMode.None &&
+                UtilityClass.Orbwalker.Mode != OrbwalkingMode.None &&
                 UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) <= 3 &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
