@@ -241,6 +241,9 @@
     <Compile Include="AIO\Champions\Tristana\Utilities\Methods.cs" />
     <Compile Include="AIO\Champions\Tristana\Utilities\Spells.cs" />
     <Compile Include="AIO\Champions\Tristana\Tristana.cs" />
+    <Compile Include="AIO\General\General.cs" />
+    <Compile Include="AIO\General\Menu.cs" />
+    <Compile Include="AIO\General\Methods.cs" />
     <Compile Include="AIO\Utilities\Helpers\Extensions.cs" />
     <Compile Include="AIO\Utilities\Helpers\GameObjects.cs" />
     <Compile Include="AIO\Utilities\Helpers\Geometry.cs" />
