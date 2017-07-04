@@ -17,8 +17,8 @@ namespace AIO.Champions
         public static void Methods()
         {
             Game.OnUpdate += OnUpdate;
-            UtilityClass.Orbwalker.PreAttack += OnPreAttack;
-            UtilityClass.Orbwalker.PostAttack += OnPostAttack;
+            UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
+            UtilityClass.IOrbwalker.PostAttack += OnPostAttack;
             //Events.OnGapCloser += OnGapCloser;
             Obj_AI_Base.OnPlayAnimation += OnPlayAnimation;
         }

@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// </summary>
         public static void Jungleclear()
         {
-            var jungleTarget = (Obj_AI_Minion)UtilityClass.Orbwalker.GetTarget();
+            var jungleTarget = (Obj_AI_Minion)UtilityClass.IOrbwalker.GetTarget();
             if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;

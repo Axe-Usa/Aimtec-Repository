@@ -89,7 +89,7 @@ namespace AIO.Champions
             {
                 case GameObjectType.obj_AI_Minion:
                 case GameObjectType.AIHeroClient:
-                    var orbTarget = UtilityClass.Orbwalker.GetTarget() as Obj_AI_Hero;
+                    var orbTarget = UtilityClass.IOrbwalker.GetTarget() as Obj_AI_Hero;
                     if (orbTarget != null && unit.IsValidTarget(orbTarget.NetworkId == unit.NetworkId ? SpellClass.E.Range : SpellClass.Q.Range))
                     {
                         return unit.HasBuff("kalistaexpungemarker") && (!(unit is Obj_AI_Hero) || !Invulnerable.Check((Obj_AI_Hero)unit));
@@ -131,7 +131,7 @@ namespace AIO.Champions
                     forceTarget != null &&
                     orbTarget.NetworkId != forceTarget.NetworkId)
                 {
-                    UtilityClass.Orbwalker.ForceTarget(forceTarget);
+                    UtilityClass.IOrbwalker.ForceTarget(forceTarget);
                 }
             }
         }
@@ -146,7 +146,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.Orbwalker.Mode)
+            switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Weaving(sender, args);
@@ -185,7 +185,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.Orbwalker.Mode)
+            switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Laneclear:
                 case OrbwalkingMode.Lasthit:
@@ -224,7 +224,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.Orbwalker.Mode)
+            switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Combo();

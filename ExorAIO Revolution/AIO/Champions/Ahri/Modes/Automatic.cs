@@ -40,7 +40,7 @@ namespace AIO.Champions
                                                 t.IsImmobile() &&
                                                 !Invulnerable.Check(t) &&
                                                 t.IsValidTarget(range))
-                                        .OrderBy(o => UtilityClass.TargetSelector.GetOrderedTargets(range)).FirstOrDefault();
+                                        .OrderBy(o => UtilityClass.ITargetSelector.GetOrderedTargets(range)).FirstOrDefault();
                 if (target != null)
                 {
                     SpellClass.E.Cast(target);

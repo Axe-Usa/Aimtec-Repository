@@ -18,7 +18,7 @@ namespace AIO.Champions
         {
             Game.OnUpdate += OnUpdate;
             BuffManager.OnAddBuff += OnAddBuff;
-            UtilityClass.Orbwalker.PreAttack += OnPreAttack;
+            UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
             RenderManager.OnPresent += OnPresent;
 
             /*

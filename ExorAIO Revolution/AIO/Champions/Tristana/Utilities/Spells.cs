@@ -23,7 +23,7 @@ namespace AIO.Champions
             SpellClass.Q = new Spell(SpellSlot.Q);
             SpellClass.W = new Spell(SpellSlot.W, 900f);
 
-            var target = UtilityClass.Orbwalker.GetTarget();
+            var target = UtilityClass.IOrbwalker.GetTarget();
             SpellClass.E = new Spell(SpellSlot.E, target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange);
             SpellClass.R = new Spell(SpellSlot.R, target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange);
 

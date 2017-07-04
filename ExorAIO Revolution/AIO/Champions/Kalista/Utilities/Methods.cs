@@ -17,11 +17,11 @@ namespace AIO.Champions
         public static void Methods()
         {
             Game.OnUpdate += OnUpdate;
-            UtilityClass.Orbwalker.PreAttack += OnPreAttack;
-            UtilityClass.Orbwalker.PostAttack += OnPostAttack;
+            UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
+            UtilityClass.IOrbwalker.PostAttack += OnPostAttack;
             RenderManager.OnPresent += OnPresent;
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-            UtilityClass.Orbwalker.OnNonKillableMinion += OnNonKillableMinion;
+            UtilityClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
         }
 
         #endregion

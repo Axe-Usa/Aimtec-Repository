@@ -17,9 +17,9 @@ namespace AIO.Champions
         public static void Methods()
         {
             Game.OnUpdate += OnUpdate;
-            UtilityClass.Orbwalker.PostAttack += OnPostAttack;
+            UtilityClass.IOrbwalker.PostAttack += OnPostAttack;
             BuffManager.OnAddBuff += OnAddBuff;
-            UtilityClass.Orbwalker.OnNonKillableMinion += OnNonKillableMinion;
+            UtilityClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
             RenderManager.OnPresent += OnPresent;
 
             //Events.OnGapCloser += OnGapCloser;

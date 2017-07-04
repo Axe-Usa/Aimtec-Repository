@@ -1,5 +1,6 @@
 ﻿
 // ReSharper disable ArrangeMethodOrOperatorBody
+// ReSharper disable InconsistentNaming
 #pragma warning disable 1587
 
 namespace AIO.Utilities
@@ -26,22 +27,22 @@ namespace AIO.Utilities
         /// <summary>
         ///     Gets the Orbwalker implementation.
         /// </summary>
-        public static Orbwalker Orbwalker = (Orbwalker)Orbwalker.Implementation;
+        public static IOrbwalker IOrbwalker = Orbwalker.Implementation;
 
         /// <summary>
         ///     Gets the TargetSelector implementation.
         /// </summary>
-        public static TargetSelector TargetSelector = (TargetSelector)TargetSelector.Implementation;
+        public static ITargetSelector ITargetSelector = TargetSelector.Implementation;
 
         /// <summary>
         ///     Gets the HealthPrediction implementation.
         /// </summary>
-        public static HealthPrediction HealthPrediction = (HealthPrediction)HealthPrediction.Implementation;
+        public static IHealthPrediction IHealthPrediction = HealthPrediction.Implementation;
 
         /// <summary>
         ///     Gets the Prediction implementation.
         /// </summary>
-        public static Prediction Prediction = (Prediction)Prediction.Implementation;
+        public static IPrediction IPrediction = Prediction.Implementation;
 
         /// <summary>
         ///     The last tick.

@@ -85,7 +85,7 @@ namespace AIO.Champions
                     forceTarget != null &&
                     orbTarget.NetworkId != forceTarget.NetworkId)
                 {
-                    UtilityClass.Orbwalker.ForceTarget(forceTarget);
+                    UtilityClass.IOrbwalker.ForceTarget(forceTarget);
                 }
             }
         }
@@ -100,7 +100,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.Orbwalker.Mode)
+            switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Weaving(sender, args);
@@ -195,7 +195,7 @@ namespace AIO.Champions
             /// </summary>
             Killsteal();
 
-            if (UtilityClass.Orbwalker.IsWindingUp)
+            if (UtilityClass.IOrbwalker.IsWindingUp)
             {
                 return;
             }
@@ -203,7 +203,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.Orbwalker.Mode)
+            switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     Combo();

@@ -16,7 +16,7 @@ namespace AIO
         public static void Methods()
         {
             SpellBook.OnCastSpell += OnCastSpell;
-            UtilityClass.Orbwalker.PreAttack += OnPreAttack;
+            UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
         }
     }
 }

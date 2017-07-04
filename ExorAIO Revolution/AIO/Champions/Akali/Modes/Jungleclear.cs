@@ -25,7 +25,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public static void Jungleclear(object sender, PostAttackEventArgs args)
         {
-            var jungleTarget = (Obj_AI_Minion)UtilityClass.Orbwalker.GetTarget();
+            var jungleTarget = (Obj_AI_Minion)UtilityClass.IOrbwalker.GetTarget();
             if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;

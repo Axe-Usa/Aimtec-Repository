@@ -19,7 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += OnUpdate;
             SpellBook.OnCastSpell += OnCastSpell;
             RenderManager.OnPresent += OnPresent;
-            UtilityClass.Orbwalker.PostAttack += OnPostAttack;
+            UtilityClass.IOrbwalker.PostAttack += OnPostAttack;
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
             Obj_AI_Base.OnTeleport += OnTeleport;
 

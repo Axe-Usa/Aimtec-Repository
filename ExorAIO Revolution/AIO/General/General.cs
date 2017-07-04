@@ -55,7 +55,7 @@ namespace AIO
         /// </summary>
         public static void OnPreAttack(object sender, PreAttackEventArgs args)
         {
-            switch (UtilityClass.Orbwalker.Mode)
+            switch (UtilityClass.IOrbwalker.Mode)
             {
                 /// <summary>
                 ///     The 'No AA in Combo' Logic.

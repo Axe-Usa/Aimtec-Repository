@@ -37,7 +37,7 @@ namespace AIO.Champions
                 ///     The E Before death Logic.
                 /// </summary>
                 if (MenuClass.Spells["e"]["ondeath"].As<MenuBool>().Enabled &&
-                    UtilityClass.HealthPrediction.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
+                    UtilityClass.IHealthPrediction.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
                 {
                     SpellClass.E.Cast();
                 }
