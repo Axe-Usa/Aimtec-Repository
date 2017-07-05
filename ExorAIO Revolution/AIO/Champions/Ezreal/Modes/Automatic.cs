@@ -38,7 +38,7 @@ namespace AIO.Champions
                 UtilityClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 UtilityClass.Player.CountEnemyHeroesInRange(1500) == 0 &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Miscellaneous["tear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Miscellaneous["tear"]) &&
                 MenuClass.Miscellaneous["tear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast(Game.CursorPos);
@@ -104,7 +104,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
                 MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
             {
                 foreach (var ally in GameObjects.AllyHeroes.Where(a => !a.IsMe && a.SpellBook.IsAutoAttacking && a.IsValidTarget(SpellClass.W.Range, true)))

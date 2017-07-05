@@ -35,7 +35,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["Jungleclear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["Jungleclear"]) &&
                 MenuClass.Spells["e"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 if (!Extensions.GetLegendaryJungleMinionsTargets().Contains(jungleTarget))
@@ -88,7 +88,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
                 MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast(Game.CursorPos);

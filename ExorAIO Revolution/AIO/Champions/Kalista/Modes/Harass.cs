@@ -37,7 +37,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 !Invulnerable.Check(bestTarget) &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var collisions = SpellClass.Q.GetPrediction(bestTarget).Collisions;

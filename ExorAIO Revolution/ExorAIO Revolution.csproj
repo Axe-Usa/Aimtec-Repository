@@ -33,13 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aimtec, Version=1.0.6377.32648, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\AimTec Beta\System\Aimtec.dll</HintPath>
+    <Reference Include="Aimtec">
+      <HintPath>..\..\..\..\Desktop\AimTec Beta\System\Aimtec.dll</HintPath>
     </Reference>
-    <Reference Include="Aimtec.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\AimTec Beta\System\Aimtec.SDK.dll</HintPath>
+    <Reference Include="Aimtec.SDK">
+      <HintPath>..\..\..\..\Desktop\AimTec Beta\System\Aimtec.SDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

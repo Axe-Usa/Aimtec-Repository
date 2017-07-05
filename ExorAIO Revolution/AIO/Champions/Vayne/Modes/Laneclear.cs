@@ -32,7 +32,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
                 MenuClass.Spells["q"]["farmhelper"].As<MenuSliderBool>().Enabled)
             {
                 var posAfterQ = UtilityClass.Player.Position.Extend(Game.CursorPos, 300f);

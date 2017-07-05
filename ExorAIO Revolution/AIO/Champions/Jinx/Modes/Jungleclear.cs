@@ -65,7 +65,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 minionTarget.IsValidTarget(SpellClass.W.Range) &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["Jungleclear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["Jungleclear"]) &&
                 MenuClass.Spells["w"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast(minionTarget);

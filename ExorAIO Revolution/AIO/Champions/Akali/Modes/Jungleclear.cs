@@ -38,7 +38,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 Extensions.GetGenericJungleMinionsTargetsInRange(SpellClass.Q.Range).Any() &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
                 MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.CastOnUnit(Extensions.GetGenericJungleMinionsTargetsInRange(SpellClass.Q.Range).First());
@@ -49,7 +49,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["Jungleclear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["Jungleclear"]) &&
                 MenuClass.Spells["e"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.E.Cast();

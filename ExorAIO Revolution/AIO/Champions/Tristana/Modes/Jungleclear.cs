@@ -44,7 +44,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["Jungleclear"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["Jungleclear"]) &&
                 MenuClass.Spells["e"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.E.Cast(jungleTarget);

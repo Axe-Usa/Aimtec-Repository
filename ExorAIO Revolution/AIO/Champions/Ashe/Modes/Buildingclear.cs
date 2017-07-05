@@ -35,7 +35,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.HasBuff("AsheQCastReady") &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["buildings"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["buildings"]) &&
                 MenuClass.Spells["q"]["buildings"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast();

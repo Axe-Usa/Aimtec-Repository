@@ -49,7 +49,7 @@ namespace AIO.Champions
                 UtilityClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 UtilityClass.Player.CountEnemyHeroesInRange(1500f) == 0 &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
                 MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
             {
                 foreach (var loc in this.Locations.Where(

@@ -28,7 +28,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["extendedq"]["mixed"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["extendedq"]["mixed"]) &&
                 MenuClass.Spells["extendedq"]["mixed"].As<MenuSliderBool>().Enabled)
             {
                 var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
