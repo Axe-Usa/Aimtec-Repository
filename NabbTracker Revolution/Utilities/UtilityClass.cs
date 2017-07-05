@@ -13,34 +13,34 @@ namespace NabbTracker
         #region Static Fields
 
         /// <summary>
-        ///     Gets the Player.
-        /// </summary>
-        public static Obj_AI_Hero Player = ObjectManager.GetLocalPlayer();
-
-        /// <summary>
         ///     A list of the names of the champions who have a different healthbar type.
         /// </summary>
         public static readonly List<string> SpecialChampions = new List<string> { "Annie", "Jhin" };
 
         /// <summary>
+        ///     Gets the Player.
+        /// </summary>
+        public static Obj_AI_Hero Player = ObjectManager.GetLocalPlayer();
+
+        /// <summary>
         ///     Gets the spellslots.
         /// </summary>
         public static SpellSlot[] SpellSlots =
-        {
-            SpellSlot.Q,
-            SpellSlot.W,
-            SpellSlot.E,
-            SpellSlot.R
-        };
+            {
+                SpellSlot.Q,
+                SpellSlot.W,
+                SpellSlot.E,
+                SpellSlot.R
+            };
 
         /// <summary>
         ///     Gets the summoner spellslots.
         /// </summary>
         public static SpellSlot[] SummonerSpellSlots =
-        {
-            SpellSlot.Summoner1,
-            SpellSlot.Summoner2
-        };
+            {
+                SpellSlot.Summoner1,
+                SpellSlot.Summoner2
+            };
 
         #endregion
 
@@ -65,8 +65,119 @@ namespace NabbTracker
             }
 
             return target.IsMe
-                       ? MenuClass.Miscellaneous["name"].Enabled ? -56 : -37
-                       : MenuClass.Miscellaneous["name"].Enabled ? -48 : -29;
+                       ? MenuClass.Miscellaneous["name"].Enabled
+                             ? -56
+                             : -37
+                       : MenuClass.Miscellaneous["name"].Enabled
+                           ? -48
+                           : -29;
+        }
+
+        /// <summary>
+        ///     The cooldown of a determined spell of a determined unit.
+        /// </summary>
+        public static string GetUnitSpellCooldown(Obj_AI_Hero unit, int spell)
+        {
+            var unitSpell = unit.SpellBook.GetSpell(SpellSlots[spell]);
+            var cooldownRemaining = unitSpell.CooldownEnd - Game.ClockTime;
+            if (cooldownRemaining > 0)
+            {
+                return ((int)cooldownRemaining).ToString();
+            }
+
+            if (unit.IsMe &&
+                unitSpell.State.HasFlag(SpellState.Surpressed | SpellState.Disabled | SpellState.Unknown))
+            {
+                return "X";
+            }
+
+            return SpellSlots[spell].ToString();
+        }
+
+        /// <summary>
+        ///     The color of the string, based on determined events.
+        /// </summary>
+        public static Color GetUnitSpellStateColor(Obj_AI_Hero unit, int spell)
+        {
+            var unitSpell = unit.SpellBook.GetSpell(SpellSlots[spell]);
+            var unitSpellState = unitSpell.State;
+            if (unitSpellState.HasFlag(SpellState.NotLearned))
+            {
+                return Color.Gray;
+            }
+
+            if (unit.IsMe &&
+                unitSpellState.HasFlag(SpellState.Disabled | SpellState.Surpressed))
+            {
+                return Color.Purple;
+            }
+
+            if (unitSpellState.HasFlag(SpellState.NoMana))
+            {
+                return Color.Cyan;
+            }
+
+            if (unitSpellState.HasFlag(SpellState.Cooldown))
+            {
+                var unitSpellCooldown = unitSpell.CooldownEnd - Game.ClockTime;
+                return unitSpellCooldown <= 5 ? Color.Red : Color.Yellow;
+            }
+
+            return unitSpellState.HasFlag(SpellState.Ready) ? Color.LightGreen : Color.Black;
+        }
+
+        /// <summary>
+        ///     The cooldown of a determined summoner spell of a determined unit.
+        /// </summary>
+        public static string GetUnitSummonerSpellCooldown(Obj_AI_Hero unit, int summonerSpell)
+        {
+            var cooldownRemaining = unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]).CooldownEnd - Game.ClockTime;
+            return cooldownRemaining > 0 ? ((int)cooldownRemaining).ToString() : "READY";
+        }
+
+        /// <summary>
+        ///     Gets the fixed name for reach summonerspell in the game.
+        /// </summary>
+        public static string GetUnitSummonerSpellFixedName(Obj_AI_Hero unit, int summonerSpell)
+        {
+            switch (unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]).Name.ToLower())
+            {
+                case "summonerflash":        return "Flash";
+                case "summonerdot":          return "Ignite";
+                case "summonerheal":         return "Heal";
+                case "summonerteleport":     return "Teleport";
+                case "summonerexhaust":      return "Exhaust";
+                case "summonerhaste":        return "Ghost";
+                case "summonerbarrier":      return "Barrier";
+                case "summonerboost":        return "Cleanse";
+                case "summonermana":         return "Clarity";
+                case "summonerclairvoyance": return "Clairvoyance";
+                case "summonersnowball":     return "Mark";
+                default:
+                    return "Smite";
+            }
+        }
+
+        /// <summary>
+        ///     The color of the string, based on determined events.
+        /// </summary>
+        public static Color GetUnitSummonerSpellStateColor(Obj_AI_Hero unit, int summonerSpell)
+        {
+            var unitSummonerSpell = unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]);
+            var unitSummonerSpellState = unitSummonerSpell.State;
+            if (unit.IsMe &&
+                unitSummonerSpellState.HasFlag(SpellState.Disabled | SpellState.Surpressed))
+            {
+                return Color.Purple;
+            }
+
+            if (unitSummonerSpellState.HasFlag(SpellState.Cooldown))
+            {
+                var unitSpellCooldown = unitSummonerSpell.CooldownEnd - Game.ClockTime;
+                return unitSpellCooldown <= 5 ? Color.Red : Color.Yellow;
+            }
+
+            return unitSummonerSpellState.HasFlag(SpellState.Ready) ? Color.LightGreen : Color.Black;
         }
 
         /// <summary>
@@ -114,146 +225,12 @@ namespace NabbTracker
             }
 
             return target.IsMe
-                 ? MenuClass.Miscellaneous["name"].Enabled ? -24 : -6
-                 : MenuClass.Miscellaneous["name"].Enabled ? -20 : -4;
-        }
-
-        /// <summary>
-        ///     The cooldown of a determined spell of a determined unit.
-        /// </summary>
-        public static string GetUnitSpellCooldown(Obj_AI_Hero unit, int spell)
-        {
-            var unitSpell = unit.SpellBook.GetSpell(SpellSlots[spell]);
-            var cooldownRemaining = unitSpell.CooldownEnd - Game.ClockTime;
-            if (cooldownRemaining > 0)
-            {
-                return ((int)cooldownRemaining).ToString();
-            }
-
-            if (unit.IsMe)
-            {
-                if (unitSpell.State == SpellState.Surpressed ||
-                    unitSpell.State == SpellState.Disabled ||
-                    unitSpell.State == SpellState.Unknown)
-                {
-                    return "X";
-                }
-            }
-
-            return SpellSlots[spell].ToString();
-        }
-
-        /// <summary>
-        ///     The cooldown of a determined summoner spell of a determined unit.
-        /// </summary>
-        public static string GetUnitSummonerSpellCooldown(Obj_AI_Hero unit, int summonerSpell)
-        {
-            var cooldownRemaining = unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]).CooldownEnd - Game.ClockTime;
-            if (cooldownRemaining > 0)
-            {
-                return ((int)cooldownRemaining).ToString();
-            }
-
-            return "READY";
-        }
-
-        /// <summary>
-        ///     Gets the fixed name for reach summonerspell in the game.
-        /// </summary>
-        public static string GetUnitSummonerSpellFixedName(Obj_AI_Hero unit, int summonerSpell)
-        {
-            switch (unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]).Name.ToLower())
-            {
-                case "summonerflash":        return "Flash";
-                case "summonerdot":          return "Ignite";
-                case "summonerheal":         return "Heal";
-                case "summonerteleport":     return "Teleport";
-                case "summonerexhaust":      return "Exhaust";
-                case "summonerhaste":        return "Ghost";
-                case "summonerbarrier":      return "Barrier";
-                case "summonerboost":        return "Cleanse";
-                case "summonermana":         return "Clarity";
-                case "summonerclairvoyance": return "Clairvoyance";
-                case "summonersnowball":     return "Mark";
-                default:
-                    return "Smite";
-            }
-        }
-
-        /// <summary>
-        ///     The color of the string, based on determined events.
-        /// </summary>
-        public static Color GetUnitSpellStateColor(Obj_AI_Hero unit, int spell)
-        {
-            var unitSpell = unit.SpellBook.GetSpell(SpellSlots[spell]);
-            var unitSpellState = unitSpell.State;
-            if (unitSpellState.HasFlag(SpellState.NotLearned))
-            {
-                return Color.Gray;
-            }
-
-            if (unit.IsMe &&
-                unitSpellState.HasFlag(SpellState.Disabled) ||
-                unitSpellState.HasFlag(SpellState.Surpressed))
-            {
-                return Color.Purple;
-            }
-
-            if (unitSpellState.HasFlag(SpellState.NoMana))
-            {
-                return Color.Cyan;
-            }
-
-            if (unitSpellState.HasFlag(SpellState.Cooldown))
-            {
-                var unitSpellCooldown = unitSpell.CooldownEnd - Game.ClockTime;
-                if (unitSpellCooldown <= 5)
-                {
-                    return Color.Red;
-                }
-
-                return Color.Yellow;
-            }
-
-            if (unitSpellState.HasFlag(SpellState.Ready))
-            {
-                return Color.LightGreen;
-            }
-
-            return Color.Black;
-        }
-
-        /// <summary>
-        ///     The color of the string, based on determined events.
-        /// </summary>
-        public static Color GetUnitSummonerSpellStateColor(Obj_AI_Hero unit, int summonerSpell)
-        {
-            var unitSummonerSpell = unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]);
-            var unitSummonerSpellState = unitSummonerSpell.State;
-            if (unit.IsMe &&
-                unitSummonerSpellState.HasFlag(SpellState.Disabled) ||
-                unitSummonerSpellState.HasFlag(SpellState.Surpressed))
-            {
-                return Color.Purple;
-            }
-
-            if (unitSummonerSpellState.HasFlag(SpellState.Cooldown))
-            {
-                var unitSpellCooldown = unitSummonerSpell.CooldownEnd - Game.ClockTime;
-                if (unitSpellCooldown <= 5)
-                {
-                    return Color.Red;
-                }
-
-                return Color.Yellow;
-            }
-
-            if (unitSummonerSpellState.HasFlag(SpellState.Ready))
-            {
-                return Color.LightGreen;
-            }
-
-            return Color.Black;
+                       ? MenuClass.Miscellaneous["name"].Enabled
+                             ? -24
+                             : -6
+                       : MenuClass.Miscellaneous["name"].Enabled
+                           ? -20
+                           : -4;
         }
 
         #endregion

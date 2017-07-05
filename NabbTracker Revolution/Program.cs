@@ -1,6 +1,7 @@
 ﻿namespace NabbTracker
 {
     using System;
+
     using Aimtec;
     using Aimtec.SDK.Events;
 
@@ -20,6 +21,15 @@
         }
 
         /// <summary>
+        ///     Called on present.
+        /// </summary>
+        private static void OnPresent()
+        {
+            SpellTracker.Initialize();
+            ExpTracker.Initialize();
+        }
+
+        /// <summary>
         ///     Called upon game start.
         /// </summary>
         private static void OnStart()
@@ -28,15 +38,6 @@
             Console.WriteLine("NabbTracker: Revolution - Loaded!");
 
             RenderManager.OnPresent += OnPresent;
-        }
-
-        /// <summary>
-        ///     Called on present.
-        /// </summary>
-        private static void OnPresent()
-        {
-            SpellTracker.Initialize();
-            ExpTracker.Initialize();
         }
 
         #endregion

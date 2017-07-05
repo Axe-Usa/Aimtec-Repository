@@ -21,11 +21,12 @@ namespace NabbTracker
         public static void Initialize()
         {
             foreach (var unit in
-                ObjectManager.Get<Obj_AI_Hero>().Where(e => Math.Abs(e.FloatingHealthBarPosition.X) > 0 && !e.IsDead && e.IsVisible &&
-                    (e.IsMe && MenuClass.ExpTracker["me"].As<MenuBool>().Value ||
-                    e.IsEnemy && MenuClass.ExpTracker["enemies"].As<MenuBool>().Value ||
-                    e.IsAlly && !e.IsMe && MenuClass.ExpTracker["allies"].As<MenuBool>().Value))
-                )
+                ObjectManager.Get<Obj_AI_Hero>().Where(
+                    e => Math.Abs(e.FloatingHealthBarPosition.X) > 0 && !e.IsDead && e.IsVisible &&
+                         (e.IsMe && MenuClass.ExpTracker["me"].As<MenuBool>().Value ||
+                          e.IsEnemy && MenuClass.ExpTracker["enemies"].As<MenuBool>().Value ||
+                          e.IsAlly && !e.IsMe && MenuClass.ExpTracker["allies"].As<MenuBool>().Value))
+            )
             {
                 if (unit.Name.Equals("Target Dummy"))
                 {
@@ -45,7 +46,7 @@ namespace NabbTracker
                 var expPercent = (int)(actualExp / neededExp * 100);
                 if (unit.Level < 18 || UtilityClass.Player.HasBuff("AwesomeBuff") && unit.Level < 30)
                 {
-                    RenderManager.RenderLine(xOffset - 76, yOffset + 20, xOffset + 56, yOffset + 20, 7, true,Colors.GetRealColor(Color.Purple));
+                    RenderManager.RenderLine(xOffset - 76, yOffset + 20, xOffset + 56, yOffset + 20, 7, true, Colors.GetRealColor(Color.Purple));
 
                     if (expPercent > 0)
                     {

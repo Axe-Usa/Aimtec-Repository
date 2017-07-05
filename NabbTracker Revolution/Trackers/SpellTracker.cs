@@ -20,11 +20,12 @@ namespace NabbTracker
         public static void Initialize()
         {
             foreach (var unit in
-                ObjectManager.Get<Obj_AI_Hero>().Where(e => Math.Abs(e.FloatingHealthBarPosition.X) > 0 && !e.IsDead && e.IsVisible &&
-                    (e.IsMe && MenuClass.SpellTracker["me"].As<MenuBool>().Value ||
-                    e.IsEnemy && MenuClass.SpellTracker["enemies"].As<MenuBool>().Value ||
-                    e.IsAlly && !e.IsMe && MenuClass.SpellTracker["allies"].As<MenuBool>().Value))
-                )
+                ObjectManager.Get<Obj_AI_Hero>().Where(
+                    e => Math.Abs(e.FloatingHealthBarPosition.X) > 0 && !e.IsDead && e.IsVisible &&
+                         (e.IsMe && MenuClass.SpellTracker["me"].As<MenuBool>().Value ||
+                          e.IsEnemy && MenuClass.SpellTracker["enemies"].As<MenuBool>().Value ||
+                          e.IsAlly && !e.IsMe && MenuClass.SpellTracker["allies"].As<MenuBool>().Value))
+            )
             {
                 if (unit.Name.Equals("Target Dummy"))
                 {
@@ -39,7 +40,7 @@ namespace NabbTracker
                     var spellCooldown = UtilityClass.GetUnitSpellCooldown(unit, spell);
 
                     RenderManager.RenderText(xSpellOffset, ySpellOffset, Colors.GetRealColor(spellColor), spellCooldown);
-                                
+
                     for (var level = 0; level <= unit.SpellBook.GetSpell(UtilityClass.SpellSlots[spell]).Level - 1; level++)
                     {
                         var xLevelOffset = xSpellOffset + level * 3 - 4;
