@@ -24,7 +24,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
-            var jungleTarget = (Obj_AI_Minion)UtilityClass.IOrbwalker.GetTarget();
+            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetTarget();
             if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;
@@ -63,8 +63,8 @@ namespace AIO.Champions
                                                         Target = jungleTarget,
                                                         Unit = UtilityClass.Player
                                                     };
-                    var firstPrediction = UtilityClass.IPrediction.GetPrediction(firstPredictionInput);
-                    var secondPrediction = UtilityClass.IPrediction.GetPrediction(secondPredictionInput);
+                    var firstPrediction = ImplementationClass.IPrediction.GetPrediction(firstPredictionInput);
+                    var secondPrediction = ImplementationClass.IPrediction.GetPrediction(secondPredictionInput);
 
                     for (var i = 1; i < 10; i++)
                     {

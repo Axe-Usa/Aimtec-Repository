@@ -51,7 +51,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
         public void OnPreAttack(object sender, PreAttackEventArgs args)
         {
-            switch (UtilityClass.IOrbwalker.Mode)
+            switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     this.Combo(sender, args);
@@ -147,7 +147,7 @@ namespace AIO.Champions
             /// </summary>
             this.Killsteal();
 
-            if (UtilityClass.IOrbwalker.IsWindingUp)
+            if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
                 return;
             }
@@ -160,7 +160,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
+            switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     this.Combo();

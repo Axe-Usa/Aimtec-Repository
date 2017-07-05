@@ -108,7 +108,7 @@
         /// </summary>
         public static IOrderedEnumerable<Obj_AI_Hero> GetBestEnemyHeroesTargetsInRange(float range)
         {
-            return UtilityClass.ITargetSelector.GetOrderedTargets(range);
+            return ImplementationClass.ITargetSelector.GetOrderedTargets(range);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@
         /// </summary>
         public static Obj_AI_Hero GetBestEnemyHeroTargetInRange(float range)
         {
-            var ts = UtilityClass.ITargetSelector;
+            var ts = ImplementationClass.ITargetSelector;
             var target = ts.GetTarget(range);
             if (target != null && !Invulnerable.Check(target))
             {
@@ -136,7 +136,7 @@
 
         public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
         {
-            return UtilityClass.ITargetSelector.GetOrderedTargets(spell.Range).FirstOrDefault(t => !Invulnerable.Check(t, damageType, ignoreShields));
+            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range).FirstOrDefault(t => !Invulnerable.Check(t, damageType, ignoreShields));
         }
 
         /// <summary>

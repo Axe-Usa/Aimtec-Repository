@@ -17,7 +17,7 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += this.OnUpdate;
-            UtilityClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             RenderManager.OnPresent += this.OnPresent;
 
             //Events.OnGapCloser += OnGapCloser;

@@ -245,6 +245,7 @@
     <Compile Include="AIO\Utilities\Helpers\Extensions.cs" />
     <Compile Include="AIO\Utilities\Helpers\GameObjects.cs" />
     <Compile Include="AIO\Utilities\Helpers\Geometry.cs" />
+    <Compile Include="AIO\Utilities\Helpers\ImplementationClass.cs" />
     <Compile Include="AIO\Utilities\Helpers\Invulnerable.cs" />
     <Compile Include="AIO\Utilities\MenuClass.cs" />
     <Compile Include="AIO\Utilities\SpellClass.cs" />

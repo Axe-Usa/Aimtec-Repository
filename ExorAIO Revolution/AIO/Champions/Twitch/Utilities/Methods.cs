@@ -17,7 +17,7 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += this.OnUpdate;
-            UtilityClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             SpellBook.OnCastSpell += this.OnCastSpell;
             RenderManager.OnPresent += this.OnPresent;
         }

@@ -17,7 +17,7 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += this.OnUpdate;
-            UtilityClass.IOrbwalker.PreAttack += this.OnPreAttack;
+            ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             RenderManager.OnPresent += this.OnPresent;
             Obj_AI_Base.OnTeleport += this.OnTeleport;
 

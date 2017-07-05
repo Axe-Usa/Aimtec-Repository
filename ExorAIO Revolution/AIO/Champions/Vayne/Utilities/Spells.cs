@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// </summary>
         public void Spells()
         {
-            var target = UtilityClass.IOrbwalker.GetTarget();
+            var target = ImplementationClass.IOrbwalker.GetTarget();
             SpellClass.Q = new Spell(SpellSlot.Q, (target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange) + 300f);
             SpellClass.W = new Spell(SpellSlot.W);
             SpellClass.E = new Spell(SpellSlot.E, 550f + UtilityClass.Player.BoundingRadius);

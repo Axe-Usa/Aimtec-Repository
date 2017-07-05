@@ -19,7 +19,7 @@ namespace AIO
         public static void Methods()
         {
             SpellBook.OnCastSpell += OnCastSpell;
-            UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
+            ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
         }
 
         #endregion

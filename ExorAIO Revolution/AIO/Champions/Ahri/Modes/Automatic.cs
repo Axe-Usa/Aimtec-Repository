@@ -34,7 +34,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Value)
             {
                 var range = SpellClass.E.Range;
-                var target = UtilityClass.ITargetSelector.GetOrderedTargets(range)
+                var target = ImplementationClass.ITargetSelector.GetOrderedTargets(range)
                     .FirstOrDefault(t => t.IsImmobile() && !Invulnerable.Check(t) && t.IsValidTarget(range));
                 if (target != null)
                 {

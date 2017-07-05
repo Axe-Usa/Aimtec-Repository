@@ -10,7 +10,7 @@ namespace AIO.Utilities
     using Aimtec;
 
     /// <summary>
-    ///     The drawings class.
+    ///     The Drawing class.
     /// </summary>
     internal static class DrawingClass
     {

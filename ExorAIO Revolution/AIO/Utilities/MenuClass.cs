@@ -2,7 +2,10 @@
 {
     using Aimtec.SDK.Menu;
 
-    internal class MenuClass
+    /// <summary>
+    ///     The Menu class.
+    /// </summary>
+    internal static class MenuClass
     {
         #region Public Properties
 

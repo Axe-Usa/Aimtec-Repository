@@ -19,7 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             SpellBook.OnCastSpell += this.OnCastSpell;
             RenderManager.OnPresent += this.OnPresent;
-            UtilityClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             //Events.OnGapCloser += OnGapCloser;
             GameObject.OnCreate += this.OnCreate;
             GameObject.OnDestroy += this.OnDestroy;

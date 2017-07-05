@@ -27,7 +27,7 @@ namespace AIO
                 /// <summary>
                 ///     Loads the orbwalker menu.
                 /// </summary>
-                UtilityClass.IOrbwalker.Attach(MenuClass.Root);
+                ImplementationClass.IOrbwalker.Attach(MenuClass.Root);
 
                 /// <summary>
                 ///     Loads the general menu.

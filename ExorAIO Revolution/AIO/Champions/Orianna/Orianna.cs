@@ -165,7 +165,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
+            switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     this.Combo();

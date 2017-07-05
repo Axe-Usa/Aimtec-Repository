@@ -35,7 +35,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.HasTearLikeItem() &&
                 !Extensions.GetEnemyLaneMinionsTargets().Any() &&
-                UtilityClass.IOrbwalker.Mode == OrbwalkingMode.None &&
+                ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 UtilityClass.Player.CountEnemyHeroesInRange(1500) == 0 &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Miscellaneous["tear"]) &&
@@ -70,12 +70,12 @@ namespace AIO.Champions
                 return;
             }
 
-            var target = UtilityClass.IOrbwalker.GetTarget();
+            var target = ImplementationClass.IOrbwalker.GetTarget();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
+            switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     if (!(target is Obj_AI_Hero))

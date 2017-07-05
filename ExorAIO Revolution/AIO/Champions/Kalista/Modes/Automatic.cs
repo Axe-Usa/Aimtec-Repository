@@ -34,7 +34,7 @@ namespace AIO.Champions
             ///     The Automatic R Logic.
             /// </summary>
             if (SpellClass.R.Ready && this.SoulBound.IsValidTarget(SpellClass.R.Range) && this.SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
-                UtilityClass.IHealthPrediction.GetPrediction(this.SoulBound, 250 + Game.Ping) <= this.SoulBound.MaxHealth / 4 &&
+                ImplementationClass.IHealthPrediction.GetPrediction(this.SoulBound, 250 + Game.Ping) <= this.SoulBound.MaxHealth / 4 &&
                 MenuClass.Spells["r"]["lifesaver"].As<MenuBool>().Enabled)
             {
                 SpellClass.R.Cast();
@@ -46,7 +46,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 !UtilityClass.Player.IsRecalling() &&
                 !UtilityClass.Player.IsUnderEnemyTurret() &&
-                UtilityClass.IOrbwalker.Mode == OrbwalkingMode.None &&
+                ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 UtilityClass.Player.CountEnemyHeroesInRange(1500f) == 0 &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
@@ -70,7 +70,7 @@ namespace AIO.Champions
                 ///     The E Before death Logic.
                 /// </summary>
                 if (MenuClass.Spells["e"]["ondeath"].As<MenuBool>().Enabled &&
-                    UtilityClass.IHealthPrediction.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
+                    ImplementationClass.IHealthPrediction.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
                 {
                     SpellClass.E.Cast();
                 }

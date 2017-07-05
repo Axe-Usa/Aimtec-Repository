@@ -72,7 +72,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
+            switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     this.Weaving(sender, args);
@@ -154,7 +154,7 @@ namespace AIO.Champions
             /// </summary>
             this.Killsteal();
 
-            if (UtilityClass.IOrbwalker.IsWindingUp)
+            if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
                 return;
             }
@@ -167,7 +167,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
+            switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
                     this.Combo();
