@@ -20,14 +20,14 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Gets the total missile on a determined unit.
+        ///     Gets the total missile damage on a determined unit.
         /// </summary>
         public double GetMissileDamage(Obj_AI_Base unit)
         {
             var player = UtilityClass.Player;
             return this.HasBigOne()
-                       ? player.GetSpellDamage(unit, SpellSlot.R)
-                       : player.GetSpellDamage(unit, SpellSlot.E, DamageStage.SecondForm);
+                       ? player.GetSpellDamage(unit, SpellSlot.R, DamageStage.SecondForm)
+                       : player.GetSpellDamage(unit, SpellSlot.R);
         }
 
         /// <summary>

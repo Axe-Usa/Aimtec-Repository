@@ -60,8 +60,8 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                heroTarget.IsValidTarget(SpellClass.Q.Range)
-                && MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                heroTarget.IsValidTarget(SpellClass.Q.Range) &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.CastOnUnit(heroTarget);
                 return;

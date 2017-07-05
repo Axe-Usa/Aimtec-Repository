@@ -36,14 +36,14 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
-                        MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
@@ -64,7 +64,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -76,7 +76,7 @@ namespace AIO.Champions
                 {
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("buildingclear", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -86,20 +86,20 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuSeperator("separator1", "If the targets gets hit by 3 or more Feathers"));
-                    MenuClass.E.Add(new MenuSeperator("separator2", "it gets rooted for a brief period."));
+                    //MenuClass.E.Add(new MenuSeperator("separator1", "If the targets gets hit by 3 or more Feathers"));
+                    //MenuClass.E.Add(new MenuSeperator("separator2", "it gets rooted for a brief period."));
                     MenuClass.E.Add(new MenuSliderBool("combo", "Combo / If can Hit >= x Feathers", true, 3, 3, 8));
-                    MenuClass.E.Add(new MenuSeperator("separator3"));
+                    //MenuClass.E.Add(new MenuSeperator("separator3"));
                     MenuClass.E.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
-                        MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if killable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.E.Add(MenuClass.E2);
@@ -112,9 +112,9 @@ namespace AIO.Champions
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
                     MenuClass.R.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
-                    MenuClass.R.Add(new MenuSeperator("separator1"));
-                    MenuClass.R.Add(new MenuSeperator("separator2", "It will ult the lowest on health,"));
-                    MenuClass.R.Add(new MenuSeperator("separator3", "whitelisted and non-invulnerable enemy in range."));
+                    //MenuClass.R.Add(new MenuSeperator("separator1"));
+                    //MenuClass.R.Add(new MenuSeperator("separator2", "It will ult the lowest on health,"));
+                    //MenuClass.R.Add(new MenuSeperator("separator3", "whitelisted and non-invulnerable enemy in range."));
                     MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
@@ -134,7 +134,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

@@ -35,7 +35,7 @@ namespace AIO.Champions
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / If Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -49,17 +49,17 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the W spell.
                     /// </summary>
                     MenuClass.W2 = new Menu("customization", "Q Customization:");
                     {
-                        MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
+                        //MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.W2.Add(new MenuBool("nowflurry", "Don't W while flurring AAs with Q"));
-                        MenuClass.W2.Add(new MenuSeperator("separator2"));
-                        MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
+                        //MenuClass.W2.Add(new MenuSeperator("separator2"));
+                        //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
                         MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 4, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
@@ -80,7 +80,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -102,9 +102,9 @@ namespace AIO.Champions
                 {
                     MenuClass.R.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
-                    MenuClass.R.Add(new MenuSeperator("separator"));
-                    MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));
-                    MenuClass.R.Add(new MenuSeperator("separator2", "whitelisted and non-invulnerable enemy in range."));
+                    //MenuClass.R.Add(new MenuSeperator("separator"));
+                    //MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));
+                    //MenuClass.R.Add(new MenuSeperator("separator2", "whitelisted and non-invulnerable enemy in range."));
                     MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
@@ -115,8 +115,8 @@ namespace AIO.Champions
                         /// </summary>
                         MenuClass.WhiteList = new Menu("whitelist", "Ultimate: Whitelist");
                         {
-                            MenuClass.WhiteList.Add(new MenuSeperator("separator1", "WhiteList only works for Combo"));
-                            MenuClass.WhiteList.Add(new MenuSeperator("separator2", "not Killsteal (Automatic)"));
+                            //MenuClass.WhiteList.Add(new MenuSeperator("separator1", "WhiteList only works for Combo"));
+                            //MenuClass.WhiteList.Add(new MenuSeperator("separator2", "not Killsteal (Automatic)"));
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
                                 MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
@@ -126,7 +126,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

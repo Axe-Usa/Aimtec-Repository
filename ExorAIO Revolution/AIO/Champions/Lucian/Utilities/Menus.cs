@@ -43,7 +43,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
-                        MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
@@ -67,7 +67,7 @@ namespace AIO.Champions
                         /// </summary>
                         MenuClass.WhiteList = new Menu("whitelist", "Extended Harass: Whitelist");
                         {
-                            MenuClass.WhiteList.Add(new MenuSeperator("extendedsep", "Note: The Whitelist only works for Mixed and Laneclear."));
+                            //MenuClass.WhiteList.Add(new MenuSeperator("extendedsep", "Note: The Whitelist only works for Mixed and Laneclear."));
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
                                 MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
@@ -98,7 +98,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
-                        MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        //MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
@@ -110,11 +110,11 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuSeperator("esep1", "[THE DASH WILL ALWAYS BE DIRECTED TOWARDS YOUR MOUSE]"));
-                    MenuClass.E.Add(new MenuSeperator("esep2", "Exory: Smart dynamic Short & Long dash."));
-                    MenuClass.E.Add(new MenuSeperator("esep3", "Always Long: Always dash at the maximum distance."));
-                    MenuClass.E.Add(new MenuSeperator("esep4", "Always Short: This Logic will make you always dash at the minimum distance."));
-                    MenuClass.E.Add(new MenuSeperator("esep5", "None: It will not use E in Combo."));
+                    //MenuClass.E.Add(new MenuSeperator("esep1", "[THE DASH WILL ALWAYS BE DIRECTED TOWARDS YOUR MOUSE]"));
+                    //MenuClass.E.Add(new MenuSeperator("esep2", "Exory: Smart dynamic Short & Long dash."));
+                    //MenuClass.E.Add(new MenuSeperator("esep3", "Always Long: Always dash at the maximum distance."));
+                    //MenuClass.E.Add(new MenuSeperator("esep4", "Always Short: This Logic will make you always dash at the minimum distance."));
+                    //MenuClass.E.Add(new MenuSeperator("esep5", "None: It will not use E in Combo."));
 
                     MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Exory", "Always Long", "Always Short", "Don't use E in Combo" }, 0));
                     MenuClass.E.Add(new MenuBool("engage", "Engage"));
@@ -130,10 +130,10 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuSeperator("separator", "How does it work:"));
-                    MenuClass.R.Add(new MenuSeperator("separator2", "Keep the button pressed until you want to stop the ultimate."));
-                    MenuClass.R.Add(new MenuSeperator("separator3", "You don't have to press both Spacebar and the Semi-Automatic key."));
-                    MenuClass.R.Add(new MenuSeperator("separator4", "It automatically orbwalks while using his R, so just press the key."));
+                    //MenuClass.R.Add(new MenuSeperator("separator", "How does it work:"));
+                    //MenuClass.R.Add(new MenuSeperator("separator2", "Keep the button pressed until you want to stop the ultimate."));
+                    //MenuClass.R.Add(new MenuSeperator("separator3", "You don't have to press both Spacebar and the Semi-Automatic key."));
+                    //MenuClass.R.Add(new MenuSeperator("separator4", "It automatically orbwalks while using his R, so just press the key."));
 
                     MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
@@ -155,7 +155,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

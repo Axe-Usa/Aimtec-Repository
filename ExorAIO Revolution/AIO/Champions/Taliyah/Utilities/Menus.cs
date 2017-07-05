@@ -36,24 +36,24 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
-                        //MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
+                        ////MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
                         //MenuClass.Q2.Add(new MenuBool("qlock", "Automatically Lock Q on Enemy"));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator2"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator3", "Harass Settings:"));
+                        ////MenuClass.Q2.Add(new MenuSeperator("separator2"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator3", "Harass Settings:"));
                         MenuClass.Q2.Add(new MenuBool("harassfull", "Harass: Only with full Q.", false));
-                        MenuClass.Q2.Add(new MenuSeperator("separator4"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator5", "Laneclear settings:"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator4"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator5", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuBool("laneclearfull", "Laneclear: Only with full Q."));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
-                        MenuClass.Q2.Add(new MenuSeperator("separator6"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator7", "Jungleclear settings:"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator6"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator7", "Jungleclear settings:"));
                         MenuClass.Q2.Add(new MenuBool("jungleclearfull", "Jungleclear: Only with full Q."));
                         MenuClass.Q2.Add(new MenuSlider("jungleclear", "Jungleclear / if Minions Hit >= x%", 3, 1, 10));
                     }
@@ -75,7 +75,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -88,7 +88,7 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.W.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
 
@@ -97,10 +97,10 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
-                        MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
+                        //MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.W2.Add(new MenuBool("onlyeready", "Don't Cast W if E is on cooldown"));
-                        MenuClass.W2.Add(new MenuSeperator("separator2"));
-                        MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
+                        //MenuClass.W2.Add(new MenuSeperator("separator2"));
+                        //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
                         MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
@@ -131,14 +131,14 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
-                        MenuClass.E2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
+                        //MenuClass.E2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
                     }
                     MenuClass.E.Add(MenuClass.E2);

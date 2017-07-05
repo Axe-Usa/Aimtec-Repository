@@ -36,14 +36,14 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
-                        MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Killable >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
@@ -64,7 +64,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -86,11 +86,11 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuBool("ondeath", "Before death"));
                     MenuClass.E.Add(new MenuBool("harass", "Harass with minions"));
-                    MenuClass.E.Add(new MenuBool("laneclear", "Laneclear"));
+                    MenuClass.E.Add(new MenuBool("laneclear", "laneclear"));
                     MenuClass.E.Add(new MenuBool("junglesteal", "Junglesteal"));
-                    MenuClass.E.Add(new MenuSeperator("separator"));
-                    MenuClass.E.Add(new MenuSeperator("separator1", "It will cast E if there are any minions with"));
-                    MenuClass.E.Add(new MenuSeperator("separator2", "stacks the orbwalker cannot reach in time to kill them."));
+                    //MenuClass.E.Add(new MenuSeperator("separator"));
+                    //MenuClass.E.Add(new MenuSeperator("separator1", "It will cast E if there are any minions with"));
+                    //MenuClass.E.Add(new MenuSeperator("separator2", "stacks the orbwalker cannot reach in time to kill them."));
                     MenuClass.E.Add(new MenuBool("farmhelper", "FarmHelper"));
 
                     /// <summary>

@@ -61,10 +61,14 @@ namespace AIO.Champions
                 case OrbwalkingMode.Mixed:
                     if (SpellClass.R.Ready &&
                         minion.IsValidTarget(SpellClass.R.Range) &&
-                        minion.Health <= this.GetMissileDamage(minion) &&
-                        MenuClass.Spells["r"]["lasthitunk"].As<MenuBool>().Enabled)
+                        UtilityClass.Player.ManaPercent()
+                            > ManaManager.GetNeededMana(SpellClass.R.Slot, MenuClass.Spells["r"]["lasyhitunk"]) &&
+                        MenuClass.Spells["r"]["lasthitunk"].As<MenuSliderBool>().Enabled)
                     {
-                        SpellClass.R.Cast(minion);
+                        if (minion.Health <= this.GetMissileDamage(minion))
+                        {
+                            SpellClass.R.Cast(minion);
+                        }
                     }
                     break;
             }

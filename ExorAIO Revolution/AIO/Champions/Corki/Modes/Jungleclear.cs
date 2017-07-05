@@ -4,6 +4,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -25,7 +26,7 @@ namespace AIO.Champions
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = (Obj_AI_Minion)args.Target;
-            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
+            if (!Extensions.GetLargeJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
             {
                 return;
             }

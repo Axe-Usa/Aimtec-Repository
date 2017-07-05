@@ -36,8 +36,8 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Value &&
-                MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Enabled)
+                > MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Value &&
+                MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 var minionsInRange = GameObjects.EnemyMinions.Count(
                     m =>
@@ -45,14 +45,14 @@ namespace AIO.Champions
 
                 if (UtilityClass.Player.HasBuff("JinxQ"))
                 {
-                    if (minionsInRange < MenuClass.Spells["q"]["customization"]["Jungleclear"].Value)
+                    if (minionsInRange < MenuClass.Spells["q"]["customization"]["jungleclear"].Value)
                     {
                         SpellClass.Q.Cast();
                     }
                 }
                 else
                 {
-                    if (minionsInRange >= MenuClass.Spells["q"]["customization"]["Jungleclear"].Value)
+                    if (minionsInRange >= MenuClass.Spells["q"]["customization"]["jungleclear"].Value)
                     {
                         SpellClass.Q.Cast();
                     }
@@ -65,8 +65,8 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 minionTarget.IsValidTarget(SpellClass.W.Range) &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["Jungleclear"]) &&
-                MenuClass.Spells["w"]["Jungleclear"].As<MenuSliderBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
+                MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast(minionTarget);
             }

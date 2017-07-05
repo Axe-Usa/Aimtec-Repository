@@ -33,6 +33,11 @@ namespace AIO.Champions
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
+
+            /// <summary>
+            ///     Updates the spells.
+            /// </summary>
+            this.Spells();
         }
 
         #endregion
@@ -148,18 +153,12 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Obj_AI_BaseTeleportEventArgs" /> instance containing the event data.</param>
         public void OnTeleport(Obj_AI_Base sender, Obj_AI_BaseTeleportEventArgs args)
         {
-            if (sender.IsEnemy)
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
             {
-                if (SpellClass.W.Ready &&
-                    MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
+                foreach (var target in ObjectManager.Get<Obj_AI_Minion>().Where(m => m.IsEnemy && m.Distance(UtilityClass.Player) <= SpellClass.W.Range))
                 {
-                    foreach (var target in GameObjects.EnemyMinions.Where(
-                        t =>
-                            t.Buffs.Any(
-                                b =>
-                                    b.Caster.IsEnemy &&
-                                    b.Name.Equals("teleport_target")) &&
-                            t.Distance(UtilityClass.Player) <= SpellClass.W.Range))
+                    if (target.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target")))
                     {
                         SpellClass.W.Cast(target.Position);
                     }
@@ -234,11 +233,6 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            /// <summary>
-            ///     Updates the spells.
-            /// </summary>
-            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.

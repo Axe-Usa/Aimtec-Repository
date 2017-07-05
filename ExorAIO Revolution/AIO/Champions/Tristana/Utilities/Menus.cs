@@ -35,8 +35,8 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("harass", "Harass"));
                     MenuClass.Q.Add(new MenuBool("buildings", "Demolish buildings"));
-                    MenuClass.Q.Add(new MenuBool("laneclear", "Laneclear"));
-                    MenuClass.Q.Add(new MenuBool("Jungleclear", "Jungleclear"));
+                    MenuClass.Q.Add(new MenuBool("laneclear", "laneclear"));
+                    MenuClass.Q.Add(new MenuBool("jungleclear", "jungleclear"));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
 
@@ -59,14 +59,14 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
-                        MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions around target >= x%", 3, 1, 10));
                     }
                     MenuClass.E.Add(MenuClass.E2);
@@ -87,7 +87,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.E.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);

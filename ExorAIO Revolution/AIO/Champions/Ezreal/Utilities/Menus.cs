@@ -37,10 +37,10 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSeperator("separator"));
-                    MenuClass.Q.Add(new MenuSeperator("separator1", "It will cast Q on the minions the"));
-                    MenuClass.Q.Add(new MenuSeperator("separator2", "orbwalker cannot reach in time to kill."));
+                    MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    //MenuClass.Q.Add(new MenuSeperator("separator"));
+                    //MenuClass.Q.Add(new MenuSeperator("separator1", "It will cast Q on the minions the"));
+                    //MenuClass.Q.Add(new MenuSeperator("separator2", "orbwalker cannot reach in time to kill."));
                     MenuClass.Q.Add(new MenuSliderBool("farmhelper", "FarmHelper / if Mana >= x%", true, 50, 0, 99));
 
                     if (GameObjects.EnemyHeroes.Any())
@@ -59,7 +59,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -72,11 +72,11 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSeperator("separator"));
-                    MenuClass.W.Add(new MenuSeperator("separator1", "If enabled, it will cast W on allies while"));
-                    MenuClass.W.Add(new MenuSeperator("separator2", "Sieging Towers, Inhibitors and Nexus"));
-                    MenuClass.W.Add(new MenuSeperator("separator3", "or doing Dragon, Baron or Herald"));
-                    MenuClass.W.Add(new MenuSeperator("separator4", "or during a Teamfight"));
+                    //MenuClass.W.Add(new MenuSeperator("separator"));
+                    //MenuClass.W.Add(new MenuSeperator("separator1", "If enabled, it will cast W on allies while"));
+                    //MenuClass.W.Add(new MenuSeperator("separator2", "Sieging Towers, Inhibitors and Nexus"));
+                    //MenuClass.W.Add(new MenuSeperator("separator3", "or doing Dragon, Baron or Herald"));
+                    //MenuClass.W.Add(new MenuSeperator("separator4", "or during a Teamfight"));
                     MenuClass.W.Add(new MenuSliderBool("logical", "Logical / if Mana >= x%", true, 50, 0, 99));
 
                     if (GameObjects.EnemyHeroes.Any())
@@ -95,7 +95,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -115,8 +115,8 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));
-                    MenuClass.R.Add(new MenuSeperator("separator2", "whitelisted and non-invulnerable enemy in range."));
+                    //MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));
+                    //MenuClass.R.Add(new MenuSeperator("separator2", "whitelisted and non-invulnerable enemy in range."));
                     MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
@@ -136,7 +136,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

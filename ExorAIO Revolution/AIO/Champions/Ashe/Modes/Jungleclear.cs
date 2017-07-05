@@ -4,6 +4,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -25,7 +26,7 @@ namespace AIO.Champions
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = (Obj_AI_Minion)args.Target;
-            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
+            if (!Extensions.GetLargeJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
             {
                 return;
             }
@@ -34,8 +35,8 @@ namespace AIO.Champions
             ///     The Jungleclear Q Logic.
             /// </summary>
             if (UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
-                MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
+                MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast();
             }
@@ -44,8 +45,8 @@ namespace AIO.Champions
             ///     The Jungleclear W Logic.
             /// </summary>
             if (UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["Jungleclear"]) &&
-                MenuClass.Spells["w"]["Jungleclear"].As<MenuSliderBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
+                MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast(jungleTarget);
             }

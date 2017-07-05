@@ -169,7 +169,7 @@
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
         private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            if (sender.IsMe)
+            if (sender is Obj_AI_Hero)
             {
                 Console.WriteLine("Name: " + args.SpellData.Name);
             }
@@ -182,7 +182,7 @@
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
         private static void OnProcessAutoAttack(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            if (sender.IsMe)
+            if (sender is Obj_AI_Hero)
             {
                 Console.WriteLine("Autoattack Name: " + args.SpellData.Name);
             }

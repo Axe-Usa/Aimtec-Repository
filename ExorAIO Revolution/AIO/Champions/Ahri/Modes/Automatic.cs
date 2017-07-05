@@ -5,6 +5,7 @@ namespace AIO.Champions
 {
     using System.Linq;
 
+    using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
@@ -33,10 +34,11 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Value)
             {
-                var range = SpellClass.E.Range;
-                var target = ImplementationClass.ITargetSelector.GetOrderedTargets(range)
-                    .FirstOrDefault(t => t.IsImmobile() && !Invulnerable.Check(t) && t.IsValidTarget(range));
-                if (target != null)
+                foreach (var target in GameObjects.EnemyHeroes.Where(
+                    t =>
+                        !t.Name.Equals("Target Dummy") &&
+                        !t.ActionState.HasFlag(ActionState.CanMove) &&
+                        t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target);
                 }

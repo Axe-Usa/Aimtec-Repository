@@ -20,7 +20,7 @@ namespace AIO.Champions
         public void Spells()
         {
             SpellClass.Q = new Spell(SpellSlot.Q, 880f);
-            SpellClass.W = new Spell(SpellSlot.W);
+            SpellClass.W = new Spell(SpellSlot.W, 700f);
             SpellClass.E = new Spell(SpellSlot.E, 975f);
             SpellClass.R = new Spell(SpellSlot.R, 450f);
 

@@ -34,7 +34,7 @@ namespace AIO.Champions
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Use Fishbones if target out of PowPow range"));
-                    MenuClass.Q.Add(new MenuSeperator("separator2"));
+                    //MenuClass.Q.Add(new MenuSeperator("separator2"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
@@ -45,18 +45,18 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Fishbones Customization:");
                     {
-                        MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.Q2.Add(new MenuSlider("splashrange", "Splash damage radius", 160, 125, 175));
-                        MenuClass.Q2.Add(new MenuSeperator("separator2"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator3", "Combo settings:"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator4", "This option will also be valid for the PowPow range."));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator2"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator3", "Combo settings:"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator4", "This option will also be valid for the PowPow range."));
                         MenuClass.Q2.Add(new MenuSliderBool("minenemies", "Use Fishbones / if hittable enemies >= x", true, 3, 2, GameObjects.EnemyHeroes.Count()));
-                        MenuClass.Q2.Add(new MenuSeperator("separator5"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator6", "Laneclear settings:"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator5"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator6", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Use Fishbones if Hittable minions >= x", 3, 2, 5));
-                        MenuClass.Q2.Add(new MenuSeperator("separator7"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator8", "Jungleclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Use Fishbones if Hittable minions >= x", 1, 2, 5));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator7"));
+                        //MenuClass.Q2.Add(new MenuSeperator("separator8", "Jungleclear settings:"));
+                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Use Fishbones if Hittable minions >= x", 2, 1, 5));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 
@@ -76,7 +76,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -107,7 +107,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -130,8 +130,8 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));
-                    MenuClass.R.Add(new MenuSeperator("separator2", "whitelisted and non-invulnerable enemy in range."));
+                    //MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));
+                    //MenuClass.R.Add(new MenuSeperator("separator2", "whitelisted and non-invulnerable enemy in range."));
                     MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
@@ -151,7 +151,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
