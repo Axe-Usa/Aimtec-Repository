@@ -132,7 +132,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
         public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead)
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
@@ -143,7 +143,7 @@ namespace AIO.Champions
             {
                 if (args.Target.IsMe)
                 {
-                    SpellClass.E.Cast(ObjectManager.GetLocalPlayer().ServerPosition.Extend(args.Sender.ServerPosition, SpellClass.E.SpellData.Range));
+                    SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.Sender.ServerPosition, SpellClass.E.SpellData.Range));
                 }
             }
         }

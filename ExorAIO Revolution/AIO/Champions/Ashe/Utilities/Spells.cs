@@ -26,7 +26,7 @@ namespace AIO.Champions
             SpellClass.E = new Spell(SpellSlot.E, 2000f);
             SpellClass.R = new Spell(SpellSlot.R, 2000f);
 
-            SpellClass.W.SetSkillshot(0.25f, (float)(67.5f * Math.PI / 180), 1500f, true, SkillType.Cone);
+            SpellClass.W.SetSkillshot(0.25f, UtilityClass.GetAngleByDegrees(67.5f), 1500f, true, SkillType.Cone);
             SpellClass.E.SetSkillshot(0.25f, 130f, 1600f, false, SkillType.Line);
             SpellClass.R.SetSkillshot(0.25f, 130f, 1600f, false, SkillType.Line);
         }

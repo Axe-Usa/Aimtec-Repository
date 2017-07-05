@@ -23,7 +23,7 @@ namespace AIO.Champions
         public void Menus()
         {
             /// <summary>
-            /// Sets the spells menu.
+            ///     Sets the spells menu.
             /// </summary>
             MenuClass.Spells = new Menu("spells", "Spells");
             {
@@ -37,6 +37,35 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("Jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the Q spell.
+                    /// </summary>
+                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    {
+                        MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Killable >= x%", 3, 1, 10));
+                    }
+                    MenuClass.Q.Add(MenuClass.Q2);
+
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the Q Harass Whitelist.
+                        /// </summary>
+                        MenuClass.WhiteList = new Menu("whitelist", "Harass: Whitelist");
+                        {
+                            foreach (var target in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                            }
+                        }
+                        MenuClass.Q.Add(MenuClass.WhiteList);
+                    }
+                    else
+                    {
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
 
@@ -67,14 +96,14 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the menu for the E Whitelist.
                     /// </summary>
-                    MenuClass.WhiteList = new Menu("whitelist", "Junglesteal Rend: Whitelist");
+                    MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Rend: Whitelist");
                     {
                         foreach (var target in Extensions.GetLargeJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                         {
-                            MenuClass.WhiteList.Add(new MenuBool(target.Name, "Rend: " + target.Name));
+                            MenuClass.WhiteList2.Add(new MenuBool(target.Name, "Rend: " + target.Name));
                         }
                     }
-                    MenuClass.E.Add(MenuClass.WhiteList);
+                    MenuClass.E.Add(MenuClass.WhiteList2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 

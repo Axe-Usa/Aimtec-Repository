@@ -32,7 +32,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"])
                 && MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var minionTargets = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Where(m => m.GetRealHealth() < ObjectManager.GetLocalPlayer().GetSpellDamage(m, SpellSlot.Q));
+                var minionTargets = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Where(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q));
                 var objAiMinions = minionTargets as Obj_AI_Minion[] ?? minionTargets.ToArray();
                 if (objAiMinions.Any())
                 {

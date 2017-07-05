@@ -6,6 +6,8 @@
 
 namespace AIO.Utilities
 {
+    using System;
+
     using Aimtec;
     using Aimtec.SDK.Extensions;
 
@@ -56,6 +58,20 @@ namespace AIO.Utilities
             }
 
             return false;
+        }
+
+        /// <summary>
+        ///     Gets the angle by 'degrees' degrees.
+        /// </summary>
+        /// <param name="degrees">
+        ///     The angle degrees.
+        /// </param>
+        /// <returns>
+        ///     The angle by 'degrees' degrees.
+        /// </returns>
+        public static float GetAngleByDegrees(float degrees)
+        {
+            return (float)(degrees * Math.PI / 180);
         }
 
         /// <summary>

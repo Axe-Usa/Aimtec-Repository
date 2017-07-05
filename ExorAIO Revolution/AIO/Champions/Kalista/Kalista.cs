@@ -6,8 +6,6 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Damage.JSON;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -47,36 +45,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Gets the total rend damage on a determined unit.
-        /// </summary>
-        public double GetTotalRendDamage(Obj_AI_Base unit)
-        {
-            var player = UtilityClass.Player;
-            return player.GetSpellDamage(unit, SpellSlot.E) +
-                   player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Buff);
-        }
-
-        /// <summary>
-        ///     Returns true if the target is a perfectly valid rend target.
-        /// </summary>
-        public bool IsPerfectRendTarget(Obj_AI_Base unit)
-        {
-            switch (unit.Type)
-            {
-                case GameObjectType.obj_AI_Minion:
-                case GameObjectType.AIHeroClient:
-                    var orbTarget = ImplementationClass.IOrbwalker.GetTarget() as Obj_AI_Hero;
-                    if (orbTarget != null && unit.IsValidTarget(orbTarget.NetworkId == unit.NetworkId ? SpellClass.E.Range : SpellClass.Q.Range))
-                    {
-                        return unit.HasBuff("kalistaexpungemarker") && (!(unit is Obj_AI_Hero) || !Invulnerable.Check((Obj_AI_Hero)unit));
-                    }
-                    break;
-            }
-
-            return false;
-        }
-
-        /// <summary>
         ///     Called on non killable minion.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -93,8 +61,9 @@ namespace AIO.Champions
                 case OrbwalkingMode.Laneclear:
                 case OrbwalkingMode.Lasthit:
                 case OrbwalkingMode.Mixed:
-                    if (SpellClass.E.Ready && this.IsPerfectRendTarget(minion) &&
-                        minion.GetRealHealth() <= this.GetTotalRendDamage(minion) &&
+                    if (SpellClass.E.Ready &&
+                        this.IsPerfectRendTarget(minion) &&
+                        minion.Health <= this.GetTotalRendDamage(minion) &&
                         MenuClass.Spells["e"]["farmhelper"].As<MenuBool>().Enabled)
                     {
                         SpellClass.E.Cast();

@@ -114,7 +114,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
         public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
                 return;
             }
@@ -122,7 +122,7 @@ namespace AIO.Champions
             if (SpellClass.E.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
                 && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Value)
             {
-                SpellClass.E.Cast(args.IsDirectedToPlayer ? ObjectManager.GetLocalPlayer().ServerPosition : args.End);
+                SpellClass.E.Cast(args.IsDirectedToPlayer ? UtilityClass.Player.ServerPosition : args.End);
             }
         }
         */

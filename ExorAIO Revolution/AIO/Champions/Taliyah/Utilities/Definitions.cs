@@ -12,7 +12,7 @@ namespace AIO.Champions
     using AIO.Utilities;
 
     /// <summary>
-    ///     The drawings class.
+    ///     The definitions class.
     /// </summary>
     internal partial class Taliyah
     {

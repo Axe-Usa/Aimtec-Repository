@@ -94,12 +94,12 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
         public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
                 return;
             }
 
-            if (SpellClass.E.State == SpellState.Ready && ObjectManager.GetLocalPlayer().Distance(args.End) < SpellClass.E.SpellData.Range - 50f
+            if (SpellClass.E.State == SpellState.Ready && UtilityClass.Player.Distance(args.End) < SpellClass.E.SpellData.Range - 50f
                 && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Value)
             {
                 SpellClass.E.Cast(args.End);
@@ -110,15 +110,15 @@ namespace AIO.Champions
             {
                 if (args.Sender.ChampionName.Equals("MasterYi"))
                 {
-                    DelayAction.Add(250, () => { SpellClass.W.Cast(ObjectManager.GetLocalPlayer().ServerPosition, args.Start); });
+                    DelayAction.Add(250, () => { SpellClass.W.Cast(UtilityClass.Player.ServerPosition, args.Start); });
                     return;
                 }
 
                 SpellClass.W.Cast(
                     args.End,
                     args.Sender.IsMelee
-                        ? ObjectManager.GetLocalPlayer().ServerPosition.Extend(args.End, ObjectManager.GetLocalPlayer().Distance(args.End) * 2)
-                        : ObjectManager.GetLocalPlayer().ServerPosition);
+                        ? UtilityClass.Player.ServerPosition.Extend(args.End, UtilityClass.Player.Distance(args.End) * 2)
+                        : UtilityClass.Player.ServerPosition);
             }
         }
 
@@ -129,7 +129,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.InterruptableTargetEventArgs" /> instance containing the event data.</param>
         public void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
                 return;
             }
@@ -137,7 +137,7 @@ namespace AIO.Champions
             if (SpellClass.W.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.W.SpellData.Range)
                 && MenuClass.Spells["w"]["interrupter"].As<MenuBool>().Value)
             {
-                SpellClass.W.Cast(args.Sender.ServerPosition, ObjectManager.GetLocalPlayer().ServerPosition);
+                SpellClass.W.Cast(args.Sender.ServerPosition, UtilityClass.Player.ServerPosition);
             }
         }
         */

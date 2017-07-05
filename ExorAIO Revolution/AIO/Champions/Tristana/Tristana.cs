@@ -133,7 +133,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
         public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead)
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
@@ -142,10 +142,10 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser W Logic.
             /// </summary>
             if (SpellClass.W.State == SpellState.Ready && args.Sender.IsMelee && args.IsDirectedToPlayer
-                && ObjectManager.GetLocalPlayer().Distance(args.End) < ObjectManager.GetLocalPlayer().FullAttackRange(Targets.Target
+                && UtilityClass.Player.Distance(args.End) < UtilityClass.Player.FullAttackRange(Targets.Target
                 && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Value)
             {
-                SpellClass.W.Cast(ObjectManager.GetLocalPlayer().ServerPosition.Extend(args.Sender.ServerPosition, -SpellClass.W.SpellData.Range));
+                SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.Sender.ServerPosition, -SpellClass.W.SpellData.Range));
             }
 
             if (Invulnerable.Check(args.Sender, DamageType.Magical, false))
@@ -160,7 +160,7 @@ namespace AIO.Champions
                 && args.Sender.IsValidTarget(SpellClass.R.SpellData.Range)
                 && MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Value)
             {
-                ObjectManager.GetLocalPlayer().SpellBook.CastSpell(SpellSlot.R, args.Sender);
+                UtilityClass.Player.SpellBook.CastSpell(SpellSlot.R, args.Sender);
             }
         }
 
@@ -171,7 +171,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.InterruptableTargetEventArgs" /> instance containing the event data.</param>
         public void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
                 return;
             }
@@ -179,7 +179,7 @@ namespace AIO.Champions
             if (SpellClass.R.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.R.SpellData.Range)
                 && MenuClass.Spells["r"]["interrupter"].As<MenuBool>().Value)
             {
-                ObjectManager.GetLocalPlayer().SpellBook.CastSpell(SpellSlot.R, args.Sender);
+                UtilityClass.Player.SpellBook.CastSpell(SpellSlot.R, args.Sender);
             }
         }
         */

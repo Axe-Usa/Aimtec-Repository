@@ -82,7 +82,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
         public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
                 return;
             }
@@ -90,7 +90,7 @@ namespace AIO.Champions
             if (SpellClass.E.State == SpellState.Ready && args.Sender.IsMelee && args.IsDirectedToPlayer
                 && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Value)
             {
-                ObjectManager.GetLocalPlayer().SpellBook.CastSpell(SpellSlot.E, ObjectManager.GetLocalPlayer());
+                UtilityClass.Player.SpellBook.CastSpell(SpellSlot.E, ObjectManager.GetLocalPlayer());
             }
         }
 
@@ -101,7 +101,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.InterruptableTargetEventArgs" /> instance containing the event data.</param>
         public void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
                 return;
             }
@@ -109,7 +109,7 @@ namespace AIO.Champions
             if (SpellClass.R.State == SpellState.Ready && ((Vector2)GetBallPosition).Distance(args.Sender.ServerPosition) < SpellClass.R.SpellData.Range
                 && MenuClass.Spells["r"]["interrupter"].As<MenuBool>().Value)
             {
-                ObjectManager.GetLocalPlayer().SpellBook.CastSpell(SpellSlot.R);
+                UtilityClass.Player.SpellBook.CastSpell(SpellSlot.R);
             }
         }
         */

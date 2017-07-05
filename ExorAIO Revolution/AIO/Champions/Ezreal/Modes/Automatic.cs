@@ -65,7 +65,7 @@ namespace AIO.Champions
                 }
             }
 
-            if (ObjectManager.GetLocalPlayer().TotalAttackDamage < ObjectManager.GetLocalPlayer().TotalAbilityDamage)
+            if (UtilityClass.Player.TotalAttackDamage < UtilityClass.Player.TotalAbilityDamage)
             {
                 return;
             }

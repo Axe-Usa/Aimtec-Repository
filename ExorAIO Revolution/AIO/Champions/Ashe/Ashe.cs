@@ -103,7 +103,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
         public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead)
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
@@ -126,7 +126,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.InterruptableTargetEventArgs" /> instance containing the event data.</param>
         public void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
                 return;
             }

@@ -68,7 +68,7 @@ namespace AIO.Champions
             {
                 if (UtilityClass.Player.HasItem(ItemId.RunaansHurricane))
                 {
-                    ObjectManager.GetLocalPlayer().SpellBook.CastSpell(SpellSlot.W);
+                    UtilityClass.Player.SpellBook.CastSpell(SpellSlot.W);
                 }
             }
         }

@@ -143,7 +143,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
         public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
-            if (ObjectManager.GetLocalPlayer().IsDead)
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
@@ -151,7 +151,7 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser W Logic.
             /// </summary>
-            if (SpellClass.W.State == SpellState.Ready && ObjectManager.GetLocalPlayer().Distance(args.End) < SpellClass.W.SpellData.Range
+            if (SpellClass.W.State == SpellState.Ready && UtilityClass.Player.Distance(args.End) < SpellClass.W.SpellData.Range
                 && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Value)
             {
                 SpellClass.W.Cast(args.End);

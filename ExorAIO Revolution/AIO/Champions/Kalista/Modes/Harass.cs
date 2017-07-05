@@ -35,10 +35,10 @@ namespace AIO.Champions
             ///     The Q Harass Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                !Invulnerable.Check(bestTarget) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
-                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
+                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled &&
+                MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {
                 var collisions = SpellClass.Q.GetPrediction(bestTarget).Collisions;
                 if (collisions.Any())

@@ -2,6 +2,9 @@
 {
     using Aimtec.SDK;
 
+    /// <summary>
+    ///     The Spell class.
+    /// </summary>
     internal static class SpellClass
     {
         #region Public Properties
