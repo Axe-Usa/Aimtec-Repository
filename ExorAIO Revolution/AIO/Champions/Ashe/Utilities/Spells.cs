@@ -5,7 +5,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Prediction.Skillshots;
 
-    using Utilities;
+    using AIO.Utilities;
 
     using Spell = Aimtec.SDK.Spell;
 
@@ -19,7 +19,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Initializes the spells.
         /// </summary>
-        public static void Spells()
+        public void Spells()
         {
             SpellClass.Q = new Spell(SpellSlot.Q);
             SpellClass.W = new Spell(SpellSlot.W, UtilityClass.Player.BoundingRadius + 1200f);

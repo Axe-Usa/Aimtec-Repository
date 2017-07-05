@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -22,7 +22,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void Jungleclear(object sender, PostAttackEventArgs args)
+        public void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = (Obj_AI_Minion)args.Target;
             if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
@@ -34,7 +34,7 @@ namespace AIO.Champions
             ///     The Jungleclear Q Logic.
             /// </summary>
             if (UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
                 MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast();
@@ -44,7 +44,7 @@ namespace AIO.Champions
             ///     The Jungleclear W Logic.
             /// </summary>
             if (UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["Jungleclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["Jungleclear"]) &&
                 MenuClass.Spells["w"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast(jungleTarget);

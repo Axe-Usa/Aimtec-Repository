@@ -1,23 +1,10 @@
 ﻿namespace AIO.Utilities
 {
-    using Spell = Aimtec.SDK.Spell;
+    using Aimtec.SDK;
 
-    internal class SpellClass
+    internal static class SpellClass
     {
-        /// <summary>
-        ///     Gets or sets the Q Spell.
-        /// </summary>
-        public static Spell Q { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the 2nd stage of the Q Spell.
-        /// </summary>
-        public static Spell Q2 { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the W Spell.
-        /// </summary>
-        public static Spell W { get; set; }
+        #region Public Properties
 
         /// <summary>
         ///     Gets or sets the E Spell.
@@ -30,6 +17,16 @@
         public static Spell E2 { get; set; }
 
         /// <summary>
+        ///     Gets or sets the Q Spell.
+        /// </summary>
+        public static Spell Q { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the 2nd stage of the Q Spell.
+        /// </summary>
+        public static Spell Q2 { get; set; }
+
+        /// <summary>
         ///     Gets or sets the R Spell.
         /// </summary>
         public static Spell R { get; set; }
@@ -38,5 +35,12 @@
         ///     Gets or sets the R2 Spell.
         /// </summary>
         public static Spell R2 { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the W Spell.
+        /// </summary>
+        public static Spell W { get; set; }
+
+        #endregion
     }
 }

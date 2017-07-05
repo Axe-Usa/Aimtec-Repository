@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Combo()
+        public void Combo()
         {
             var heroTarget = Extensions.GetBestEnemyHeroTarget();
             if (!heroTarget.IsValidTarget() ||
@@ -38,10 +38,10 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
             {
                 if ((!heroTarget.IsUnderEnemyTurret() ||
-                    !MenuClass.Spells["r"]["customization"]["safe"].As<MenuBool>().Enabled) &&
+                     !MenuClass.Spells["r"]["customization"]["safe"].As<MenuBool>().Enabled) &&
                     (UtilityClass.Player.GetBuffCount("AkaliShadowDance") >
-                        MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSliderBool>().Value ||
-                    !MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSliderBool>().Enabled) &&
+                     MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSliderBool>().Value ||
+                     !MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSliderBool>().Enabled) &&
                     MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].Enabled)
                 {
                     SpellClass.R.CastOnUnit(heroTarget);
@@ -66,7 +66,7 @@ namespace AIO.Champions
                 !heroTarget.IsValidTarget(SpellClass.R.Range) &&
                 heroTarget.IsValidTarget(SpellClass.R.Range * 2) &&
                 UtilityClass.Player.GetBuffCount("AkaliShadowDance")
-                    >= MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value &&
+                >= MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Enabled)
             {
                 var bestMinion = Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.R.Range)

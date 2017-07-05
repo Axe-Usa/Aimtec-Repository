@@ -11,7 +11,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -23,7 +23,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Automatic()
+        public void Automatic()
         {
             if (UtilityClass.Player.IsRecalling())
             {
@@ -33,10 +33,8 @@ namespace AIO.Champions
             /// <summary>
             ///     The Automatic R Logic.
             /// </summary>
-            if (SpellClass.R.Ready &&
-                SoulBound.IsValidTarget(SpellClass.R.Range) &&
-                SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
-                UtilityClass.IHealthPrediction.GetPrediction(SoulBound, 250 + Game.Ping) <= SoulBound.MaxHealth / 4 &&
+            if (SpellClass.R.Ready && this.SoulBound.IsValidTarget(SpellClass.R.Range) && this.SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
+                UtilityClass.IHealthPrediction.GetPrediction(this.SoulBound, 250 + Game.Ping) <= this.SoulBound.MaxHealth / 4 &&
                 MenuClass.Spells["r"]["lifesaver"].As<MenuBool>().Enabled)
             {
                 SpellClass.R.Cast();
@@ -51,12 +49,13 @@ namespace AIO.Champions
                 UtilityClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 UtilityClass.Player.CountEnemyHeroesInRange(1500f) == 0 &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
+                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
                 MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
             {
-                foreach (var loc in Locations.Where(l =>
-                    UtilityClass.Player.Distance(l) <= SpellClass.W.Range &&
-                    !ObjectManager.Get<Obj_AI_Minion>().Any(m => m.Distance(l) <= 1000f && m.UnitSkinName.Equals("KalistaSpawn"))))
+                foreach (var loc in this.Locations.Where(
+                    l =>
+                        UtilityClass.Player.Distance(l) <= SpellClass.W.Range &&
+                        !ObjectManager.Get<Obj_AI_Minion>().Any(m => m.Distance(l) <= 1000f && m.UnitSkinName.Equals("KalistaSpawn"))))
                 {
                     SpellClass.W.Cast(loc);
                 }
@@ -76,8 +75,8 @@ namespace AIO.Champions
                     SpellClass.E.Cast();
                 }
 
-                var validMinions = Extensions.GetAllGenericMinionsTargets().Where(m => IsPerfectRendTarget(m) && m.GetRealHealth() < GetTotalRendDamage(m));
-                var validTargets = GameObjects.EnemyHeroes.Where(IsPerfectRendTarget);
+                var validMinions = Extensions.GetAllGenericMinionsTargets().Where(m => this.IsPerfectRendTarget(m) && m.GetRealHealth() < this.GetTotalRendDamage(m));
+                var validTargets = GameObjects.EnemyHeroes.Where(this.IsPerfectRendTarget);
 
                 var rendableHeroes = validTargets as IList<Obj_AI_Hero> ?? validTargets.ToList();
                 var rendableMinions = validMinions as IList<Obj_AI_Minion> ?? validMinions.ToList();
@@ -98,8 +97,8 @@ namespace AIO.Champions
                 {
                     foreach (var minion in Extensions.GetLargeJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                     {
-                        if (IsPerfectRendTarget(minion) &&
-                            minion.Health < GetTotalRendDamage(minion) &&
+                        if (this.IsPerfectRendTarget(minion) &&
+                            minion.Health < this.GetTotalRendDamage(minion) &&
                             MenuClass.WhiteList[minion.Name].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();

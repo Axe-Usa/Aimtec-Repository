@@ -13,7 +13,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        public static void Automatic()
+        public void Automatic()
         {
         }
 

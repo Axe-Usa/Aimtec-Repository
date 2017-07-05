@@ -10,7 +10,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -24,14 +24,14 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public static void Harass(object sender, PreAttackEventArgs args)
+        public void Harass(object sender, PreAttackEventArgs args)
         {
             /// <summary>
             ///     The Harass Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value &&
+                > MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 if (!UtilityClass.Player.HasBuff("JinxQ"))
@@ -48,7 +48,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Harass()
+        public void Harass()
         {
             var bestTarget = Extensions.GetBestEnemyHeroTarget();
             if (!bestTarget.IsValidTarget() ||
@@ -63,7 +63,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 bestTarget.IsValidTarget(SpellClass.W.Range) &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
+                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
                 MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {

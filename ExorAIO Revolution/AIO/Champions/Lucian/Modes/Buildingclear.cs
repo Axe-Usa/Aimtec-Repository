@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -22,7 +22,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void Buildingclear(object sender, PostAttackEventArgs args)
+        public void Buildingclear(object sender, PostAttackEventArgs args)
         {
             var target = args.Target;
             if (!target.IsBuilding())
@@ -35,7 +35,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
+                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
                 MenuClass.Spells["e"]["buildings"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.E.Cast(UtilityClass.Player.Position.Extend(Game.CursorPos, 25));
@@ -47,7 +47,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["buildings"]) &&
+                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["buildings"]) &&
                 MenuClass.Spells["w"]["buildings"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast(Game.CursorPos);

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly:
     AssemblyDescription(
         "~The goal comes closer.~ List of Supported Champions: Akali, Amumu, Anivia, Ashe, Caitlyn, Cassiopeia, Corki, Darius, Diana, Draven, Dr. Mundo, Evelynn, Ezreal, Graves, Jax, Jhin, Jinx, Kalista, Karma, Karthus, Kog'Maw, Lucian, Lux, Nautilus, Nocturne, Nunu, Olaf, Pantheon, Quinn, Renekton, Ryze, Sivir, Taliyah, Tristana, Tryndamere, Twitch, Udyr, Vayne, Veigar, Warwick."
-        )]
+    )]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aimtec")]
 [assembly: AssemblyProduct("ExorAIO Revolution")]

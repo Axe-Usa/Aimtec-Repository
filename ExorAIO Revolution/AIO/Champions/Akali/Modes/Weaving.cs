@@ -7,7 +7,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void Weaving(object sender, PostAttackEventArgs args)
+        public void Weaving(object sender, PostAttackEventArgs args)
         {
             var heroTarget = args.Target as Obj_AI_Hero;
             if (heroTarget == null || Invulnerable.Check(heroTarget, DamageType.Physical))

@@ -1,4 +1,5 @@
-﻿#pragma warning disable 1587
+﻿
+#pragma warning disable 1587
 namespace AIO
 {
     using Aimtec;
@@ -10,6 +11,8 @@ namespace AIO
     /// </summary>
     internal partial class General
     {
+        #region Public Methods and Operators
+
         /// <summary>
         ///     Loads the methods.
         /// </summary>
@@ -18,5 +21,7 @@ namespace AIO
             SpellBook.OnCastSpell += OnCastSpell;
             UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
         }
+
+        #endregion
     }
 }

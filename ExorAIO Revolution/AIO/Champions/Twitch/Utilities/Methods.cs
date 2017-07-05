@@ -14,12 +14,12 @@ namespace AIO.Champions
         /// <summary>
         ///     The methods.
         /// </summary>
-        public static void Methods()
+        public void Methods()
         {
-            Game.OnUpdate += OnUpdate;
-            UtilityClass.IOrbwalker.PostAttack += OnPostAttack;
-            SpellBook.OnCastSpell += OnCastSpell;
-            RenderManager.OnPresent += OnPresent;
+            Game.OnUpdate += this.OnUpdate;
+            UtilityClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            SpellBook.OnCastSpell += this.OnCastSpell;
+            RenderManager.OnPresent += this.OnPresent;
         }
 
         #endregion

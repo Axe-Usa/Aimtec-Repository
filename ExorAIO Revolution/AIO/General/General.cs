@@ -1,4 +1,5 @@
-﻿#pragma warning disable 1587
+﻿
+#pragma warning disable 1587
 namespace AIO
 {
     using System.Linq;
@@ -16,6 +17,8 @@ namespace AIO
     /// </summary>
     internal partial class General
     {
+        #region Public Methods and Operators
+
         /// <summary>
         ///     Called on spell cast.
         /// </summary>
@@ -82,5 +85,7 @@ namespace AIO
                     break;
             }
         }
+
+        #endregion
     }
 }

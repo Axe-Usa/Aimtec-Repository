@@ -3,7 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using Aimtec;
@@ -13,77 +12,54 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Kalista
     {
-        #region Static Fields
+        #region Constructors and Destructors
 
         /// <summary>
-        ///     Gets all the important jungle locations.
+        ///     Loads Kalista.
         /// </summary>
-        internal static readonly List<Vector3> Locations = new List<Vector3>
-                                                           {
-                                                               new Vector3(9827.56f, -71.2406f, 4426.136f),
-                                                               new Vector3(4951.126f, -71.2406f, 10394.05f),
-                                                               new Vector3(10998.14f, 51.72351f, 6954.169f),
-                                                               new Vector3(7082.083f, 56.2041f, 10838.25f),
-                                                               new Vector3(3804.958f, 52.11121f, 7875.456f),
-                                                               new Vector3(7811.249f, 53.81299f, 4034.486f)
-                                                           };
+        public Kalista()
+        {
+            /// <summary>
+            ///     Initializes the menus.
+            /// </summary>
+            this.Menus();
 
-        #endregion
+            /// <summary>
+            ///     Initializes the spells.
+            /// </summary>
+            this.Spells();
 
-        #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets the SoulBound.
-        /// </summary>
-        public static Obj_AI_Hero SoulBound;
+            /// <summary>
+            ///     Initializes the methods.
+            /// </summary>
+            this.Methods();
+        }
 
         #endregion
 
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Loads Kalista.
+        ///     Gets the total rend damage on a determined unit.
         /// </summary>
-        public static void OnLoad()
+        public double GetTotalRendDamage(Obj_AI_Base unit)
         {
-            /// <summary>
-            ///     Initializes the menus.
-            /// </summary>
-            Menus();
-
-            /// <summary>
-            ///     Initializes the spells.
-            /// </summary>
-            Spells();
-
-            /// <summary>
-            ///     Initializes the methods.
-            /// </summary>
-            Methods();
-        }
-
-        /// <summary>
-        ///     Fired on present.
-        /// </summary>
-        public static void OnPresent()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            Drawings();
+            var player = UtilityClass.Player;
+            return player.GetSpellDamage(unit, SpellSlot.E) +
+                   player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Buff);
         }
 
         /// <summary>
         ///     Returns true if the target is a perfectly valid rend target.
         /// </summary>
-        public static bool IsPerfectRendTarget(Obj_AI_Base unit)
+        public bool IsPerfectRendTarget(Obj_AI_Base unit)
         {
             switch (unit.Type)
             {
@@ -101,13 +77,51 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Gets the total rend damage on a determined unit.
+        ///     Called on non killable minion.
         /// </summary>
-        public static double GetTotalRendDamage(Obj_AI_Base unit)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="NonKillableMinionEventArgs" /> instance containing the event data.</param>
+        public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
         {
-            var player = UtilityClass.Player;
-            return player.GetSpellDamage(unit, SpellSlot.E) +
-                   player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Buff);
+            var minion = (Obj_AI_Minion)args.Target;
+
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (UtilityClass.IOrbwalker.Mode)
+            {
+                case OrbwalkingMode.Laneclear:
+                case OrbwalkingMode.Lasthit:
+                case OrbwalkingMode.Mixed:
+                    if (SpellClass.E.Ready && this.IsPerfectRendTarget(minion) &&
+                        minion.GetRealHealth() <= this.GetTotalRendDamage(minion) &&
+                        MenuClass.Spells["e"]["farmhelper"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.E.Cast();
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        ///     Called on post attack.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPostAttack(object sender, PostAttackEventArgs args)
+        {
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (UtilityClass.IOrbwalker.Mode)
+            {
+                case OrbwalkingMode.Combo:
+                    this.Weaving(sender, args);
+                    break;
+                case OrbwalkingMode.Laneclear:
+                    this.Jungleclear(sender, args);
+                    break;
+            }
         }
 
         /// <summary>
@@ -115,7 +129,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public static void OnPreAttack(object sender, PreAttackEventArgs args)
+        public void OnPreAttack(object sender, PreAttackEventArgs args)
         {
             /// <summary>
             ///     The Target Forcing Logic.
@@ -123,7 +137,8 @@ namespace AIO.Champions
             if (MenuClass.Miscellaneous["focusw"].As<MenuBool>().Enabled)
             {
                 var orbTarget = args.Target as Obj_AI_Hero;
-                var forceTarget = Extensions.GetBestEnemyHeroesTargets().FirstOrDefault(t =>
+                var forceTarget = Extensions.GetBestEnemyHeroesTargets().FirstOrDefault(
+                    t =>
                         t.HasBuff("kalistacoopstrikemarkally") &&
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
 
@@ -137,24 +152,14 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Called on post attack.
+        ///     Fired on present.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void OnPostAttack(object sender, PostAttackEventArgs args)
+        public void OnPresent()
         {
             /// <summary>
-            ///     Initializes the orbwalkingmodes.
+            ///     Initializes the drawings.
             /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
-            {
-                case OrbwalkingMode.Combo:
-                    Weaving(sender, args);
-                    break;
-                case OrbwalkingMode.Laneclear:
-                    Jungleclear(sender, args);
-                    break;
-            }
+            this.Drawings();
         }
 
         /// <summary>
@@ -162,49 +167,25 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
             var target = args.Target;
             if (sender.IsMe &&
                 target != null && target is Obj_AI_Hero &&
                 args.SpellData.Name.Equals("KalistaPInvocation"))
             {
-                SoulBound = (Obj_AI_Hero)target;
+                this.SoulBound = (Obj_AI_Hero)target;
             }
         }
 
-        /// <summary>
-        ///     Called on non killable minion.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="NonKillableMinionEventArgs" /> instance containing the event data.</param>
-        public static void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
-        {
-            var minion = (Obj_AI_Minion)args.Target;
+        #endregion
 
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
-            {
-                case OrbwalkingMode.Laneclear:
-                case OrbwalkingMode.Lasthit:
-                case OrbwalkingMode.Mixed:
-                    if (SpellClass.E.Ready &&
-                        IsPerfectRendTarget(minion) &&
-                        minion.GetRealHealth() <= GetTotalRendDamage(minion) &&
-                        MenuClass.Spells["e"]["farmhelper"].As<MenuBool>().Enabled)
-                    {
-                        SpellClass.E.Cast();
-                    }
-                    break;
-            }
-        }
+        #region Methods
 
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        private static void OnUpdate()
+        private void OnUpdate()
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -214,12 +195,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            Automatic();
+            this.Automatic();
 
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            Killsteal();
+            this.Killsteal();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -227,13 +208,13 @@ namespace AIO.Champions
             switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    Combo();
+                    this.Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    Harass();
+                    this.Harass();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    Laneclear();
+                    this.Laneclear();
                     break;
             }
         }

@@ -1,4 +1,5 @@
-﻿#pragma warning disable 1587
+﻿
+#pragma warning disable 1587
 namespace AIO.Champions
 {
     using Aimtec;
@@ -7,19 +8,21 @@ namespace AIO.Champions
     using Aimtec.SDK.Orbwalking;
     using Aimtec.SDK.Prediction;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Vayne
     {
+        #region Public Methods and Operators
+
         /// <summary>
         ///     Called on post attack.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void Jungleclear(object sender, PostAttackEventArgs args)
+        public void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = (Obj_AI_Minion)UtilityClass.IOrbwalker.GetTarget();
             if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
@@ -32,23 +35,23 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["Jungleclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["Jungleclear"]) &&
                 MenuClass.Spells["e"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 if (!Extensions.GetLegendaryJungleMinionsTargets().Contains(jungleTarget))
                 {
                     var playerPos = UtilityClass.Player.Position;
                     var firstPredictionInput = new PredictionInput
-                                                    {
-                                                        Delay = SpellClass.E.Delay,
-                                                        Radius = SpellClass.E.Width,
-                                                        From = UtilityClass.Player.Position,
-                                                        Range = SpellClass.E.Range,
-                                                        SkillType = SpellClass.E.Type,
-                                                        Speed = SpellClass.E.Speed,
-                                                        Target = jungleTarget,
-                                                        Unit = UtilityClass.Player
-                                                    };
+                                                   {
+                                                       Delay = SpellClass.E.Delay,
+                                                       Radius = SpellClass.E.Width,
+                                                       From = UtilityClass.Player.Position,
+                                                       Range = SpellClass.E.Range,
+                                                       SkillType = SpellClass.E.Type,
+                                                       Speed = SpellClass.E.Speed,
+                                                       Target = jungleTarget,
+                                                       Unit = UtilityClass.Player
+                                                   };
                     var secondPredictionInput = new PredictionInput
                                                     {
                                                         Delay = SpellClass.E2.Delay,
@@ -85,11 +88,13 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["Jungleclear"]) &&
                 MenuClass.Spells["q"]["Jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast(Game.CursorPos);
             }
         }
+
+        #endregion
     }
 }

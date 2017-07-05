@@ -17,7 +17,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void Buildingclear(object sender, PostAttackEventArgs args)
+        public void Buildingclear(object sender, PostAttackEventArgs args)
         {
         }
 

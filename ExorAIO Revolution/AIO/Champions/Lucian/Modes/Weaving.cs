@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -22,7 +22,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void Weaving(object sender, PostAttackEventArgs args)
+        public void Weaving(object sender, PostAttackEventArgs args)
         {
             var heroTarget = args.Target as Obj_AI_Hero;
             if (heroTarget == null)
@@ -39,9 +39,10 @@ namespace AIO.Champions
                 switch (MenuClass.Spells["e"]["mode"].As<MenuList>().Value)
                 {
                     case 0:
-                        var point = UtilityClass.Player.Position.Extend(Game.CursorPos, UtilityClass.Player.Distance(Game.CursorPos) < UtilityClass.Player.AttackRange
-                                ? UtilityClass.Player.BoundingRadius
-                                : 475f);
+                        var point = UtilityClass.Player.Position.Extend(
+                            Game.CursorPos, UtilityClass.Player.Distance(Game.CursorPos) < UtilityClass.Player.AttackRange
+                                                ? UtilityClass.Player.BoundingRadius
+                                                : 475f);
                         SpellClass.E.Cast(point);
                         return;
 

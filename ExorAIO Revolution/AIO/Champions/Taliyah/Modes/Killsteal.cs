@@ -7,7 +7,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -19,7 +19,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        public static void Killsteal()
+        public void Killsteal()
         {
             /// <summary>
             ///     The KillSteal Q Logic.

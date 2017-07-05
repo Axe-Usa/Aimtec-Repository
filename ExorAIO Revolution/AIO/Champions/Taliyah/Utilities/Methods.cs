@@ -12,13 +12,13 @@ namespace AIO.Champions
         /// <summary>
         ///     Initializes the methods.
         /// </summary>
-        public static void Methods()
+        public void Methods()
         {
-            Game.OnUpdate += OnUpdate;
-            GameObject.OnCreate += OnCreate;
-            GameObject.OnDestroy += OnDestroy;
-            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-            RenderManager.OnPresent += OnPresent;
+            Game.OnUpdate += this.OnUpdate;
+            GameObject.OnCreate += this.OnCreate;
+            GameObject.OnDestroy += this.OnDestroy;
+            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
+            RenderManager.OnPresent += this.OnPresent;
 
             /*
             Events.OnGapCloser += Taliyah.OnGapCloser;

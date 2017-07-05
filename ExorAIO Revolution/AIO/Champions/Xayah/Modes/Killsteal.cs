@@ -7,7 +7,7 @@ namespace AIO.Champions
 
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -19,7 +19,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Killsteal()
+        public void Killsteal()
         {
             /// <summary>
             ///     The KillSteal E Logic.
@@ -27,9 +27,9 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                if (GameObjects.EnemyHeroes.Any(h =>
-                        IsPerfectFeatherTarget(h) &&
-                        h.GetRealHealth() < GetPerfectFeatherDamage(h, CountFeathersHitOnUnit(h))))
+                if (GameObjects.EnemyHeroes.Any(
+                    h => this.IsPerfectFeatherTarget(h) &&
+                         h.GetRealHealth() < this.GetPerfectFeatherDamage(h, this.CountFeathersHitOnUnit(h))))
                 {
                     SpellClass.E.Cast();
                 }

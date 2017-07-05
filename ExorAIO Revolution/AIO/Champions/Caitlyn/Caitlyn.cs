@@ -10,93 +10,41 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Caitlyn
     {
-        #region Public Methods and Operators
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Loads Caitlyn.
         /// </summary>
-        public static void OnLoad()
+        public Caitlyn()
         {
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            Menus();
+            this.Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            Methods();
+            this.Methods();
         }
 
-        /// <summary>
-        ///     Fired on present.
-        /// </summary>
-        public static void OnPresent()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            Drawings();
-        }
+        #endregion
 
-        /// <summary>
-        ///     Called on teleport issued.
-        /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseTeleportEventArgs" /> instance containing the event data.</param>
-        public static void OnTeleport(Obj_AI_Base sender, Obj_AI_BaseTeleportEventArgs args)
-        {
-            if (sender.IsEnemy)
-            {
-                if (SpellClass.W.Ready &&
-                    MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
-                {
-                    foreach (var target in GameObjects.EnemyMinions.Where(t =>
-                        t.Buffs.Any(b =>
-                            b.Caster.IsEnemy &&
-                            b.Name.Equals("teleport_target")) &&
-                        t.Distance(UtilityClass.Player) <= SpellClass.W.Range))
-                    {
-                        SpellClass.W.Cast(target.Position);
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Called on do-cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void OnPostAttack(object sender, PostAttackEventArgs args)
-        {
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
-            {
-                case OrbwalkingMode.Combo:
-                    Weaving(sender, args);
-                    break;
-                case OrbwalkingMode.Laneclear:
-                    Jungleclear(sender, args);
-                    break;
-            }
-        }
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Fired on spell cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
-        public static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
+        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
             if (sender.IsMe)
             {
@@ -130,8 +78,40 @@ namespace AIO.Champions
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPostAttack(object sender, PostAttackEventArgs args)
+        {
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (UtilityClass.IOrbwalker.Mode)
+            {
+                case OrbwalkingMode.Combo:
+                    this.Weaving(sender, args);
+                    break;
+                case OrbwalkingMode.Laneclear:
+                    this.Jungleclear(sender, args);
+                    break;
+            }
+        }
+
+        /// <summary>
+        ///     Fired on present.
+        /// </summary>
+        public void OnPresent()
+        {
+            /// <summary>
+            ///     Initializes the drawings.
+            /// </summary>
+            this.Drawings();
+        }
+
+        /// <summary>
+        ///     Called on do-cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
             if (sender.IsMe)
             {
@@ -161,13 +141,39 @@ namespace AIO.Champions
             }
         }
 
+        /// <summary>
+        ///     Called on teleport issued.
+        /// </summary>
+        /// <param name="sender">The object.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseTeleportEventArgs" /> instance containing the event data.</param>
+        public void OnTeleport(Obj_AI_Base sender, Obj_AI_BaseTeleportEventArgs args)
+        {
+            if (sender.IsEnemy)
+            {
+                if (SpellClass.W.Ready &&
+                    MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
+                {
+                    foreach (var target in GameObjects.EnemyMinions.Where(
+                        t =>
+                            t.Buffs.Any(
+                                b =>
+                                    b.Caster.IsEnemy &&
+                                    b.Name.Equals("teleport_target")) &&
+                            t.Distance(UtilityClass.Player) <= SpellClass.W.Range))
+                    {
+                        SpellClass.W.Cast(target.Position);
+                    }
+                }
+            }
+        }
+
         /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public static void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
             if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
@@ -195,7 +201,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="Events.InterruptableTargetEventArgs" /> instance containing the event data.</param>
-        public static void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
+        public void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
         {
             if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
@@ -222,7 +228,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void OnUpdate()
+        public void OnUpdate()
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -232,12 +238,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            Spells();
+            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            Killsteal();
+            this.Killsteal();
 
             if (UtilityClass.IOrbwalker.IsWindingUp)
             {
@@ -247,7 +253,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            Automatic();
+            this.Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -255,15 +261,15 @@ namespace AIO.Champions
             switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    Combo();
+                    this.Combo();
                     break;
 
                 case OrbwalkingMode.Mixed:
-                    Harass();
+                    this.Harass();
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    Laneclear();
+                    this.Laneclear();
                     break;
             }
         }

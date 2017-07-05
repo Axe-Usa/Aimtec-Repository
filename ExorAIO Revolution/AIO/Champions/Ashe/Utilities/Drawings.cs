@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The drawings class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Initializes the menus.
         /// </summary>
-        public static void Drawings()
+        public void Drawings()
         {
             /// <summary>
             ///     Loads the W drawing.

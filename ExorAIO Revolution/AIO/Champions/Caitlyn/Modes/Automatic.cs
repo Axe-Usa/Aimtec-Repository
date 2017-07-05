@@ -10,7 +10,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -22,7 +22,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Automatic()
+        public void Automatic()
         {
             if (UtilityClass.Player.IsRecalling())
             {
@@ -35,10 +35,11 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                    !t.Name.Equals("Target Dummy") &&
-                    !t.ActionState.HasFlag(ActionState.CanMove) &&
-                    t.Distance(UtilityClass.Player) < SpellClass.W.Range))
+                foreach (var target in GameObjects.EnemyHeroes.Where(
+                    t =>
+                        !t.Name.Equals("Target Dummy") &&
+                        !t.ActionState.HasFlag(ActionState.CanMove) &&
+                        t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
                     SpellClass.W.Cast(target.Position);
                 }
@@ -52,10 +53,11 @@ namespace AIO.Champions
                 UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) <= 3 &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                    t.IsValidTarget(SpellClass.Q.Range) &&
-                    !Invulnerable.Check(t, DamageType.Physical) &&
-                    t.HasBuff("caitlynyordletrapdebuff")))
+                foreach (var target in GameObjects.EnemyHeroes.Where(
+                    t =>
+                        t.IsValidTarget(SpellClass.Q.Range) &&
+                        !Invulnerable.Check(t, DamageType.Physical) &&
+                        t.HasBuff("caitlynyordletrapdebuff")))
                 {
                     SpellClass.Q.Cast(target);
                 }
@@ -69,10 +71,11 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
                 var bestTarget = GameObjects.EnemyHeroes
-                    .Where(t =>
-                        t.IsValidTarget(SpellClass.R.Range) &&
-                        !Invulnerable.Check(t, DamageType.Physical, false) &&
-                        MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    .Where(
+                        t =>
+                            t.IsValidTarget(SpellClass.R.Range) &&
+                            !Invulnerable.Check(t, DamageType.Physical, false) &&
+                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .OrderBy(o => o.Health)
                     .FirstOrDefault();
                 if (bestTarget != null)

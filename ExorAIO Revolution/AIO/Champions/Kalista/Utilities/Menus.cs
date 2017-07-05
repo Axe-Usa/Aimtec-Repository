@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The menu class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Sets the menu.
         /// </summary>
-        public static void Menus()
+        public void Menus()
         {
             /// <summary>
             /// Sets the spells menu.

@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        public static void Automatic()
+        public void Automatic()
         {
             if (UtilityClass.Player.IsRecalling())
             {
@@ -32,9 +32,10 @@ namespace AIO.Champions
             ///     The Automatic R Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                GameObjects.EnemyHeroes.Count(t =>
-                    !Invulnerable.Check(t, DamageType.Magical) &&
-                    t.IsValidTarget(SpellClass.R.Width-t.BoundingRadius, false, BallPosition)) >=
+                GameObjects.EnemyHeroes.Count(
+                    t =>
+                        !Invulnerable.Check(t, DamageType.Magical) &&
+                        t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius, false, this.BallPosition)) >=
                 MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
             {

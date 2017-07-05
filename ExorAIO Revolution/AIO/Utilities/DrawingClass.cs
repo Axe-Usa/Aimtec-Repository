@@ -1,16 +1,18 @@
-
 // ReSharper disable ArrangeMethodOrOperatorBody
+
+
 #pragma warning disable 1587
 
 namespace AIO.Utilities
 {
     using System.Collections.Generic;
+
     using Aimtec;
 
     /// <summary>
     ///     The drawings class.
     /// </summary>
-    internal class DrawingClass
+    internal static class DrawingClass
     {
         #region Static Fields
 
@@ -30,60 +32,29 @@ namespace AIO.Utilities
         public static int SWidth = 103;
 
         /// <summary>
-        ///     The jungle HP bar offset.
-        /// </summary>
-        internal class JungleHpBarOffset
-        {
-            #region Fields
-
-            /// <summary>
-            ///     The name.
-            /// </summary>
-            internal string UnitSkinName;
-
-            /// <summary>
-            ///     The height.
-            /// </summary>
-            internal int Height;
-
-            /// <summary>
-            ///     The width.
-            /// </summary>
-            internal int Width;
-
-            /// <summary>
-            ///     The XOffset.
-            /// </summary>
-            internal int XOffset;
-
-            /// <summary>
-            ///     The YOffset.
-            /// </summary>
-            internal int YOffset;
-
-            #endregion
-        }
-
-        /// <summary>
         ///     The jungle HP bar offset list.
         /// </summary>
         internal static readonly List<JungleHpBarOffset> JungleHpBarOffsetList = new List<JungleHpBarOffset>
-        {
-            new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Air",   Width = 140, Height = 4,  XOffset = 12, YOffset = 24 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Fire",  Width = 140, Height = 4,  XOffset = 12, YOffset = 24 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Water", Width = 140, Height = 4,  XOffset = 12, YOffset = 24 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Earth", Width = 140, Height = 4,  XOffset = 12, YOffset = 24 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Elder", Width = 140, Height = 4,  XOffset = 12, YOffset = 24 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Baron",        Width = 190, Height = 10, XOffset = 16, YOffset = 24 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_RiftHerald",   Width = 139, Height = 6,  XOffset = 12, YOffset = 22 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Red",          Width = 139, Height = 4,  XOffset = 12, YOffset = 24 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Blue",         Width = 139, Height = 4,  XOffset = 12, YOffset = 24 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Gromp",        Width = 86,  Height = 2,  XOffset = 1,  YOffset = 7 },
-            new JungleHpBarOffset { UnitSkinName = "Sru_Crab",         Width = 61,  Height = 2,  XOffset = 1,  YOffset = 5 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Krug",         Width = 79,  Height = 2,  XOffset = 1,  YOffset = 7 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Razorbeak",    Width = 74,  Height = 2,  XOffset = 1,  YOffset = 7 },
-            new JungleHpBarOffset { UnitSkinName = "SRU_Murkwolf",     Width = 74,  Height = 2,  XOffset = 1,  YOffset = 7 }
-        };
+                                                                                     {
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Air", Width = 140, Height = 4, XOffset = 12, YOffset = 24 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Fire", Width = 140, Height = 4, XOffset = 12, YOffset = 24 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Water", Width = 140, Height = 4, XOffset = 12, YOffset = 24 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Earth", Width = 140, Height = 4, XOffset = 12, YOffset = 24 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Dragon_Elder", Width = 140, Height = 4, XOffset = 12, YOffset = 24 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Baron", Width = 190, Height = 10, XOffset = 16, YOffset = 24 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_RiftHerald", Width = 139, Height = 6, XOffset = 12, YOffset = 22 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Red", Width = 139, Height = 4, XOffset = 12, YOffset = 24 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Blue", Width = 139, Height = 4, XOffset = 12, YOffset = 24 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Gromp", Width = 86, Height = 2, XOffset = 1, YOffset = 7 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "Sru_Crab", Width = 61, Height = 2, XOffset = 1, YOffset = 5 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Krug", Width = 79, Height = 2, XOffset = 1, YOffset = 7 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Razorbeak", Width = 74, Height = 2, XOffset = 1, YOffset = 7 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "SRU_Murkwolf", Width = 74, Height = 2, XOffset = 1, YOffset = 7 }
+                                                                                     };
+
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     The default enemy HP bar x offset.
@@ -102,5 +73,40 @@ namespace AIO.Utilities
         }
 
         #endregion
+
+        /// <summary>
+        ///     The jungle HP bar offset.
+        /// </summary>
+        internal class JungleHpBarOffset
+        {
+            #region Fields
+
+            /// <summary>
+            ///     The height.
+            /// </summary>
+            internal int Height;
+
+            /// <summary>
+            ///     The name.
+            /// </summary>
+            internal string UnitSkinName;
+
+            /// <summary>
+            ///     The width.
+            /// </summary>
+            internal int Width;
+
+            /// <summary>
+            ///     The XOffset.
+            /// </summary>
+            internal int XOffset;
+
+            /// <summary>
+            ///     The YOffset.
+            /// </summary>
+            internal int YOffset;
+
+            #endregion
+        }
     }
 }

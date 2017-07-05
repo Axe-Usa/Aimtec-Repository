@@ -8,19 +8,21 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
     /// </summary>
     internal partial class Tristana
     {
+        #region Public Methods and Operators
+
         /// <summary>
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public static void Buildingclear(object sender, PreAttackEventArgs args)
+        public void Buildingclear(object sender, PreAttackEventArgs args)
         {
             var target = (Obj_AI_Base)args.Target;
             if (!target.IsBuilding())
@@ -42,11 +44,13 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
+                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
                 MenuClass.Spells["e"]["buildings"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.E.Cast(target);
             }
         }
+
+        #endregion
     }
 }

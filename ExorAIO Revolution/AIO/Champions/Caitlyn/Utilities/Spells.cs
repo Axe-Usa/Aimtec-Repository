@@ -3,7 +3,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Prediction.Skillshots;
 
-    using Utilities;
+    using AIO.Utilities;
 
     using Spell = Aimtec.SDK.Spell;
 
@@ -17,7 +17,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Initializes the spells.
         /// </summary>
-        public static void Spells()
+        public void Spells()
         {
             SpellClass.Q = new Spell(SpellSlot.Q, 1250f);
             SpellClass.Q2 = new Spell(SpellSlot.Q, 1250f);

@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -20,14 +20,14 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Laneclear()
+        public void Laneclear()
         {
             /// <summary>
             ///     The Laneclear E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
@@ -44,10 +44,10 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.R.Ready &&
                 UtilityClass.Player.Mana >
-                    UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
+                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
                 MenuClass.Spells["r"]["laneclear"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["r"]["laneclear"].As<MenuSliderBool>().Value >
-                    UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
+                UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
             {
                 /*
                 var farmLocation = SpellClass.R.GetCircularFarmLocation(minions, SpellClass.R.Width);
@@ -63,7 +63,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["laneclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["laneclear"]) &&
                 MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 if (UtilityClass.Player.HasItem(ItemId.RunaansHurricane))

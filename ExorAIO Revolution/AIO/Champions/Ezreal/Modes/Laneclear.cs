@@ -10,7 +10,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -22,14 +22,14 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Laneclear()
+        public void Laneclear()
         {
             /// <summary>
             ///     The Laneclear Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"])
+                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"])
                 && MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 var minionTargets = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Where(m => m.GetRealHealth() < ObjectManager.GetLocalPlayer().GetSpellDamage(m, SpellSlot.Q));

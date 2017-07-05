@@ -3,105 +3,53 @@
 
 namespace AIO.Champions
 {
-    using Aimtec;
     using System.Linq;
 
+    using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Xayah
     {
-        #region Public Methods and Operators
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Loads Xayah.
         /// </summary>
-        public static void OnLoad()
+        public Xayah()
         {
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            Menus();
+            this.Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            Methods();
+            this.Methods();
 
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            Spells();
+            this.Spells();
         }
 
-        /// <summary>
-        ///     Fired on present.
-        /// </summary>
-        public static void OnPresent()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            Drawings();
-        }
+        #endregion
 
-        /// <summary>
-        ///     Fired upon GameObject creation.
-        /// </summary>
-        public static void OnCreate(GameObject obj)
-        {
-            if (obj.IsValid &&
-                obj.Name == "Feather" &&
-                GameObjects.AllyMinions.Contains(obj))
-            {
-                Feathers.Add(obj.NetworkId, obj.Position);
-            }
-        }
-
-        /// <summary>
-        ///     Fired upon GameObject creation.
-        /// </summary>
-        public static void OnDestroy(GameObject obj)
-        {
-            if (Feathers.Any(o => o.Key == obj.NetworkId))
-            {
-                Feathers.Remove(obj.NetworkId);
-            }
-        }
-
-        /// <summary>
-        ///     Called on do-cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void OnPostAttack(object sender, PostAttackEventArgs args)
-        {
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (UtilityClass.IOrbwalker.Mode)
-            {
-                case OrbwalkingMode.Combo:
-                    Weaving(sender, args);
-                    break;
-                case OrbwalkingMode.Laneclear:
-                    Jungleclear(sender, args);
-                    break;
-            }
-        }
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Fired on spell cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
-        public static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
+        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
             if (sender.IsMe)
             {
@@ -111,14 +59,14 @@ namespace AIO.Champions
                         if (SpellClass.Q.Ready)
                         {
                             SpellClass.Q.Cast(args.End);
-                            Interrupt = false;
+                            this.Interrupt = false;
                         }
-                        Interrupt = true;
+                        this.Interrupt = true;
                         break;
 
                     case SpellSlot.Q:
                     case SpellSlot.W:
-                        if ((args.Slot != SpellSlot.Q || !Interrupt) &&
+                        if ((args.Slot != SpellSlot.Q || !this.Interrupt) &&
                             UtilityClass.Player.GetBuffCount("XayahPassiveActive") >= 3 &&
                             MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
                         {
@@ -129,13 +77,69 @@ namespace AIO.Champions
             }
         }
 
+        /// <summary>
+        ///     Fired upon GameObject creation.
+        /// </summary>
+        public void OnCreate(GameObject obj)
+        {
+            if (obj.IsValid &&
+                obj.Name == "Feather" &&
+                GameObjects.AllyMinions.Contains(obj))
+            {
+                this.Feathers.Add(obj.NetworkId, obj.Position);
+            }
+        }
+
+        /// <summary>
+        ///     Fired upon GameObject creation.
+        /// </summary>
+        public void OnDestroy(GameObject obj)
+        {
+            if (this.Feathers.Any(o => o.Key == obj.NetworkId))
+            {
+                this.Feathers.Remove(obj.NetworkId);
+            }
+        }
+
+        /// <summary>
+        ///     Called on do-cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPostAttack(object sender, PostAttackEventArgs args)
+        {
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (UtilityClass.IOrbwalker.Mode)
+            {
+                case OrbwalkingMode.Combo:
+                    this.Weaving(sender, args);
+                    break;
+                case OrbwalkingMode.Laneclear:
+                    this.Jungleclear(sender, args);
+                    break;
+            }
+        }
+
+        /// <summary>
+        ///     Fired on present.
+        /// </summary>
+        public void OnPresent()
+        {
+            /// <summary>
+            ///     Initializes the drawings.
+            /// </summary>
+            this.Drawings();
+        }
+
         /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public static void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
             if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
@@ -162,7 +166,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void OnUpdate()
+        public void OnUpdate()
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -172,7 +176,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            Killsteal();
+            this.Killsteal();
 
             if (UtilityClass.IOrbwalker.IsWindingUp)
             {
@@ -182,7 +186,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            Automatic();
+            this.Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -190,11 +194,11 @@ namespace AIO.Champions
             switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Mixed:
-                    Harass();
+                    this.Harass();
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    Laneclear();
+                    this.Laneclear();
                     break;
             }
         }

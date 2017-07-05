@@ -11,7 +11,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -25,18 +25,19 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void Laneclear(object sender, PostAttackEventArgs args)
+        public void Laneclear(object sender, PostAttackEventArgs args)
         {
             /// <summary>
             ///     The Q FarmHelper Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
+                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
                 MenuClass.Spells["q"]["farmhelper"].As<MenuSliderBool>().Enabled)
             {
                 var posAfterQ = UtilityClass.Player.Position.Extend(Game.CursorPos, 300f);
-                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any(m =>
+                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any(
+                    m =>
                         m.Distance(posAfterQ) < UtilityClass.Player.GetFullAttackRange(m) &&
                         posAfterQ.CountEnemyHeroesInRange(UtilityClass.Player.GetFullAttackRange(m)) <= 2 &&
                         m.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(m) + UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)))

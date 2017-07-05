@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Laneclear()
+        public void Laneclear()
         {
             /// <summary>
             ///     The Laneclear W Logic.
@@ -44,10 +44,10 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var perfectlyKillableMinions = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count(m => IsPerfectExpungeTarget(m) && GetTotalExpungeDamage(m) > m.Health);
+                var perfectlyKillableMinions = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count(m => this.IsPerfectExpungeTarget(m) && this.GetTotalExpungeDamage(m) > m.Health);
                 if (perfectlyKillableMinions >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.Cast();

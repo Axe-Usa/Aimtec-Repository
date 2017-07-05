@@ -6,7 +6,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public static void Combo(object sender, PreAttackEventArgs args)
+        public void Combo(object sender, PreAttackEventArgs args)
         {
             var heroTarget = args.Target as Obj_AI_Hero;
             if (heroTarget == null)

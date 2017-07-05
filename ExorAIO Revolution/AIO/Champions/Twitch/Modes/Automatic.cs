@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        public static void Automatic()
+        public void Automatic()
         {
             if (UtilityClass.Player.IsRecalling())
             {
@@ -47,7 +47,8 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Spells["e"]["logical"].As<MenuSliderBool>().Enabled)
                 {
-                    if (GameObjects.EnemyHeroes.Any(t =>
+                    if (GameObjects.EnemyHeroes.Any(
+                        t =>
                             !Invulnerable.Check(t) &&
                             t.IsValidTarget(SpellClass.E.Range) &&
                             t.GetBuffCount("twitchdeadlyvenom") >= MenuClass.Spells["e"]["logical"].As<MenuSliderBool>().Value))
@@ -63,8 +64,8 @@ namespace AIO.Champions
                 {
                     foreach (var minion in Extensions.GetLargeJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                     {
-                        if (IsPerfectExpungeTarget(minion) &&
-                            minion.Health < GetTotalExpungeDamage(minion) &&
+                        if (this.IsPerfectExpungeTarget(minion) &&
+                            minion.Health < this.GetTotalExpungeDamage(minion) &&
                             MenuClass.WhiteList[minion.Name].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();

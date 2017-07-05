@@ -14,14 +14,14 @@ namespace AIO.Champions
         /// <summary>
         ///     The methods.
         /// </summary>
-        public static void Methods()
+        public void Methods()
         {
-            Game.OnUpdate += OnUpdate;
-            UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
-            UtilityClass.IOrbwalker.PostAttack += OnPostAttack;
-            RenderManager.OnPresent += OnPresent;
-            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-            UtilityClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
+            Game.OnUpdate += this.OnUpdate;
+            UtilityClass.IOrbwalker.PreAttack += this.OnPreAttack;
+            UtilityClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            RenderManager.OnPresent += this.OnPresent;
+            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
+            UtilityClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
         }
 
         #endregion

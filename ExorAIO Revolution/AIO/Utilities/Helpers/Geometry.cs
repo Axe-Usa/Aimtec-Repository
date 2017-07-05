@@ -2,13 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Linq;
 
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Util.ThirdParty;
-
-    using Color = System.Drawing.Color;
 
     using Path = System.Collections.Generic.List<Aimtec.SDK.Util.ThirdParty.IntPoint>;
     using Paths = System.Collections.Generic.List<System.Collections.Generic.List<Aimtec.SDK.Util.ThirdParty.IntPoint>>;
@@ -75,6 +74,16 @@
             }
         }
 
+        public static bool IsInside(this Vector3 point, Polygon poly)
+        {
+            return !point.IsOutside(poly);
+        }
+
+        public static bool IsInside(this Vector2 point, Polygon poly)
+        {
+            return !point.IsOutside(poly);
+        }
+
         public static bool IsOutside(this Vector3 point, Polygon poly)
         {
             var p = new IntPoint(point.X, point.Y);
@@ -85,16 +94,6 @@
         {
             var p = new IntPoint(point.X, point.Y);
             return Clipper.PointInPolygon(p, poly.ToClipperPath()) != 1;
-        }
-
-        public static bool IsInside(this Vector3 point, Polygon poly)
-        {
-            return !point.IsOutside(poly);
-        }
-
-        public static bool IsInside(this Vector2 point, Polygon poly)
-        {
-            return !point.IsOutside(poly);
         }
 
         /// <summary>
@@ -237,15 +236,15 @@
                 }
             }
 
+            public bool IsInside(Vector2 point)
+            {
+                return !this.IsOutside(point);
+            }
+
             public bool IsOutside(Vector2 point)
             {
                 var p = new IntPoint(point.X, point.Y);
                 return Clipper.PointInPolygon(p, this.ToClipperPath()) != 1;
-            }
-
-            public bool IsInside(Vector2 point)
-            {
-                return !this.IsOutside(point);
             }
 
             public List<IntPoint> ToClipperPath()
@@ -301,7 +300,7 @@
 
             #endregion
 
-            #region Public Properties
+            #region Public Methods and Operators
 
             /// <summary>
             ///     Gets the direction.
@@ -324,10 +323,6 @@
             {
                 return this.Direction().Perpendicular();
             }
-
-            #endregion
-
-            #region Public Methods and Operators
 
             /// <summary>
             ///     Updates the polygon.
@@ -492,10 +487,10 @@
                 var angle = !radian ? value * Math.PI / 180 : value;
                 var line = Vector2.Subtract(point2, point1);
                 var newline = new Vector2
-                              {
-                                  X = (float)(line.X * Math.Cos(angle) - line.Y * Math.Sin(angle)),
-                                  Y = (float)(line.X * Math.Sin(angle) + line.Y * Math.Cos(angle))
-                              };
+                                  {
+                                      X = (float)(line.X * Math.Cos(angle) - line.Y * Math.Sin(angle)),
+                                      Y = (float)(line.X * Math.Sin(angle) + line.Y * Math.Cos(angle))
+                                  };
                 return Vector2.Add(newline, point1);
             }
 

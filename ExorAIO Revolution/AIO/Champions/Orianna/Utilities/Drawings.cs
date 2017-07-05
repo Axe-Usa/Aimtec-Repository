@@ -8,8 +8,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
-
+    using AIO.Utilities;
 
     /// <summary>
     ///     The prediction drawings class.
@@ -21,14 +20,14 @@ namespace AIO.Champions
         /// <summary>
         ///     Loads the range drawings.
         /// </summary>
-        public static void Drawings()
+        public void Drawings()
         {
             /// <summary>
             ///     Loads the Ball drawing.
             /// </summary>
             if (MenuClass.Drawings["ball"].As<MenuBool>().Value)
             {
-                RenderManager.RenderCircle(BallPosition, SpellClass.Q.Width, 100, Color.Blue);
+                RenderManager.RenderCircle(this.BallPosition, SpellClass.Q.Width, 100, Color.Blue);
             }
 
             /// <summary>
@@ -46,7 +45,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["ballw"].As<MenuBool>().Value)
             {
-                RenderManager.RenderCircle(BallPosition, SpellClass.W.Width, 100, Color.Purple);
+                RenderManager.RenderCircle(this.BallPosition, SpellClass.W.Width, 100, Color.Purple);
             }
 
             /// <summary>
@@ -64,7 +63,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Drawings["ballr"].As<MenuBool>().Value)
             {
-                RenderManager.RenderCircle(BallPosition, SpellClass.R.Width, 100, Color.Red);
+                RenderManager.RenderCircle(this.BallPosition, SpellClass.R.Width, 100, Color.Red);
             }
         }
 

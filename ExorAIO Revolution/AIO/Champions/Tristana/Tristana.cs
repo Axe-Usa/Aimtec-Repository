@@ -12,51 +12,44 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Tristana
     {
-        #region Public Methods and Operators
+        #region Constructors and Destructors
 
         /// <summary>
-        ///     Loads Tryndamere.
+        ///     Loads Tristana.
         /// </summary>
-        public static void OnLoad()
+        public Tristana()
         {
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            Menus();
+            this.Menus();
 
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            Spells();
+            this.Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            Methods();
+            this.Methods();
         }
 
-        /// <summary>
-        ///     Fired on present.
-        /// </summary>
-        public static void OnPresent()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            Drawings();
-        }
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Gets the total explosion damage on a determined unit.
         /// </summary>
-        public static double GetTotalExplosionDamage(Obj_AI_Base unit)
+        public double GetTotalExplosionDamage(Obj_AI_Base unit)
         {
             var player = UtilityClass.Player;
             return player.GetSpellDamage(unit, SpellSlot.E) +
@@ -64,11 +57,30 @@ namespace AIO.Champions
         }
 
         /// <summary>
+        ///     Fired when a buff is added.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="buff">The buff.</param>
+        public void OnAddBuff(Obj_AI_Base sender, Buff buff)
+        {
+            if (sender.IsMe &&
+                SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["antigrab"].As<MenuBool>().Value)
+            {
+                if (buff.Name.Equals("ThreshQ") ||
+                    buff.Name.Equals("rocketgrab2"))
+                {
+                    SpellClass.W.Cast(UtilityClass.Player.Position.Extend(buff.Caster.Position, -SpellClass.W.Range));
+                }
+            }
+        }
+
+        /// <summary>
         ///     Called on pre attack.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public static void OnPreAttack(object sender, PreAttackEventArgs args)
+        public void OnPreAttack(object sender, PreAttackEventArgs args)
         {
             /// <summary>
             ///     The Target Forcing Logic.
@@ -89,36 +101,28 @@ namespace AIO.Champions
             switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    Combo(sender, args);
+                    this.Combo(sender, args);
                     break;
                 case OrbwalkingMode.Mixed:
-                    Harass(sender, args);
+                    this.Harass(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    Laneclear(sender, args);
-                    Jungleclear(sender, args);
-                    Buildingclear(sender, args);
+                    this.Laneclear(sender, args);
+                    this.Jungleclear(sender, args);
+                    this.Buildingclear(sender, args);
                     break;
             }
         }
 
         /// <summary>
-        ///     Fired when a buff is added.
+        ///     Fired on present.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="buff">The buff.</param>
-        public static void OnAddBuff(Obj_AI_Base sender, Buff buff)
+        public void OnPresent()
         {
-            if (sender.IsMe &&
-                SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["antigrab"].As<MenuBool>().Value)
-            {
-                if (buff.Name.Equals("ThreshQ") ||
-                    buff.Name.Equals("rocketgrab2"))
-                {
-                    SpellClass.W.Cast(UtilityClass.Player.Position.Extend(buff.Caster.Position, -SpellClass.W.Range));
-                }
-            }
+            /// <summary>
+            ///     Initializes the drawings.
+            /// </summary>
+            this.Drawings();
         }
 
         /*
@@ -127,7 +131,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public static void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
             if (ObjectManager.GetLocalPlayer().IsDead)
             {
@@ -165,7 +169,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Events.InterruptableTargetEventArgs" /> instance containing the event data.</param>
-        public static void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
+        public void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
         {
             if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
@@ -183,7 +187,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void OnUpdate()
+        public void OnUpdate()
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -193,12 +197,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            Spells();
+            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            Killsteal();
+            this.Killsteal();
             if (UtilityClass.IOrbwalker.IsWindingUp)
             {
                 return;
@@ -207,7 +211,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            Automatic();
+            this.Automatic();
         }
 
         #endregion

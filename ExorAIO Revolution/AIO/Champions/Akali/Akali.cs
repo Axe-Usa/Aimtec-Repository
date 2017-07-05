@@ -5,53 +5,46 @@ namespace AIO.Champions
 {
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Akali
     {
-        #region Public Methods and Operators
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Loads Akali.
         /// </summary>
-        public static void OnLoad()
+        public Akali()
         {
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            Menus();
+            this.Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            Spells();
+            this.Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            Methods();
+            this.Methods();
         }
 
-        /// <summary>
-        ///     Fired on present.
-        /// </summary>
-        public static void OnPresent()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            Drawings();
-        }
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void OnPostAttack(object sender, PostAttackEventArgs args)
+        public void OnPostAttack(object sender, PostAttackEventArgs args)
         {
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -59,20 +52,31 @@ namespace AIO.Champions
             switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    Weaving(sender, args);
-                    Harass(sender, args);
+                    this.Weaving(sender, args);
+                    this.Harass(sender, args);
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    Jungleclear(sender, args);
+                    this.Jungleclear(sender, args);
                     break;
             }
         }
 
         /// <summary>
+        ///     Fired on present.
+        /// </summary>
+        public void OnPresent()
+        {
+            /// <summary>
+            ///     Initializes the drawings.
+            /// </summary>
+            this.Drawings();
+        }
+
+        /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void OnUpdate()
+        public void OnUpdate()
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -82,7 +86,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            Killsteal();
+            this.Killsteal();
 
             if (UtilityClass.IOrbwalker.IsWindingUp)
             {
@@ -95,15 +99,15 @@ namespace AIO.Champions
             switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    Combo();
+                    this.Combo();
                     break;
 
                 case OrbwalkingMode.Mixed:
-                    Harass();
+                    this.Harass();
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    Laneclear();
+                    this.Laneclear();
                     break;
             }
         }

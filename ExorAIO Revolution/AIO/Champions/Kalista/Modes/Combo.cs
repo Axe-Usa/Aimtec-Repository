@@ -11,7 +11,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -23,7 +23,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Combo()
+        public void Combo()
         {
             /// <summary>
             ///     Orbwalk on minions.
@@ -50,8 +50,8 @@ namespace AIO.Champions
             var playerSpellbook = UtilityClass.Player.SpellBook;
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.Mana <
-                    playerSpellbook.GetSpell(SpellSlot.Q).Cost +
-                    playerSpellbook.GetSpell(SpellSlot.E).Cost &&
+                playerSpellbook.GetSpell(SpellSlot.Q).Cost +
+                playerSpellbook.GetSpell(SpellSlot.E).Cost &&
                 bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                 !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)

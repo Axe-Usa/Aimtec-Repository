@@ -12,12 +12,12 @@ namespace AIO.Champions
         /// <summary>
         ///     Sets the methods.
         /// </summary>
-        public static void Methods()
+        public void Methods()
         {
-            Game.OnUpdate += OnUpdate;
-            SpellBook.OnCastSpell += OnCastSpell;
-            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-            RenderManager.OnPresent += OnPresent;
+            Game.OnUpdate += this.OnUpdate;
+            SpellBook.OnCastSpell += this.OnCastSpell;
+            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
+            RenderManager.OnPresent += this.OnPresent;
 
             /*
             Events.OnGapCloser += OnGapCloser;

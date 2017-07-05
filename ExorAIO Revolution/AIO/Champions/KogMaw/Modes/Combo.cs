@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Combo()
+        public void Combo()
         {
             /// <summary>
             ///     The W Combo Logic.
@@ -47,10 +47,10 @@ namespace AIO.Champions
                 heroTarget.HealthPercent() < 40 &&
                 heroTarget.IsValidTarget(SpellClass.R.Range) &&
                 UtilityClass.Player.Mana
-                    > UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
+                > UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value
-                    > UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
+                > UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
             {
                 SpellClass.R.Cast(heroTarget);
             }

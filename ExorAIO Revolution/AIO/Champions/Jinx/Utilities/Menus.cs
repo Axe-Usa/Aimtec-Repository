@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Util;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The menu class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Sets the menu.
         /// </summary>
-        public static void Menus()
+        public void Menus()
         {
             /// <summary>
             ///     Sets the spells menu.
@@ -33,8 +33,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
-                    MenuClass.Q.Add(new MenuSeperator("separator1", "Distance Fishbones Logic will be automatically used."));
-                    MenuClass.Q.Add(new MenuSliderBool("combo", "Use Fishbones in PowPow Range too / if Hittable Enemies >= x", true, 3, 2, GameObjects.EnemyHeroes.Count()));
+                    MenuClass.Q.Add(new MenuBool("combo", "Use Fishbones if target out of PowPow range"));
                     MenuClass.Q.Add(new MenuSeperator("separator2"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
@@ -49,11 +48,15 @@ namespace AIO.Champions
                         MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.Q2.Add(new MenuSlider("splashrange", "Splash damage radius", 160, 125, 175));
                         MenuClass.Q2.Add(new MenuSeperator("separator2"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator3", "Laneclear Options:"));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Fishbones if Hittable minions >= x", 3, 2, 5));
-                        MenuClass.Q2.Add(new MenuSeperator("separator4"));
-                        MenuClass.Q2.Add(new MenuSeperator("separator5", "Jungleclear Options:"));
-                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Only Fishbones if Hittable minions >= x", 1, 2, 5));
+                        MenuClass.Q2.Add(new MenuSeperator("separator3", "Combo settings:"));
+                        MenuClass.Q2.Add(new MenuSeperator("separator4", "This option will also be valid for the PowPow range."));
+                        MenuClass.Q2.Add(new MenuSliderBool("minenemies", "Use Fishbones / if hittable enemies >= x", true, 3, 2, GameObjects.EnemyHeroes.Count()));
+                        MenuClass.Q2.Add(new MenuSeperator("separator5"));
+                        MenuClass.Q2.Add(new MenuSeperator("separator6", "Laneclear settings:"));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Use Fishbones if Hittable minions >= x", 3, 2, 5));
+                        MenuClass.Q2.Add(new MenuSeperator("separator7"));
+                        MenuClass.Q2.Add(new MenuSeperator("separator8", "Jungleclear settings:"));
+                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Use Fishbones if Hittable minions >= x", 1, 2, 5));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 
@@ -83,7 +86,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuList("mode", "W Cast Mode", new[] { "Enemy going out of PowPow range", "Enemy going out of Fishbones range", "Don't use W in Combo" }, 0));
+                    MenuClass.W.Add(new MenuList("mode", "W Cast Mode", new[] { "out of PowPow range", "out of Fishbones range", "Don't use W in Combo" }, 0));
                     MenuClass.W.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));

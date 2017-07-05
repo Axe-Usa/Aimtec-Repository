@@ -10,7 +10,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Lasthit()
+        public void Lasthit()
         {
         }
 

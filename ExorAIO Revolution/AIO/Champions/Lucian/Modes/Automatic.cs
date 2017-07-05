@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Util;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Automatic()
+        public void Automatic()
         {
             var bestHero = Extensions.GetBestEnemyHeroTarget();
 
@@ -30,11 +30,9 @@ namespace AIO.Champions
             if (MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
-                DelayAction.Queue(100 + Game.Ping,
-                    () =>
-                        {
-                            UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
-                        });
+                DelayAction.Queue(
+                    100 + Game.Ping,
+                    () => { UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos); });
             }
 
             /// <summary>

@@ -10,7 +10,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -22,7 +22,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Killsteal()
+        public void Killsteal()
         {
             /// <summary>
             ///     The KillSteal Q Logic.
@@ -38,9 +38,10 @@ namespace AIO.Champions
                     var collisions = SpellClass.Q.GetPrediction(bestTarget).Collisions;
                     if (collisions.Any())
                     {
-                        if (collisions.All(c =>
-                            Extensions.GetAllGenericUnitTargets().Contains(c) &&
-                            ((Obj_AI_Base)c).GetRealHealth() < UtilityClass.Player.GetSpellDamage((Obj_AI_Base)c, SpellSlot.Q)))
+                        if (collisions.All(
+                            c =>
+                                Extensions.GetAllGenericUnitTargets().Contains(c) &&
+                                ((Obj_AI_Base)c).GetRealHealth() < UtilityClass.Player.GetSpellDamage((Obj_AI_Base)c, SpellSlot.Q)))
                         {
                             SpellClass.Q.Cast(bestTarget);
                         }
@@ -58,7 +59,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                if (GameObjects.EnemyHeroes.Any(t => IsPerfectRendTarget(t) && t.GetRealHealth() < GetTotalRendDamage(t)))
+                if (GameObjects.EnemyHeroes.Any(t => this.IsPerfectRendTarget(t) && t.GetRealHealth() < this.GetTotalRendDamage(t)))
                 {
                     SpellClass.E.Cast();
                 }

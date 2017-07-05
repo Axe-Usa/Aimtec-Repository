@@ -4,7 +4,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Prediction.Skillshots;
 
-    using Utilities;
+    using AIO.Utilities;
 
     using Spell = Aimtec.SDK.Spell;
 
@@ -18,7 +18,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Sets the spells.
         /// </summary>
-        public static void Spells()
+        public void Spells()
         {
             var target = UtilityClass.IOrbwalker.GetTarget();
             SpellClass.Q = new Spell(SpellSlot.Q, (target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange) + 300f);

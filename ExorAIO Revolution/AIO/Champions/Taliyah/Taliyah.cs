@@ -9,46 +9,39 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Taliyah
     {
-        #region Public Methods and Operators
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Loads Taliyah.
         /// </summary>
-        public static void OnLoad()
+        public Taliyah()
         {
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            Menus();
+            this.Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            Methods();
+            this.Methods();
         }
 
-        /// <summary>
-        ///     Fired on present.
-        /// </summary>
-        public static void OnPresent()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            Drawings();
-        }
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Fired upon GameObject creation.
         /// </summary>
-        public static void OnCreate(GameObject obj)
+        public void OnCreate(GameObject obj)
         {
             if (obj.IsValid &&
                 GameObjects.AllyMinions.Contains(obj))
@@ -56,11 +49,11 @@ namespace AIO.Champions
                 switch (obj.Name)
                 {
                     case "Taliyah_Base_Q_aoe_bright.troy":
-                        WorkedGrounds.Add(obj.NetworkId, obj.Position);
+                        this.WorkedGrounds.Add(obj.NetworkId, obj.Position);
                         break;
 
                     case "Taliyah_Base_E_Mines.troy":
-                        MineField.Add(obj.NetworkId, obj.Position);
+                        this.MineField.Add(obj.NetworkId, obj.Position);
                         break;
                 }
             }
@@ -69,17 +62,28 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired upon GameObject creation.
         /// </summary>
-        public static void OnDestroy(GameObject obj)
+        public void OnDestroy(GameObject obj)
         {
-            if (WorkedGrounds.Any(o => o.Key == obj.NetworkId))
+            if (this.WorkedGrounds.Any(o => o.Key == obj.NetworkId))
             {
-                WorkedGrounds.Remove(obj.NetworkId);
+                this.WorkedGrounds.Remove(obj.NetworkId);
             }
 
-            if (MineField.Any(o => o.Key == obj.NetworkId))
+            if (this.MineField.Any(o => o.Key == obj.NetworkId))
             {
-                MineField.Remove(obj.NetworkId);
+                this.MineField.Remove(obj.NetworkId);
             }
+        }
+
+        /// <summary>
+        ///     Fired on present.
+        /// </summary>
+        public void OnPresent()
+        {
+            /// <summary>
+            ///     Initializes the drawings.
+            /// </summary>
+            this.Drawings();
         }
 
         /*
@@ -88,7 +92,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public static void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
             if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
@@ -123,7 +127,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="Events.InterruptableTargetEventArgs" /> instance containing the event data.</param>
-        public static void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
+        public void OnInterruptableTarget(object sender, Events.InterruptableTargetEventArgs args)
         {
             if (ObjectManager.GetLocalPlayer().IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
             {
@@ -143,7 +147,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
             /// <summary>
             ///     Automatically Mount on R Logic.
@@ -162,7 +166,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void OnUpdate()
+        public void OnUpdate()
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -172,12 +176,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            Spells();
+            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            Killsteal();
+            this.Killsteal();
 
             if (UtilityClass.IOrbwalker.IsWindingUp)
             {
@@ -187,7 +191,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            Automatic();
+            this.Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -195,14 +199,14 @@ namespace AIO.Champions
             switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    Combo();
+                    this.Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    Harass();
+                    this.Harass();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    Laneclear();
-                    Jungleclear();
+                    this.Laneclear();
+                    this.Jungleclear();
                     break;
             }
         }

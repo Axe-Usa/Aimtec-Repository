@@ -14,12 +14,12 @@ namespace AIO.Champions
         /// <summary>
         ///     Sets the methods.
         /// </summary>
-        public static void Methods()
+        public void Methods()
         {
-            Game.OnUpdate += OnUpdate;
+            Game.OnUpdate += this.OnUpdate;
             //Events.OnGapCloser += KogMaw.OnGapCloser;
-            UtilityClass.IOrbwalker.PostAttack += OnPostAttack;
-            RenderManager.OnPresent += OnPresent;
+            UtilityClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            RenderManager.OnPresent += this.OnPresent;
         }
 
         #endregion

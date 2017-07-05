@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Automatic()
+        public void Automatic()
         {
             if (UtilityClass.Player.IsRecalling())
             {
@@ -36,10 +36,11 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
                 var target = GameObjects.EnemyHeroes
-                    .Where(t =>
-                        t.IsValidTarget(SpellClass.R.Range) &&
-                        !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Value)
+                    .Where(
+                        t =>
+                            t.IsValidTarget(SpellClass.R.Range) &&
+                            !Invulnerable.Check(t, DamageType.Magical, false) &&
+                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Value)
                     .OrderBy(o => o.Health)
                     .FirstOrDefault();
                 if (target != null)

@@ -1,5 +1,6 @@
-
 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
+
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
@@ -11,7 +12,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -23,7 +24,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        public static void Combo()
+        public void Combo()
         {
             /// <summary>
             ///     The W->Boulders Combo Logic.
@@ -40,7 +41,7 @@ namespace AIO.Champions
                         continue;
                     }
 
-                    foreach (var boulder in MineField)
+                    foreach (var boulder in this.MineField)
                     {
                         var boulderPos = boulder.Value;
                         if (target.Distance(boulderPos) < SpellClass.E.Range &&
@@ -72,7 +73,7 @@ namespace AIO.Champions
                 switch (MenuClass.Spells["q"]["combomode"][bestTarget.ChampionName.ToLower()].As<MenuList>().Value)
                 {
                     case 0:
-                        if (!IsNearWorkedGround())
+                        if (!this.IsNearWorkedGround())
                         {
                             SpellClass.Q.Cast(bestTarget);
                         }
@@ -178,7 +179,7 @@ namespace AIO.Champions
                 switch (MenuClass.Spells["q"]["combomode"][bestTarget.ChampionName.ToLower()].As<MenuList>().Value)
                 {
                     case 0:
-                        if (!IsNearWorkedGround())
+                        if (!this.IsNearWorkedGround())
                         {
                             SpellClass.Q.Cast(bestTarget);
                         }

@@ -14,14 +14,14 @@ namespace AIO.Champions
         /// <summary>
         ///     Initializes the methods.
         /// </summary>
-        public static void Methods()
+        public void Methods()
         {
-            Game.OnUpdate += OnUpdate;
-            SpellBook.OnCastSpell += OnCastSpell;
-            RenderManager.OnPresent += OnPresent;
-            UtilityClass.IOrbwalker.PostAttack += OnPostAttack;
-            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-            Obj_AI_Base.OnTeleport += OnTeleport;
+            Game.OnUpdate += this.OnUpdate;
+            SpellBook.OnCastSpell += this.OnCastSpell;
+            RenderManager.OnPresent += this.OnPresent;
+            UtilityClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
+            Obj_AI_Base.OnTeleport += this.OnTeleport;
 
             //Events.OnGapCloser += OnGapCloser;
             //Events.OnInterruptableTarget += OnInterruptableTarget;

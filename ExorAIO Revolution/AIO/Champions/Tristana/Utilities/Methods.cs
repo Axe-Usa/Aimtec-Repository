@@ -14,12 +14,12 @@ namespace AIO.Champions
         /// <summary>
         ///     Sets the methods.
         /// </summary>
-        public static void Methods()
+        public void Methods()
         {
-            Game.OnUpdate += OnUpdate;
-            BuffManager.OnAddBuff += OnAddBuff;
-            UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
-            RenderManager.OnPresent += OnPresent;
+            Game.OnUpdate += this.OnUpdate;
+            BuffManager.OnAddBuff += this.OnAddBuff;
+            UtilityClass.IOrbwalker.PreAttack += this.OnPreAttack;
+            RenderManager.OnPresent += this.OnPresent;
 
             /*
             Events.OnGapCloser += OnGapCloser;

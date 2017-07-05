@@ -7,7 +7,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -19,7 +19,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Killsteal()
+        public void Killsteal()
         {
             /// <summary>
             ///     The KillSteal R Logic.
@@ -29,7 +29,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R)*2 >= bestTarget.GetRealHealth())
+                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) * 2 >= bestTarget.GetRealHealth())
                 {
                     SpellClass.R.CastOnUnit(bestTarget);
                 }

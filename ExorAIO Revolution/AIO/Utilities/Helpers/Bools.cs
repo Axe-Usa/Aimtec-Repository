@@ -11,49 +11,24 @@ namespace AIO.Utilities
     /// </summary>
     internal static class Bools
     {
-        #region Public Methods and Operators
+        #region Static Fields
 
         /// <returns>
         ///     true if the champion is supported by the AIO; otherwise, false.
         /// </returns>
         public static bool IsChampionSupported = true;
 
+        #endregion
+
+        #region Public Methods and Operators
+
         /// <returns>
         ///     true if an unit has a Sheen-Like buff; otherwise, false.
         /// </returns>
         public static bool HasSheenLikeBuff(this Obj_AI_Hero unit)
         {
-            var sheenLikeBuffNames = new [] { "sheen", "LichBane", "dianaarcready", "ItemFrozenFist", "sonapassiveattack" };
+            var sheenLikeBuffNames = new[] { "sheen", "LichBane", "dianaarcready", "ItemFrozenFist", "sonapassiveattack" };
             return unit.Buffs.Any(b => sheenLikeBuffNames.Contains(b.Name));
-        }
-
-        /// <returns>
-        ///     true if an unit is a Building; otherwise, false.
-        /// </returns>
-        public static bool IsBuilding(this GameObject unit)
-        {
-            return unit is Obj_AI_Turret; // TODO: Add enemy Nexus and enemy Inhibitors once API is ready.
-        }
-
-        /// <returns>
-        ///     true if the sender is a hero, a turret or an important jungle monster; otherwise, false.
-        /// </returns>
-        public static bool ShouldShieldAgainstSender(Obj_AI_Base sender)
-        {
-            return
-                GameObjects.EnemyHeroes.Contains(sender) ||
-                GameObjects.EnemyTurrets.Contains(sender) ||
-                Extensions.GetGenericJungleMinionsTargets().Contains(sender);
-        }
-
-        /// <summary>
-        ///     Checks whether the unit should preserve the sheen buff.
-        /// </summary>
-        public static bool ShouldPreserveSheen(this Obj_AI_Hero source)
-        {
-            return
-                source.HasSheenLikeBuff() &&
-                source.ActionState.HasFlag(ActionState.CanAttack);
         }
 
         /// <summary>
@@ -73,6 +48,14 @@ namespace AIO.Utilities
                 unit.HasItem(ItemId.ManamuneQuickCharge) ||
                 unit.HasItem(ItemId.ArchangelsStaffQuickCharge) ||
                 unit.HasItem(ItemId.TearoftheGoddessQuickCharge);
+        }
+
+        /// <returns>
+        ///     true if an unit is a Building; otherwise, false.
+        /// </returns>
+        public static bool IsBuilding(this GameObject unit)
+        {
+            return unit is Obj_AI_Turret; // TODO: Add enemy Nexus and enemy Inhibitors once API is ready.
         }
 
         /// <summary>
@@ -108,6 +91,27 @@ namespace AIO.Utilities
             }
 
             return false;
+        }
+
+        /// <summary>
+        ///     Checks whether the unit should preserve the sheen buff.
+        /// </summary>
+        public static bool ShouldPreserveSheen(this Obj_AI_Hero source)
+        {
+            return
+                source.HasSheenLikeBuff() &&
+                source.ActionState.HasFlag(ActionState.CanAttack);
+        }
+
+        /// <returns>
+        ///     true if the sender is a hero, a turret or an important jungle monster; otherwise, false.
+        /// </returns>
+        public static bool ShouldShieldAgainstSender(Obj_AI_Base sender)
+        {
+            return
+                GameObjects.EnemyHeroes.Contains(sender) ||
+                GameObjects.EnemyTurrets.Contains(sender) ||
+                Extensions.GetGenericJungleMinionsTargets().Contains(sender);
         }
 
         #endregion

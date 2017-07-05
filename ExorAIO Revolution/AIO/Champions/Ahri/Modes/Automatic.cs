@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Automatic()
+        public void Automatic()
         {
             if (UtilityClass.Player.IsRecalling())
             {
@@ -34,13 +34,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Value)
             {
                 var range = SpellClass.E.Range;
-                var target = GameObjects.EnemyHeroes
-                                        .Where(
-                                            t =>
-                                                t.IsImmobile() &&
-                                                !Invulnerable.Check(t) &&
-                                                t.IsValidTarget(range))
-                                        .OrderBy(o => UtilityClass.ITargetSelector.GetOrderedTargets(range)).FirstOrDefault();
+                var target = UtilityClass.ITargetSelector.GetOrderedTargets(range)
+                    .FirstOrDefault(t => t.IsImmobile() && !Invulnerable.Check(t) && t.IsValidTarget(range));
                 if (target != null)
                 {
                     SpellClass.E.Cast(target);

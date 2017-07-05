@@ -8,24 +8,28 @@ namespace AIO.Champions
 
     using Aimtec;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The drawings class.
     /// </summary>
     internal partial class Orianna
     {
-        #region Public Methods and Operators
+        #region Fields
 
         /// <summary>
         ///     The default position of the ball.
         /// </summary>
-        public static Vector3 BallPosition = UtilityClass.Player.Position;
+        public Vector3 BallPosition = UtilityClass.Player.Position;
+
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Gets the position of the ball.
         /// </summary>
-        public static Vector3 GetBallPosition()
+        public Vector3 GetBallPosition()
         {
             var possiblePosition1 = GameObjects.AllyMinions.FirstOrDefault(m => Math.Abs(m.Health) > 0 && m.UnitSkinName.Equals("oriannaball"));
             var possiblePosition2 = GameObjects.AllyHeroes.FirstOrDefault(a => a.Buffs.Any(b => b.Caster.IsMe && b.Name.Equals("orianaghost")));
@@ -46,9 +50,9 @@ namespace AIO.Champions
         /// <summary>
         ///     Updates the position of the ball.
         /// </summary>
-        public static void UpdateBallPosition()
+        public void UpdateBallPosition()
         {
-            BallPosition = GetBallPosition();
+            this.BallPosition = this.GetBallPosition();
         }
 
         #endregion

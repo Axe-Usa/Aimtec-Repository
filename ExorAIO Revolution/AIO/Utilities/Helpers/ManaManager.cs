@@ -14,23 +14,23 @@ namespace AIO.Utilities
         /// <summary>
         ///     The minimum mana needed to cast the Spell from the 'slot' SpellSlot.
         /// </summary>
-        public static int GetNeededHealth(SpellSlot slot, MenuComponent value)
-        {
-            var cost = UtilityClass.Player.SpellBook.GetSpell(slot).Cost;
-            return
-                value.As<MenuSliderBool>().Value +
-                (int)(cost / UtilityClass.Player.MaxHealth * 100);
-        }
-
-        /// <summary>
-        ///     The minimum mana needed to cast the Spell from the 'slot' SpellSlot.
-        /// </summary>
         public static int GetNeededMana(SpellSlot slot, MenuComponent value)
         {
             var cost = UtilityClass.Player.SpellBook.GetSpell(slot).Cost;
             return
                 value.As<MenuSliderBool>().Value +
                 (int)(cost / UtilityClass.Player.MaxMana * 100);
+        }
+
+        /// <summary>
+        ///     The minimum mana needed to cast the Spell from the 'slot' SpellSlot.
+        /// </summary>
+        public int GetNeededHealth(SpellSlot slot, MenuComponent value)
+        {
+            var cost = UtilityClass.Player.SpellBook.GetSpell(slot).Cost;
+            return
+                value.As<MenuSliderBool>().Value +
+                (int)(cost / UtilityClass.Player.MaxHealth * 100);
         }
 
         #endregion

@@ -1,6 +1,7 @@
-﻿
-// ReSharper disable ArrangeMethodOrOperatorBody
+﻿// ReSharper disable ArrangeMethodOrOperatorBody
 // ReSharper disable InconsistentNaming
+
+
 #pragma warning disable 1587
 
 namespace AIO.Utilities
@@ -20,9 +21,9 @@ namespace AIO.Utilities
         #region Static Fields
 
         /// <summary>
-        ///     Gets the Player.
+        ///     Gets the HealthPrediction implementation.
         /// </summary>
-        public static Obj_AI_Hero Player = ObjectManager.GetLocalPlayer();
+        public static IHealthPrediction IHealthPrediction = HealthPrediction.Implementation;
 
         /// <summary>
         ///     Gets the Orbwalker implementation.
@@ -30,24 +31,24 @@ namespace AIO.Utilities
         public static IOrbwalker IOrbwalker = Orbwalker.Implementation;
 
         /// <summary>
-        ///     Gets the TargetSelector implementation.
-        /// </summary>
-        public static ITargetSelector ITargetSelector = TargetSelector.Implementation;
-
-        /// <summary>
-        ///     Gets the HealthPrediction implementation.
-        /// </summary>
-        public static IHealthPrediction IHealthPrediction = HealthPrediction.Implementation;
-
-        /// <summary>
         ///     Gets the Prediction implementation.
         /// </summary>
         public static IPrediction IPrediction = Prediction.Implementation;
 
         /// <summary>
+        ///     Gets the TargetSelector implementation.
+        /// </summary>
+        public static ITargetSelector ITargetSelector = TargetSelector.Implementation;
+
+        /// <summary>
         ///     The last tick.
         /// </summary>
         public static int LastTick = 0;
+
+        /// <summary>
+        ///     Gets the Player.
+        /// </summary>
+        public static Obj_AI_Hero Player = ObjectManager.GetLocalPlayer();
 
         /// <summary>
         ///     The jungle HP bar offset list.

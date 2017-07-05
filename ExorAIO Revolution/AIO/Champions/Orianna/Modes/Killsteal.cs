@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        public static void Killsteal()
+        public void Killsteal()
         {
             /// <summary>
             ///     The KillSteal Q Logic.
@@ -44,7 +44,7 @@ namespace AIO.Champions
             {
                 foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range))
                 {
-                    if (target.IsValidTarget(SpellClass.W.Width, false, BallPosition) &&
+                    if (target.IsValidTarget(SpellClass.W.Width, false, this.BallPosition) &&
                         UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) >= target.GetRealHealth())
                     {
                         SpellClass.W.Cast();

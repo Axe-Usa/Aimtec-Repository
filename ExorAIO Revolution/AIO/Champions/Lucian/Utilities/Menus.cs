@@ -4,11 +4,12 @@
 namespace AIO.Champions
 {
     using System.Linq;
+
     using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Util;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The menu class.
@@ -20,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Sets the menu.
         /// </summary>
-        public static void Menus()
+        public void Menus()
         {
             /// <summary>
             ///     Sets the spells menu.
@@ -111,7 +112,7 @@ namespace AIO.Champions
                 {
                     MenuClass.E.Add(new MenuSeperator("esep1", "[THE DASH WILL ALWAYS BE DIRECTED TOWARDS YOUR MOUSE]"));
                     MenuClass.E.Add(new MenuSeperator("esep2", "Exory: Smart dynamic Short & Long dash."));
-                    MenuClass.E.Add( new MenuSeperator("esep3", "Always Long: Always dash at the maximum distance."));
+                    MenuClass.E.Add(new MenuSeperator("esep3", "Always Long: Always dash at the maximum distance."));
                     MenuClass.E.Add(new MenuSeperator("esep4", "Always Short: This Logic will make you always dash at the minimum distance."));
                     MenuClass.E.Add(new MenuSeperator("esep5", "None: It will not use E in Combo."));
 

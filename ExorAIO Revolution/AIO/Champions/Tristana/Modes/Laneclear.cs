@@ -10,7 +10,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -24,17 +24,18 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public static void Laneclear(object sender, PreAttackEventArgs args)
+        public void Laneclear(object sender, PreAttackEventArgs args)
         {
             /// <summary>
             ///     The Laneclear E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var idealMinion = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(m =>
+                var idealMinion = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(
+                    m =>
                         m.IsValidTarget(SpellClass.E.Range) &&
                         Extensions.GetEnemyLaneMinionsTargets()
                             .Count(m2 => m2.Distance(m) < 200f) >= MenuClass.Spells["e"]["customization"]["laneclear"].Value);

@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Killsteal()
+        public void Killsteal()
         {
             /// <summary>
             ///     The KillSteal W Logic.
@@ -29,7 +29,7 @@ namespace AIO.Champions
                 UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) < 3 &&
                 MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Value)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
+                var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Physical);
                 if (bestTarget != null &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {

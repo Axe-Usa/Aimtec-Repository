@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -21,15 +21,16 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        public static void Combo()
+        public void Combo()
         {
             /// <summary>
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                GameObjects.EnemyHeroes.Any(t =>
-                    !Invulnerable.Check(t, DamageType.Magical) &&
-                    t.IsValidTarget(SpellClass.W.Width, false, BallPosition)) &&
+                GameObjects.EnemyHeroes.Any(
+                    t =>
+                        !Invulnerable.Check(t, DamageType.Magical) &&
+                        t.IsValidTarget(SpellClass.W.Width, false, this.BallPosition)) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
             {
                 SpellClass.W.Cast();
@@ -40,17 +41,19 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.Mana - UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Cost
-                    > UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Cost + UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).Cost &&
+                > UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Cost + UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).Cost &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
             {
                 foreach (var ally in GameObjects.AllyHeroes
-                    .Where(t =>
-                        t.IsValidTarget() &&
-                        !Invulnerable.Check(t, DamageType.Magical))
+                    .Where(
+                        t =>
+                            t.IsValidTarget() &&
+                            !Invulnerable.Check(t, DamageType.Magical))
                     .OrderBy(o => o.Health))
                 {
-                    var polygon = new Geometry.Rectangle((Vector2)ally.Position, (Vector2)ally.Position.Extend(BallPosition, ally.Distance(BallPosition)), SpellClass.E.Width);
-                    if (GameObjects.EnemyHeroes.Any(t =>
+                    var polygon = new Geometry.Rectangle((Vector2)ally.Position, (Vector2)ally.Position.Extend(this.BallPosition, ally.Distance(this.BallPosition)), SpellClass.E.Width);
+                    if (GameObjects.EnemyHeroes.Any(
+                        t =>
                             t.IsValidTarget() &&
                             !polygon.IsOutside((Vector2)t.Position) &&
                             !Invulnerable.Check(t, DamageType.Magical, false)))
@@ -74,7 +77,7 @@ namespace AIO.Champions
                 bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
             {
-                if (bestTarget.Distance(BallPosition) > bestTarget.Distance(UtilityClass.Player) + 100f)
+                if (bestTarget.Distance(this.BallPosition) > bestTarget.Distance(UtilityClass.Player) + 100f)
                 {
                     if (SpellClass.E.Ready &&
                         MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)

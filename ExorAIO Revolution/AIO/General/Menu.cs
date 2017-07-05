@@ -1,4 +1,5 @@
-﻿#pragma warning disable 1587
+﻿
+#pragma warning disable 1587
 namespace AIO
 {
     using Aimtec.SDK.Menu;
@@ -11,6 +12,8 @@ namespace AIO
     /// </summary>
     internal partial class General
     {
+        #region Public Methods and Operators
+
         /// <summary>
         ///     Loads the menu.
         /// </summary>
@@ -49,5 +52,7 @@ namespace AIO
             }
             MenuClass.Root.Attach();
         }
+
+        #endregion
     }
 }

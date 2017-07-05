@@ -14,12 +14,12 @@ namespace AIO.Champions
         /// <summary>
         ///     The methods.
         /// </summary>
-        public static void Methods()
+        public void Methods()
         {
-            Game.OnUpdate += OnUpdate;
-            UtilityClass.IOrbwalker.PreAttack += OnPreAttack;
-            RenderManager.OnPresent += OnPresent;
-            Obj_AI_Base.OnTeleport += OnTeleport;
+            Game.OnUpdate += this.OnUpdate;
+            UtilityClass.IOrbwalker.PreAttack += this.OnPreAttack;
+            RenderManager.OnPresent += this.OnPresent;
+            Obj_AI_Base.OnTeleport += this.OnTeleport;
 
             //Events.OnGapCloser += OnGapCloser;
             //Events.OnInterruptableTarget += OnInterruptableTarget;

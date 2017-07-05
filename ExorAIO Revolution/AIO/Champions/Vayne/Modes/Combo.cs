@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Combo()
+        public void Combo()
         {
             /// <summary>
             ///     The E Stun Logic.
@@ -34,10 +34,10 @@ namespace AIO.Champions
                     GameObjects.EnemyHeroes.Where(
                         t =>
                             //!t.IsDashing() &&
-                            t.IsValidTarget(SpellClass.E.Range + t.BoundingRadius) &&
-                            !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
-                            MenuClass.WhiteList[t.ChampionName.ToLower()].Enabled))
+                                t.IsValidTarget(SpellClass.E.Range + t.BoundingRadius) &&
+                                !Invulnerable.Check(t, DamageType.Magical, false) &&
+                                !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
+                                MenuClass.WhiteList[t.ChampionName.ToLower()].Enabled))
                 {
                     for (var i = 1; i < 10; i++)
                     {
@@ -56,10 +56,8 @@ namespace AIO.Champions
 
                         if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&
-
                             NavMesh.WorldToCell(predictedPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(predictedPosition1Extended).Flags.HasFlag(NavCellFlags.Wall) &&
-
                             NavMesh.WorldToCell(predictedPosition2).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(predictedPosition2Extended).Flags.HasFlag(NavCellFlags.Wall))
                         {

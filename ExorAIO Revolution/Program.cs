@@ -1,4 +1,5 @@
-﻿#pragma warning disable 1587
+﻿
+#pragma warning disable 1587
 namespace AIO
 {
     using System;

@@ -9,7 +9,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The drawings class.
@@ -21,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Initializes the menus.
         /// </summary>
-        public static void Drawings()
+        public void Drawings()
         {
             /// <summary>
             ///     Loads the Q drawing.
@@ -40,7 +40,7 @@ namespace AIO.Champions
             {
                 foreach (var feather in GameObjects.AllyMinions.Where(m => m.IsValid && m.Name == "Feather"))
                 {
-                    Geometry.Rectangle hitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Position, SpellClass.Q.Width);
+                    var hitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Position, SpellClass.Q.Width);
                     Geometry.Util.DrawLineInWorld(UtilityClass.Player.Position, feather.Position, 1, GameObjects.EnemyHeroes.Any(h => hitbox.IsInside((Vector2)h.Position)) ? Color.Blue : Color.OrangeRed);
                 }
             }

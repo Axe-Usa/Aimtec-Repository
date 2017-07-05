@@ -10,7 +10,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -22,7 +22,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Killsteal()
+        public void Killsteal()
         {
             /// <summary>
             ///     The Q Killsteal Logic.
@@ -49,9 +49,9 @@ namespace AIO.Champions
                 if (MenuClass.Spells["extendedq"]["killsteal"].As<MenuBool>().Enabled)
                 {
                     foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
-                        let polygon = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
-                        where polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(SpellClass.Q.GetBestKillableHero(DamageType.Physical)).PredictedPosition)
-                        select minion)
+                                           let polygon = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
+                                           where polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(SpellClass.Q.GetBestKillableHero(DamageType.Physical)).PredictedPosition)
+                                           select minion)
                     {
                         SpellClass.Q.CastOnUnit(minion);
                     }

@@ -7,86 +7,39 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Orbwalking;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Lucian
     {
-        #region Public Methods and Operators
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Loads Lucian.
         /// </summary>
-        public static void OnLoad()
+        public Lucian()
         {
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            Menus();
+            this.Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            Spells();
+            this.Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            Methods();
+            this.Methods();
         }
 
-        /// <summary>
-        ///     Fired on present.
-        /// </summary>
-        public static void OnPresent()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            Drawings();
-        }
+        #endregion
 
-        /// <summary>
-        ///     Called on pre attack.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public static void OnPreAttack(object sender, PreAttackEventArgs args)
-        {
-            if (UtilityClass.Player.HasBuff("LucianR"))
-            {
-                args.Cancel = true;
-            }
-        }
-
-        /// <summary>
-        ///     Called on do-cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void OnPostAttack(object sender, PostAttackEventArgs args)
-        {
-            if (!UtilityClass.Player.HasBuff("LucianR"))
-            {
-                /// <summary>
-                ///     Initializes the orbwalkingmodes.
-                /// </summary>
-                switch (UtilityClass.IOrbwalker.Mode)
-                {
-                    case OrbwalkingMode.Combo:
-                        Weaving(sender, args);
-                        break;
-
-                    case OrbwalkingMode.Laneclear:
-                        Laneclear(sender, args);
-                        Jungleclear(sender, args);
-                        Buildingclear(sender, args);
-                        break;
-                }
-            }
-        }
+        #region Public Methods and Operators
 
         /*
         /// <summary>
@@ -94,7 +47,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The object.</param>
         /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public static void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -117,7 +70,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Obj_AI_BasePlayAnimationEventArgs" /> instance containing the event data.</param>
-        public static void OnPlayAnimation(Obj_AI_Base sender, Obj_AI_BasePlayAnimationEventArgs args)
+        public void OnPlayAnimation(Obj_AI_Base sender, Obj_AI_BasePlayAnimationEventArgs args)
         {
             if (sender.IsMe &&
                 UtilityClass.IOrbwalker.Mode != OrbwalkingMode.None)
@@ -130,9 +83,60 @@ namespace AIO.Champions
         }
 
         /// <summary>
+        ///     Called on do-cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPostAttack(object sender, PostAttackEventArgs args)
+        {
+            if (!UtilityClass.Player.HasBuff("LucianR"))
+            {
+                /// <summary>
+                ///     Initializes the orbwalkingmodes.
+                /// </summary>
+                switch (UtilityClass.IOrbwalker.Mode)
+                {
+                    case OrbwalkingMode.Combo:
+                        this.Weaving(sender, args);
+                        break;
+
+                    case OrbwalkingMode.Laneclear:
+                        this.Laneclear(sender, args);
+                        this.Jungleclear(sender, args);
+                        this.Buildingclear(sender, args);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Called on pre attack.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPreAttack(object sender, PreAttackEventArgs args)
+        {
+            if (UtilityClass.Player.HasBuff("LucianR"))
+            {
+                args.Cancel = true;
+            }
+        }
+
+        /// <summary>
+        ///     Fired on present.
+        /// </summary>
+        public void OnPresent()
+        {
+            /// <summary>
+            ///     Initializes the drawings.
+            /// </summary>
+            this.Drawings();
+        }
+
+        /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void OnUpdate()
+        public void OnUpdate()
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -142,7 +146,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            Killsteal();
+            this.Killsteal();
 
             if (UtilityClass.IOrbwalker.IsWindingUp)
             {
@@ -152,7 +156,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            Automatic();
+            this.Automatic();
 
             if (UtilityClass.Player.HasBuff("LucianR"))
             {
@@ -165,15 +169,15 @@ namespace AIO.Champions
             switch (UtilityClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    Combo();
+                    this.Combo();
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    Laneclear();
+                    this.Laneclear();
                     break;
 
                 case OrbwalkingMode.Mixed:
-                    Harass();
+                    this.Harass();
                     break;
             }
         }

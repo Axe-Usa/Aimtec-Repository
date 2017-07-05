@@ -3,7 +3,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Prediction.Skillshots;
 
-    using Utilities;
+    using AIO.Utilities;
 
     using Spell = Aimtec.SDK.Spell;
 
@@ -12,12 +12,12 @@ namespace AIO.Champions
     /// </summary>
     internal partial class Akali
     {
-
         #region Public Methods and Operators
+
         /// <summary>
         ///     Initializes the spells.
         /// </summary>
-        public static void Spells()
+        public void Spells()
         {
             SpellClass.Q = new Spell(SpellSlot.Q, 600f);
             SpellClass.W = new Spell(SpellSlot.W, 270f);

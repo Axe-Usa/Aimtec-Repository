@@ -3,7 +3,6 @@
 
 namespace AIO.Champions
 {
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -14,7 +13,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
-        public static void Harass()
+        public void Harass()
         {
         }
 

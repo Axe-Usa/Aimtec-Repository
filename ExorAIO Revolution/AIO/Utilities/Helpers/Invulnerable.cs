@@ -1,5 +1,6 @@
 ﻿// ReSharper disable ArrangeAccessorOwnerBody
 // ReSharper disable ArrangeConstructorOrDestructorBody
+
 namespace AIO.Utilities
 {
     using System;
@@ -34,7 +35,7 @@ namespace AIO.Utilities
             PEntries.AddRange(
                 new List<InvulnerableEntry>
                     {
-                        new InvulnerableEntry("UndyingRage") {ChampionName = "Tryndamere", MinHealthPercent = 1, CheckFunction = (target, type) => ((Obj_AI_Hero)target).HealthPercent() <= 5},
+                        new InvulnerableEntry("UndyingRage") { ChampionName = "Tryndamere", MinHealthPercent = 1, CheckFunction = (target, type) => ((Obj_AI_Hero)target).HealthPercent() <= 5 },
                         new InvulnerableEntry("Kayle") { ChampionName = "JudicatorIntervention", IsShield = true },
                         new InvulnerableEntry("fizztrickslamsounddummy") { ChampionName = "Fizz" },
                         new InvulnerableEntry("VladimirSanguinePool") { ChampionName = "Vladimir" },

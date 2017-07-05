@@ -14,7 +14,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public static void Weaving(object sender, PostAttackEventArgs args)
+        public void Weaving(object sender, PostAttackEventArgs args)
         {
         }
 

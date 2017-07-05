@@ -8,7 +8,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using Utilities;
+    using AIO.Utilities;
 
     /// <summary>
     ///     The logics class.
@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Called on tick update.
         /// </summary>
-        public static void Killsteal()
+        public void Killsteal()
         {
             /// <summary>
             ///     The R KillSteal Logic.
@@ -32,7 +32,7 @@ namespace AIO.Champions
                 var shouldIncludeEDamage = bestTarget.HasBuff("TristanaECharge");
                 if (bestTarget != null &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) +
-                    (shouldIncludeEDamage ? GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
+                    (shouldIncludeEDamage ? this.GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.E.CastOnUnit(bestTarget);
                 }
