@@ -38,6 +38,11 @@ namespace AIO.Champions
             ///     Updates the spells.
             /// </summary>
             this.Spells();
+
+            /// <summary>
+            ///     Reloads the WorkedGrounds.
+            /// </summary>
+            this.ReloadFeathers();
         }
 
         #endregion
@@ -82,12 +87,14 @@ namespace AIO.Champions
         /// </summary>
         public void OnCreate(GameObject obj)
         {
-            if (obj != null &&
-                obj.IsValid &&
-                obj.Name == "Feather" &&
-                GameObjects.AllyMinions.Contains(obj))
+            if (obj != null && obj.IsValid)
             {
-                this.Feathers.Add(obj.NetworkId, obj.Position);
+                switch (obj.Name)
+                {
+                    case "Xayah_Base_Passive_Dagger_Mark8s.troy":
+                        this.Feathers.Add(obj.NetworkId, obj.Position);
+                        break;
+                }
             }
         }
 
@@ -96,11 +103,12 @@ namespace AIO.Champions
         /// </summary>
         public void OnDestroy(GameObject obj)
         {
-            if (obj != null &&
-                obj.IsValid &&
-                this.Feathers.Any(o => o.Key == obj.NetworkId))
+            if (obj != null && obj.IsValid)
             {
-                this.Feathers.Remove(obj.NetworkId);
+                if (this.Feathers.Any(o => o.Key == obj.NetworkId))
+                {
+                    this.Feathers.Remove(obj.NetworkId);
+                }
             }
         }
 

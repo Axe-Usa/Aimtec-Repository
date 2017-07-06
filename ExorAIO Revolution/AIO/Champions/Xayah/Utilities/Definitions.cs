@@ -49,7 +49,7 @@ namespace AIO.Champions
         /// </summary>
         public int CountFeathersHitOnUnit(Obj_AI_Base unit)
         {
-            var hit = -1; //just to be sure.
+            var hit = 0;
             foreach (var feather in this.Feathers)
             {
                 var playerToFeatherRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.Q.Width);
@@ -99,6 +99,22 @@ namespace AIO.Champions
             }
 
             return false;
+        }
+
+        /// <summary>
+        ///     Reloads the Feathers.
+        /// </summary>
+        public void ReloadFeathers()
+        {
+            foreach (var feather in ObjectManager.Get<GameObject>().Where(o => o != null && o.IsValid))
+            {
+                switch (feather.Name)
+                {
+                    case "Xayah_Base_Passive_Dagger_Mark8s.troy":
+                        this.Feathers.Add(feather.NetworkId, feather.Position);
+                        break;
+                }
+            }
         }
 
         #endregion
