@@ -23,7 +23,7 @@ namespace AIO.Champions
         public void Jungleclear()
         {
             var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetTarget();
-            if (!Extensions.GetLargeJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
+            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
             {
                 return;
             }

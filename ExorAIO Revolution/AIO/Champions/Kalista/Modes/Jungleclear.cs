@@ -26,7 +26,7 @@ namespace AIO.Champions
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = (Obj_AI_Minion)args.Target;
-            if (!Extensions.GetLargeJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
+            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
             {
                 return;
             }

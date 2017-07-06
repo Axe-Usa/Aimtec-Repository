@@ -38,6 +38,14 @@ namespace AIO.Champions
             return UtilityClass.Player.HasBuff("corkimissilebarragecounterbig");
         }
 
+        /// <summary>
+        ///     returns true if the player has the Package, else false.
+        /// </summary>
+        public bool HasPackage()
+        {
+            return UtilityClass.Player.HasBuff("corkiloaded");
+        }
+
         #endregion
     }
 }

@@ -44,6 +44,11 @@
         /// </summary>
         public static Spell W { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the W2 Spell.
+        /// </summary>
+        public static Spell W2 { get; set; }
+
         #endregion
     }
 }

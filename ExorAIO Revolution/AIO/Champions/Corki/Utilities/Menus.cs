@@ -126,7 +126,7 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the menu for the R Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList3 = new Menu("whitelist", "Harass: Whitelist", true);
+                        MenuClass.WhiteList3 = new Menu("whitelist", "Harass: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {

@@ -37,7 +37,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["w"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
+                RenderManager.RenderCircle(UtilityClass.Player.Position, this.HasPackage() ? SpellClass.W2.Range : SpellClass.W.Range, 100, Color.Purple);
             }
 
             /// <summary>

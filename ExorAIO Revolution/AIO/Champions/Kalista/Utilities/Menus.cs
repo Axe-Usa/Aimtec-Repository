@@ -98,7 +98,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Rend: Whitelist");
                     {
-                        foreach (var target in Extensions.GetLargeJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
+                        foreach (var target in Extensions.GetGenericJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                         {
                             MenuClass.WhiteList2.Add(new MenuBool(target.Name, "Rend: " + target.Name));
                         }
