@@ -52,11 +52,25 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
         public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
-            if (sender.IsMe &&
-                this.IsUltimateShooting() &&
-                args.Slot != SpellSlot.R)
+            if (sender.IsMe)
             {
-                args.Process = false;
+                if (this.IsUltimateShooting() &&
+                    args.Slot != SpellSlot.R)
+                {
+                    args.Process = false;
+                }
+
+                switch (args.Slot)
+                {
+                    case SpellSlot.E:
+                        var target = ImplementationClass.IOrbwalker.GetTarget() as Obj_AI_Hero;
+                        if (target != null &&
+                            target.HasBuff("jhinetrapslow"))
+                        {
+                            args.Process = false;
+                        }
+                        break;
+                }
             }
         }
 
@@ -80,6 +94,8 @@ namespace AIO.Champions
                     if (SpellClass.Q.Ready &&
                         minion.IsValidTarget(SpellClass.Q.Range) &&
                         minion.Health <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
+                        UtilityClass.Player.ManaPercent()
+                            > ManaManager.GetNeededMana(SpellSlot.Q, MenuClass.Spells["q"]["farmhelper"]) &&
                         MenuClass.Spells["q"]["farmhelper"].As<MenuBool>().Enabled)
                     {
                         SpellClass.Q.CastOnUnit(minion);
@@ -116,6 +132,11 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
         public void OnPreAttack(object sender, PreAttackEventArgs args)
         {
+            if (this.IsUltimateShooting())
+            {
+                args.Cancel = true;
+            }
+
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
@@ -124,6 +145,22 @@ namespace AIO.Champions
                 case OrbwalkingMode.Combo:
                     this.Weaving(sender, args);
                     break;
+                case OrbwalkingMode.Laneclear:
+                    this.Jungleclear(sender, args);
+                    break;
+            }
+        }
+
+        /// <summary>
+        ///     Called on pre attack.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PreMoveEventArgs" /> instance containing the event data.</param>
+        public void OnPreMove(object sender, PreMoveEventArgs args)
+        {
+            if (this.IsUltimateShooting())
+            {
+                args.Cancel = true;
             }
         }
 
@@ -252,6 +289,7 @@ namespace AIO.Champions
 
                 case OrbwalkingMode.Laneclear:
                     this.Laneclear();
+                    this.Jungleclear();
                     break;
             }
         }

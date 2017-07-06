@@ -447,19 +447,6 @@
             /// <param name="angle">The angle.</param>
             /// <param name="radius">The radius.</param>
             /// <param name="quality">The quality.</param>
-            public Sector(Vector3 center, Vector3 direction, float angle, float radius, int quality = 20)
-                : this(center.To2D(), direction.To2D(), angle, radius, quality)
-            {
-            }
-
-            /// <summary>
-            ///     Initializes a new instance of the <see cref="Sector" /> class.
-            /// </summary>
-            /// <param name="center">The center.</param>
-            /// <param name="direction">The direction.</param>
-            /// <param name="angle">The angle.</param>
-            /// <param name="radius">The radius.</param>
-            /// <param name="quality">The quality.</param>
             public Sector(Vector2 center, Vector2 direction, float angle, float radius, int quality = 20)
             {
                 this.Center = center;

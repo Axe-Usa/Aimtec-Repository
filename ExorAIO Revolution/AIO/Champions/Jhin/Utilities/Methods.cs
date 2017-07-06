@@ -17,12 +17,13 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += this.OnUpdate;
-            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
+            SpellBook.OnCastSpell += this.OnCastSpell;
+            Obj_AI_Base.OnTeleport += this.OnTeleport;
             RenderManager.OnPresent += this.OnPresent;
+            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
+            ImplementationClass.IOrbwalker.PreMove += this.OnPreMove;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            Obj_AI_Base.OnTeleport += this.OnTeleport;
-            SpellBook.OnCastSpell += this.OnCastSpell;
             ImplementationClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
 
             //Events.OnGapCloser += OnGapCloser;

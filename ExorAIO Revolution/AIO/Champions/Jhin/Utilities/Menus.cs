@@ -76,7 +76,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuBool("combo", "Combo (Only Marked enemies)", false));
+                    MenuClass.W.Add(new MenuBool("combo", "Combo (Only Marked enemies)"));
                     MenuClass.W.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
@@ -87,6 +87,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
+                        MenuClass.W2.Add(new MenuBool("onlyslowed", "Combo only if Slowed"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
@@ -119,6 +120,7 @@ namespace AIO.Champions
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.E.Add(new MenuBool("teleport", "On Teleport"));

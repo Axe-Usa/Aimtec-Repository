@@ -36,7 +36,7 @@ namespace AIO.Champions
                     t =>
                         !Invulnerable.Check(t) &&
                         t.IsValidTarget(SpellClass.R.Range) &&
-                        this.UltimateCone().IsInside((Vector2)t.Position) &&
+                        UltimateCone().IsInside((Vector2)t.Position) &&
                         t.GetRealHealth() < (float)UtilityClass.Player.GetSpellDamage(t, SpellSlot.R, this.UltimateShotsCount == 3 ? DamageStage.SecondForm : DamageStage.Default)))
                 {
                     SpellClass.R.Cast(target);

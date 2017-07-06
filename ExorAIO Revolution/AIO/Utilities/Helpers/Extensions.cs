@@ -184,7 +184,7 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetGenericJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.Jungle.Where(m => m.IsValidTarget(range)).ToList();
+            return GameObjects.Jungle.Concat(GameObjects.JungleSmall).Where(m => m.IsValidTarget(range)).ToList();
         }
 
         /// <summary>

@@ -47,7 +47,7 @@ namespace AIO.Champions
                 this.HasFourthShot() &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.E.Cast();
+                SpellClass.E.Cast(heroTarget);
             }
         }
 

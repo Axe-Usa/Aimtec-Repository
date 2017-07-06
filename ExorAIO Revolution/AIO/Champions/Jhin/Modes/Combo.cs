@@ -24,6 +24,30 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
+            ///     The R Logic.
+            /// </summary>
+            if (SpellClass.R.Ready &&
+                this.IsUltimateShooting() &&
+                MenuClass.Spells["r"]["combo"].As<MenuBool>().Value)
+            {
+                var validEnemiesInsideCone = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.R.Range).Where(t => this.UltimateCone().IsInside((Vector2)t.Position));
+                var objAiHeroes = validEnemiesInsideCone as Obj_AI_Hero[] ?? validEnemiesInsideCone.ToArray();
+                if (objAiHeroes.Any())
+                {
+                    if (MenuClass.Spells["r"]["customization"]["nearmouse"].As<MenuBool>().Value)
+                    {
+                        SpellClass.R.Cast(objAiHeroes.OrderBy(o => o.Distance(Game.CursorPos)).FirstOrDefault());
+                        return;
+                    }
+
+                    SpellClass.R.Cast(objAiHeroes.FirstOrDefault());
+                    return;
+                }
+
+                SpellClass.R.Cast(Game.CursorPos);
+            }
+
+            /// <summary>
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
