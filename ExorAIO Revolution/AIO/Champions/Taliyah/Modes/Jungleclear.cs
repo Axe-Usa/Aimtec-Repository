@@ -31,6 +31,18 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The Jungleclear Rylai Q Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                UtilityClass.Player.HasItem(ItemId.RylaisCrystalScepter) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
+                MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
+            {
+                SpellClass.Q.Cast(jungleTarget);
+            }
+
+            /// <summary>
             ///     The Jungleclear W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
@@ -39,11 +51,19 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 var bestBoulderHitPos = this.GetBestBouldersHitPosition(jungleTarget);
+                var bestBoulderHitPosHitBoulders = this.GetBestBouldersHitPositionHitBoulders(jungleTarget);
                 if (SpellClass.E.Ready)
                 {
-                    SpellClass.W.Cast((Vector2)jungleTarget.Position, (Vector2)UtilityClass.Player.Position);
+                    if (jungleTarget.Distance(UtilityClass.Player) < 300f)
+                    {
+                        SpellClass.W.Cast((Vector2)jungleTarget.Position.Extend((Vector2)UtilityClass.Player.Position, 75f), -(Vector2)UtilityClass.Player.Position);
+                    }
+                    else
+                    {
+                        SpellClass.W.Cast((Vector2)jungleTarget.Position.Extend((Vector2)UtilityClass.Player.Position, 75f), (Vector2)UtilityClass.Player.Position);
+                    }
                 }
-                else if (bestBoulderHitPos != Vector3.Zero)
+                else if (bestBoulderHitPos != Vector3.Zero && bestBoulderHitPosHitBoulders > 0)
                 {
                     SpellClass.W.Cast((Vector2)jungleTarget.Position, (Vector2)bestBoulderHitPos);
                 }

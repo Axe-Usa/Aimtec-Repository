@@ -81,6 +81,26 @@ namespace AIO.Champions
         /// <summary>
         ///     Reloads the MineField.
         /// </summary>
+        /// <param name="unit">The unit.</param>
+        public int GetBestBouldersHitPositionHitBoulders(Obj_AI_Base unit)
+        {
+            var mostBouldersHit = 0;
+            foreach (var mine in this.MineField)
+            {
+                var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, 200f), unit.BoundingRadius);
+                var bouldersHit = this.MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
+                if (bouldersHit > mostBouldersHit)
+                {
+                    mostBouldersHit = bouldersHit;
+                }
+            }
+
+            return mostBouldersHit;
+        }
+
+        /// <summary>
+        ///     Reloads the MineField.
+        /// </summary>
         public void ReloadMineField()
         {
             foreach (var mine in ObjectManager.Get<GameObject>().Where(o => o != null && o.IsValid))

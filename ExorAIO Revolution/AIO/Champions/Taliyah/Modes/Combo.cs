@@ -39,10 +39,11 @@ namespace AIO.Champions
                 var objAiHeroes = bestTargets as Obj_AI_Hero[] ?? bestTargets.ToArray();
                 foreach (var target in objAiHeroes)
                 {
-                    var bestWPos = this.GetBestBouldersHitPosition(target);
-                    if (bestWPos != Vector3.Zero)
+                    var bestBoulderHitPos = this.GetBestBouldersHitPosition(target);
+                    var bestBoulderHitPosHitBoulders = this.GetBestBouldersHitPositionHitBoulders(target);
+                    if (bestBoulderHitPos != Vector3.Zero && bestBoulderHitPosHitBoulders > 0)
                     {
-                        SpellClass.W.Cast(target, bestWPos);
+                        SpellClass.W.Cast(target, bestBoulderHitPos);
                     }
                 }
             }
