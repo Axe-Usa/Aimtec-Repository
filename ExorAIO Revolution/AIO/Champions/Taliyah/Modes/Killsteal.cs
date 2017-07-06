@@ -25,7 +25,7 @@ namespace AIO.Champions
             ///     The KillSteal Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&

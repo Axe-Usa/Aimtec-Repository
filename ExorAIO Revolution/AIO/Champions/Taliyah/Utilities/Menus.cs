@@ -166,6 +166,8 @@ namespace AIO.Champions
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));
                 MenuClass.Drawings.Add(new MenuBool("rmm", "R Minimap Range"));
+                MenuClass.Drawings.Add(new MenuBool("boulders", "Draw Boulders", false));
+                MenuClass.Drawings.Add(new MenuBool("grounds", "Draw Worked Grounds", false));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

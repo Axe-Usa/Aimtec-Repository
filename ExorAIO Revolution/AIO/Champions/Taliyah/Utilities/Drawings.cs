@@ -18,7 +18,7 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Initializes the menus.
+        ///     Initializes drawings.
         /// </summary>
         public void Drawings()
         {
@@ -52,17 +52,47 @@ namespace AIO.Champions
             /// <summary>
             ///     Loads the R drawing.
             /// </summary>
-            if (SpellClass.R.Ready)
+            if (SpellClass.R.Ready &&
+                MenuClass.Drawings["r"].As<MenuBool>().Enabled)
             {
-                if (MenuClass.Drawings["r"].As<MenuBool>().Enabled)
-                {
-                    RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.R.Range, 100, Color.Red);
-                }
+                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.R.Range, 100, Color.Red);
+            }
 
-                if (MenuClass.Drawings["rmm"].As<MenuBool>().Enabled)
+            /// <summary>
+            ///     Loads the WorkedGrounds drawing.
+            /// </summary>
+            if (MenuClass.Drawings["grounds"].As<MenuBool>().Enabled)
+            {
+                foreach (var ground in this.WorkedGrounds)
                 {
-                    Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, SpellClass.R.Range, Color.White);
+                    RenderManager.RenderCircle(ground.Value, 412.5f, 100, Color.Brown);
                 }
+            }
+
+            /// <summary>
+            ///     Loads the MineFields drawing.
+            /// </summary>
+            if (MenuClass.Drawings["boulders"].As<MenuBool>().Enabled)
+            {
+                foreach (var boulder in this.MineField)
+                {
+                    RenderManager.RenderCircle(boulder.Value, 30f, 100, Color.Brown);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Initializes the minimap drawings.
+        /// </summary>
+        public void MinimapDrawings()
+        {
+            /// <summary>
+            ///     Loads the R minimap drawing.
+            /// </summary>
+            if (SpellClass.R.Ready &&
+                MenuClass.Drawings["rmm"].As<MenuBool>().Enabled)
+            {
+                Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, SpellClass.R.Range, Color.White);
             }
         }
 

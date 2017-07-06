@@ -17,8 +17,10 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             GameObject.OnCreate += this.OnCreate;
             GameObject.OnDestroy += this.OnDestroy;
+            SpellBook.OnCastSpell += this.OnCastSpell;
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
             RenderManager.OnPresent += this.OnPresent;
+            RenderManager.OnRender += this.OnRender;
 
             /*
             Events.OnGapCloser += Taliyah.OnGapCloser;

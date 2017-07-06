@@ -5,6 +5,7 @@
 
 namespace AIO.Champions
 {
+    using System;
     using System.Linq;
 
     using Aimtec;
@@ -30,27 +31,18 @@ namespace AIO.Champions
             ///     The W->Boulders Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTargets = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range);
-                foreach (var target in bestTargets)
-                {
-                    if (bestTargets.Count() == 1 ||
-                        MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value < 3)
-                    {
-                        continue;
-                    }
+                var bestTargets = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.W.Range)
+                    .Where(t => MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3);
 
-                    foreach (var boulder in this.MineField)
+                var objAiHeroes = bestTargets as Obj_AI_Hero[] ?? bestTargets.ToArray();
+                foreach (var target in objAiHeroes)
+                {
+                    var bestWPos = this.GetBestBouldersHitPosition(target);
+                    if (bestWPos != Vector3.Zero)
                     {
-                        var boulderPos = boulder.Value;
-                        if (target.Distance(boulderPos) < SpellClass.E.Range &&
-                            UtilityClass.Player.Distance(boulderPos) < SpellClass.W.Range)
-                        {
-                            /*
-                            SpellClass.W.Cast(bestTarget, boulderPos);
-                            */
-                        }
+                        SpellClass.W.Cast(target, bestWPos);
                     }
                 }
             }
@@ -67,10 +59,9 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 bestTarget.IsValidTarget(SpellClass.Q.Range - 50f) &&
-                UtilityClass.Player.HasItem(ItemId.RylaisCrystalScepter) &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
+                UtilityClass.Player.HasItem(ItemId.RylaisCrystalScepter))
             {
-                switch (MenuClass.Spells["q"]["combomode"][bestTarget.ChampionName.ToLower()].As<MenuList>().Value)
+                switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
                 {
                     case 0:
                         if (!this.IsNearWorkedGround())
@@ -90,70 +81,40 @@ namespace AIO.Champions
                 ///     The W->E Combo Logic.
                 /// </summary>
                 if (SpellClass.W.Ready &&
+                    (SpellClass.E.Ready ||
+                        !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
                     target.IsValidTarget(SpellClass.W.Range) &&
-                    MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
+                    MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                 {
-                    /*
-                    if (MineField.Any())
+                    switch (MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value)
                     {
-                        var farmLocation = SpellClass.W.GetLineFarmLocation(MineField, target.BoundingRadius);
-                        if (farmLocation.MinionsHit >= 4)
-                        {
-                            SpellClass.W.Cast(target, farmLocation.Position);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if (!SpellClass.E.Ready &&
-                            MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Value)
-                        {
-                            return;
-                        }
-
-                        switch (MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value)
-                        {
-                            case 0:
+                        case 0:
+                            SpellClass.W.Cast(target, UtilityClass.Player.Position);
+                            break;
+                        case 1:
+                            SpellClass.W.Cast(target, UtilityClass.Player.Position.Extend(target.Position, UtilityClass.Player.Distance(target) * 2));
+                            break;
+                        case 2:
+                            var isKillable = target.GetRealHealth() < UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) * (this.IsNearWorkedGround() ? 1 : 3) +
+                                                UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) +
+                                                UtilityClass.Player.GetSpellDamage(target, SpellSlot.E);
+                            if (isKillable)
+                            {
                                 SpellClass.W.Cast(target, UtilityClass.Player.Position);
-                                break;
-
-                            case 1:
+                            }
+                            else
+                            {
                                 SpellClass.W.Cast(target, UtilityClass.Player.Position.Extend(target.Position, UtilityClass.Player.Distance(target) * 2));
-                                break;
-
-                            case 2:
-                                var isKillable = target.GetRealHealth() < UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) * (IsNearWorkedGround() ? 1 : 3) +
-                                                 UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) +
-                                                 UtilityClass.Player.GetSpellDamage(target, SpellSlot.E);
-                                if (isKillable)
-                                {
-                                    SpellClass.W.Cast(target, UtilityClass.Player.Position);
-                                }
-                                else
-                                {
-                                    SpellClass.W.Cast(target, UtilityClass.Player.Position.Extend(target.Position, UtilityClass.Player.Distance(target) * 2));
-                                }
-                                break;
-
-                            case 3:
-                                if (!GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(SpellClass.W.Range) &&
+                            }
+                            break;
+                        case 3:
+                            if (!GameObjects.EnemyHeroes.Any(t =>
+                                    t.IsValidTarget(SpellClass.W.Range) &&
                                     MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
-                                {
-                                    SpellClass.W.Cast(target, UtilityClass.Player.Position.Extend(target.Position, UtilityClass.Player.Distance(target) * 2));
-                                }
-                                break;
-                        }
-                    }
-                    */
-
-                    /// <summary>
-                    ///     The W->E Combo Logic.
-                    /// </summary>
-                    if (SpellClass.E.Ready &&
-                        bestTarget.IsValidTarget(SpellClass.W.Range) &&
-                        MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
-                    {
-                        SpellClass.E.Cast(bestTarget.Position);
+                            {
+                                SpellClass.W.Cast(target, UtilityClass.Player.Position.Extend(target.Position, UtilityClass.Player.Distance(target) * 2));
+                            }
+                            break;
                     }
                 }
             }
@@ -164,7 +125,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 bestTarget.IsValidTarget(SpellClass.W.Range) &&
                 UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).CooldownEnd - Game.ClockTime <= 3f &&
-                MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(bestTarget.Position);
             }
@@ -173,14 +134,15 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range - 50f) &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
+                bestTarget.IsValidTarget(SpellClass.Q.Range - 50f))
             {
-                switch (MenuClass.Spells["q"]["combomode"][bestTarget.ChampionName.ToLower()].As<MenuList>().Value)
+                Console.WriteLine("The Q Combo Logic. 1111");
+                switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
                 {
                     case 0:
                         if (!this.IsNearWorkedGround())
                         {
+                            Console.WriteLine("The Q Combo Logic. 2222");
                             SpellClass.Q.Cast(bestTarget);
                         }
                         break;

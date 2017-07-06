@@ -56,6 +56,61 @@ namespace AIO.Champions
             return this.AnyTerrainInRange(412.5f);
         }
 
+        /// <summary>
+        ///     Reloads the MineField.
+        /// </summary>
+        /// <param name="unit">The unit.</param>
+        public Vector3 GetBestBouldersHitPosition(Obj_AI_Base unit)
+        {
+            var mostBouldersHit = 0;
+            var mostBouldersHitPos = Vector3.Zero;
+            foreach (var mine in this.MineField)
+            {
+                var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, 200f), unit.BoundingRadius);
+                var bouldersHit = this.MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
+                if (bouldersHit > mostBouldersHit)
+                {
+                    mostBouldersHit = bouldersHit;
+                    mostBouldersHitPos = mine.Value;
+                }
+            }
+
+            return mostBouldersHitPos;
+        }
+
+        /// <summary>
+        ///     Reloads the MineField.
+        /// </summary>
+        public void ReloadMineField()
+        {
+            foreach (var mine in ObjectManager.Get<GameObject>().Where(o => o != null && o.IsValid))
+            {
+                switch (mine.Name)
+                {
+                    case "Taliyah_Base_E_Mines.troy":
+                        this.MineField.Add(mine.NetworkId, mine.Position);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Reloads the WorkedGrounds.
+        /// </summary>
+        public void ReloadWorkedGrounds()
+        {
+            foreach (var ground in ObjectManager.Get<GameObject>().Where(o => o != null && o.IsValid))
+            {
+                switch (ground.Name)
+                {
+                    case "Taliyah_Base_Q_aoe.troy":
+                    case "Taliyah_Base_Q_aoe_river.troy":
+                        this.WorkedGrounds.Add(ground.NetworkId, ground.Position);
+                        break;
+                }
+            }
+        }
+
         #endregion
     }
 }

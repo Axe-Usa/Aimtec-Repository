@@ -23,7 +23,9 @@ namespace AIO.Champions
         public void Jungleclear()
         {
             var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetTarget();
-            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
+            if (!jungleTarget.IsValidTarget() ||
+                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
+                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*4)
             {
                 return;
             }
@@ -36,7 +38,15 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.W.Cast(jungleTarget.Position);
+                var bestBoulderHitPos = this.GetBestBouldersHitPosition(jungleTarget);
+                if (SpellClass.E.Ready)
+                {
+                    SpellClass.W.Cast((Vector2)jungleTarget.Position, (Vector2)UtilityClass.Player.Position);
+                }
+                else if (bestBoulderHitPos != Vector3.Zero)
+                {
+                    SpellClass.W.Cast((Vector2)jungleTarget.Position, (Vector2)bestBoulderHitPos);
+                }
             }
 
             /// <summary>
@@ -58,7 +68,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast(jungleTarget.Position);
+                SpellClass.Q.Cast(jungleTarget);
             }
         }
 

@@ -29,9 +29,24 @@ namespace AIO.Champions
             this.Menus();
 
             /// <summary>
+            ///     Initializes the spells.
+            /// </summary>
+            this.Spells();
+
+            /// <summary>
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
+
+            /// <summary>
+            ///     Reloads the MineField.
+            /// </summary>
+            this.ReloadMineField();
+
+            /// <summary>
+            ///     Reloads the WorkedGrounds.
+            /// </summary>
+            this.ReloadWorkedGrounds();
         }
 
         #endregion
@@ -43,12 +58,12 @@ namespace AIO.Champions
         /// </summary>
         public void OnCreate(GameObject obj)
         {
-            if (obj.IsValid &&
-                GameObjects.AllyMinions.Contains(obj))
+            if (obj != null && obj.IsValid)
             {
                 switch (obj.Name)
                 {
-                    case "Taliyah_Base_Q_aoe_bright.troy":
+                    case "Taliyah_Base_Q_aoe.troy":
+                    case "Taliyah_Base_Q_aoe_river.troy":
                         this.WorkedGrounds.Add(obj.NetworkId, obj.Position);
                         break;
 
@@ -60,18 +75,52 @@ namespace AIO.Champions
         }
 
         /// <summary>
+        ///     Called on spell cast.
+        /// </summary>
+        /// <param name="sender">The SpellBook.</param>
+        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
+        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                switch (ImplementationClass.IOrbwalker.Mode)
+                {
+                    case OrbwalkingMode.Combo:
+                        switch (args.Slot)
+                        {
+                            case SpellSlot.Q:
+                                switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
+                                {
+                                    case 0:
+                                        if (this.IsNearWorkedGround())
+                                        {
+                                            args.Process = false;
+                                        }
+                                        break;
+                                }
+                                break;
+                        }
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
         ///     Fired upon GameObject creation.
         /// </summary>
         public void OnDestroy(GameObject obj)
         {
-            if (this.WorkedGrounds.Any(o => o.Key == obj.NetworkId))
+            if (obj != null && obj.IsValid)
             {
-                this.WorkedGrounds.Remove(obj.NetworkId);
-            }
+                if (this.WorkedGrounds.Any(o => o.Key == obj.NetworkId))
+                {
+                    this.WorkedGrounds.Remove(obj.NetworkId);
+                }
 
-            if (this.MineField.Any(o => o.Key == obj.NetworkId))
-            {
-                this.MineField.Remove(obj.NetworkId);
+                if (this.MineField.Any(o => o.Key == obj.NetworkId))
+                {
+                    this.MineField.Remove(obj.NetworkId);
+                }
             }
         }
 
@@ -84,6 +133,17 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             this.Drawings();
+        }
+
+        /// <summary>
+        ///     Fired on render.
+        /// </summary>
+        public void OnRender()
+        {
+            /// <summary>
+            ///     Initializes the drawings.
+            /// </summary>
+            this.MinimapDrawings();
         }
 
         /*
@@ -100,13 +160,13 @@ namespace AIO.Champions
             }
 
             if (SpellClass.E.State == SpellState.Ready && UtilityClass.Player.Distance(args.End) < SpellClass.E.SpellData.Range - 50f
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(args.End);
             }
 
             if (SpellClass.W.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.W.SpellData.Range)
-                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (args.Sender.ChampionName.Equals("MasterYi"))
                 {
@@ -135,7 +195,7 @@ namespace AIO.Champions
             }
 
             if (SpellClass.W.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.W.SpellData.Range)
-                && MenuClass.Spells["w"]["interrupter"].As<MenuBool>().Value)
+                && MenuClass.Spells["w"]["interrupter"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast(args.Sender.ServerPosition, UtilityClass.Player.ServerPosition);
             }
@@ -149,16 +209,38 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
         public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            /// <summary>
-            ///     Automatically Mount on R Logic.
-            /// </summary>
             if (sender.IsMe)
             {
-                if (SpellClass.R.Ready &&
-                    args.SpellSlot.Equals(SpellSlot.R) &&
-                    MenuClass.Spells["r"]["mountr"].As<MenuBool>().Value)
+                switch (args.SpellSlot)
                 {
-                    SpellClass.R.Cast();
+                    /// <summary>
+                    ///     The W->E Combo Logic.
+                    /// </summary>
+                    case SpellSlot.W:
+                        if (SpellClass.E.Ready)
+                        {
+                            switch (ImplementationClass.IOrbwalker.Mode)
+                            {
+                                case OrbwalkingMode.Combo:
+                                    if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                                    {
+                                        SpellClass.E.Cast(args.End);
+                                    }
+                                    break;
+                            }
+                        }
+                        break;
+
+                    /// <summary>
+                    ///     Automatically Mount on R Logic.
+                    /// </summary>
+                    case SpellSlot.R:
+                        if (SpellClass.R.Ready &&
+                            MenuClass.Spells["r"]["mountr"].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.R.Cast();
+                        }
+                        break;
                 }
             }
         }
@@ -172,11 +254,6 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            /// <summary>
-            ///     Initializes the spells.
-            /// </summary>
-            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.
