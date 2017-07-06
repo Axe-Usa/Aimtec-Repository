@@ -39,6 +39,12 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
+                if (this.IsNearWorkedGround() &&
+                    MenuClass.Spells["q"]["customization"]["jungleclearfull"].As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 SpellClass.Q.Cast(jungleTarget);
             }
 
@@ -88,6 +94,12 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
+                if (this.IsNearWorkedGround() &&
+                    MenuClass.Spells["q"]["customization"]["jungleclearfull"].As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 SpellClass.Q.Cast(jungleTarget);
             }
         }
