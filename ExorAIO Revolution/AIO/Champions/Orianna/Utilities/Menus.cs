@@ -44,7 +44,7 @@ namespace AIO.Champions
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 
@@ -64,7 +64,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -89,8 +89,7 @@ namespace AIO.Champions
                         MenuClass.W2.Add(new MenuBool("speedw", "Use W to speed Orianna up while chasing in combo", false));
                         //MenuClass.W2.Add(new MenuSeperator("separator2"));
                         //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear Options:"));
-                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 4, 1, 10));
-
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
 
@@ -110,7 +109,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -132,7 +131,7 @@ namespace AIO.Champions
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
                         //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.E.Add(MenuClass.E2);
 
@@ -141,7 +140,7 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the whitelist menu for the E.
                         /// </summary>
-                        MenuClass.WhiteList3 = new Menu("whitelist", "Shield Allies: Whitelist Menu", true);
+                        MenuClass.WhiteList3 = new Menu("whitelist", "Shield Allies: Whitelist Menu");
                         {
                             foreach (var ally in GameObjects.AllyHeroes)
                             {
@@ -152,7 +151,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.E.Add(new MenuSeperator("exseparator", "No ally champions found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "No ally champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
@@ -163,7 +162,14 @@ namespace AIO.Champions
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
                     MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
-                    MenuClass.R.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", true, 2, 1, GameObjects.EnemyHeroes.Count()));
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        MenuClass.R.Add(new MenuSliderBool("combo", "Combo / If can hit >= x enemies", true, 2, 1, GameObjects.EnemyHeroes.Count()));
+                    }
+                    else
+                    {
+                        MenuClass.R.Add(new MenuSeperator("combo", "Combo / No enemies found"));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
             }
@@ -183,11 +189,11 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
-                MenuClass.Drawings.Add(new MenuBool("q", "Q Range"));
-                MenuClass.Drawings.Add(new MenuBool("e", "E Range"));
+                MenuClass.Drawings.Add(new MenuBool("q", "Q Range", false));
+                MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("ball", "Ball Position"));
-                MenuClass.Drawings.Add(new MenuBool("ballw", "Ball W Range"));
-                MenuClass.Drawings.Add(new MenuBool("ballr", "Ball R Range"));
+                MenuClass.Drawings.Add(new MenuBool("ballw", "Ball W Range", false));
+                MenuClass.Drawings.Add(new MenuBool("ballr", "Ball R Range", false));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

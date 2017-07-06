@@ -54,7 +54,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Drawings["e"].As<MenuBool>().Value)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.Q.Range, 100, Color.Cyan);
+                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.E.Range, 100, Color.Cyan);
             }
 
             /// <summary>

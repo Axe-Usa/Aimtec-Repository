@@ -30,9 +30,10 @@ namespace AIO.Champions
             if (MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
-                DelayAction.Queue(
-                    100 + Game.Ping,
-                    () => { UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos); });
+                DelayAction.Queue(100 + Game.Ping, () =>
+                    {
+                        UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
+                    });
             }
 
             /// <summary>

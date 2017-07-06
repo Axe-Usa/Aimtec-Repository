@@ -26,7 +26,7 @@ namespace AIO
                 if (type != null)
                 {
                     Console.WriteLine("Loading new instance of " + type.Name);
-                    var championInstance = Activator.CreateInstance(type);
+                    Activator.CreateInstance(type);
                 }
             }
             catch (Exception e)

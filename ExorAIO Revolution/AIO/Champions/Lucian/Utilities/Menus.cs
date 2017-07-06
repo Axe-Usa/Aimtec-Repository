@@ -44,7 +44,7 @@ namespace AIO.Champions
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
                 }
@@ -99,7 +99,7 @@ namespace AIO.Champions
                     MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
                         //MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
                 }
@@ -155,7 +155,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
@@ -167,8 +167,8 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
-                MenuClass.Drawings.Add(new MenuBool("q", "Q Range", false));
-                MenuClass.Drawings.Add(new MenuBool("qe", "Extended Q Range", false));
+                MenuClass.Drawings.Add(new MenuBool("q", "Q Range"));
+                MenuClass.Drawings.Add(new MenuBool("qe", "Extended Q Range"));
                 MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));

@@ -28,7 +28,7 @@ namespace AIO.Champions
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = (Obj_AI_Minion)args.Target;
-            if (!Extensions.GetLargeJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
+            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
             {
                 return;
             }
@@ -41,7 +41,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (Extensions.GetLargeJungleMinionsTargets().Any(
+                if (Extensions.GetGenericJungleMinionsTargets().Any(
                     h => this.IsPerfectFeatherTarget(h) &&
                          h.Health < this.GetPerfectFeatherDamage(h, this.CountFeathersHitOnUnit(h))))
                 {

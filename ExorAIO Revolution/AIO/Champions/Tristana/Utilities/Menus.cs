@@ -35,8 +35,8 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("harass", "Harass"));
                     MenuClass.Q.Add(new MenuBool("buildings", "Demolish buildings"));
-                    MenuClass.Q.Add(new MenuBool("laneclear", "laneclear"));
-                    MenuClass.Q.Add(new MenuBool("jungleclear", "jungleclear"));
+                    MenuClass.Q.Add(new MenuBool("laneclear", "Laneclear"));
+                    MenuClass.Q.Add(new MenuBool("jungleclear", "Jungleclear"));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
 
@@ -87,7 +87,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.E.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
@@ -104,6 +104,15 @@ namespace AIO.Champions
                 MenuClass.Spells.Add(MenuClass.R);
             }
             MenuClass.Root.Add(MenuClass.Spells);
+
+            /// <summary>
+            ///     Sets the miscellaneous menu.
+            /// </summary>
+            MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
+            {
+                MenuClass.Miscellaneous.Add(new MenuBool("focuse", "Focus E-charged enemies"));
+            }
+            MenuClass.Root.Add(MenuClass.Miscellaneous);
 
             /// <summary>
             ///     Sets the drawings menu.

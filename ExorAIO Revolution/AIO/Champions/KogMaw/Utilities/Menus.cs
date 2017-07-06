@@ -55,7 +55,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -86,7 +86,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -110,7 +110,7 @@ namespace AIO.Champions
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
                         //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 4, 1, 10));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
                     }
                     MenuClass.E.Add(MenuClass.E2);
 
@@ -130,7 +130,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.E.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
@@ -150,7 +150,7 @@ namespace AIO.Champions
                     MenuClass.R2 = new Menu("customization", "R Customization:");
                     {
                         //MenuClass.R2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.R2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 4, 1, 10));
+                        MenuClass.R2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
                     }
                     MenuClass.R.Add(MenuClass.R2);
 
@@ -172,7 +172,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

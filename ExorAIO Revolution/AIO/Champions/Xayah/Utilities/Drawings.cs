@@ -38,10 +38,12 @@ namespace AIO.Champions
             if (!UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).State.HasFlag(SpellState.Cooldown) &&
                 MenuClass.Drawings["feathers"].As<MenuBool>().Enabled)
             {
-                foreach (var feather in GameObjects.AllyMinions.Where(m => m.IsValid && m.Name == "Feather"))
+                foreach (var feather in this.Feathers)
                 {
-                    var hitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Position, SpellClass.Q.Width);
-                    Geometry.Util.DrawLineInWorld(UtilityClass.Player.Position, feather.Position, 1, GameObjects.EnemyHeroes.Any(h => hitbox.IsInside((Vector2)h.Position)) ? Color.Blue : Color.OrangeRed);
+                    var hitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.Q.Width);
+                    hitbox.Draw(GameObjects.EnemyHeroes.Any(h => hitbox.IsInside((Vector2)h.Position))
+                        ? Color.Blue
+                        : Color.OrangeRed);
                 }
             }
 

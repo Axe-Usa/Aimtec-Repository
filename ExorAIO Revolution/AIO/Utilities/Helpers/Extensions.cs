@@ -184,7 +184,7 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetGenericJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.Jungle.Where(m => m.IsValidTarget(range) && (!GameObjects.JungleSmall.Contains(m) || m.Name.Equals("Sru_Crab"))).ToList();
+            return GameObjects.Jungle.Where(m => m.IsValidTarget(range)).ToList();
         }
 
         /// <summary>

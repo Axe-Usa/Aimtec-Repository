@@ -49,9 +49,17 @@ namespace AIO.Champions
         /// </summary>
         public int CountFeathersHitOnUnit(Obj_AI_Base unit)
         {
-            return this.Feathers.Values.Count(
-                featherPos =>
-                    new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)featherPos, SpellClass.Q.Width).IsInside((Vector2)unit.Position));
+            var hit = -1; //just to be sure.
+            foreach (var feather in this.Feathers)
+            {
+                var playerToFeatherRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.Q.Width);
+                if (playerToFeatherRectangle.IsInside((Vector2)unit.Position))
+                {
+                    hit++;
+                }
+            }
+
+            return hit;
         }
 
         /// <summary>

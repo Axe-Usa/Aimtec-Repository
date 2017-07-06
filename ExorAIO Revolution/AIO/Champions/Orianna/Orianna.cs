@@ -51,12 +51,12 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
         public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
-            if (sender.IsMe)
+            if (sender.IsMe &&
+                args.Slot == SpellSlot.R)
             {
-                if (!GameObjects.EnemyHeroes.Any(
-                        t =>
-                            !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            t.IsValidTarget(SpellClass.R.Width, false, this.BallPosition)))
+                if (!GameObjects.EnemyHeroes.Any(t =>
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        t.IsValidTarget(SpellClass.R.Width, false, this.BallPosition)))
                 {
                     args.Process = false;
                 }

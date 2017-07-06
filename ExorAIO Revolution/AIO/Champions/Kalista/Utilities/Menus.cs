@@ -44,7 +44,7 @@ namespace AIO.Champions
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Killable >= x%", 3, 1, 10));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if killable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 
@@ -64,7 +64,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);

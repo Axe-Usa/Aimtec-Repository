@@ -28,13 +28,15 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical);
-                var shouldIncludeEDamage = bestTarget.HasBuff("TristanaECharge");
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) +
-                    (shouldIncludeEDamage ? this.GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
+                var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
+                if (bestTarget != null)
                 {
-                    SpellClass.E.CastOnUnit(bestTarget);
+                    var shouldIncludeEDamage = bestTarget.HasBuff("TristanaECharge");
+                    if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) +
+                        (shouldIncludeEDamage ? this.GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
+                    {
+                        SpellClass.R.CastOnUnit(bestTarget);
+                    }
                 }
             }
         }

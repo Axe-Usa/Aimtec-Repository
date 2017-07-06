@@ -82,7 +82,8 @@ namespace AIO.Champions
         /// </summary>
         public void OnCreate(GameObject obj)
         {
-            if (obj.IsValid &&
+            if (obj != null &&
+                obj.IsValid &&
                 obj.Name == "Feather" &&
                 GameObjects.AllyMinions.Contains(obj))
             {
@@ -95,7 +96,9 @@ namespace AIO.Champions
         /// </summary>
         public void OnDestroy(GameObject obj)
         {
-            if (this.Feathers.Any(o => o.Key == obj.NetworkId))
+            if (obj != null &&
+                obj.IsValid &&
+                this.Feathers.Any(o => o.Key == obj.NetworkId))
             {
                 this.Feathers.Remove(obj.NetworkId);
             }
@@ -193,6 +196,10 @@ namespace AIO.Champions
             /// </summary>
             switch (ImplementationClass.IOrbwalker.Mode)
             {
+                case OrbwalkingMode.Combo:
+                    this.Combo();
+                    break;
+
                 case OrbwalkingMode.Mixed:
                     this.Harass();
                     break;

@@ -51,11 +51,11 @@ namespace AIO.Champions
                         //MenuClass.Q2.Add(new MenuSeperator("separator4"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator5", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuBool("laneclearfull", "Laneclear: Only with full Q."));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                         //MenuClass.Q2.Add(new MenuSeperator("separator6"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator7", "Jungleclear settings:"));
                         MenuClass.Q2.Add(new MenuBool("jungleclearfull", "Jungleclear: Only with full Q."));
-                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Jungleclear / if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Only Jungleclear if hittable minions >= x%", 1, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 
@@ -75,7 +75,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -101,7 +101,7 @@ namespace AIO.Champions
                         MenuClass.W2.Add(new MenuBool("onlyeready", "Don't Cast W if E is on cooldown"));
                         //MenuClass.W2.Add(new MenuSeperator("separator2"));
                         //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
-                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
 
@@ -139,7 +139,7 @@ namespace AIO.Champions
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
                         //MenuClass.E2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
-                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 3, 1, 10));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.E.Add(MenuClass.E2);
                 }
@@ -161,7 +161,7 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
-                MenuClass.Drawings.Add(new MenuBool("q", "Q Range", false));
+                MenuClass.Drawings.Add(new MenuBool("q", "Q Range"));
                 MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));

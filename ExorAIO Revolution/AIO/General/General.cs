@@ -48,7 +48,7 @@ namespace AIO
                 if (Extensions.GetEnemyLaneMinionsTargets().Contains(args.Target) &&
                     MenuClass.General["supportmode"].Enabled)
                 {
-                    args.Process = GameObjects.AllyHeroes.Any(a => a.Distance(UtilityClass.Player) >= 2500);
+                    args.Process = GameObjects.AllyHeroes.Any(a => !a.IsMe && a.Distance(UtilityClass.Player) >= 2500);
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace AIO
                     if (Extensions.GetEnemyLaneMinionsTargets().Contains(args.Target) &&
                         MenuClass.General["supportmode"].Enabled)
                     {
-                        args.Cancel = GameObjects.AllyHeroes.Any(a => a.Distance(UtilityClass.Player) < 2500);
+                        args.Cancel = GameObjects.AllyHeroes.Any(a => !a.IsMe && a.Distance(UtilityClass.Player) < 2500);
                     }
                     break;
             }

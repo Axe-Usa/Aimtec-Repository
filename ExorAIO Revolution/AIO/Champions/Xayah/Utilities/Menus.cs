@@ -64,7 +64,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -134,7 +134,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
@@ -146,14 +146,14 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
-                MenuClass.Miscellaneous.Add(new MenuSeperator("separator1", "If enabled, Xayah will not cast Q or W if"));
-                MenuClass.Miscellaneous.Add(new MenuSeperator("separator2", "she would gain more than the maximum number"));
-                MenuClass.Miscellaneous.Add(new MenuSeperator("separator3", "of Feathers possible (5)"));
-                MenuClass.Miscellaneous.Add(new MenuSeperator("separator4", "Example: Xayah has 4 Feather stacks and"));
-                MenuClass.Miscellaneous.Add(new MenuSeperator("separator5", "gains 3 Feathers with a cast, this means"));
-                MenuClass.Miscellaneous.Add(new MenuSeperator("separator6", "She will not cast Q or W until her stacks"));
-                MenuClass.Miscellaneous.Add(new MenuSeperator("separator7", "get equal or lower than 2, cause 2 + 3 = 5"));
-                MenuClass.Miscellaneous.Add(new MenuBool("feathersweaving", "Feathers Weaving Logic", false));
+                //MenuClass.Miscellaneous.Add(new MenuSeperator("separator1", "If enabled, Xayah will not cast Q or W if"));
+                //MenuClass.Miscellaneous.Add(new MenuSeperator("separator2", "she would gain more than the maximum number"));
+                //MenuClass.Miscellaneous.Add(new MenuSeperator("separator3", "of Feathers possible (5)"));
+                //MenuClass.Miscellaneous.Add(new MenuSeperator("separator4", "Example: Xayah has 4 Feather stacks and"));
+                //MenuClass.Miscellaneous.Add(new MenuSeperator("separator5", "gains 3 Feathers with a cast, this means"));
+                //MenuClass.Miscellaneous.Add(new MenuSeperator("separator6", "She will not cast Q or W until her stacks"));
+                //MenuClass.Miscellaneous.Add(new MenuSeperator("separator7", "get equal or lower than 2, cause 2 + 3 = 5"));
+                MenuClass.Miscellaneous.Add(new MenuBool("feathersweaving", "Feathers Weaving Logic"));
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);
 

@@ -27,18 +27,19 @@ namespace AIO.Champions
         public void Drawings()
         {
             /// <summary>
+            ///     Loads the W drawing.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Drawings["w"].As<MenuBool>().Enabled)
+            {
+                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
+            }
+
+            /// <summary>
             ///     Loads the E drawings.
             /// </summary>
             if (SpellClass.E.Ready)
             {
-                /// <summary>
-                ///     Loads the E Range.
-                /// </summary>
-                if (MenuClass.Drawings["e"].As<MenuBool>().Enabled)
-                {
-                    RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.E.Range, 100, Color.Cyan);
-                }
-
                 /// <summary>
                 ///     Loads the E damage to healthbar.
                 /// </summary>

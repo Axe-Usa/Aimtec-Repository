@@ -60,7 +60,7 @@ namespace AIO.Champions
                         MenuClass.W2.Add(new MenuBool("nowflurry", "Don't W while flurring AAs with Q"));
                         //MenuClass.W2.Add(new MenuSeperator("separator2"));
                         //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
-                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions Hit >= x%", 4, 1, 10));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
 
@@ -80,7 +80,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -126,7 +126,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

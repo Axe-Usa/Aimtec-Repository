@@ -81,7 +81,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -137,8 +137,9 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
-                MenuClass.Drawings.Add(new MenuBool("w", "W Range"));
+                MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range"));
+                MenuClass.Drawings.Add(new MenuBool("edmg", "E Range"));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range"));
             }
             MenuClass.Root.Add(MenuClass.Drawings);

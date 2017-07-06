@@ -50,7 +50,14 @@ namespace AIO.Champions
                         //MenuClass.Q2.Add(new MenuSeperator("separator2"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator3", "Combo settings:"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator4", "This option will also be valid for the PowPow range."));
-                        MenuClass.Q2.Add(new MenuSliderBool("minenemies", "Use Fishbones / if hittable enemies >= x", true, 3, 2, GameObjects.EnemyHeroes.Count()));
+                        if (GameObjects.EnemyHeroes.Any())
+                        {
+                            MenuClass.Q2.Add(new MenuSliderBool("minenemies", "Use Fishbones / if hittable enemies >= x", true, 3, 2, GameObjects.EnemyHeroes.Count()));
+                        }
+                        else
+                        {
+                            MenuClass.Q2.Add(new MenuSeperator("minenemies", "Use Fishbones / No enemies found"));
+                        }
                         //MenuClass.Q2.Add(new MenuSeperator("separator5"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator6", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Use Fishbones if Hittable minions >= x", 3, 2, 5));
@@ -76,7 +83,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -107,7 +114,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -117,7 +124,14 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuSliderBool("aoe", "Try AoE / If can hit >= x enemies", true, 2, 1, GameObjects.EnemyHeroes.Count()));
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        MenuClass.E.Add(new MenuSliderBool("aoe", "Try AoE / If can hit >= x enemies", false, 3, 2, GameObjects.EnemyHeroes.Count()));
+                    }
+                    else
+                    {
+                        MenuClass.E.Add(new MenuSeperator("aoe", "Try AoE / No enemy champions found."));
+                    }
                     MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.E.Add(new MenuBool("teleport", "On Teleport"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
@@ -151,7 +165,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        //MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
@@ -163,7 +177,14 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
-                MenuClass.Miscellaneous.Add(new MenuSliderBool("wsafetycheck", "W only if enemies in Fishbones Range <= x", true, 2, 1, GameObjects.EnemyHeroes.Count()));
+                if (GameObjects.EnemyHeroes.Any())
+                {
+                    MenuClass.Miscellaneous.Add(new MenuSliderBool("wsafetycheck", "W only if enemies in Fishbones Range <= x", true, 2, 1, GameObjects.EnemyHeroes.Count()));
+                }
+                else
+                {
+                    MenuClass.Miscellaneous.Add(new MenuSeperator("wsafetycheck", "W only if enemies / No enemies found"));
+                }
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);
 
@@ -173,8 +194,8 @@ namespace AIO.Champions
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
                 MenuClass.Drawings.Add(new MenuBool("q", "Q Range"));
-                MenuClass.Drawings.Add(new MenuBool("w", "W Range"));
-                MenuClass.Drawings.Add(new MenuBool("e", "E Range"));
+                MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
+                MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

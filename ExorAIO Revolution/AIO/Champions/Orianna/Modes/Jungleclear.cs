@@ -6,6 +6,7 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
@@ -23,6 +24,12 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
+            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetTarget();
+            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+            {
+                return;
+            }
+
             /// <summary>
             ///     The Jungleclear W Logic.
             /// </summary>
@@ -31,7 +38,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (Extensions.GetGenericJungleMinionsTargets().Count(m => m.IsValidTarget(SpellClass.W.Width, false, this.BallPosition)) >= MenuClass.Miscellaneous["w"]["jungleclear"].As<MenuSlider>().Value)
+                if (Extensions.GetGenericJungleMinionsTargets().Any(m => m.IsValidTarget(SpellClass.W.Width, false, this.BallPosition)))
                 {
                     SpellClass.W.Cast();
                 }
@@ -50,7 +57,7 @@ namespace AIO.Champions
                     (Vector2)UtilityClass.Player.Position.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition)),
                     SpellClass.E.Width);
 
-                if (Extensions.GetGenericJungleMinionsTargets().Count(t => t.IsValidTarget() && !polygon.IsOutside((Vector2)t.Position)) >= MenuClass.Miscellaneous["e"]["jungleclear"].As<MenuSlider>().Value)
+                if (!polygon.IsOutside((Vector2)jungleTarget.Position))
                 {
                     SpellClass.E.CastOnUnit(UtilityClass.Player);
                 }
@@ -64,13 +71,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                /*
-                var farmLocation = SpellClass.Q.GetLinearFarmLocation(Extensions.GetGenericJungleMinionsTargets(), SpellClass.Q.Width);
-                if (farmLocation.MinionsHit >= MenuClass.Miscellaneous["q"]["jungleclear"].As<MenuSlider>().Value)
-                {
-                    SpellClass.Q.Cast(farmLocation.Position);
-                }
-                */
+                SpellClass.Q.Cast(jungleTarget);
             }
         }
 
