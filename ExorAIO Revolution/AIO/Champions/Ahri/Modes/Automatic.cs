@@ -32,7 +32,7 @@ namespace AIO.Champions
             ///     The Automatic E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["logical"].As<MenuBool>().Value)
+                MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>

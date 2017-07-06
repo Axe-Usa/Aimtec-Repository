@@ -36,7 +36,7 @@ namespace AIO.Champions
             ///     The Q Weaving Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast(heroTarget);
                 return;
@@ -47,7 +47,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 !GameObjects.AllyHeroes.Any(a => !a.IsMe && a.SpellBook.IsAutoAttacking && a.IsValidTarget(SpellClass.W.Range, true)) &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast(heroTarget);
             }

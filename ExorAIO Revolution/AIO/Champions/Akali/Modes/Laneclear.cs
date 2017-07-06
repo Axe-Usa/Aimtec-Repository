@@ -29,7 +29,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count >=
-                    MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
+                    MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.Cast();
                 }

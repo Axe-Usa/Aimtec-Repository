@@ -27,6 +27,20 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
+            /// <summary>
+            ///     The E Jungleclear Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
+                MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
+            {
+                if (Extensions.GetGenericJungleMinionsTargets().Any(t => t.IsValidTarget(SpellClass.E.Range)))
+                {
+                    SpellClass.E.Cast();
+                }
+            }
+
             var jungleTarget = args.Target as Obj_AI_Minion;
             if (jungleTarget == null ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
@@ -45,17 +59,6 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.CastOnUnit(Extensions.GetGenericJungleMinionsTargetsInRange(SpellClass.Q.Range).First());
-            }
-
-            /// <summary>
-            ///     The E Jungleclear Logic.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
-                MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
-            {
-                SpellClass.E.Cast();
             }
         }
 

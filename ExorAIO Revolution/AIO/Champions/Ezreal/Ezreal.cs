@@ -52,7 +52,7 @@ namespace AIO.Champions
         {
             if (sender.IsMe &&
                 SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["antigrab"].As<MenuBool>().Value)
+                MenuClass.Spells["e"]["antigrab"].As<MenuBool>().Enabled)
             {
                 if (buff.Name.Equals("ThreshQ") ||
                     buff.Name.Equals("rocketgrab2"))
@@ -139,7 +139,7 @@ namespace AIO.Champions
 
             if (SpellClass.E.State == SpellState.Ready && args.Sender.IsMelee && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
                 && args.SkillType == GapcloserType.Targeted
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (args.Target.IsMe)
                 {

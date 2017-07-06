@@ -85,7 +85,7 @@ namespace AIO.Champions
                 switch (args.Slot)
                 {
                     case SpellSlot.Recall:
-                        if (MenuClass.Miscellaneous["stealthrecall"].As<MenuBool>().Value)
+                        if (MenuClass.Miscellaneous["stealthrecall"].As<MenuBool>().Enabled)
                         {
                             SpellClass.Q.Cast();
                         }
@@ -93,7 +93,7 @@ namespace AIO.Champions
 
                     case SpellSlot.W:
                         if (UtilityClass.Player.HasBuff("TwitchFullAutomatic") &&
-                            MenuClass.Spells["w"]["customization"]["dontwinr"].As<MenuBool>().Value)
+                            MenuClass.Spells["w"]["customization"]["dontwinr"].As<MenuBool>().Enabled)
                         {
                             args.Process = false;
                         }
@@ -152,7 +152,7 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser W Logic.
             /// </summary>
             if (SpellClass.W.State == SpellState.Ready && UtilityClass.Player.Distance(args.End) < SpellClass.W.SpellData.Range
-                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast(args.End);
             }

@@ -56,7 +56,7 @@ namespace AIO.Champions
             ///     The Laneclear Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["laneclear"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["laneclear"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast();
             }

@@ -88,7 +88,7 @@ namespace AIO.Champions
             }
 
             if (SpellClass.E.State == SpellState.Ready && args.Sender.IsMelee && args.IsDirectedToPlayer
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 UtilityClass.Player.SpellBook.CastSpell(SpellSlot.E, ObjectManager.GetLocalPlayer());
             }
@@ -107,7 +107,7 @@ namespace AIO.Champions
             }
 
             if (SpellClass.R.State == SpellState.Ready && ((Vector2)GetBallPosition).Distance(args.Sender.ServerPosition) < SpellClass.R.SpellData.Range
-                && MenuClass.Spells["r"]["interrupter"].As<MenuBool>().Value)
+                && MenuClass.Spells["r"]["interrupter"].As<MenuBool>().Enabled)
             {
                 UtilityClass.Player.SpellBook.CastSpell(SpellSlot.R);
             }
@@ -130,7 +130,7 @@ namespace AIO.Champions
 
             if (SpellClass.E.Ready &&
                 Bools.ShouldShieldAgainstSender(sender) &&
-                MenuClass.Spells["e"]["protect"].As<MenuBool>().Value &&
+                MenuClass.Spells["e"]["protect"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["e"]["protectwhitelist"][target.ChampionName.ToLower()].As<MenuSliderBool>().Enabled &&
                 target.HealthPercent() <= MenuClass.Spells["e"]["protectwhitelist"][target.ChampionName.ToLower()].As<MenuSliderBool>().Value)
             {

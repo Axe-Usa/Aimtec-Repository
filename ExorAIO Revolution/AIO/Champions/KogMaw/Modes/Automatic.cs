@@ -31,7 +31,7 @@ namespace AIO.Champions
             ///     The Automatic Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["logical"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
@@ -47,7 +47,7 @@ namespace AIO.Champions
             ///     The Automatic E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["logical"].As<MenuBool>().Value)
+                MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>

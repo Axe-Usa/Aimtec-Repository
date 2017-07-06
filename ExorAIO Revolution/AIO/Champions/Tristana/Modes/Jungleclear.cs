@@ -37,7 +37,7 @@ namespace AIO.Champions
             ///     The Jungleclear Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["jungleclear"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["jungleclear"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast();
             }

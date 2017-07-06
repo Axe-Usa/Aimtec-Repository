@@ -25,7 +25,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Loads the Ball drawing.
             /// </summary>
-            if (MenuClass.Drawings["ball"].As<MenuBool>().Value)
+            if (MenuClass.Drawings["ball"].As<MenuBool>().Enabled)
             {
                 RenderManager.RenderCircle(this.BallPosition, SpellClass.Q.Width, 100, Color.Blue);
             }
@@ -34,7 +34,7 @@ namespace AIO.Champions
             ///     Loads the Q drawing.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Drawings["q"].As<MenuBool>().Value)
+                MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
                 RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.Q.Range, 100, Color.LightGreen);
             }
@@ -43,7 +43,7 @@ namespace AIO.Champions
             ///     Loads the W width drawing.
             /// </summary>
             if (SpellClass.W.Ready &&
-                MenuClass.Drawings["ballw"].As<MenuBool>().Value)
+                MenuClass.Drawings["ballw"].As<MenuBool>().Enabled)
             {
                 RenderManager.RenderCircle(this.BallPosition, SpellClass.W.Width, 100, Color.Purple);
             }
@@ -52,7 +52,7 @@ namespace AIO.Champions
             ///     Loads the E drawing.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Drawings["e"].As<MenuBool>().Value)
+                MenuClass.Drawings["e"].As<MenuBool>().Enabled)
             {
                 RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.E.Range, 100, Color.Cyan);
             }
@@ -61,7 +61,7 @@ namespace AIO.Champions
             ///     Loads the R width drawing.
             /// </summary>
             if (SpellClass.R.Ready &&
-                MenuClass.Drawings["ballr"].As<MenuBool>().Value)
+                MenuClass.Drawings["ballr"].As<MenuBool>().Enabled)
             {
                 RenderManager.RenderCircle(this.BallPosition, SpellClass.R.Width, 100, Color.Red);
             }

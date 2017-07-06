@@ -115,7 +115,7 @@ namespace AIO.Champions
                     {
                         //MenuClass.R2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.R2.Add(new MenuBool("safe", "Don't R into Turret"));
-                        MenuClass.R2.Add(new MenuSlider("keepstacks", "Number of stacks to keep", 0, 1, 2));
+                        MenuClass.R2.Add(new MenuSlider("keepstacks", "Number of stacks to keep", 1, 0, 2));
                         MenuClass.R2.Add(new MenuSliderBool("gapclose", "Gapclose with minions / if stacks >= x", true, 2, 2, 3));
                     }
                     MenuClass.R.Add(MenuClass.R2);

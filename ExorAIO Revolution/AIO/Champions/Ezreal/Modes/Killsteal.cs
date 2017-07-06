@@ -26,7 +26,7 @@ namespace AIO.Champions
             ///     The KillSteal Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
                 if (bestTarget != null &&
@@ -42,7 +42,7 @@ namespace AIO.Champions
             ///     The KillSteal W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&

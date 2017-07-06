@@ -32,7 +32,7 @@ namespace AIO.Champions
             ///     The Q Weaving Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast(heroTarget);
                 return;
@@ -42,7 +42,7 @@ namespace AIO.Champions
             ///     The E Weaving Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(heroTarget);
             }

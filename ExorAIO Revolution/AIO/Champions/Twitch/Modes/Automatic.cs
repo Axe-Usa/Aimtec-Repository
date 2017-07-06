@@ -60,7 +60,7 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The Automatic JungleSteal E Logic.
                 /// </summary>
-                if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Value)
+                if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Enabled)
                 {
                     foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
                     {

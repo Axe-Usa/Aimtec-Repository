@@ -24,7 +24,8 @@ namespace AIO
         /// </summary>
         public static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
-            if (sender.IsMe)
+            if (sender.IsMe &&
+                (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E || args.Slot == SpellSlot.R))
             {
                 /// <summary>
                 ///     The 'Sheen' Logic.
@@ -32,13 +33,17 @@ namespace AIO
                 if (UtilityClass.Player.HasSheenLikeBuff() &&
                     MenuClass.General["usesheen"].Enabled)
                 {
-                    // Basically means it wont cast anything if the player has a sheen buff and the target is inside the aa range and the player can attack.
+                    // Basically means it wont cast anything if the player has a sheen buff and is in combo/laneclear mode.
                     if (!UtilityClass.Player.HasTearLikeItem() &&
-                        !Extensions.GetBestEnemyHeroesTargetsInRange(2000f).Any() &&
-                        UtilityClass.Player.ShouldPreserveSheen() &&
-                        UtilityClass.Player.Distance(args.End) <= UtilityClass.Player.AttackRange)
+                        UtilityClass.Player.ShouldPreserveSheen())
                     {
-                        args.Process = false;
+                        switch (ImplementationClass.IOrbwalker.Mode)
+                        {
+                            case OrbwalkingMode.Combo:
+                            case OrbwalkingMode.Laneclear:
+                                args.Process = false;
+                                break;
+                        }
                     }
                 }
 

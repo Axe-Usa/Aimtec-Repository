@@ -32,7 +32,7 @@ namespace AIO.Champions
             ///     The Semi-Automatic R Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                MenuClass.Spells["r"]["bool"].As<MenuBool>().Value &&
+                MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
                 var target = GameObjects.EnemyHeroes
@@ -40,13 +40,13 @@ namespace AIO.Champions
                         t =>
                             t.IsValidTarget(SpellClass.R.Range) &&
                             !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Value)
+                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .OrderBy(o => o.Health)
                     .FirstOrDefault();
                 if (target != null)
                 {
                     if (SpellClass.E.Ready &&
-                        MenuClass.Spells["e"]["logical"].As<MenuBool>().Value)
+                        MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
                     {
                         SpellClass.E.Cast(target);
                     }

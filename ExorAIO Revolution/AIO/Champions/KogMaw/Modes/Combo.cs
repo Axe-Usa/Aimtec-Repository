@@ -28,7 +28,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(SpellClass.W.Range)) &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast();
             }

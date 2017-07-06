@@ -34,7 +34,7 @@ namespace AIO.Champions
             ///     The Q Harass Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["buildings"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["buildings"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast();
             }

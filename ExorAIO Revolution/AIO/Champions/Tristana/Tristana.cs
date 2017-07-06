@@ -32,11 +32,6 @@ namespace AIO.Champions
             this.Menus();
 
             /// <summary>
-            ///     Updates the spells.
-            /// </summary>
-            this.Spells();
-
-            /// <summary>
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
@@ -65,7 +60,7 @@ namespace AIO.Champions
         {
             if (sender.IsMe &&
                 SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["antigrab"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["antigrab"].As<MenuBool>().Enabled)
             {
                 if (buff.Name.Equals("ThreshQ") ||
                     buff.Name.Equals("rocketgrab2"))
@@ -143,7 +138,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.State == SpellState.Ready && args.Sender.IsMelee && args.IsDirectedToPlayer
                 && UtilityClass.Player.Distance(args.End) < UtilityClass.Player.FullAttackRange(Targets.Target
-                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.Sender.ServerPosition, -SpellClass.W.SpellData.Range));
             }
@@ -158,7 +153,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.R.State == SpellState.Ready && args.Sender.IsMelee && args.IsDirectedToPlayer
                 && args.Sender.IsValidTarget(SpellClass.R.SpellData.Range)
-                && MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 UtilityClass.Player.SpellBook.CastSpell(SpellSlot.R, args.Sender);
             }
@@ -177,7 +172,7 @@ namespace AIO.Champions
             }
 
             if (SpellClass.R.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.R.SpellData.Range)
-                && MenuClass.Spells["r"]["interrupter"].As<MenuBool>().Value)
+                && MenuClass.Spells["r"]["interrupter"].As<MenuBool>().Enabled)
             {
                 UtilityClass.Player.SpellBook.CastSpell(SpellSlot.R, args.Sender);
             }

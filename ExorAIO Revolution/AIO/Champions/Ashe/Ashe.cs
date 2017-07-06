@@ -54,8 +54,8 @@ namespace AIO.Champions
             {
                 if (SpellClass.E.Ready &&
                     UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Ammo
-                    >= (MenuClass.Spells["e"]["logical"].As<MenuBool>().Value ? 2 : 1) &&
-                    MenuClass.Spells["e"]["vision"].As<MenuBool>().Value)
+                    >= (MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled ? 2 : 1) &&
+                    MenuClass.Spells["e"]["vision"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast(sender.Position);
                 }
@@ -110,7 +110,7 @@ namespace AIO.Champions
 
             if (SpellClass.R.State == SpellState.Ready && args.Sender.IsMelee && args.Sender.IsValidTarget(SpellClass.R.SpellData.Range)
                 && args.SkillType == GapcloserType.Targeted
-                && MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (args.Target.IsMe)
                 {
@@ -132,7 +132,7 @@ namespace AIO.Champions
             }
 
             if (SpellClass.R.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.R.SpellData.Range)
-                && MenuClass.Spells["r"]["interrupter"].As<MenuBool>().Value)
+                && MenuClass.Spells["r"]["interrupter"].As<MenuBool>().Enabled)
             {
                 SpellClass.R.Cast(args.Sender.ServerPosition);
             }

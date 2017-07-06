@@ -30,7 +30,7 @@ namespace AIO.Champions
                 GameObjects.EnemyHeroes.Any(t =>
                     !Invulnerable.Check(t, DamageType.Magical) &&
                     t.IsValidTarget(SpellClass.W.Width - t.BoundingRadius, false, this.BallPosition)) &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast();
             }
@@ -55,7 +55,7 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The E Combo to Allies Logic.
                 /// </summary>
-                if (MenuClass.Spells["e"]["comboallies"].As<MenuBool>().Value)
+                if (MenuClass.Spells["e"]["comboallies"].As<MenuBool>().Enabled)
                 {
                     var bestAllies = GameObjects.AllyHeroes.Where(t => !t.IsMe && t.IsValidTarget(SpellClass.E.Range, true)).OrderBy(o => o.Health);
                     foreach (var ally in bestAllies.Where(a => MenuClass.Spells["e"]["combowhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled))
@@ -80,7 +80,7 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The E Combo to Orianna Logic.
                 /// </summary>
-                if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
+                if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                 {
                     var playerToBallRectangle = new Geometry.Rectangle(
                         (Vector2)UtilityClass.Player.Position,
@@ -111,12 +111,12 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Value)
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 if (bestTarget.Distance(this.BallPosition) > bestTarget.Distance(UtilityClass.Player) + 100f)
                 {
                     if (SpellClass.E.Ready &&
-                        MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
+                        MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                     {
                         SpellClass.E.CastOnUnit(UtilityClass.Player);
                         return;
@@ -137,7 +137,7 @@ namespace AIO.Champions
                 UtilityClass.Player.HasBuff("orianaghostself") &&
                 !bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                 bestTarget.IsValidTarget(SpellClass.Q.Range + 300f) &&
-                MenuClass.Spells["w"]["customization"]["speedw"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["customization"]["speedw"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast();
             }

@@ -27,7 +27,7 @@ namespace AIO.Utilities
         /// </returns>
         public static bool HasSheenLikeBuff(this Obj_AI_Hero unit)
         {
-            var sheenLikeBuffNames = new[] { "sheen", "LichBane", "dianaarcready", "ItemFrozenFist", "sonapassiveattack" };
+            var sheenLikeBuffNames = new[] { "sheen", "LichBane", "dianaarcready", "ItemFrozenFist", "sonapassiveattack", "AkaliTwinDisciplines" };
             return unit.Buffs.Any(b => sheenLikeBuffNames.Contains(b.Name));
         }
 
@@ -98,9 +98,7 @@ namespace AIO.Utilities
         /// </summary>
         public static bool ShouldPreserveSheen(this Obj_AI_Hero source)
         {
-            return
-                source.HasSheenLikeBuff() &&
-                source.ActionState.HasFlag(ActionState.CanAttack);
+            return source.ActionState.HasFlag(ActionState.CanAttack);
         }
 
         /// <returns>

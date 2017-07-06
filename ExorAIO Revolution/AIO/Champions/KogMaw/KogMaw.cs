@@ -80,12 +80,12 @@ namespace AIO.Champions
             }
 
             if (SpellClass.Q.State == SpellState.Ready && !Invulnerable.Check(args.Sender) && args.Sender.IsValidTarget(SpellClass.Q.SpellData.Range)
-                && MenuClass.Spells["q"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["q"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast(args.End);
             }
             if (SpellClass.E.State == SpellState.Ready && !Invulnerable.Check(args.Sender) && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(args.End);
             }

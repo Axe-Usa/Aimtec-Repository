@@ -33,18 +33,50 @@ namespace AIO.Champions
             /// <summary>
             ///     The R Combo Logic.
             /// </summary>
-            if (SpellClass.R.Ready &&
-                heroTarget.IsValidTarget(SpellClass.R.Range) &&
-                MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
+            if (SpellClass.R.Ready)
             {
-                if ((!heroTarget.IsUnderEnemyTurret() ||
-                     !MenuClass.Spells["r"]["customization"]["safe"].As<MenuBool>().Enabled) &&
-                    (UtilityClass.Player.GetBuffCount("AkaliShadowDance") >
-                     MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSliderBool>().Value ||
-                     !MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSliderBool>().Enabled) &&
-                    MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].Enabled)
+                if (heroTarget.IsUnderEnemyTurret() &&
+                    MenuClass.Spells["r"]["customization"]["safe"].As<MenuBool>().Enabled)
                 {
-                    SpellClass.R.CastOnUnit(heroTarget);
+                    return;
+                }
+
+                if (heroTarget.IsValidTarget(SpellClass.R.Range) &&
+                    MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
+                {
+                    if (UtilityClass.Player.GetBuffCount("AkaliShadowDance") <=
+                            MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSlider>().Value)
+                    {
+                        return;
+                    }
+
+                    if (MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].Enabled)
+                    {
+                        SpellClass.R.CastOnUnit(heroTarget);
+                    }
+                }
+                else if (heroTarget.IsValidTarget(SpellClass.R.Range * 2))
+                {
+                    if (UtilityClass.Player.GetBuffCount("AkaliShadowDance") <=
+                            MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value ||
+                        !MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Enabled)
+                    {
+                        return;
+                    }
+
+                    var bestEnemy = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range*2).FirstOrDefault(t => MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].Enabled);
+                    if (bestEnemy != null)
+                    {
+                        var bestMinion = Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.R.Range)
+                            .Where(m => m.Distance(bestEnemy) < SpellClass.Q.Range)
+                            .OrderBy(m => m.Distance(heroTarget))
+                            .FirstOrDefault();
+
+                        if (bestMinion != null)
+                        {
+                            SpellClass.R.CastOnUnit(bestMinion);
+                        }
+                    }
                 }
             }
 
@@ -57,27 +89,6 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.CastOnUnit(heroTarget);
-            }
-
-            /// <summary>
-            ///     The R Gapclose Logic.
-            /// </summary>
-            if (SpellClass.R.Ready &&
-                !heroTarget.IsValidTarget(SpellClass.R.Range) &&
-                heroTarget.IsValidTarget(SpellClass.R.Range * 2) &&
-                UtilityClass.Player.GetBuffCount("AkaliShadowDance")
-                >= MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value &&
-                MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Enabled)
-            {
-                var bestMinion = Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.R.Range)
-                    .Where(m => m.Distance(heroTarget) < SpellClass.Q.Range)
-                    .OrderBy(m => m.Distance(heroTarget))
-                    .FirstOrDefault();
-
-                if (bestMinion != null)
-                {
-                    SpellClass.R.CastOnUnit(bestMinion);
-                }
             }
         }
 

@@ -33,11 +33,6 @@ namespace AIO.Champions
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
-
-            /// <summary>
-            ///     Updates the spells.
-            /// </summary>
-            this.Spells();
         }
 
         #endregion
@@ -114,7 +109,7 @@ namespace AIO.Champions
             }
 
             if (SpellClass.E.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Value)
+                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(args.IsDirectedToPlayer ? UtilityClass.Player.ServerPosition : args.End);
             }
@@ -134,7 +129,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            //Spells();
+            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.

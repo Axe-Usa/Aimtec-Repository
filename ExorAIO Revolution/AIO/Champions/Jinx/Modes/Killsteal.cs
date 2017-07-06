@@ -27,7 +27,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) < 3 &&
-                MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Physical);
                 if (bestTarget != null &&
