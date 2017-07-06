@@ -73,7 +73,7 @@
             }
             else
             {
-                foreach (var obj in ObjectManager.Get<GameObject>().Where(o => o.Type != GameObjectType.obj_GeneralParticleEmitter && o.Distance(Game.CursorPos) < config["range"].Value))
+                foreach (var obj in ObjectManager.Get<GameObject>().Where(o => o.Distance(Game.CursorPos) < config["range"].Value))
                 {
                     Vector2 screenPosition;
                     RenderManager.WorldToScreen(obj.Position, out screenPosition);
