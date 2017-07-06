@@ -38,12 +38,6 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {
-                if (this.IsNearWorkedGround() &&
-                    MenuClass.Spells["q"]["harassfull"].As<MenuBool>().Enabled)
-                {
-                    return;
-                }
-
                 SpellClass.Q.Cast(bestTarget);
             }
         }
