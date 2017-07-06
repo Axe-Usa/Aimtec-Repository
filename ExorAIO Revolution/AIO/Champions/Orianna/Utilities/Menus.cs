@@ -119,11 +119,50 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuBool("combo", "Combo"));
-                    MenuClass.E.Add(new MenuBool("logical", "Shield Allies"));
+                    MenuClass.E.Add(new MenuBool("combo", "Combo: To Orianna"));
+                    MenuClass.E.Add(new MenuBool("comboallies", "Shield: To allies if can damage enemy"));
+                    MenuClass.E.Add(new MenuBool("protect", "Shield: To allies if can protect from enemy"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    if (GameObjects.AllyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the whitelist menu for the Combo E.
+                        /// </summary>
+                        MenuClass.WhiteList3 = new Menu("combowhitelist", "Shield Allies: Combo Whitelist");
+                        {
+                            foreach (var ally in GameObjects.AllyHeroes)
+                            {
+                                MenuClass.WhiteList3.Add(new MenuBool(ally.ChampionName.ToLower(), "Use for: " + ally.ChampionName));
+                            }
+                        }
+                        MenuClass.E.Add(MenuClass.WhiteList3);
+                    }
+                    else
+                    {
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "No ally champions found, no need for a Whitelist Menu."));
+                    }
+
+                    if (GameObjects.AllyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the whitelist menu for the Protect E.
+                        /// </summary>
+                        MenuClass.WhiteList4 = new Menu("protectwhitelist", "Shield Allies: Protect Whitelist");
+                        {
+                            foreach (var ally in GameObjects.AllyHeroes)
+                            {
+                                MenuClass.WhiteList4.Add(new MenuSliderBool(ally.ChampionName.ToLower(), "Use for: " + ally.ChampionName + " / if Health < x%", true, 25, 10, 99));
+                            }
+                        }
+                        MenuClass.E.Add(MenuClass.WhiteList4);
+                    }
+                    else
+                    {
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "No ally champions found, no need for a Whitelist Menu."));
+                    }
 
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
@@ -134,25 +173,6 @@ namespace AIO.Champions
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.E.Add(MenuClass.E2);
-
-                    if (GameObjects.AllyHeroes.Any())
-                    {
-                        /// <summary>
-                        ///     Sets the whitelist menu for the E.
-                        /// </summary>
-                        MenuClass.WhiteList3 = new Menu("whitelist", "Shield Allies: Whitelist Menu");
-                        {
-                            foreach (var ally in GameObjects.AllyHeroes)
-                            {
-                                MenuClass.WhiteList3.Add(new MenuBool(ally.ChampionName.ToLower(), "Only use for: " + ally.ChampionName));
-                            }
-                        }
-                        MenuClass.E.Add(MenuClass.WhiteList3);
-                    }
-                    else
-                    {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "No ally champions found, no need for a Whitelist Menu."));
-                    }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 

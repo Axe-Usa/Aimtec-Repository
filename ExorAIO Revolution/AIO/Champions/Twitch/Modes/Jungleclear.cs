@@ -25,8 +25,10 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
-            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetTarget();
-            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
+            var jungleTarget = args.Target as Obj_AI_Minion;
+            if (jungleTarget == null ||
+                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
+                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
             {
                 return;
             }
@@ -39,8 +41,11 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.W.Cast(jungleTarget.Position);
-                return;
+                if (jungleTarget.GetBuffCount("TwitchDeadlyVenom") <= 3)
+                {
+                    SpellClass.W.Cast(jungleTarget.Position);
+                    return;
+                }
             }
 
             /// <summary>

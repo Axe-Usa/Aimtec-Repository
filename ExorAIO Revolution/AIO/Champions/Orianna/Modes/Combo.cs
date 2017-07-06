@@ -48,41 +48,54 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The E Combo Logic.
+            ///     The E Combo Logics.
             /// </summary>
-            if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
+            if (SpellClass.E.Ready)
             {
-                var bestAllies = GameObjects.AllyHeroes.Where(t => !t.IsMe && t.IsValidTarget(SpellClass.E.Range, true)).OrderBy(o => o.Health);
-                foreach (var ally in bestAllies)
+                /// <summary>
+                ///     The E Combo to Allies Logic.
+                /// </summary>
+                if (MenuClass.Spells["e"]["comboallies"].As<MenuBool>().Value)
                 {
-                    var allyToBallRectangle = new Geometry.Rectangle(
+                    var bestAllies = GameObjects.AllyHeroes.Where(t => !t.IsMe && t.IsValidTarget(SpellClass.E.Range, true)).OrderBy(o => o.Health);
+                    foreach (var ally in bestAllies.Where(a => MenuClass.Spells["e"]["combowhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled))
+                    {
+                        var allyToBallRectangle = new Geometry.Rectangle(
                             (Vector2)ally.Position,
                             (Vector2)ally.Position.Extend(this.BallPosition, ally.Distance(this.BallPosition) + 30f),
                             SpellClass.E.Width);
 
-                    if (GameObjects.EnemyHeroes.Any(t =>
-                            t.IsValidTarget() &&
-                            !allyToBallRectangle.IsOutside((Vector2)t.Position) &&
-                            !Invulnerable.Check(t, DamageType.Magical)))
-                    {
-                        SpellClass.E.CastOnUnit(ally);
-                        return;
+                        if (GameObjects.EnemyHeroes.Any(
+                            t =>
+                                t.IsValidTarget() &&
+                                !allyToBallRectangle.IsOutside((Vector2)t.Position) &&
+                                !Invulnerable.Check(t, DamageType.Magical)))
+                        {
+                            SpellClass.E.CastOnUnit(ally);
+                            return;
+                        }
                     }
                 }
 
-                var playerToBallRectangle = new Geometry.Rectangle(
+                /// <summary>
+                ///     The E Combo to Orianna Logic.
+                /// </summary>
+                if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Value)
+                {
+                    var playerToBallRectangle = new Geometry.Rectangle(
                         (Vector2)UtilityClass.Player.Position,
                         (Vector2)UtilityClass.Player.Position.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition) + 30f),
                         SpellClass.E.Width);
 
-                if (GameObjects.EnemyHeroes.Any(t =>
-                        t.IsValidTarget() &&
-                        !playerToBallRectangle.IsOutside((Vector2)t.Position) &&
-                        !Invulnerable.Check(t, DamageType.Magical)))
-                {
-                    SpellClass.E.CastOnUnit(UtilityClass.Player);
-                    return;
+                    if (GameObjects.EnemyHeroes.Any(
+                        t =>
+                            t.IsValidTarget() &&
+                            !playerToBallRectangle.IsOutside((Vector2)t.Position) &&
+                            !Invulnerable.Check(t, DamageType.Magical)))
+                    {
+                        SpellClass.E.CastOnUnit(UtilityClass.Player);
+                        return;
+                    }
                 }
             }
 

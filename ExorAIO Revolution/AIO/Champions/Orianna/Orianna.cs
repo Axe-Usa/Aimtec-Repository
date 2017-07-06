@@ -130,8 +130,9 @@ namespace AIO.Champions
 
             if (SpellClass.E.Ready &&
                 Bools.ShouldShieldAgainstSender(sender) &&
-                MenuClass.Spells["e"]["logical"].As<MenuBool>().Value &&
-                MenuClass.Spells["e"]["whitelist"][target.ChampionName.ToLower()].As<MenuBool>().Value)
+                MenuClass.Spells["e"]["protect"].As<MenuBool>().Value &&
+                MenuClass.Spells["e"]["protectwhitelist"][target.ChampionName.ToLower()].As<MenuSliderBool>().Enabled &&
+                target.HealthPercent() <= MenuClass.Spells["e"]["protectwhitelist"][target.ChampionName.ToLower()].As<MenuSliderBool>().Value)
             {
                 SpellClass.E.CastOnUnit(target);
             }

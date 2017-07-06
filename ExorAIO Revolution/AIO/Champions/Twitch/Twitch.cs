@@ -85,14 +85,14 @@ namespace AIO.Champions
                 switch (args.Slot)
                 {
                     case SpellSlot.Recall:
-                        if (MenuClass.Spells["q"]["logical"].As<MenuBool>().Value)
+                        if (MenuClass.Miscellaneous["stealthrecall"].As<MenuBool>().Value)
                         {
                             SpellClass.Q.Cast();
                         }
                         break;
 
                     case SpellSlot.W:
-                        if (UtilityClass.Player.HasBuff("TwitchSprayAndPray") &&
+                        if (UtilityClass.Player.HasBuff("TwitchFullAutomatic") &&
                             MenuClass.Spells["w"]["customization"]["dontwinr"].As<MenuBool>().Value)
                         {
                             args.Process = false;

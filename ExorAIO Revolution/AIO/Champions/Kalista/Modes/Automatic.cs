@@ -99,7 +99,8 @@ namespace AIO.Champions
                     {
                         if (this.IsPerfectRendTarget(minion) &&
                             minion.Health < this.GetTotalRendDamage(minion) &&
-                            MenuClass.WhiteList[minion.Name].As<MenuBool>().Enabled)
+                            MenuClass.WhiteList2[minion.UnitSkinName] != null &&
+                            MenuClass.WhiteList2[minion.UnitSkinName].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();
                         }

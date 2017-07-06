@@ -27,15 +27,6 @@ namespace AIO.Champions
         public void Drawings()
         {
             /// <summary>
-            ///     Loads the Q drawing.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Drawings["q"].As<MenuBool>().Enabled)
-            {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.Q.Range, 100, Color.LightGreen);
-            }
-
-            /// <summary>
             ///     Loads the Q duration drawing.
             /// </summary>
             if (MenuClass.Drawings["qduration"].As<MenuBool>().Enabled)
@@ -47,7 +38,7 @@ namespace AIO.Champions
                 }
                 else
                 {
-                    var qDuration = new[] { 10, 11, 12, 13, 14 }[UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level - 1];
+                    var qDuration = new[] { 10, 11, 12, 13, 14 } [UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level];
                     RenderManager.RenderCircle(UtilityClass.Player.Position, qDuration * UtilityClass.Player.MoveSpeed, 100, Color.Green);
                 }
             }

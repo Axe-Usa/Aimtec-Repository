@@ -66,7 +66,8 @@ namespace AIO.Champions
                     {
                         if (this.IsPerfectExpungeTarget(minion) &&
                             minion.Health < this.GetTotalExpungeDamage(minion) &&
-                            MenuClass.WhiteList[minion.Name].As<MenuBool>().Enabled)
+                            MenuClass.WhiteList2[minion.UnitSkinName] != null &&
+                            MenuClass.WhiteList2[minion.UnitSkinName].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();
                         }

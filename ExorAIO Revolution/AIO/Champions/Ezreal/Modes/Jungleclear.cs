@@ -25,8 +25,10 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
-            var jungleTarget = (Obj_AI_Minion)args.Target;
-            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
+            var jungleTarget = args.Target as Obj_AI_Minion;
+            if (jungleTarget == null ||
+                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
+                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }

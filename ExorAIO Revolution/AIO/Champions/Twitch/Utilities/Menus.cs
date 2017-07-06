@@ -91,6 +91,18 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
+                    /// <summary>
+                    ///     Sets the menu for the E Whitelist.
+                    /// </summary>
+                    MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Expunge: Whitelist");
+                    {
+                        foreach (var target in UtilityClass.JungleList)
+                        {
+                            MenuClass.WhiteList2.Add(new MenuBool(target, "Expunge: " + target));
+                        }
+                    }
+                    MenuClass.E.Add(MenuClass.WhiteList2);
+
                     MenuClass.E.Add(new MenuBool("ondeath", "Before death"));
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuBool("junglesteal", "Junglesteal"));
@@ -108,18 +120,6 @@ namespace AIO.Champions
                     MenuClass.E.Add(MenuClass.E2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
-
-                /// <summary>
-                ///     Sets the menu for the E Whitelist.
-                /// </summary>
-                MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Expunge: Whitelist");
-                {
-                    foreach (var target in Extensions.GetGenericJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
-                    {
-                        MenuClass.WhiteList2.Add(new MenuBool(target.Name, "Expunge: " + target.Name));
-                    }
-                }
-                MenuClass.E.Add(MenuClass.WhiteList2);
             }
             MenuClass.Root.Add(MenuClass.Spells);
 
@@ -137,9 +137,10 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
+                MenuClass.Drawings.Add(new MenuBool("qduration", "Q Duration Circle"));
                 MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range"));
-                MenuClass.Drawings.Add(new MenuBool("edmg", "E Range"));
+                MenuClass.Drawings.Add(new MenuBool("edmg", "E Damage"));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range"));
             }
             MenuClass.Root.Add(MenuClass.Drawings);

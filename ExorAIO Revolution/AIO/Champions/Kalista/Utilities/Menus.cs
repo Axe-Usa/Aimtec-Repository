@@ -83,6 +83,18 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
+                    /// <summary>
+                    ///     Sets the menu for the E Whitelist.
+                    /// </summary>
+                    MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Rend: Whitelist");
+                    {
+                        foreach (var target in UtilityClass.JungleList)
+                        {
+                            MenuClass.WhiteList2.Add(new MenuBool(target, "Rend: " + target));
+                        }
+                    }
+                    MenuClass.E.Add(MenuClass.WhiteList2);
+
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuBool("ondeath", "Before death"));
                     MenuClass.E.Add(new MenuBool("harass", "Harass with minions"));
@@ -92,18 +104,6 @@ namespace AIO.Champions
                     //MenuClass.E.Add(new MenuSeperator("separator1", "It will cast E if there are any minions with"));
                     //MenuClass.E.Add(new MenuSeperator("separator2", "stacks the orbwalker cannot reach in time to kill them."));
                     MenuClass.E.Add(new MenuBool("farmhelper", "FarmHelper"));
-
-                    /// <summary>
-                    ///     Sets the menu for the E Whitelist.
-                    /// </summary>
-                    MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Rend: Whitelist");
-                    {
-                        foreach (var target in Extensions.GetGenericJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
-                        {
-                            MenuClass.WhiteList2.Add(new MenuBool(target.Name, "Rend: " + target.Name));
-                        }
-                    }
-                    MenuClass.E.Add(MenuClass.WhiteList2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 
