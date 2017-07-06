@@ -46,8 +46,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var farmLocation = SpellClass.E.GetConicalFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.E.Width);
-                if (farmLocation.MinionsHit >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
+                var farmLocation = SpellClass.W.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.W.Width);
+                if (farmLocation.MinionsHit >= MenuClass.Spells["w"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.Cast(farmLocation.Position);
                 }
