@@ -45,7 +45,7 @@ namespace AIO.Champions
                     MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
                 {
                     if (UtilityClass.Player.GetBuffCount("AkaliShadowDance") <=
-                            MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSlider>().Value)
+                        MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSlider>().Value)
                     {
                         return;
                     }
@@ -58,13 +58,13 @@ namespace AIO.Champions
                 else if (heroTarget.IsValidTarget(SpellClass.R.Range * 2))
                 {
                     if (UtilityClass.Player.GetBuffCount("AkaliShadowDance") <=
-                            MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value ||
+                        MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value ||
                         !MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Enabled)
                     {
                         return;
                     }
 
-                    var bestEnemy = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range*2).FirstOrDefault(t => MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].Enabled);
+                    var bestEnemy = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range * 2).FirstOrDefault(t => MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].Enabled);
                     if (bestEnemy != null)
                     {
                         var bestMinion = Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.R.Range)

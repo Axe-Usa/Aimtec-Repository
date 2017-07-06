@@ -54,9 +54,10 @@ namespace AIO.Champions
             if (sender.IsMe &&
                 args.Slot == SpellSlot.R)
             {
-                if (!GameObjects.EnemyHeroes.Any(t =>
-                        !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.R.Width, false, this.BallPosition)))
+                if (!GameObjects.EnemyHeroes.Any(
+                        t =>
+                            !Invulnerable.Check(t, DamageType.Magical, false) &&
+                            t.IsValidTarget(SpellClass.R.Width, false, this.BallPosition)))
                 {
                     args.Process = false;
                 }

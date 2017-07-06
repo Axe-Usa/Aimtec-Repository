@@ -39,6 +39,9 @@ namespace AIO.Champions
                                                             new Vector3(7811.249f, 53.81299f, 4034.486f)
                                                         };
 
+        #endregion
+
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Gets the total rend damage on a determined unit.

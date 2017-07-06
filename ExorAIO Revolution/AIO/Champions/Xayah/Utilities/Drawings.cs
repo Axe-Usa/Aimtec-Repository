@@ -41,9 +41,10 @@ namespace AIO.Champions
                 foreach (var feather in this.Feathers)
                 {
                     var hitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.Q.Width);
-                    hitbox.Draw(GameObjects.EnemyHeroes.Any(h => hitbox.IsInside((Vector2)h.Position))
-                        ? Color.Blue
-                        : Color.OrangeRed);
+                    hitbox.Draw(
+                        GameObjects.EnemyHeroes.Any(h => hitbox.IsInside((Vector2)h.Position))
+                            ? Color.Blue
+                            : Color.OrangeRed);
                 }
             }
 

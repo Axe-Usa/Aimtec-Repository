@@ -27,9 +27,10 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                GameObjects.EnemyHeroes.Any(t =>
-                    !Invulnerable.Check(t, DamageType.Magical) &&
-                    t.IsValidTarget(SpellClass.W.Width - t.BoundingRadius, false, this.BallPosition)) &&
+                GameObjects.EnemyHeroes.Any(
+                    t =>
+                        !Invulnerable.Check(t, DamageType.Magical) &&
+                        t.IsValidTarget(SpellClass.W.Width - t.BoundingRadius, false, this.BallPosition)) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast();
@@ -39,9 +40,10 @@ namespace AIO.Champions
             ///     The Automatic R Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                GameObjects.EnemyHeroes.Count(t =>
-                    !Invulnerable.Check(t, DamageType.Magical) &&
-                    t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius, false, this.BallPosition)) >= MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value &&
+                GameObjects.EnemyHeroes.Count(
+                    t =>
+                        !Invulnerable.Check(t, DamageType.Magical) &&
+                        t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius, false, this.BallPosition)) >= MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.R.Cast();

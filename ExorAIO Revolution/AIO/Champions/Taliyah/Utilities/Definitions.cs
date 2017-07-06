@@ -49,14 +49,6 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Returns true if the player is near a worked ground.
-        /// </summary>
-        public bool IsNearWorkedGround()
-        {
-            return this.AnyTerrainInRange(412.5f);
-        }
-
-        /// <summary>
         ///     Reloads the MineField.
         /// </summary>
         /// <param name="unit">The unit.</param>
@@ -96,6 +88,14 @@ namespace AIO.Champions
             }
 
             return mostBouldersHit;
+        }
+
+        /// <summary>
+        ///     Returns true if the player is near a worked ground.
+        /// </summary>
+        public bool IsNearWorkedGround()
+        {
+            return this.AnyTerrainInRange(412.5f);
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace AIO.Champions
             SpellClass.Q = new Spell(SpellSlot.Q, 825f);
             SpellClass.W = new Spell(SpellSlot.W, 600f);
             SpellClass.W2 = new Spell(SpellSlot.W, 1800f);
-            SpellClass.E = new Spell(SpellSlot.E, 600f + UtilityClass.Player.BoundingRadius*2);
+            SpellClass.E = new Spell(SpellSlot.E, 600f + UtilityClass.Player.BoundingRadius * 2);
             SpellClass.R = new Spell(SpellSlot.R, 1250f);
             SpellClass.R2 = new Spell(SpellSlot.R, 1250f);
 

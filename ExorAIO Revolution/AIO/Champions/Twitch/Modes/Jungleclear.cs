@@ -28,7 +28,7 @@ namespace AIO.Champions
             var jungleTarget = args.Target as Obj_AI_Minion;
             if (jungleTarget == null ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
-                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*2)
+                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }

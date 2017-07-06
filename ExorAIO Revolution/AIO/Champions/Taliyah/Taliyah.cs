@@ -54,27 +54,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Fired upon GameObject creation.
-        /// </summary>
-        public void OnCreate(GameObject obj)
-        {
-            if (obj != null && obj.IsValid)
-            {
-                switch (obj.Name)
-                {
-                    case "Taliyah_Base_Q_aoe.troy":
-                    case "Taliyah_Base_Q_aoe_river.troy":
-                        this.WorkedGrounds.Add(obj.NetworkId, obj.Position);
-                        break;
-
-                    case "Taliyah_Base_E_Mines.troy":
-                        this.MineField.Add(obj.NetworkId, obj.Position);
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
         ///     Called on spell cast.
         /// </summary>
         /// <param name="sender">The SpellBook.</param>
@@ -108,6 +87,27 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired upon GameObject creation.
         /// </summary>
+        public void OnCreate(GameObject obj)
+        {
+            if (obj != null && obj.IsValid)
+            {
+                switch (obj.Name)
+                {
+                    case "Taliyah_Base_Q_aoe.troy":
+                    case "Taliyah_Base_Q_aoe_river.troy":
+                        this.WorkedGrounds.Add(obj.NetworkId, obj.Position);
+                        break;
+
+                    case "Taliyah_Base_E_Mines.troy":
+                        this.MineField.Add(obj.NetworkId, obj.Position);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Fired upon GameObject creation.
+        /// </summary>
         public void OnDestroy(GameObject obj)
         {
             if (obj != null && obj.IsValid)
@@ -133,17 +133,6 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             this.Drawings();
-        }
-
-        /// <summary>
-        ///     Fired on render.
-        /// </summary>
-        public void OnRender()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            this.MinimapDrawings();
         }
 
         /*
@@ -243,6 +232,17 @@ namespace AIO.Champions
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        ///     Fired on render.
+        /// </summary>
+        public void OnRender()
+        {
+            /// <summary>
+            ///     Initializes the drawings.
+            /// </summary>
+            this.MinimapDrawings();
         }
 
         /// <summary>

@@ -38,7 +38,7 @@ namespace AIO.Champions
                 }
                 else
                 {
-                    var qDuration = new[] { 10, 11, 12, 13, 14 } [UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level];
+                    var qDuration = new[] { 10, 11, 12, 13, 14 }[UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level];
                     RenderManager.RenderCircle(UtilityClass.Player.Position, qDuration * UtilityClass.Player.MoveSpeed, 100, Color.Green);
                 }
             }

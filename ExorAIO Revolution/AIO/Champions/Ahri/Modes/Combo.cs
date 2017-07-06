@@ -50,7 +50,7 @@ namespace AIO.Champions
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                heroTarget.IsValidTarget(SpellClass.E.Range-100f) &&
+                heroTarget.IsValidTarget(SpellClass.E.Range - 100f) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(heroTarget);
@@ -65,7 +65,7 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {
                 var position = UtilityClass.Player.Position.Extend(Game.CursorPos, SpellClass.R.Range);
-                if (heroTarget.IsValidTarget(600f+heroTarget.BoundingRadius*2, false, position) &&
+                if (heroTarget.IsValidTarget(600f + heroTarget.BoundingRadius * 2, false, position) &&
                     (UtilityClass.Player.HasBuff("AhriTumble") || !MenuClass.Spells["r"]["customization"]["onlyrstarted"].As<MenuBool>().Enabled))
                 {
                     SpellClass.R.Cast(position);
@@ -76,7 +76,7 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                heroTarget.IsValidTarget(SpellClass.Q.Range-100f) &&
+                heroTarget.IsValidTarget(SpellClass.Q.Range - 100f) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast(heroTarget);

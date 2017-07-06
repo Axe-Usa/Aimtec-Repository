@@ -16,6 +16,8 @@ namespace AIO.Utilities
     /// </summary>
     internal static class ImplementationClass
     {
+        #region Static Fields
+
         /// <summary>
         ///     Gets the HealthPrediction implementation.
         /// </summary>
@@ -35,5 +37,7 @@ namespace AIO.Utilities
         ///     Gets the TargetSelector implementation.
         /// </summary>
         public static ITargetSelector ITargetSelector = TargetSelector.Implementation;
+
+        #endregion
     }
 }

@@ -34,10 +34,11 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var idealMinion = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(m =>
-                    m.IsValidTarget(SpellClass.E.Range) &&
-                    Extensions.GetEnemyLaneMinionsTargets()
-                        .Count(m2 => m2.Distance(m) < 200f) >= MenuClass.Spells["e"]["customization"]["laneclear"].Value);
+                var idealMinion = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(
+                    m =>
+                        m.IsValidTarget(SpellClass.E.Range) &&
+                        Extensions.GetEnemyLaneMinionsTargets()
+                            .Count(m2 => m2.Distance(m) < 200f) >= MenuClass.Spells["e"]["customization"]["laneclear"].Value);
 
                 if (idealMinion != null)
                 {

@@ -25,7 +25,7 @@ namespace AIO.Champions
             var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetTarget();
             if (!jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
-                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget)*4)
+                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 4)
             {
                 return;
             }

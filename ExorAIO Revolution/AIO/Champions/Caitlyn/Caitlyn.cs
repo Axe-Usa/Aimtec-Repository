@@ -151,7 +151,10 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
             {
-                foreach (var target in ObjectManager.Get<Obj_AI_Minion>().Where(m => m.IsEnemy && m.Distance(UtilityClass.Player) <= SpellClass.W.Range))
+                foreach (var target in ObjectManager.Get<Obj_AI_Minion>().Where(
+                    m =>
+                        m.IsEnemy &&
+                        m.Distance(UtilityClass.Player) <= SpellClass.W.Range))
                 {
                     if (target.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target")))
                     {

@@ -83,7 +83,7 @@ namespace AIO.Champions
                 /// </summary>
                 if (SpellClass.W.Ready &&
                     (SpellClass.E.Ready ||
-                        !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
+                     !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
                     target.IsValidTarget(SpellClass.W.Range) &&
                     MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                 {
@@ -97,8 +97,8 @@ namespace AIO.Champions
                             break;
                         case 2:
                             var isKillable = target.GetRealHealth() < UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) * (this.IsNearWorkedGround() ? 1 : 3) +
-                                                UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) +
-                                                UtilityClass.Player.GetSpellDamage(target, SpellSlot.E);
+                                             UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) +
+                                             UtilityClass.Player.GetSpellDamage(target, SpellSlot.E);
                             if (isKillable)
                             {
                                 SpellClass.W.Cast(target, UtilityClass.Player.Position);
@@ -109,9 +109,10 @@ namespace AIO.Champions
                             }
                             break;
                         case 3:
-                            if (!GameObjects.EnemyHeroes.Any(t =>
-                                    t.IsValidTarget(SpellClass.W.Range) &&
-                                    MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
+                            if (!GameObjects.EnemyHeroes.Any(
+                                    t =>
+                                        t.IsValidTarget(SpellClass.W.Range) &&
+                                        MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
                             {
                                 SpellClass.W.Cast(target, UtilityClass.Player.Position.Extend(target.Position, UtilityClass.Player.Distance(target) * 2));
                             }

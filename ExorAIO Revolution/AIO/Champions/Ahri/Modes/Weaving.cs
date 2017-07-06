@@ -1,5 +1,4 @@
 
-
 #pragma warning disable 1587
 namespace AIO.Champions
 {
