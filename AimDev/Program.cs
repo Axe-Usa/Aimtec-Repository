@@ -14,24 +14,13 @@
     {
         #region Static Fields
 
-        private static int lastMovementTick;
-
         private static Menu config;
+
+        private static int lastMovementTick;
 
         #endregion
 
         #region Methods
-
-        /// <summary>
-        ///     The entry point of the application.
-        /// </summary>
-        private static void Main()
-        {
-            InitMenu();
-            Game.OnUpdate += OnUpdate;
-            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-            Obj_AI_Base.OnProcessAutoAttack += OnProcessAutoAttack;
-        }
 
         /// <summary>
         ///     Loads the menus.
@@ -48,13 +37,50 @@
         }
 
         /// <summary>
+        ///     The entry point of the application.
+        /// </summary>
+        private static void Main()
+        {
+            InitMenu();
+            Game.OnUpdate += OnUpdate;
+            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
+            Obj_AI_Base.OnProcessAutoAttack += OnProcessAutoAttack;
+        }
+
+        /// <summary>
+        ///     Called on do-cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
+        private static void OnProcessAutoAttack(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            if (sender is Obj_AI_Hero)
+            {
+                Console.WriteLine("Autoattack Name: " + args.SpellData.Name);
+            }
+        }
+
+        /// <summary>
+        ///     Called on do-cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
+        private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            if (sender is Obj_AI_Hero)
+            {
+                Console.WriteLine("Name: " + args.SpellData.Name);
+            }
+        }
+
+        /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
         private static void OnUpdate()
         {
             if (config["antiafk"].Enabled && Game.TickCount - lastMovementTick > 140000)
             {
-                ObjectManager.GetLocalPlayer().IssueOrder(OrderType.MoveTo, ObjectManager.GetLocalPlayer().Position-5);
+                ObjectManager.GetLocalPlayer().IssueOrder(OrderType.MoveTo, ObjectManager.GetLocalPlayer().Position - 5);
                 lastMovementTick = Game.TickCount;
             }
 
@@ -159,32 +185,6 @@
                         RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, "Missile Speed: " + missile.SpellData.MissileSpeed);
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        ///     Called on do-cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
-        {
-            if (sender is Obj_AI_Hero)
-            {
-                Console.WriteLine("Name: " + args.SpellData.Name);
-            }
-        }
-
-        /// <summary>
-        ///     Called on do-cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        private static void OnProcessAutoAttack(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
-        {
-            if (sender is Obj_AI_Hero)
-            {
-                Console.WriteLine("Autoattack Name: " + args.SpellData.Name);
             }
         }
 
