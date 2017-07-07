@@ -85,7 +85,11 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.W.Add(new MenuBool("combo", "Combo: (W->E)"));
+                    MenuClass.W.Add(new MenuSeperator("separator1"));
+                    MenuClass.W.Add(new MenuSeperator("separator2", "To boulders if any and E on cooldown"));
+                    MenuClass.W.Add(new MenuBool("boulders", "Combo: Boulders Logic"));
+                    MenuClass.W.Add(new MenuSeperator("separator3"));
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
@@ -98,6 +102,7 @@ namespace AIO.Champions
                     MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
                         //MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
+                        MenuClass.W2.Add(new MenuSeperator("separator1", "V Unless to Hit boulders on the ground V"));
                         MenuClass.W2.Add(new MenuBool("onlyeready", "Combo: Don't Cast W if E on cooldown"));
                         //MenuClass.W2.Add(new MenuSeperator("separator2"));
                         //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
@@ -116,7 +121,7 @@ namespace AIO.Champions
                                 new MenuList(
                                     enemy.ChampionName.ToLower(),
                                     enemy.ChampionName,
-                                    new[] { "Always Pull", "Always Push", "Pull if Killable else Push", "Ignore if possible" }, 0));
+                                    new[] { "Always Pull", "Always Push", "Pull if Killable else Push", "Pull if not near else Push", "Ignore if possible" }, 3));
                         }
                     }
                     MenuClass.W.Add(MenuClass.WhiteList);

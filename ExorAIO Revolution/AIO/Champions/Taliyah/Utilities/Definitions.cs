@@ -33,6 +33,24 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
+        ///     Returns the position the target would have after being pulled by W.
+        /// </summary>
+        public Vector3 GetUnitPositionAfterPull(Obj_AI_Base unit)
+        {
+            var targetPred = SpellClass.W.GetPrediction(unit).CastPosition;
+            return targetPred.Extend(UtilityClass.Player.Position, 300f);
+        }
+
+        /// <summary>
+        ///     Returns the position the target would have after being pushed by W.
+        /// </summary>
+        public Vector3 GetUnitPositionAfterPush(Obj_AI_Base unit)
+        {
+            var targetPred = SpellClass.W.GetPrediction(unit).CastPosition;
+            return targetPred.Extend(UtilityClass.Player.Position, -300f);
+        }
+
+        /// <summary>
         ///     Returns true if there are any worked grounds in a determined range from the player.
         /// </summary>
         public bool AnyTerrainInRange(float range)

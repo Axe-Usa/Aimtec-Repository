@@ -48,6 +48,8 @@ namespace AIO.Champions
                 SpellClass.Q.Cast(jungleTarget);
             }
 
+            Vector3 targetPosAfterW = new Vector3();
+
             /// <summary>
             ///     The Jungleclear W Logic.
             /// </summary>
@@ -58,20 +60,18 @@ namespace AIO.Champions
             {
                 var bestBoulderHitPos = this.GetBestBouldersHitPosition(jungleTarget);
                 var bestBoulderHitPosHitBoulders = this.GetBestBouldersHitPositionHitBoulders(jungleTarget);
+                var jungleTargetPredPos = SpellClass.W.GetPrediction(jungleTarget).CastPosition;
                 if (SpellClass.E.Ready)
                 {
-                    if (jungleTarget.Distance(UtilityClass.Player) < 300f)
-                    {
-                        SpellClass.W.Cast((Vector2)jungleTarget.Position.Extend((Vector2)UtilityClass.Player.Position, 75f), -(Vector2)UtilityClass.Player.Position);
-                    }
-                    else
-                    {
-                        SpellClass.W.Cast((Vector2)jungleTarget.Position.Extend((Vector2)UtilityClass.Player.Position, 75f), (Vector2)UtilityClass.Player.Position);
-                    }
+                    targetPosAfterW = UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(jungleTarget)) >= 250f
+                        ? this.GetUnitPositionAfterPull(jungleTarget)
+                        : this.GetUnitPositionAfterPush(jungleTarget);
+
+                    SpellClass.W.Cast(jungleTargetPredPos, targetPosAfterW);
                 }
                 else if (bestBoulderHitPos != Vector3.Zero && bestBoulderHitPosHitBoulders > 0)
                 {
-                    SpellClass.W.Cast((Vector2)jungleTarget.Position, (Vector2)bestBoulderHitPos);
+                    SpellClass.W.Cast(jungleTargetPredPos, bestBoulderHitPos);
                 }
             }
 
@@ -83,7 +83,9 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.Cast(jungleTarget.Position);
+                SpellClass.E.Cast(SpellClass.W.Ready
+                    ? targetPosAfterW
+                    : jungleTarget.Position);
             }
 
             /// <summary>
