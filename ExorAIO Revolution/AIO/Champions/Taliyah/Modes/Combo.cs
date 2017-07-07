@@ -59,7 +59,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["boulders"].As<MenuBool>().Enabled)
             {
-                var bestTargets = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.W.Range-100f)
+                var bestTargets = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.W.Range - 100f)
                     .Where(t => MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3);
 
                 var objAiHeroes = bestTargets as Obj_AI_Hero[] ?? bestTargets.ToArray();
@@ -130,9 +130,10 @@ namespace AIO.Champions
                         ///     Ignore Target If Possible.
                         /// </summary>
                         case 4:
-                            if (!GameObjects.EnemyHeroes.Any(t =>
-                                    t.IsValidTarget(SpellClass.W.Range) &&
-                                    MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
+                            if (!GameObjects.EnemyHeroes.Any(
+                                    t =>
+                                        t.IsValidTarget(SpellClass.W.Range) &&
+                                        MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
                             {
                                 if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 250f)
                                 {
@@ -163,7 +164,7 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range-50f))
+                bestTarget.IsValidTarget(SpellClass.Q.Range - 50f))
             {
                 switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
                 {

@@ -82,8 +82,8 @@ namespace AIO.Champions
                             case SpellSlot.W:
                                 var spellBook = UtilityClass.Player.SpellBook;
                                 if (UtilityClass.Player.Mana <
-                                        spellBook.GetSpell(SpellSlot.W).Cost +
-                                        spellBook.GetSpell(SpellSlot.E).Cost &&
+                                    spellBook.GetSpell(SpellSlot.W).Cost +
+                                    spellBook.GetSpell(SpellSlot.E).Cost &&
                                     MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled)
                                 {
                                     args.Process = false;

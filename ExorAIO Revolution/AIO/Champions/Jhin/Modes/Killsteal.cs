@@ -35,8 +35,7 @@ namespace AIO.Champions
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         !Invulnerable.Check(t) &&
-                        t.IsValidTarget(SpellClass.R.Range) &&
-                        UltimateCone().IsInside((Vector2)t.Position) &&
+                        t.IsValidTarget(SpellClass.R.Range) && this.UltimateCone().IsInside((Vector2)t.Position) &&
                         t.GetRealHealth() < (float)UtilityClass.Player.GetSpellDamage(t, SpellSlot.R, this.UltimateShotsCount == 3 ? DamageStage.SecondForm : DamageStage.Default)))
                 {
                     SpellClass.R.Cast(target);
