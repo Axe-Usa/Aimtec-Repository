@@ -36,7 +36,7 @@ namespace AIO.Champions
                             //!t.IsDashing() &&
                                 t.IsValidTarget(SpellClass.E.Range + t.BoundingRadius) &&
                                 !Invulnerable.Check(t, DamageType.Magical, false) &&
-                                !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
+                                !t.IsValidTarget(UtilityClass.Player.BoundingRadius*2) &&
                                 MenuClass.WhiteList[t.ChampionName.ToLower()].Enabled))
                 {
                     for (var i = 1; i < 10; i++)
@@ -45,14 +45,14 @@ namespace AIO.Champions
                         var predictedPos1 = SpellClass.E.GetPrediction(target).PredictedPosition;
                         var predictedPos2 = SpellClass.E2.GetPrediction(target).PredictedPosition;
 
-                        var targetPosition = target.Position.Extend(playerPos, -41 * i);
-                        var targetPositionExtended = target.Position.Extend(playerPos, -42 * i);
+                        var targetPosition = target.Position.Extend(playerPos, -40 * i);
+                        var targetPositionExtended = target.Position.Extend(playerPos, -41 * i);
 
-                        var predictedPosition1 = predictedPos1.Extend(playerPos, -41 * i);
-                        var predictedPosition1Extended = predictedPos1.Extend(playerPos, -42 * i);
+                        var predictedPosition1 = predictedPos1.Extend(playerPos, -40 * i);
+                        var predictedPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
 
-                        var predictedPosition2 = predictedPos2.Extend(playerPos, -41 * i);
-                        var predictedPosition2Extended = predictedPos2.Extend(playerPos, -42 * i);
+                        var predictedPosition2 = predictedPos2.Extend(playerPos, -40 * i);
+                        var predictedPosition2Extended = predictedPos2.Extend(playerPos, -41 * i);
 
                         if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&

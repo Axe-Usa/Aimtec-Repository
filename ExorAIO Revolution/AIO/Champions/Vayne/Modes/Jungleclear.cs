@@ -7,7 +7,6 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
-    using Aimtec.SDK.Prediction;
 
     using AIO.Utilities;
 
@@ -43,44 +42,29 @@ namespace AIO.Champions
             {
                 if (!Extensions.GetLegendaryJungleMinionsTargets().Contains(jungleTarget))
                 {
-                    var playerPos = UtilityClass.Player.Position;
-                    var firstPredictionInput = new PredictionInput
-                                                   {
-                                                       Delay = SpellClass.E.Delay,
-                                                       Radius = SpellClass.E.Width,
-                                                       From = UtilityClass.Player.Position,
-                                                       Range = SpellClass.E.Range,
-                                                       SkillType = SpellClass.E.Type,
-                                                       Speed = SpellClass.E.Speed,
-                                                       Target = jungleTarget,
-                                                       Unit = UtilityClass.Player
-                                                   };
-                    var secondPredictionInput = new PredictionInput
-                                                    {
-                                                        Delay = SpellClass.E2.Delay,
-                                                        Radius = SpellClass.E2.Width,
-                                                        From = UtilityClass.Player.Position,
-                                                        Range = SpellClass.E2.Range,
-                                                        SkillType = SpellClass.E2.Type,
-                                                        Speed = SpellClass.E2.Speed,
-                                                        Target = jungleTarget,
-                                                        Unit = UtilityClass.Player
-                                                    };
-                    var firstPrediction = ImplementationClass.IPrediction.GetPrediction(firstPredictionInput);
-                    var secondPrediction = ImplementationClass.IPrediction.GetPrediction(secondPredictionInput);
-
                     for (var i = 1; i < 10; i++)
                     {
-                        var firstPredictionFirstPoint = NavMesh.WorldToCell(playerPos.Extend(firstPrediction.PredictedPosition, i * 42)).Flags;
-                        var secondPredictionFirstPoint = NavMesh.WorldToCell(playerPos.Extend(secondPrediction.PredictedPosition, i * 42)).Flags;
-                        var firstPredictionSecondPoint = NavMesh.WorldToCell(playerPos.Extend(firstPrediction.PredictedPosition, i * 45)).Flags;
-                        var secondPredictionSecondPoint = NavMesh.WorldToCell(playerPos.Extend(secondPrediction.PredictedPosition, i * 45)).Flags;
-                        if (firstPredictionFirstPoint.HasFlag(NavCellFlags.Wall) &&
-                            secondPredictionFirstPoint.HasFlag(NavCellFlags.Wall) &&
-                            firstPredictionSecondPoint.HasFlag(NavCellFlags.Wall) &&
-                            secondPredictionSecondPoint.HasFlag(NavCellFlags.Wall))
+                        var playerPos = UtilityClass.Player.Position;
+                        var predictedPos1 = SpellClass.E.GetPrediction(jungleTarget).PredictedPosition;
+                        var predictedPos2 = SpellClass.E2.GetPrediction(jungleTarget).PredictedPosition;
+
+                        var targetPosition = jungleTarget.Position.Extend(playerPos, -40 * i);
+                        var targetPositionExtended = jungleTarget.Position.Extend(playerPos, -41 * i);
+
+                        var predictedPosition1 = predictedPos1.Extend(playerPos, -40 * i);
+                        var predictedPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
+
+                        var predictedPosition2 = predictedPos2.Extend(playerPos, -40 * i);
+                        var predictedPosition2Extended = predictedPos2.Extend(playerPos, -41 * i);
+
+                        if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(predictedPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(predictedPosition1Extended).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(predictedPosition2).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(predictedPosition2Extended).Flags.HasFlag(NavCellFlags.Wall))
                         {
-                            SpellClass.E.Cast(jungleTarget);
+                            SpellClass.E.CastOnUnit(jungleTarget);
                         }
                     }
                 }

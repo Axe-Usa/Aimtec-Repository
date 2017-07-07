@@ -29,13 +29,16 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
-                var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) +
-                    (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
+                if (bestTarget != null)
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
+                    if (!bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
+                        UtilityClass.Player.GetAutoAttackDamage(bestTarget) +
+                        UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) +
+                        (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
+                    {
+                        SpellClass.Q.Cast(bestTarget);
+                    }
                 }
             }
 
@@ -46,12 +49,15 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical);
-                var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) +
-                    (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
+                if (bestTarget != null)
                 {
-                    SpellClass.E.CastOnUnit(bestTarget);
+                    var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
+                    if (!bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
+                        UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) +
+                        (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
+                    {
+                        SpellClass.E.CastOnUnit(bestTarget);
+                    }
                 }
             }
         }
