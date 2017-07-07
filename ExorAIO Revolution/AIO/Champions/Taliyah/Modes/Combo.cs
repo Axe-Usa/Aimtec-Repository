@@ -33,7 +33,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTargets = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.W.Range)
+                var bestTargets = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.W.Range-100f)
                     .Where(t => MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3);
 
                 var objAiHeroes = bestTargets as Obj_AI_Hero[] ?? bestTargets.ToArray();
@@ -76,6 +76,7 @@ namespace AIO.Champions
                 }
             }
 
+            var spellBook = UtilityClass.Player.SpellBook;
             foreach (var target in GameObjects.EnemyHeroes)
             {
                 /// <summary>
@@ -84,7 +85,7 @@ namespace AIO.Champions
                 if (SpellClass.W.Ready &&
                     (SpellClass.E.Ready ||
                      !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
-                    target.IsValidTarget(SpellClass.W.Range) &&
+                    target.IsValidTarget(SpellClass.W.Range-100f) &&
                     MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                 {
                     switch (MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value)
@@ -125,7 +126,7 @@ namespace AIO.Champions
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                bestTarget.IsValidTarget(SpellClass.W.Range) &&
+                bestTarget.IsValidTarget(SpellClass.W.Range-100f) &&
                 UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).CooldownEnd - Game.ClockTime <= 3f &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
@@ -136,7 +137,7 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range - 50f))
+                bestTarget.IsValidTarget(SpellClass.Q.Range-50f))
             {
                 Console.WriteLine("The Q Combo Logic. 1111");
                 switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)

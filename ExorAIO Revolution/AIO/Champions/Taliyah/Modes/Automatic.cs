@@ -32,6 +32,7 @@ namespace AIO.Champions
             ///     The Automatic W Logic. 
             /// </summary>
             if (SpellClass.W.Ready &&
+                SpellClass.E.Ready &&
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
