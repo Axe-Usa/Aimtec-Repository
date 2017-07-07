@@ -1,6 +1,7 @@
 namespace AIO.Utilities
 {
     using Aimtec;
+    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
 
@@ -16,6 +17,12 @@ namespace AIO.Utilities
         /// </summary>
         public static int GetNeededMana(SpellSlot slot, MenuComponent value)
         {
+            if (UtilityClass.Player.HasBuff("crestoftheancientgolem") &&
+                MenuClass.General["nomanagerifblue"].As<MenuBool>().Enabled)
+            {
+                return 0;
+            }
+
             var cost = UtilityClass.Player.SpellBook.GetSpell(slot).Cost;
             return
                 value.As<MenuSliderBool>().Value +

@@ -37,6 +37,7 @@ namespace AIO
                     MenuClass.General.Add(new MenuBool("supportmode", "Support Mode", false));
                     MenuClass.General.Add(new MenuBool("disableaa", "Disable AutoAttacks in Combo", false));
                     MenuClass.General.Add(new MenuBool("usesheen", "Use Sheen's passive"));
+                    MenuClass.General.Add(new MenuBool("nomanagerifblue", "Ignore ManaManagers if has Blue Buff", false));
                 }
                 MenuClass.Root.Add(MenuClass.General);
             }
