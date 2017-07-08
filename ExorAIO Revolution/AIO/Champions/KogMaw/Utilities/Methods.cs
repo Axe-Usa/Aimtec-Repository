@@ -19,7 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             //Events.OnGapCloser += KogMaw.OnGapCloser;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            RenderManager.OnPresent += this.OnPresent;
+            Render.OnPresent += this.OnPresent;
         }
 
         #endregion

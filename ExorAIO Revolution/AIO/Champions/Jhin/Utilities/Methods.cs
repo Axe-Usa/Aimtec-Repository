@@ -19,7 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             SpellBook.OnCastSpell += this.OnCastSpell;
             Obj_AI_Base.OnTeleport += this.OnTeleport;
-            RenderManager.OnPresent += this.OnPresent;
+            Render.OnPresent += this.OnPresent;
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
             ImplementationClass.IOrbwalker.PreMove += this.OnPreMove;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;

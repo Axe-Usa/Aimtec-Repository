@@ -32,7 +32,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["w"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
             }
 
             /// <summary>
@@ -104,8 +104,8 @@ namespace AIO.Champions
                                                                                 ? width * ((unit.GetRealHealth() - this.GetTotalExplosionDamage(unit)) / unit.MaxHealth * 100 / 100)
                                                                                 : 0));
 
-                                    RenderManager.RenderLine(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, unit.GetRealHealth() < this.GetTotalExplosionDamage(unit) ? Color.Blue : Color.Orange);
-                                    RenderManager.RenderLine(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
+                                    Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, unit.GetRealHealth() < this.GetTotalExplosionDamage(unit) ? Color.Blue : Color.Orange);
+                                    Render.Line(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
                                 });
                 }
             }
@@ -116,7 +116,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["w"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
             }
         }
 

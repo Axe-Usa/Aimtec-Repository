@@ -128,6 +128,7 @@ namespace AIO.Champions
                     this.Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
+                    this.Buildingclear(sender, args);
                     this.Jungleclear(sender, args);
                     break;
             }

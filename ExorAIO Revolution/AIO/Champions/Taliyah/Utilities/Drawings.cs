@@ -28,7 +28,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.Q.Range, 100, Color.LightGreen);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 100, Color.LightGreen);
             }
 
             /// <summary>
@@ -37,7 +37,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["w"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
             }
 
             /// <summary>
@@ -46,7 +46,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Drawings["e"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.E.Range, 100, Color.Cyan);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.E.Range, 100, Color.Cyan);
             }
 
             /// <summary>
@@ -55,7 +55,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Drawings["r"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.R.Range, 100, Color.Red);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 100, Color.Red);
             }
 
             /// <summary>
@@ -65,7 +65,7 @@ namespace AIO.Champions
             {
                 foreach (var ground in this.WorkedGrounds)
                 {
-                    RenderManager.RenderCircle(ground.Value, 412.5f, 100, Color.Brown);
+                    Render.Circle(ground.Value, 412.5f, 100, Color.Brown);
                 }
             }
 
@@ -76,7 +76,7 @@ namespace AIO.Champions
             {
                 foreach (var boulder in this.MineField)
                 {
-                    RenderManager.RenderCircle(boulder.Value, 30f, 100, Color.Brown);
+                    Render.Circle(boulder.Value, 30f, 100, Color.Brown);
                 }
             }
         }

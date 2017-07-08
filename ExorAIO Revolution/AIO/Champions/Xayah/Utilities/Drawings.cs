@@ -29,7 +29,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.Q.Range, 100, Color.LightGreen);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 100, Color.LightGreen);
             }
 
             /// <summary>
@@ -54,7 +54,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Drawings["r"].As<MenuBool>().Enabled)
             {
-                RenderManager.RenderCircle(UtilityClass.Player.Position, SpellClass.R.Range, 100, Color.Red);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 100, Color.Red);
             }
         }
 

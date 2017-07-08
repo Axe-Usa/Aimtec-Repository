@@ -67,10 +67,10 @@
 
                 Vector2 aonScreen;
                 Vector2 bonScreen;
-                RenderManager.WorldToMinimap(a, out aonScreen);
-                RenderManager.WorldToMinimap(b, out bonScreen);
+                Render.WorldToMinimap(a, out aonScreen);
+                Render.WorldToMinimap(b, out bonScreen);
 
-                RenderManager.RenderLine(aonScreen, bonScreen, color);
+                Render.Line(aonScreen, bonScreen, color);
             }
         }
 
@@ -161,9 +161,9 @@
                 Vector2 from;
                 Vector2 to;
 
-                RenderManager.WorldToScreen(start, out from);
-                RenderManager.WorldToScreen(end, out to);
-                RenderManager.RenderLine(from, to, color);
+                Render.WorldToScreen(start, out from);
+                Render.WorldToScreen(end, out to);
+                Render.Line(from, to, color);
             }
 
             #endregion

@@ -17,7 +17,7 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += this.OnUpdate;
-            RenderManager.OnPresent += this.OnPresent;
+            Render.OnPresent += this.OnPresent;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             ImplementationClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
         }

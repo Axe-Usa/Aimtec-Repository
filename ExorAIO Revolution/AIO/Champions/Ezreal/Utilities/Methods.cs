@@ -20,7 +20,7 @@ namespace AIO.Champions
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             BuffManager.OnAddBuff += this.OnAddBuff;
             ImplementationClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
-            RenderManager.OnPresent += this.OnPresent;
+            Render.OnPresent += this.OnPresent;
 
             //Events.OnGapCloser += OnGapCloser;
         }

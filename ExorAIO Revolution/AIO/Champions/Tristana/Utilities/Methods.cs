@@ -19,7 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             BuffManager.OnAddBuff += this.OnAddBuff;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
-            RenderManager.OnPresent += this.OnPresent;
+            Render.OnPresent += this.OnPresent;
 
             /*
             Events.OnGapCloser += OnGapCloser;

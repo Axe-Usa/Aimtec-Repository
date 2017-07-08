@@ -18,7 +18,7 @@ namespace AIO.Champions
         {
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
-            RenderManager.OnPresent += this.OnPresent;
+            Render.OnPresent += this.OnPresent;
             Obj_AI_Base.OnTeleport += this.OnTeleport;
 
             //Events.OnGapCloser += OnGapCloser;

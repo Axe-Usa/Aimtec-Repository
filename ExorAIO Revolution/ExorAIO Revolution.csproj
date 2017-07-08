@@ -161,6 +161,7 @@
     <Compile Include="AIO\Champions\Twitch\Utilities\Methods.cs" />
     <Compile Include="AIO\Champions\Twitch\Utilities\Spells.cs" />
     <Compile Include="AIO\Champions\Twitch\Twitch.cs" />
+    <Compile Include="AIO\Champions\Xayah\Modes\Buildingclear.cs" />
     <Compile Include="AIO\Champions\Xayah\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\Xayah\Xayah.cs" />
     <Compile Include="AIO\Champions\Xayah\Modes\Automatic.cs" />

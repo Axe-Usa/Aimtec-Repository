@@ -17,7 +17,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             SpellBook.OnCastSpell += this.OnCastSpell;
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
-            RenderManager.OnPresent += this.OnPresent;
+            Render.OnPresent += this.OnPresent;
 
             /*
             Events.OnGapCloser += OnGapCloser;

@@ -19,7 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             SpellBook.OnCastSpell += this.OnCastSpell;
-            RenderManager.OnPresent += this.OnPresent;
+            Render.OnPresent += this.OnPresent;
         }
 
         #endregion
