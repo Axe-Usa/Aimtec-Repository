@@ -93,7 +93,7 @@
                     if (mastery != null)
                     {
                         var text = "You have " + mastery.Points + " points in mastery #" + mastery.Id + " from page " + mastery.Page;
-                        RenderManager.RenderText(95 - text.Length, 150 - masteries.Length + i * 10, Color.OrangeRed, text);
+                        Render.Text(95 - text.Length, 150 - masteries.Length + i * 10, Color.OrangeRed, text);
                     }
                 }
             }
@@ -102,32 +102,32 @@
                 foreach (var obj in ObjectManager.Get<GameObject>().Where(o => o.Distance(Game.CursorPos) < config["range"].Value))
                 {
                     Vector2 screenPosition;
-                    RenderManager.WorldToScreen(obj.Position, out screenPosition);
+                    Render.WorldToScreen(obj.Position, out screenPosition);
 
-                    RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 20), Color.OrangeRed, obj.Type.ToString());
-                    RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 30), Color.OrangeRed, "NetworkID: " + obj.NetworkId);
-                    RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 40), Color.OrangeRed, screenPosition.ToString());
+                    Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 20), Color.OrangeRed, obj.Type.ToString());
+                    Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 30), Color.OrangeRed, "NetworkID: " + obj.NetworkId);
+                    Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 40), Color.OrangeRed, screenPosition.ToString());
 
                     switch (obj.Type)
                     {
                         case GameObjectType.AIHeroClient:
-                            RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, ((Obj_AI_Hero)obj).ChampionName);
+                            Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, ((Obj_AI_Hero)obj).ChampionName);
                             break;
 
                         case GameObjectType.obj_AI_Minion:
                             var objAiMinion = obj as Obj_AI_Minion;
                             if (objAiMinion != null)
                             {
-                                RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, "Name: " + objAiMinion.Name);
-                                RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 60), Color.OrangeRed, "UnitSkinName: " + objAiMinion.UnitSkinName);
+                                Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, "Name: " + objAiMinion.Name);
+                                Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 60), Color.OrangeRed, "UnitSkinName: " + objAiMinion.UnitSkinName);
 
                                 var buffs = objAiMinion.Buffs.Where(b => b.IsActive && b.IsValid && b.Name != "No Script").ToArray();
-                                RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 80), Color.Yellow, "Buffs:");
-                                RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 90), Color.Yellow, "------");
+                                Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 80), Color.Yellow, "Buffs:");
+                                Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 90), Color.Yellow, "------");
 
                                 for (var i = 0; i < buffs.Length; i++)
                                 {
-                                    RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 100 + 10 * i), Color.OrangeRed, objAiMinion.GetBuffCount(buffs[i].Name) + "x " + buffs[i].Name);
+                                    Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 100 + 10 * i), Color.OrangeRed, objAiMinion.GetBuffCount(buffs[i].Name) + "x " + buffs[i].Name);
                                 }
                             }
                             break;
@@ -137,7 +137,7 @@
                             var objAiTurret = obj as Obj_AI_Turret;
                             if (objAiTurret != null)
                             {
-                                RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, objAiTurret.Name);
+                                Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, objAiTurret.Name);
                             }
                             break;
 
@@ -145,44 +145,44 @@
                             var objAiBase = obj as Obj_AI_Base;
                             if (objAiBase != null)
                             {
-                                RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, "Health: " + objAiBase.Health + "/" + objAiBase.MaxHealth + "(" + objAiBase.HealthPercent() + "%)");
+                                Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, "Health: " + objAiBase.Health + "/" + objAiBase.MaxHealth + "(" + objAiBase.HealthPercent() + "%)");
                             }
                             break;
 
                         default:
-                            RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, obj.Name);
+                            Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, obj.Name);
                             break;
                     }
 
                     var aiHero = obj as Obj_AI_Hero;
                     if (aiHero != null)
                     {
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 80), Color.Yellow, "Spells:");
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 90), Color.Yellow, "-------");
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 100), Color.OrangeRed, "(Q): " + aiHero.SpellBook.GetSpell(SpellSlot.Q).Name);
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 110), Color.OrangeRed, "(W): " + aiHero.SpellBook.GetSpell(SpellSlot.W).Name);
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 120), Color.OrangeRed, "(E): " + aiHero.SpellBook.GetSpell(SpellSlot.E).Name);
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 130), Color.OrangeRed, "(R): " + aiHero.SpellBook.GetSpell(SpellSlot.R).Name);
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 80), Color.Yellow, "Spells:");
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 90), Color.Yellow, "-------");
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 100), Color.OrangeRed, "(Q): " + aiHero.SpellBook.GetSpell(SpellSlot.Q).Name);
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 110), Color.OrangeRed, "(W): " + aiHero.SpellBook.GetSpell(SpellSlot.W).Name);
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 120), Color.OrangeRed, "(E): " + aiHero.SpellBook.GetSpell(SpellSlot.E).Name);
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 130), Color.OrangeRed, "(R): " + aiHero.SpellBook.GetSpell(SpellSlot.R).Name);
 
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 150), Color.Yellow, "SummonerSpells:");
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 160), Color.Yellow, "-------");
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 170), Color.OrangeRed, "(D): " + aiHero.SpellBook.GetSpell(SpellSlot.Summoner1).Name);
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 180), Color.OrangeRed, "(F): " + aiHero.SpellBook.GetSpell(SpellSlot.Summoner2).Name);
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 150), Color.Yellow, "SummonerSpells:");
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 160), Color.Yellow, "-------");
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 170), Color.OrangeRed, "(D): " + aiHero.SpellBook.GetSpell(SpellSlot.Summoner1).Name);
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 180), Color.OrangeRed, "(F): " + aiHero.SpellBook.GetSpell(SpellSlot.Summoner2).Name);
 
                         var buffs = aiHero.Buffs.Where(b => b.IsActive && b.IsValid && b.Name != "No Script").ToArray();
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 200), Color.Yellow, "Buffs:");
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 210), Color.Yellow, "------");
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 200), Color.Yellow, "Buffs:");
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 210), Color.Yellow, "------");
 
                         for (var i = 0; i < buffs.Length; i++)
                         {
-                            RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 221 + 10 * i), Color.OrangeRed, aiHero.GetBuffCount(buffs[i].Name) + "x " + buffs[i].Name);
+                            Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 221 + 10 * i), Color.OrangeRed, aiHero.GetBuffCount(buffs[i].Name) + "x " + buffs[i].Name);
                         }
                     }
 
                     if (obj is MissileClient)
                     {
                         var missile = obj as MissileClient;
-                        RenderManager.RenderText(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, "Missile Speed: " + missile.SpellData.MissileSpeed);
+                        Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, "Missile Speed: " + missile.SpellData.MissileSpeed);
                     }
                 }
             }
