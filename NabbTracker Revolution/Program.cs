@@ -37,7 +37,7 @@
             Menus.Initialize();
             Console.WriteLine("NabbTracker: Revolution - Loaded!");
 
-            RenderManager.OnPresent += OnPresent;
+            Render.OnPresent += OnPresent;
         }
 
         #endregion

@@ -46,13 +46,13 @@ namespace NabbTracker
                 var expPercent = (int)(actualExp / neededExp * 100);
                 if (unit.Level < 18 || UtilityClass.Player.HasBuff("AwesomeBuff") && unit.Level < 30)
                 {
-                    RenderManager.RenderLine(xOffset - 76, yOffset + 20, xOffset + 56, yOffset + 20, 7, true, Colors.GetRealColor(Color.Purple));
+                    Render.Line(xOffset - 76, yOffset + 20, xOffset + 56, yOffset + 20, 7, true, Colors.GetRealColor(Color.Purple));
 
                     if (expPercent > 0)
                     {
-                        RenderManager.RenderLine(xOffset - 76, yOffset + 20, xOffset - 76 + (float)(1.32 * expPercent), yOffset + 20, 7, true, Colors.GetRealColor(Color.Red));
+                        Render.Line(xOffset - 76, yOffset + 20, xOffset - 76 + (float)(1.32 * expPercent), yOffset + 20, 7, true, Colors.GetRealColor(Color.Red));
                     }
-                    RenderManager.RenderText(xOffset - 13, yOffset + 17, Colors.GetRealColor(Color.Yellow), expPercent > 0 ? expPercent + "%" : "0%");
+                    Render.Text(xOffset - 13, yOffset + 17, Colors.GetRealColor(Color.Yellow), expPercent > 0 ? expPercent + "%" : "0%");
                 }
             }
         }

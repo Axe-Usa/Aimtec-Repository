@@ -39,14 +39,14 @@ namespace NabbTracker
                     var spellColor = UtilityClass.GetUnitSpellStateColor(unit, spell);
                     var spellCooldown = UtilityClass.GetUnitSpellCooldown(unit, spell);
 
-                    RenderManager.RenderText(xSpellOffset, ySpellOffset, Colors.GetRealColor(spellColor), spellCooldown);
+                    Render.Text(xSpellOffset, ySpellOffset, Colors.GetRealColor(spellColor), spellCooldown);
 
                     for (var level = 0; level <= unit.SpellBook.GetSpell(UtilityClass.SpellSlots[spell]).Level - 1; level++)
                     {
                         var xLevelOffset = xSpellOffset + level * 3 - 4;
                         var yLevelOffset = ySpellOffset + 4;
 
-                        RenderManager.RenderText(xLevelOffset, yLevelOffset, Color.White, ".");
+                        Render.Text(xLevelOffset, yLevelOffset, Color.White, ".");
                     }
                 }
 
@@ -57,7 +57,7 @@ namespace NabbTracker
                     var summonerSpellColor = UtilityClass.GetUnitSummonerSpellStateColor(unit, summonerSpell);
                     var summonerSpellCooldown = UtilityClass.GetUnitSummonerSpellFixedName(unit, summonerSpell) + ": " + UtilityClass.GetUnitSummonerSpellCooldown(unit, summonerSpell);
 
-                    RenderManager.RenderText(xSummonerSpellOffset, ySummonerSpellOffset, Colors.GetRealColor(summonerSpellColor), summonerSpellCooldown);
+                    Render.Text(xSummonerSpellOffset, ySummonerSpellOffset, Colors.GetRealColor(summonerSpellColor), summonerSpellCooldown);
                 }
             }
         }
