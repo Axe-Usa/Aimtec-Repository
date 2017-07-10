@@ -69,13 +69,15 @@ namespace AIO.Champions
                     var bestBoulderHitPosHitBoulders = this.GetBestBouldersHitPositionHitBoulders(target);
                     if (bestBoulderHitPos != Vector3.Zero && bestBoulderHitPosHitBoulders > 0)
                     {
-                        SpellClass.W.Cast(SpellClass.W.GetPrediction(target).CastPosition, bestBoulderHitPos);
+                        SpellClass.W.Cast(bestBoulderHitPos, SpellClass.W.GetPrediction(target).CastPosition);
                     }
                 }
             }
 
             foreach (var target in GameObjects.EnemyHeroes)
             {
+                var targetPosAfterW = new Vector3();
+
                 /// <summary>
                 ///     The W Combo Logic.
                 /// </summary>
@@ -85,7 +87,6 @@ namespace AIO.Champions
                     target.IsValidTarget(SpellClass.W.Range - 100f) &&
                     MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                 {
-                    var targetPosAfterW = new Vector3();
                     switch (MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value)
                     {
                         case 0:
@@ -116,7 +117,7 @@ namespace AIO.Champions
                         ///     Pull if not near else Push.
                         /// </summary>
                         case 3:
-                            if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 250f)
+                            if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
                             {
                                 targetPosAfterW = this.GetUnitPositionAfterPull(target);
                             }
@@ -135,7 +136,7 @@ namespace AIO.Champions
                                         t.IsValidTarget(SpellClass.W.Range) &&
                                         MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
                             {
-                                if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 250f)
+                                if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
                                 {
                                     targetPosAfterW = this.GetUnitPositionAfterPull(target);
                                 }
@@ -148,8 +149,18 @@ namespace AIO.Champions
                     }
 
                     var targetPred = SpellClass.W.GetPrediction(target).CastPosition;
-                    SpellClass.W.Cast(targetPred, targetPosAfterW);
-                    SpellClass.E.Cast(targetPred, targetPosAfterW);
+                    //SpellClass.W.Cast(targetPred, targetPosAfterW);
+                    SpellClass.W.Cast(targetPosAfterW, targetPred);
+                }
+
+                /// <summary>
+                ///     The E Combo Logic.
+                /// </summary>
+                if (SpellClass.E.Ready &&
+                    !SpellClass.W.Ready &&
+                    MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                {
+                    SpellClass.E.Cast(target);
                 }
             }
 

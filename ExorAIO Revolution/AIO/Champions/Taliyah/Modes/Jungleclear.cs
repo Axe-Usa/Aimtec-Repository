@@ -1,4 +1,5 @@
 ﻿
+// ReSharper disable ConvertIfStatementToConditionalTernaryExpression
 #pragma warning disable 1587
 
 namespace AIO.Champions
@@ -64,15 +65,22 @@ namespace AIO.Champions
 
                 if (SpellClass.E.Ready)
                 {
-                    targetPosAfterW = UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(jungleTarget)) >= 250f
-                                          ? this.GetUnitPositionAfterPull(jungleTarget)
-                                          : this.GetUnitPositionAfterPush(jungleTarget);
+                    if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(jungleTarget)) >= 200f)
+                    {
+                        targetPosAfterW = this.GetUnitPositionAfterPull(jungleTarget);
+                    }
+                    else
+                    {
+                        targetPosAfterW = this.GetUnitPositionAfterPush(jungleTarget);
+                    }
 
-                    SpellClass.W.Cast(jungleTargetPredPos, targetPosAfterW);
+                    //SpellClass.W.Cast(jungleTargetPredPos, targetPosAfterW);
+                    SpellClass.W.Cast(targetPosAfterW, jungleTargetPredPos);
                 }
                 else if (bestBoulderHitPos != Vector3.Zero && bestBoulderHitPosHitBoulders > 0)
                 {
-                    SpellClass.W.Cast(jungleTargetPredPos, bestBoulderHitPos);
+                    //SpellClass.W.Cast(jungleTargetPredPos, bestBoulderHitPos);
+                    SpellClass.W.Cast(bestBoulderHitPos, jungleTargetPredPos);
                 }
             }
 

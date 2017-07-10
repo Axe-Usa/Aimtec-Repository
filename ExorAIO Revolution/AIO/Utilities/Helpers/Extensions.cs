@@ -98,7 +98,7 @@
         /// <summary>
         ///     Gets the best valid enemy heroes targets in the game inside a determined range.
         /// </summary>
-        public static IOrderedEnumerable<Obj_AI_Hero> GetBestEnemyHeroesTargets()
+        public static List<Obj_AI_Hero> GetBestEnemyHeroesTargets()
         {
             return GetBestEnemyHeroesTargetsInRange(float.MaxValue);
         }
@@ -106,7 +106,7 @@
         /// <summary>
         ///     Gets the best valid enemy heroes targets in the game inside a determined range.
         /// </summary>
-        public static IOrderedEnumerable<Obj_AI_Hero> GetBestEnemyHeroesTargetsInRange(float range)
+        public static List<Obj_AI_Hero> GetBestEnemyHeroesTargetsInRange(float range)
         {
             return ImplementationClass.ITargetSelector.GetOrderedTargets(range);
         }

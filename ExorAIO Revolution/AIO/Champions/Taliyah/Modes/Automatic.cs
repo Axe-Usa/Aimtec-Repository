@@ -1,4 +1,5 @@
 
+// ReSharper disable ConvertIfStatementToConditionalTernaryExpression
 #pragma warning disable 1587
 
 namespace AIO.Champions
@@ -42,7 +43,19 @@ namespace AIO.Champions
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
                         !t.ActionState.HasFlag(ActionState.CanMove)))
                 {
-                    SpellClass.W.Cast(target.Position);
+                    Vector3 targetPosAfterW;
+                    var targetPred = SpellClass.W.GetPrediction(target).CastPosition;
+                    if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
+                    {
+                        targetPosAfterW = this.GetUnitPositionAfterPull(target);
+                    }
+                    else
+                    {
+                        targetPosAfterW = this.GetUnitPositionAfterPush(target);
+                    }
+
+                    //SpellClass.W.Cast(targetPred, targetPosAfterW);
+                    SpellClass.W.Cast(targetPosAfterW, targetPred);
                 }
             }
         }
