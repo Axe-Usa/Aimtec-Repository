@@ -101,7 +101,7 @@ namespace AIO.Champions
                     foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m => UtilityClass.JungleList.Contains(m.UnitSkinName)))
                     {
                         if (this.IsPerfectRendTarget(minion) &&
-                            minion.Health < this.GetTotalRendDamage(minion) &&
+                            minion.Health <= this.GetTotalRendDamage(minion) &&
                             MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();
