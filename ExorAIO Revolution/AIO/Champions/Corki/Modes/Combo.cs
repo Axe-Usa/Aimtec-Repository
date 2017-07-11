@@ -21,20 +21,19 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Magical))
-            {
-                return;
-            }
-
             /// <summary>
-            ///     The Q Combo Logic.
+            ///     The R Combo Logic.
             /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            if (SpellClass.R.Ready &&
+                MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.Cast(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                {
+                    SpellClass.R.Cast(bestTarget);
+                }
             }
 
             /// <summary>
@@ -47,12 +46,18 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The R Combo Logic.
+            ///     The Q Combo Logic.
             /// </summary>
-            if (SpellClass.R.Ready &&
-                MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
+            if (SpellClass.Q.Ready &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.R.Cast(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                {
+                    SpellClass.Q.Cast(bestTarget);
+                }
             }
         }
 

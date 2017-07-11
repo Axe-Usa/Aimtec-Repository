@@ -23,42 +23,43 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Magical))
-            {
-                return;
-            }
-
-            /// <summary>
-            ///     The E Combo Logic.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                bestTarget.IsValidTarget(SpellClass.E.Range) &&
-                !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                MenuClass.Spells["e"]["engage"].As<MenuBool>().Enabled)
-            {
-                var posAfterE = UtilityClass.Player.Position.Extend(Game.CursorPos, 425f);
-                if (posAfterE.CountEnemyHeroesInRange(1000f) < 3 &&
-                    UtilityClass.Player.Distance(Game.CursorPos) > UtilityClass.Player.AttackRange &&
-                    bestTarget.Distance(posAfterE) < UtilityClass.Player.AttackRange)
-                {
-                    SpellClass.E.Cast(posAfterE);
-                }
-            }
-
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["extendedq"]["combo"].As<MenuBool>().Enabled)
             {
+                var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
                 foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
                                        let polygon = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
-                                       where polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range)).PredictedPosition)
+                                       where
+                                            target != null &&
+                                            target != minion &&
+                                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).PredictedPosition)
                                        select minion)
                 {
                     SpellClass.Q.CastOnUnit(minion);
+                }
+            }
+
+            /// <summary>
+            ///     The E Combo Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["engage"].As<MenuBool>().Enabled)
+            {
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                {
+                    var posAfterE = UtilityClass.Player.Position.Extend(Game.CursorPos, 425f);
+                    if (posAfterE.CountEnemyHeroesInRange(1000f) < 3 &&
+                        UtilityClass.Player.Distance(Game.CursorPos) > UtilityClass.Player.AttackRange &&
+                        bestTarget.Distance(posAfterE) < UtilityClass.Player.AttackRange)
+                    {
+                        SpellClass.E.Cast(posAfterE);
+                    }
                 }
             }
         }

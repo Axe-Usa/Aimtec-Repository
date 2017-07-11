@@ -21,50 +21,55 @@ namespace AIO.Champions
         /// </summary>
         public void Harass()
         {
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Magical))
-            {
-                return;
-            }
-
             /// <summary>
-            ///     The W Harass Logic.
+            ///     The E Harass Logic.
             /// </summary>
-            if (SpellClass.W.Ready &&
-                bestTarget.IsValidTarget(SpellClass.W.Range) &&
+            if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
-                MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled &&
-                MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["harass"]) &&
+                MenuClass.Spells["e"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.W.Cast();
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    SpellClass.E.Cast(bestTarget);
+                }
             }
 
             /// <summary>
             ///     The Q Harass Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
-                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled &&
-                MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    SpellClass.Q.Cast(bestTarget);
+                }
             }
 
             /// <summary>
-            ///     The E Harass Logic.
+            ///     The W Harass Logic.
             /// </summary>
-            if (SpellClass.E.Ready &&
-                bestTarget.IsValidTarget(SpellClass.E.Range) &&
+            if (SpellClass.W.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["harass"]) &&
-                MenuClass.Spells["e"]["harass"].As<MenuSliderBool>().Enabled &&
-                MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
+                MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.Cast(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    SpellClass.W.Cast();
+                }
             }
         }
 

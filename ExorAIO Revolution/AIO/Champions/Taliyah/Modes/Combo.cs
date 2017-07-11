@@ -32,24 +32,23 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.HasItem(ItemId.RylaisCrystalScepter))
             {
-                var bestRylaiTarget = Extensions.GetBestEnemyHeroTarget();
-                if (!bestRylaiTarget.IsValidTarget(SpellClass.Q.Range - 50f) ||
-                    Invulnerable.Check(bestRylaiTarget, DamageType.Magical))
+                var bestRylaiTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-50f);
+                if (bestRylaiTarget != null &&
+                    !bestRylaiTarget.HasBuffOfType(BuffType.Slow) &&
+                    !Invulnerable.Check(bestRylaiTarget, DamageType.Magical))
                 {
-                    return;
-                }
-
-                switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
-                {
-                    case 0:
-                        if (!this.IsNearWorkedGround())
-                        {
+                    switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
+                    {
+                        case 0:
+                            if (!this.IsNearWorkedGround())
+                            {
+                                SpellClass.Q.Cast(bestRylaiTarget);
+                            }
+                            break;
+                        case 1:
                             SpellClass.Q.Cast(bestRylaiTarget);
-                        }
-                        break;
-                    case 1:
-                        SpellClass.Q.Cast(bestRylaiTarget);
-                        break;
+                            break;
+                    }
                 }
             }
 
@@ -60,7 +59,7 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["boulders"].As<MenuBool>().Enabled)
             {
                 var bestTargets = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.W.Range - 100f)
-                    .Where(t => MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3);
+                    .Where(t => MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 4);
 
                 var objAiHeroes = bestTargets as Obj_AI_Hero[] ?? bestTargets.ToArray();
                 foreach (var target in objAiHeroes)
@@ -74,120 +73,78 @@ namespace AIO.Champions
                 }
             }
 
-            foreach (var target in GameObjects.EnemyHeroes)
+            /// <summary>
+            ///     The W Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                (SpellClass.E.Ready ||
+                    !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                var targetPosAfterW = new Vector3();
-
-                /// <summary>
-                ///     The W Combo Logic.
-                /// </summary>
-                if (SpellClass.W.Ready &&
-                    (SpellClass.E.Ready ||
-                     !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
-                    target.IsValidTarget(SpellClass.W.Range - 100f) &&
-                    MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-100f);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    switch (MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value)
+                    switch (MenuClass.Spells["pattern"].As<MenuList>().Value)
                     {
                         case 0:
-                            targetPosAfterW = this.GetUnitPositionAfterPull(target);
+                            var targetPred = SpellClass.W.GetPrediction(bestTarget).CastPosition;
+                            SpellClass.W.Cast(this.GetTargetPositionAfterW(bestTarget), targetPred);
+
+                            if (SpellClass.E.Ready &&
+                                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                            {
+                                SpellClass.E.Cast(this.GetTargetPositionAfterW(bestTarget));
+                            }
                             break;
                         case 1:
-                            targetPosAfterW = this.GetUnitPositionAfterPush(target);
-                            break;
-
-                        /// <summary>
-                        ///     Pull if killable else Push.
-                        /// </summary>
-                        case 2:
-                            var isKillable = target.GetRealHealth() < UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) * (this.IsNearWorkedGround() ? 1 : 3) +
-                                             UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) +
-                                             UtilityClass.Player.GetSpellDamage(target, SpellSlot.E);
-                            if (isKillable)
+                            if (SpellClass.E.Ready &&
+                                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                             {
-                                targetPosAfterW = this.GetUnitPositionAfterPull(target);
-                            }
-                            else
-                            {
-                                targetPosAfterW = this.GetUnitPositionAfterPush(target);
+                                SpellClass.E.Cast(this.GetTargetPositionAfterW(bestTarget));
                             }
                             break;
 
-                        /// <summary>
-                        ///     Pull if not near else Push.
-                        /// </summary>
-                        case 3:
-                            if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
-                            {
-                                targetPosAfterW = this.GetUnitPositionAfterPull(target);
-                            }
-                            else
-                            {
-                                targetPosAfterW = this.GetUnitPositionAfterPush(target);
-                            }
-                            break;
-
-                        /// <summary>
-                        ///     Ignore Target If Possible.
-                        /// </summary>
-                        case 4:
-                            if (!GameObjects.EnemyHeroes.Any(
-                                    t =>
-                                        t.IsValidTarget(SpellClass.W.Range) &&
-                                        MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
-                            {
-                                if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
-                                {
-                                    targetPosAfterW = this.GetUnitPositionAfterPull(target);
-                                }
-                                else
-                                {
-                                    targetPosAfterW = this.GetUnitPositionAfterPush(target);
-                                }
-                            }
-                            break;
                     }
-
-                    var targetPred = SpellClass.W.GetPrediction(target).CastPosition;
-                    //SpellClass.W.Cast(targetPred, targetPosAfterW);
-                    SpellClass.W.Cast(targetPosAfterW, targetPred);
-                }
-
-                /// <summary>
-                ///     The E Combo Logic.
-                /// </summary>
-                if (SpellClass.E.Ready &&
-                    !SpellClass.W.Ready &&
-                    MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
-                {
-                    SpellClass.E.Cast(target);
                 }
             }
 
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Magical))
+            /// <summary>
+            ///     The E Combo Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                (!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled) &&
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                return;
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-200f);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
+                {
+                    SpellClass.E.Cast(this.GetTargetPositionAfterW(bestTarget));
+                }
             }
 
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
-            if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range - 50f))
+            if (SpellClass.Q.Ready)
             {
-                switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 100f);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    case 0:
-                        if (!this.IsNearWorkedGround())
-                        {
+                    switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
+                    {
+                        case 0:
+                            if (!this.IsNearWorkedGround())
+                            {
+                                SpellClass.Q.Cast(bestTarget);
+                            }
+                            break;
+                        case 1:
                             SpellClass.Q.Cast(bestTarget);
-                        }
-                        break;
-                    case 1:
-                        SpellClass.Q.Cast(bestTarget);
-                        break;
+                            break;
+                    }
                 }
             }
         }

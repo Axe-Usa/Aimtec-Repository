@@ -37,36 +37,32 @@ namespace AIO.Champions
                 UtilityClass.Player.IssueOrder(OrderType.AttackUnit, minionsInAaRange.FirstOrDefault());
             }
 
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Physical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
             var playerSpellbook = UtilityClass.Player.SpellBook;
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.Mana <
-                playerSpellbook.GetSpell(SpellSlot.Q).Cost +
+                UtilityClass.Player.Mana
+                    < playerSpellbook.GetSpell(SpellSlot.Q).Cost +
                 playerSpellbook.GetSpell(SpellSlot.E).Cost &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                var collisions = (IList<Obj_AI_Base>)SpellClass.Q.GetPrediction(bestTarget).Collisions;
-                if (collisions.Any())
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Physical))
                 {
-                    if (collisions.All(c => Extensions.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() < UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
+                    var collisions = (IList<Obj_AI_Base>)SpellClass.Q.GetPrediction(bestTarget).Collisions;
+                    if (collisions.Any())
+                    {
+                        if (collisions.All(c => Extensions.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() < UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
+                        {
+                            SpellClass.Q.Cast(bestTarget);
+                        }
+                    }
+                    else
                     {
                         SpellClass.Q.Cast(bestTarget);
                     }
-                }
-                else
-                {
-                    SpellClass.Q.Cast(bestTarget);
                 }
             }
         }

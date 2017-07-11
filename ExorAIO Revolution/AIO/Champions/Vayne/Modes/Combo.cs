@@ -34,10 +34,10 @@ namespace AIO.Champions
                     GameObjects.EnemyHeroes.Where(
                         t =>
                             //!t.IsDashing() &&
-                                t.IsValidTarget(SpellClass.E.Range + t.BoundingRadius) &&
-                                !Invulnerable.Check(t, DamageType.Magical, false) &&
-                                !t.IsValidTarget(UtilityClass.Player.BoundingRadius * 2) &&
-                                MenuClass.WhiteList[t.ChampionName.ToLower()].Enabled))
+                            !Invulnerable.Check(t, DamageType.Magical, false) &&
+                            t.IsValidTarget(SpellClass.E.Range + t.BoundingRadius) &&
+                            !t.IsValidTarget(UtilityClass.Player.BoundingRadius * 2) &&
+                            MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
                     for (var i = 1; i < 10; i++)
                     {

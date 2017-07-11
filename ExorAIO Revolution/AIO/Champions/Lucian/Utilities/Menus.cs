@@ -48,7 +48,7 @@ namespace AIO.Champions
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
                 }
-                MenuClass.Spells.Add(MenuClass.Q2);
+                MenuClass.Spells.Add(MenuClass.Q);
 
                 /// <summary>
                 ///     Sets the Extended Q menu.

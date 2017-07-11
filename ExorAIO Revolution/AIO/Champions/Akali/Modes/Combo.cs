@@ -23,11 +23,19 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
-            var heroTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!heroTarget.IsValidTarget() ||
-                Invulnerable.Check(heroTarget, DamageType.Magical))
+            /// <summary>
+            ///     The Q Combo Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                return;
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (heroTarget.IsValidTarget() &&
+                    !heroTarget.HasBuff("AkaliMota") &&
+                    !Invulnerable.Check(heroTarget, DamageType.Magical))
+                {
+                    SpellClass.Q.CastOnUnit(heroTarget);
+                }
             }
 
             /// <summary>
@@ -35,6 +43,24 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.R.Ready)
             {
+                Obj_AI_Hero heroTarget;
+                if (Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range * 2).Any(t => t.HasBuff("AkaliMota")))
+                {
+                    heroTarget = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range).FirstOrDefault(t => t.HasBuff("AkaliMota"));
+                }
+                else
+                {
+                    heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range * 2);
+                }
+
+
+                if (heroTarget == null ||
+                    !heroTarget.IsValidTarget() ||
+                    Invulnerable.Check(heroTarget, DamageType.Magical))
+                {
+                    return;
+                }
+
                 if (heroTarget.IsUnderEnemyTurret() &&
                     MenuClass.Spells["r"]["customization"]["safe"].As<MenuBool>().Enabled)
                 {
@@ -44,8 +70,8 @@ namespace AIO.Champions
                 if (heroTarget.IsValidTarget(SpellClass.R.Range) &&
                     MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
                 {
-                    if (UtilityClass.Player.GetBuffCount("AkaliShadowDance") <=
-                        MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSlider>().Value)
+                    if (UtilityClass.Player.GetBuffCount("AkaliShadowDance")
+                            <= MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSlider>().Value)
                     {
                         return;
                     }
@@ -55,16 +81,17 @@ namespace AIO.Champions
                         SpellClass.R.CastOnUnit(heroTarget);
                     }
                 }
-                else if (heroTarget.IsValidTarget(SpellClass.R.Range * 2))
+                else
                 {
-                    if (UtilityClass.Player.GetBuffCount("AkaliShadowDance") <=
-                        MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value ||
+                    if (UtilityClass.Player.GetBuffCount("AkaliShadowDance")
+                            <= MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value ||
                         !MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Enabled)
                     {
                         return;
                     }
 
-                    var bestEnemy = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range * 2).FirstOrDefault(t => MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].Enabled);
+                    var bestEnemy = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range * 2)
+                        .FirstOrDefault(t => MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].Enabled);
                     if (bestEnemy != null)
                     {
                         var bestMinion = Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.R.Range)
@@ -78,17 +105,6 @@ namespace AIO.Champions
                         }
                     }
                 }
-            }
-
-            /// <summary>
-            ///     The Q Combo Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                !heroTarget.HasBuff("AkaliMota") &&
-                heroTarget.IsValidTarget(SpellClass.Q.Range) &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
-            {
-                SpellClass.Q.CastOnUnit(heroTarget);
             }
         }
 

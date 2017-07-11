@@ -45,6 +45,7 @@ namespace AIO.Champions
                 }
 
                 SpellClass.R.Cast(Game.CursorPos);
+                return;
             }
 
             /// <summary>
@@ -75,41 +76,42 @@ namespace AIO.Champions
                 }
             }
 
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Magical, false))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The Q Combo on Reload Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 this.IsReloading() &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                 MenuClass.Spells["q"]["customization"]["comboonreload"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.CastOnUnit(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical, false))
+                {
+                    SpellClass.Q.CastOnUnit(bestTarget);
+                }
             }
 
             /// <summary>
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                bestTarget.IsValidTarget(SpellClass.W.Range) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                if (MenuClass.Spells["e"]["customization"]["comboonreload"].As<MenuBool>().Enabled)
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical, false))
                 {
-                    if (this.IsReloading())
+                    if (MenuClass.Spells["e"]["customization"]["comboonreload"].As<MenuBool>().Enabled)
+                    {
+                        if (this.IsReloading())
+                        {
+                            SpellClass.E.Cast(bestTarget);
+                        }
+                    }
+                    else
                     {
                         SpellClass.E.Cast(bestTarget);
                     }
-                }
-                else
-                {
-                    SpellClass.E.Cast(bestTarget);
                 }
             }
         }

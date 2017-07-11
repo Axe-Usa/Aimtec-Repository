@@ -21,22 +21,34 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Physical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.Cast(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Physical) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                {
+                    SpellClass.Q.Cast(bestTarget);
+                }
+            }
+
+            /// <summary>
+            ///     The W Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            {
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                {
+                    SpellClass.W.Cast(bestTarget);
+                }
             }
         }
 

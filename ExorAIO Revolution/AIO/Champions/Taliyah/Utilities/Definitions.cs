@@ -1,4 +1,5 @@
 ﻿
+// ReSharper disable ConvertIfStatementToConditionalTernaryExpression
 #pragma warning disable 1587
 
 namespace AIO.Champions
@@ -7,7 +8,9 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu.Components;
 
     using AIO.Utilities;
 
@@ -106,6 +109,76 @@ namespace AIO.Champions
         {
             var targetPred = SpellClass.W.GetPrediction(unit).CastPosition;
             return targetPred.Extend(UtilityClass.Player.Position, -300f);
+        }
+
+        /// <summary>
+        ///     Returns the position the target would have after being pushed by W, based on the user's option preference.
+        /// </summary>
+        public Vector3 GetTargetPositionAfterW(Obj_AI_Hero target)
+        {
+            var position = new Vector3();
+            switch (MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value)
+            {
+                case 0:
+                    position = this.GetUnitPositionAfterPull(target);
+                    break;
+                case 1:
+                    position = this.GetUnitPositionAfterPush(target);
+                    break;
+
+                /// <summary>
+                ///     Pull if killable else Push.
+                /// </summary>
+                case 2:
+                    var isKillable = target.GetRealHealth() < UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) * (this.IsNearWorkedGround() ? 1 : 3) +
+                                     UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) +
+                                     UtilityClass.Player.GetSpellDamage(target, SpellSlot.E);
+                    if (isKillable)
+                    {
+                        position = this.GetUnitPositionAfterPull(target);
+                    }
+                    else
+                    {
+                        position = this.GetUnitPositionAfterPush(target);
+                    }
+                    break;
+
+                /// <summary>
+                ///     Pull if not near else Push.
+                /// </summary>
+                case 3:
+                    if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
+                    {
+                        position = this.GetUnitPositionAfterPull(target);
+                    }
+                    else
+                    {
+                        position = this.GetUnitPositionAfterPush(target);
+                    }
+                    break;
+
+                /// <summary>
+                ///     Ignore Target If Possible.
+                /// </summary>
+                case 4:
+                    if (!GameObjects.EnemyHeroes.Any(
+                            t =>
+                                t.IsValidTarget(SpellClass.W.Range) &&
+                                MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
+                    {
+                        if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
+                        {
+                            position = this.GetUnitPositionAfterPull(target);
+                        }
+                        else
+                        {
+                            position = this.GetUnitPositionAfterPush(target);
+                        }
+                    }
+                    break;
+            }
+
+            return position;
         }
 
         /// <summary>

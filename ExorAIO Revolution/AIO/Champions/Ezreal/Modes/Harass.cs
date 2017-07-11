@@ -21,38 +21,38 @@ namespace AIO.Champions
         /// </summary>
         public void Harass()
         {
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget())
-            {
-                return;
-            }
-
             /// <summary>
             ///     The Q Harass Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                !Invulnerable.Check(bestTarget, DamageType.Physical) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
-                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled &&
-                MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Physical) &&
+                    MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    SpellClass.Q.Cast(bestTarget);
+                }
             }
 
             /// <summary>
             ///     The W Harass Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                bestTarget.IsValidTarget(SpellClass.W.Range) &&
-                !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
-                MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled &&
-                MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (bestTarget.IsValidTarget() ||
+                    !Invulnerable.Check(bestTarget, DamageType.Physical) ||
+                    MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    SpellClass.W.Cast(bestTarget);
+                }
             }
         }
 

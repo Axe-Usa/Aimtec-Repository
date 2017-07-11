@@ -21,30 +21,27 @@ namespace AIO.Champions
         /// </summary>
         public void Harass()
         {
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Magical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The Q Harass Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range - 50f) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
-                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled &&
-                MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                if (this.IsNearWorkedGround() &&
-                    MenuClass.Spells["q"]["customization"]["harassfull"].As<MenuBool>().Enabled)
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 100f);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    return;
-                }
+                    if (this.IsNearWorkedGround() &&
+                        MenuClass.Spells["q"]["customization"]["harassfull"].As<MenuBool>().Enabled)
+                    {
+                        return;
+                    }
 
-                SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(bestTarget);
+                }
             }
         }
 

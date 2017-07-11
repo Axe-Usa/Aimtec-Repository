@@ -136,7 +136,7 @@
 
         public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
         {
-            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range).FirstOrDefault(t => !Invulnerable.Check(t, damageType, ignoreShields));
+            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range-100f).FirstOrDefault(t => !Invulnerable.Check(t, damageType, ignoreShields));
         }
 
         /// <summary>

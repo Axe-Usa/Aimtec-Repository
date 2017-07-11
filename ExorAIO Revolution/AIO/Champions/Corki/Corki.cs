@@ -86,6 +86,9 @@ namespace AIO.Champions
             /// </summary>
             switch (ImplementationClass.IOrbwalker.Mode)
             {
+                case OrbwalkingMode.Combo:
+                    this.Weaving(sender, args);
+                    break;
                 case OrbwalkingMode.Laneclear:
                     this.Jungleclear(sender, args);
                     break;

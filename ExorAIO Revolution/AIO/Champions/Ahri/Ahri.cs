@@ -3,7 +3,11 @@
 
 namespace AIO.Champions
 {
+    using Aimtec;
+    using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
+    using Aimtec.SDK.Util;
 
     using AIO.Utilities;
 
@@ -66,6 +70,109 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             this.Drawings();
+        }
+
+        /// <summary>
+        ///     Called while processing spellcast operations.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
+        public void OnPerformCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                switch (args.SpellSlot)
+                {
+                    case SpellSlot.R:
+                        if (SpellClass.W.Ready &&
+                            MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.W.Cast();
+                        }
+                        break;
+                }
+
+                switch (MenuClass.Spells["pattern"].As<MenuList>().Value)
+                {
+                    case 0:
+                        switch (args.SpellSlot)
+                        {
+                            case SpellSlot.E:
+                                if (SpellClass.R.Ready &&
+                                    MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
+                                {
+                                    if (!UtilityClass.Player.HasBuff("AhriTumble") &&
+                                        MenuClass.Spells["r"]["customization"]["onlyrstarted"].As<MenuBool>().Enabled)
+                                    {
+                                        break;
+                                    }
+
+                                    const float RRadius = 500f;
+                                    var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + RRadius);
+                                    if (!heroTarget.IsValidTarget() ||
+                                        Invulnerable.Check(heroTarget, DamageType.Magical) ||
+                                        !MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                                    {
+                                        break;
+                                    }
+
+                                    var position = UtilityClass.Player.Position.Extend(Game.CursorPos, SpellClass.R.Range);
+                                    if (heroTarget.IsValidTarget(RRadius, false, false, position))
+                                    {
+                                        DelayAction.Queue(200+Game.Ping, ()=> SpellClass.R.Cast(position));
+                                    }
+                                }
+                                break;
+                        }
+                        break;
+
+                    case 1:
+                        switch (args.SpellSlot)
+                        {
+                            case SpellSlot.R:
+                                if (SpellClass.E.Ready &&
+                                    MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                                {
+                                    var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-100f);
+                                    if (!heroTarget.IsValidTarget() ||
+                                        Invulnerable.Check(heroTarget, DamageType.Magical, false))
+                                    {
+                                        break;
+                                    }
+
+                                    SpellClass.E.Cast(heroTarget);
+                                }
+                                break;
+                        }
+                        break;
+                }
+
+                switch (args.SpellSlot)
+                {
+                    case SpellSlot.Q:
+                    case SpellSlot.W:
+                        if (SpellClass.R.Ready &&
+                            UtilityClass.Player.HasBuff("AhriTumble") &&
+                            MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
+                        {
+                            const float RRadius = 500f;
+                            var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + RRadius);
+                            if (!heroTarget.IsValidTarget() ||
+                                Invulnerable.Check(heroTarget, DamageType.Magical) ||
+                                !MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                            {
+                                break;
+                            }
+
+                            var position = UtilityClass.Player.Position.Extend(Game.CursorPos, SpellClass.R.Range);
+                            if (heroTarget.IsValidTarget(RRadius, false, false, position))
+                            {
+                                SpellClass.R.Cast(position);
+                            }
+                        }
+                        break;
+                }
+            }
         }
 
         /*

@@ -28,26 +28,6 @@ namespace AIO
                 (args.Slot == SpellSlot.Q || args.Slot == SpellSlot.W || args.Slot == SpellSlot.E || args.Slot == SpellSlot.R))
             {
                 /// <summary>
-                ///     The 'Sheen' Logic.
-                /// </summary>
-                if (UtilityClass.Player.HasSheenLikeBuff() &&
-                    MenuClass.General["usesheen"].Enabled)
-                {
-                    // Basically means it wont cast anything if the player has a sheen buff and is in combo/laneclear mode.
-                    if (!UtilityClass.Player.HasTearLikeItem() &&
-                        UtilityClass.Player.ShouldPreserveSheen())
-                    {
-                        switch (ImplementationClass.IOrbwalker.Mode)
-                        {
-                            case OrbwalkingMode.Combo:
-                            case OrbwalkingMode.Laneclear:
-                                args.Process = false;
-                                break;
-                        }
-                    }
-                }
-
-                /// <summary>
                 ///     The 'Support Mode' Logic.
                 /// </summary>
                 if (Extensions.GetEnemyLaneMinionsTargets().Contains(args.Target) &&

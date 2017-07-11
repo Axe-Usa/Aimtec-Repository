@@ -92,13 +92,6 @@ namespace AIO.Champions
                 }
             }
 
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Physical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The W Combo Logic.
             /// </summary>
@@ -106,10 +99,13 @@ namespace AIO.Champions
                 !UtilityClass.Player.IsUnderEnemyTurret())
             {
                 if (MenuClass.Miscellaneous["wsafetycheck"].As<MenuSliderBool>().Enabled &&
-                    UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q2.Range) < MenuClass.Miscellaneous["wsafetycheck"].As<MenuSliderBool>().Value)
+                    UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q2.Range) <
+                        MenuClass.Miscellaneous["wsafetycheck"].As<MenuSliderBool>().Value)
                 {
                     var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
-                    if (target != null)
+                    if (target != null &&
+                        target.IsValidTarget() &&
+                        !Invulnerable.Check(target, DamageType.Physical))
                     {
                         switch (MenuClass.Spells["w"]["mode"].As<MenuList>().Value)
                         {

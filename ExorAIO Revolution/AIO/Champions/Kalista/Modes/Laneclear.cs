@@ -45,7 +45,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuBool>().Enabled)
             {
-                if (Extensions.GetEnemyLaneMinionsTargets().Any(m => this.IsPerfectRendTarget(m) && m.GetRealHealth() < this.GetTotalRendDamage(m)))
+                if (Extensions.GetEnemyLaneMinionsTargets().Any(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m)))
                 {
                     SpellClass.E.Cast();
                 }

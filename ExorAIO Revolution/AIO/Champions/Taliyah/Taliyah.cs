@@ -8,6 +8,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
+    using Aimtec.SDK.Util;
 
     using AIO.Utilities;
 
@@ -238,22 +239,14 @@ namespace AIO.Champions
                         if (SpellClass.R.Ready &&
                             MenuClass.Spells["r"]["mountr"].As<MenuBool>().Enabled)
                         {
-                            SpellClass.R.Cast();
+                            DelayAction.Queue(500, () =>
+                                {
+                                    SpellClass.R.Cast();
+                                });
                         }
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        ///     Fired on render.
-        /// </summary>
-        public void OnRender()
-        {
-            /// <summary>
-            ///     Initializes the drawings.
-            /// </summary>
-            this.MinimapDrawings();
         }
 
         /// <summary>

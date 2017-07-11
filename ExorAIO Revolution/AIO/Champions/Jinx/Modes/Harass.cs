@@ -31,7 +31,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value &&
+                    > MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 if (!UtilityClass.Player.HasBuff("JinxQ"))
@@ -50,24 +50,21 @@ namespace AIO.Champions
         /// </summary>
         public void Harass()
         {
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Physical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The W Harass Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                bestTarget.IsValidTarget(SpellClass.W.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
-                MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled &&
-                MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.W.Cast(bestTarget);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Physical) &&
+                    MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    SpellClass.W.Cast(bestTarget);
+                }
             }
         }
 

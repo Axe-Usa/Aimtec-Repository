@@ -21,21 +21,18 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
-            var heroTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!heroTarget.IsValidTarget() ||
-                Invulnerable.Check(heroTarget, DamageType.Physical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast(heroTarget);
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (heroTarget.IsValidTarget() &&
+                    !Invulnerable.Check(heroTarget, DamageType.Physical))
+                {
+                    SpellClass.W.Cast(heroTarget);
+                }
             }
         }
 

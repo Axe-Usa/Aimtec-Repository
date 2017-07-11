@@ -20,7 +20,6 @@ namespace AIO.Champions
             SpellBook.OnCastSpell += this.OnCastSpell;
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
             Render.OnPresent += this.OnPresent;
-            Render.OnRender += this.OnRender;
 
             /*
             Events.OnGapCloser += Taliyah.OnGapCloser;

@@ -20,20 +20,15 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget())
-            {
-                return;
-            }
-
             /// <summary>
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                bestTarget.IsValidTarget(SpellClass.W.Range) &&
                 MenuClass.Spells["w"]["combo"].As<MenuSliderBool>().Enabled)
             {
-                if (bestTarget.CountEnemyHeroesInRange(SpellClass.W.Width) >= MenuClass.Spells["w"]["combo"].As<MenuSliderBool>().Value)
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (bestTarget.IsValidTarget() &&
+                    bestTarget.CountEnemyHeroesInRange(SpellClass.W.Width) >= MenuClass.Spells["w"]["combo"].As<MenuSliderBool>().Value)
                 {
                     SpellClass.W.Cast(bestTarget);
                 }

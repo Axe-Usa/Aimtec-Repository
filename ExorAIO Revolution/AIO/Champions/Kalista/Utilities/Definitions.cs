@@ -58,16 +58,23 @@ namespace AIO.Champions
         /// </summary>
         public bool IsPerfectRendTarget(Obj_AI_Base unit)
         {
-            switch (unit.Type)
+            var orbTarget = ImplementationClass.IOrbwalker.GetTarget() as Obj_AI_Hero;
+            if (unit.HasBuff("kalistaexpungemarker") &&
+                unit.IsValidTarget(
+                    orbTarget != null &&
+                    orbTarget.NetworkId == unit.NetworkId
+                        ? SpellClass.E.Range
+                        : SpellClass.Q.Range))
             {
-                case GameObjectType.obj_AI_Minion:
-                case GameObjectType.AIHeroClient:
-                    var orbTarget = ImplementationClass.IOrbwalker.GetTarget() as Obj_AI_Hero;
-                    if (orbTarget != null && unit.IsValidTarget(orbTarget.NetworkId == unit.NetworkId ? SpellClass.E.Range : SpellClass.Q.Range))
-                    {
-                        return unit.HasBuff("kalistaexpungemarker") && (!(unit is Obj_AI_Hero) || !Invulnerable.Check((Obj_AI_Hero)unit));
-                    }
-                    break;
+                switch (unit.Type)
+                {
+                    case GameObjectType.obj_AI_Minion:
+                        return true;
+
+                    case GameObjectType.AIHeroClient:
+                        var heroUnit = (Obj_AI_Hero)unit;
+                        return !Invulnerable.Check(heroUnit);
+                }
             }
 
             return false;

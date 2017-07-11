@@ -25,13 +25,14 @@ namespace AIO.Champions
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                GameObjects.EnemyHeroes.Any(
-                    t =>
-                        this.IsPerfectFeatherTarget(t) &&
-                        this.CountFeathersHitOnUnit(t) >= MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Value) &&
                 MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.Cast();
+                if (GameObjects.EnemyHeroes.Any(t =>
+                        this.IsPerfectFeatherTarget(t) &&
+                        this.CountFeathersHitOnUnit(t) >= MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Value))
+                {
+                    SpellClass.E.Cast();
+                }
             }
         }
 

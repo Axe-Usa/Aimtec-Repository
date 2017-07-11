@@ -27,6 +27,8 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Spells = new Menu("spells", "Spells");
             {
+                MenuClass.Spells.Add(new MenuList("pattern", "Combo Pattern", new[] { "W->E", "E->W" }, 0));
+
                 /// <summary>
                 ///     Sets the menu for the Q.
                 /// </summary>
@@ -55,7 +57,6 @@ namespace AIO.Champions
                         //MenuClass.Q2.Add(new MenuSeperator("separator6"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator7", "Jungleclear settings:"));
                         MenuClass.Q2.Add(new MenuBool("jungleclearfull", "Jungleclear: Only with full Q."));
-                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Only Jungleclear if hittable minions >= x%", 1, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 
@@ -110,21 +111,28 @@ namespace AIO.Champions
                     }
                     MenuClass.W.Add(MenuClass.W2);
 
-                    /// <summary>
-                    ///     Sets the menu for the selection.
-                    /// </summary>
-                    MenuClass.WhiteList = new Menu("selection", "Combo: Pull / Push Selection");
+                    if (GameObjects.EnemyHeroes.Any())
                     {
-                        foreach (var enemy in GameObjects.EnemyHeroes)
+                        /// <summary>
+                        ///     Sets the menu for the selection.
+                        /// </summary>
+                        MenuClass.WhiteList = new Menu("selection", "Combo: Pull / Push Selection");
                         {
-                            MenuClass.WhiteList.Add(
-                                new MenuList(
-                                    enemy.ChampionName.ToLower(),
-                                    enemy.ChampionName,
-                                    new[] { "Always Pull", "Always Push", "Pull if Killable else Push", "Pull if not near else Push", "Ignore if possible" }, 3));
+                            foreach (var enemy in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList.Add(
+                                    new MenuList(
+                                        enemy.ChampionName.ToLower(),
+                                        enemy.ChampionName,
+                                        new[] { "Always Pull", "Always Push", "Pull if Killable else Push", "Pull if not near else Push", "Ignore if possible" }, 3));
+                            }
                         }
+                        MenuClass.W.Add(MenuClass.WhiteList);
                     }
-                    MenuClass.W.Add(MenuClass.WhiteList);
+                    else
+                    {
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemy champions found, no need for a Whitelist Menu."));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 

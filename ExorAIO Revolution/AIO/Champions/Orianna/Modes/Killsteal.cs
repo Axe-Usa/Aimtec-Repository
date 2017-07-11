@@ -44,7 +44,7 @@ namespace AIO.Champions
             {
                 foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range))
                 {
-                    if (target.IsValidTarget(SpellClass.W.Width, false, this.BallPosition) &&
+                    if (target.IsValidTarget(SpellClass.W.Width, false, true, this.BallPosition) &&
                         UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) >= target.GetRealHealth())
                     {
                         SpellClass.W.Cast();

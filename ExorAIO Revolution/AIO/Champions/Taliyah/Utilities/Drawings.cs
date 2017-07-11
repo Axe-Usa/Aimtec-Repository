@@ -6,6 +6,7 @@ namespace AIO.Champions
     using System.Drawing;
 
     using Aimtec;
+    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
     using AIO.Utilities;
@@ -50,12 +51,25 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     Loads the R drawing.
+            ///     Loads the R drawings.
             /// </summary>
-            if (SpellClass.R.Ready &&
-                MenuClass.Drawings["r"].As<MenuBool>().Enabled)
+            if (SpellClass.R.Ready)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 100, Color.Red);
+                /// <summary>
+                ///     Loads the R range drawing.
+                /// </summary>
+                if (MenuClass.Drawings["r"].As<MenuBool>().Enabled)
+                {
+                    Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 100, Color.Red);
+                }
+
+                /// <summary>
+                ///     Loads the R minimap drawing.
+                /// </summary>
+                if (MenuClass.Drawings["rmm"].As<MenuBool>().Enabled)
+                {
+                    Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, SpellClass.R.Range, Color.White);
+                }
             }
 
             /// <summary>
@@ -78,21 +92,6 @@ namespace AIO.Champions
                 {
                     Render.Circle(boulder.Value, 30f, 100, Color.Brown);
                 }
-            }
-        }
-
-        /// <summary>
-        ///     Initializes the minimap drawings.
-        /// </summary>
-        public void MinimapDrawings()
-        {
-            /// <summary>
-            ///     Loads the R minimap drawing.
-            /// </summary>
-            if (SpellClass.R.Ready &&
-                MenuClass.Drawings["rmm"].As<MenuBool>().Enabled)
-            {
-                Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, SpellClass.R.Range, Color.White);
             }
         }
 

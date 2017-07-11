@@ -33,26 +33,26 @@ namespace AIO.Champions
                 SpellClass.W.Cast();
             }
 
-            var heroTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!heroTarget.IsValidTarget() ||
-                Invulnerable.Check(heroTarget, DamageType.Magical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The R Combo Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                heroTarget.HealthPercent() < 40 &&
-                heroTarget.IsValidTarget(SpellClass.R.Range) &&
                 UtilityClass.Player.Mana
-                > UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
+                    > UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value
-                > UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
+                    > UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
             {
-                SpellClass.R.Cast(heroTarget);
+                foreach (var target in Extensions.GetBestEnemyHeroesTargets())
+                {
+                    if (target.IsValidTarget() &&
+                        target.HealthPercent() <= 40 &&
+                        !Invulnerable.Check(target, DamageType.Magical) ||
+                        MenuClass.Spells["r"]["whitelist"][target.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.R.Cast(target);
+                    }
+                }
             }
         }
 

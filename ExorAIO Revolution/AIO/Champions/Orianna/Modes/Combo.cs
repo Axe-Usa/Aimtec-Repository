@@ -27,26 +27,30 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                GameObjects.EnemyHeroes.Any(
-                    t =>
-                        !Invulnerable.Check(t, DamageType.Magical) &&
-                        t.IsValidTarget(SpellClass.W.Width - t.BoundingRadius, false, this.BallPosition)) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast();
+                if (GameObjects.EnemyHeroes.Any(t =>
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        t.IsValidTarget(SpellClass.W.Width-50f, false, false, this.BallPosition)))
+                {
+                    SpellClass.W.Cast();
+                }
             }
 
             /// <summary>
             ///     The Automatic R Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                GameObjects.EnemyHeroes.Count(
-                    t =>
-                        !Invulnerable.Check(t, DamageType.Magical) &&
-                        t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius, false, this.BallPosition)) >= MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.R.Cast();
+                var countValidTargets = GameObjects.EnemyHeroes.Count(t =>
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        t.IsValidTarget(SpellClass.R.Width-50f, false, false, this.BallPosition));
+
+                if (countValidTargets >= MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value)
+                {
+                    SpellClass.R.Cast();
+                }
             }
 
             /// <summary>
@@ -67,8 +71,7 @@ namespace AIO.Champions
                             (Vector2)ally.Position.Extend(this.BallPosition, ally.Distance(this.BallPosition) + 30f),
                             SpellClass.E.Width);
 
-                        if (GameObjects.EnemyHeroes.Any(
-                            t =>
+                        if (GameObjects.EnemyHeroes.Any(t =>
                                 t.IsValidTarget() &&
                                 !allyToBallRectangle.IsOutside((Vector2)t.Position) &&
                                 !Invulnerable.Check(t, DamageType.Magical)))
@@ -101,33 +104,30 @@ namespace AIO.Champions
                 }
             }
 
-            var bestTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!bestTarget.IsValidTarget() ||
-                Invulnerable.Check(bestTarget, DamageType.Magical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The Combo Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                if (bestTarget.Distance(this.BallPosition) > bestTarget.Distance(UtilityClass.Player) + 100f)
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (bestTarget.IsValidTarget() &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    if (SpellClass.E.Ready &&
-                        MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                    if (bestTarget.Distance(this.BallPosition) > bestTarget.Distance(UtilityClass.Player) + 100f)
                     {
-                        SpellClass.E.CastOnUnit(UtilityClass.Player);
+                        if (SpellClass.E.Ready &&
+                            MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.E.CastOnUnit(UtilityClass.Player);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        SpellClass.Q.Cast(bestTarget);
                         return;
                     }
-                }
-                else
-                {
-                    SpellClass.Q.Cast(bestTarget);
-                    return;
                 }
             }
 
@@ -136,12 +136,17 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 !UtilityClass.Player.HasBuff("orianahaste") &&
-                UtilityClass.Player.HasBuff("orianaghostself") &&
-                !bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                bestTarget.IsValidTarget(SpellClass.Q.Range + 300f) &&
                 MenuClass.Spells["w"]["customization"]["speedw"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast();
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range + 300f);
+                if (bestTarget.IsValidTarget(SpellClass.Q.Range) &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
+                {
+                    if (UtilityClass.Player.Distance(this.BallPosition) < SpellClass.W.Width-50f)
+                    {
+                        SpellClass.W.Cast();
+                    }
+                }
             }
         }
 

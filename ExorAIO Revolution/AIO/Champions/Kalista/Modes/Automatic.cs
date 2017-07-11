@@ -33,7 +33,9 @@ namespace AIO.Champions
             /// <summary>
             ///     The Automatic R Logic.
             /// </summary>
-            if (SpellClass.R.Ready && this.SoulBound.IsValidTarget(SpellClass.R.Range) && this.SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
+            if (SpellClass.R.Ready &&
+                this.SoulBound.IsValidTarget(SpellClass.R.Range) &&
+                this.SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
                 ImplementationClass.IHealthPrediction.GetPrediction(this.SoulBound, 250 + Game.Ping) <= this.SoulBound.MaxHealth / 4 &&
                 MenuClass.Spells["r"]["lifesaver"].As<MenuBool>().Enabled)
             {
@@ -75,8 +77,8 @@ namespace AIO.Champions
                     SpellClass.E.Cast();
                 }
 
-                var validMinions = Extensions.GetAllGenericMinionsTargets().Where(m => this.IsPerfectRendTarget(m) && m.GetRealHealth() < this.GetTotalRendDamage(m));
                 var validTargets = GameObjects.EnemyHeroes.Where(this.IsPerfectRendTarget);
+                var validMinions = Extensions.GetAllGenericMinionsTargets().Where(m => this.IsPerfectRendTarget(m) && m.Health < this.GetTotalRendDamage(m));
 
                 var rendableHeroes = validTargets as IList<Obj_AI_Hero> ?? validTargets.ToList();
                 var rendableMinions = validMinions as IList<Obj_AI_Minion> ?? validMinions.ToList();
@@ -84,7 +86,8 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The E Minion Harass Logic.
                 /// </summary>
-                if (rendableHeroes.Any() && rendableMinions.Any() &&
+                if (rendableHeroes.Any() &&
+                    rendableMinions.Any() &&
                     MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast();
@@ -95,12 +98,11 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Enabled)
                 {
-                    foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Concat(Extensions.GetLegendaryJungleMinionsTargets()))
+                    foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m => UtilityClass.JungleList.Contains(m.UnitSkinName)))
                     {
                         if (this.IsPerfectRendTarget(minion) &&
                             minion.Health < this.GetTotalRendDamage(minion) &&
-                            MenuClass.WhiteList2[minion.UnitSkinName] != null &&
-                            MenuClass.WhiteList2[minion.UnitSkinName].As<MenuBool>().Enabled)
+                            MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();
                         }

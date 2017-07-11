@@ -72,7 +72,8 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Obj_AI_BasePlayAnimationEventArgs" /> instance containing the event data.</param>
         public void OnPlayAnimation(Obj_AI_Base sender, Obj_AI_BasePlayAnimationEventArgs args)
         {
-            if (sender.IsMe &&
+            if (sender != null &&
+                sender.IsMe &&
                 ImplementationClass.IOrbwalker.Mode != OrbwalkingMode.None)
             {
                 if (args.Animation.Equals("Spell1") || args.Animation.Equals("Spell2"))

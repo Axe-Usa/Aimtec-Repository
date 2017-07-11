@@ -104,6 +104,11 @@
         /// </summary>
         public static Menu WhiteList4 { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the pattern menu.
+        /// </summary>
+        public static Menu Pattern { get; set; }
+
         #endregion
     }
 }

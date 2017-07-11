@@ -22,24 +22,21 @@ namespace AIO.Champions
         /// </summary>
         public void Harass()
         {
-            var heroTarget = Extensions.GetBestEnemyHeroTarget();
-            if (!heroTarget.IsValidTarget() ||
-                Invulnerable.Check(heroTarget, DamageType.Magical))
-            {
-                return;
-            }
-
             /// <summary>
             ///     The Q Harass Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                heroTarget.IsValidTarget(SpellClass.Q.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
-                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled &&
-                MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.CastOnUnit(heroTarget);
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (heroTarget.IsValidTarget() &&
+                    !Invulnerable.Check(heroTarget, DamageType.Magical) &&
+                    MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    SpellClass.Q.CastOnUnit(heroTarget);
+                }
             }
         }
 

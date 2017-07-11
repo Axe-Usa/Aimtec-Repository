@@ -57,7 +57,7 @@ namespace AIO.Champions
                 if (!GameObjects.EnemyHeroes.Any(
                         t =>
                             !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            t.IsValidTarget(SpellClass.R.Width, false, this.BallPosition)))
+                            t.IsValidTarget(SpellClass.R.Width, false, false, this.BallPosition)))
                 {
                     args.Process = false;
                 }

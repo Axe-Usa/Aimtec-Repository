@@ -54,11 +54,11 @@
             for (var i = 0; i < quality; i++)
             {
                 var angle = i * Math.PI * 2 / quality;
-                pointList.Add(
-                    new Vector3(
-                        center.X + radius * (float)Math.Cos(angle),
-                        center.Z,
-                        center.Y + radius * (float)Math.Sin(angle)));
+                var x = center.X + radius * (float)Math.Cos(angle);
+                var y = center.Y + radius * (float)Math.Sin(angle);
+                var z = NavMesh.GetHeightForWorld(x, y);
+
+                pointList.Add(new Vector3(x, z, y));
             }
             for (var i = 0; i < pointList.Count; i++)
             {

@@ -48,10 +48,15 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Spells["extendedq"]["killsteal"].As<MenuBool>().Enabled)
                 {
+                    var target = SpellClass.Q2.GetBestKillableHero(DamageType.Physical);
                     foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
                                            let polygon = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)UtilityClass.Player.Position.Extend(minion.Position, SpellClass.Q2.Range), SpellClass.Q2.Width)
-                                           where polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(SpellClass.Q.GetBestKillableHero(DamageType.Physical)).PredictedPosition)
-                                           select minion)
+                                           where
+                                                target != null &&
+                                                target != minion &&
+                                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).PredictedPosition) &&
+                                                UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) >= target.GetRealHealth()
+                        select minion)
                     {
                         SpellClass.Q.CastOnUnit(minion);
                     }
