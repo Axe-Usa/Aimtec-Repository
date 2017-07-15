@@ -26,16 +26,8 @@ namespace AIO
                 var type = Type.GetType(pluginName, true);
                 if (type != null)
                 {
-                    string[] blackList = { "gimleey", "Lola", "Hidend", "Gabelly" };
-                    if (!blackList.Contains(ActiveUser.Name))
-                    {
-                        Console.WriteLine("Loading new instance of " + type.Name);
-                        Activator.CreateInstance(type);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Respect Hana u fkers");
-                    }
+                    Console.WriteLine("Loading new instance of " + type.Name);
+                    Activator.CreateInstance(type);
                 }
             }
             catch (Exception e)
