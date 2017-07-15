@@ -20,7 +20,7 @@ namespace AIO.Champions
         /// <summary>
         ///     The default position of the ball.
         /// </summary>
-        public Vector3 BallPosition = UtilityClass.Player.Position;
+        public Vector3 BallPosition = UtilityClass.Player.ServerPosition;
 
         #endregion
 
@@ -49,15 +49,15 @@ namespace AIO.Champions
 
             if (possiblePosition1 != null)
             {
-                return possiblePosition1.Position;
+                return possiblePosition1.ServerPosition;
             }
 
             if (possiblePosition2 != null)
             {
-                return possiblePosition2.Position;
+                return possiblePosition2.ServerPosition;
             }
 
-            return UtilityClass.Player.Position;
+            return UtilityClass.Player.ServerPosition;
         }
 
         /// <summary>

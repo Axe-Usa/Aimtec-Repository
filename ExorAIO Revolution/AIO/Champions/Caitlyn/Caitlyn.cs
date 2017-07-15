@@ -67,7 +67,7 @@ namespace AIO.Champions
                             MenuClass.Miscellaneous["reversede"].As<MenuBool>().Enabled)
                         {
                             UtilityClass.LastTick = Game.TickCount;
-                            SpellClass.E.Cast(UtilityClass.Player.Position.Extend(Game.CursorPos, -SpellClass.E.Range));
+                            SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, -SpellClass.E.Range));
                         }
                         break;
                 }
@@ -131,7 +131,7 @@ namespace AIO.Champions
                                     var bestTarget = GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.E.Range)).OrderBy(o => o.Distance(args.End)).First();
                                     if (bestTarget != null)
                                     {
-                                        SpellClass.W.Cast(bestTarget.Position);
+                                        SpellClass.W.Cast(bestTarget.ServerPosition);
                                     }
                                 }
                                 break;
@@ -158,7 +158,7 @@ namespace AIO.Champions
                 {
                     if (target.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target")))
                     {
-                        SpellClass.W.Cast(target.Position);
+                        SpellClass.W.Cast(target.ServerPosition);
                     }
                 }
             }

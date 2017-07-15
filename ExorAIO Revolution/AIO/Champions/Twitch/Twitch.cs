@@ -62,7 +62,7 @@ namespace AIO.Champions
             switch (unit.Type)
             {
                 case GameObjectType.obj_AI_Minion:
-                case GameObjectType.AIHeroClient:
+                case GameObjectType.obj_AI_Hero:
                     if (unit.IsValidTarget(SpellClass.E.Range))
                     {
                         return unit.HasBuff("twitchdeadlyvenom") && (!(unit is Obj_AI_Hero) || !Invulnerable.Check((Obj_AI_Hero)unit));

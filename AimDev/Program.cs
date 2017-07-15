@@ -110,7 +110,7 @@
 
                     switch (obj.Type)
                     {
-                        case GameObjectType.AIHeroClient:
+                        case GameObjectType.obj_AI_Hero:
                             Render.Text(new Vector2(screenPosition.X, screenPosition.Y + 50), Color.OrangeRed, ((Obj_AI_Hero)obj).ChampionName);
                             break;
 
@@ -132,7 +132,6 @@
                             }
                             break;
 
-                        case GameObjectType.obj_Turret:
                         case GameObjectType.obj_AI_Turret:
                             var objAiTurret = obj as Obj_AI_Turret;
                             if (objAiTurret != null)

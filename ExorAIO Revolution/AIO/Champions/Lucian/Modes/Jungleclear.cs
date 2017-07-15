@@ -65,7 +65,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.W.Cast(jungleTarget.Position);
+                SpellClass.W.Cast(jungleTarget.ServerPosition);
             }
         }
 

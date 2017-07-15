@@ -87,7 +87,7 @@ namespace AIO.Champions
                                 h2.IsValidTarget(SpellClass.E.Range) &&
                                 h2.Distance(target) < SpellClass.E.Width) >= MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Value)
                     {
-                        SpellClass.E.Cast(target.Position);
+                        SpellClass.E.Cast(target.ServerPosition);
                     }
                 }
             }

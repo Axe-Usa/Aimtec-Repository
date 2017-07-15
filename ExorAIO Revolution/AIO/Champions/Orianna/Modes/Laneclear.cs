@@ -47,11 +47,11 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 var polygon = new Geometry.Rectangle(
-                    (Vector2)UtilityClass.Player.Position,
-                    (Vector2)UtilityClass.Player.Position.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition)),
+                    (Vector2)UtilityClass.Player.ServerPosition,
+                    (Vector2)UtilityClass.Player.ServerPosition.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition)),
                     SpellClass.E.Width);
 
-                if (Extensions.GetEnemyLaneMinionsTargets().Count(t => t.IsValidTarget() && !polygon.IsOutside((Vector2)t.Position))
+                if (Extensions.GetEnemyLaneMinionsTargets().Count(t => t.IsValidTarget() && !polygon.IsOutside((Vector2)t.ServerPosition))
                     >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.CastOnUnit(UtilityClass.Player);

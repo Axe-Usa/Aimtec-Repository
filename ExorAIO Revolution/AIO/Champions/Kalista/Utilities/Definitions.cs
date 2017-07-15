@@ -71,7 +71,7 @@ namespace AIO.Champions
                     case GameObjectType.obj_AI_Minion:
                         return true;
 
-                    case GameObjectType.AIHeroClient:
+                    case GameObjectType.obj_AI_Hero:
                         var heroUnit = (Obj_AI_Hero)unit;
                         return !Invulnerable.Check(heroUnit);
                 }

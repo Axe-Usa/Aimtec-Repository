@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aimtec, Version=1.0.6375.5261, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Aimtec, Version=1.0.6398.32537, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Desktop\AimTec Beta\System\Aimtec.dll</HintPath>
     </Reference>

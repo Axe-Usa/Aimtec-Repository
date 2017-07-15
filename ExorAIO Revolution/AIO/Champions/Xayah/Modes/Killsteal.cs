@@ -27,9 +27,9 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                if (GameObjects.EnemyHeroes.Any(
-                    h => this.IsPerfectFeatherTarget(h) &&
-                         h.GetRealHealth() < this.GetPerfectFeatherDamage(h, this.CountFeathersHitOnUnit(h))))
+                if (GameObjects.EnemyHeroes.Any(h =>
+                    this.IsPerfectFeatherTarget(h) &&
+                    h.GetRealHealth() < this.GetPerfectFeatherDamage(h, this.CountFeathersHitOnUnit(h))))
                 {
                     SpellClass.E.Cast();
                 }

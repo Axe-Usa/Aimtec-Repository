@@ -92,7 +92,7 @@ namespace AIO.Champions
                 switch (obj.Name)
                 {
                     case "Xayah_Base_Passive_Dagger_Mark8s.troy":
-                        this.Feathers.Add(obj.NetworkId, obj.Position);
+                        this.Feathers.Add(obj.NetworkId, obj.ServerPosition);
                         break;
                 }
             }

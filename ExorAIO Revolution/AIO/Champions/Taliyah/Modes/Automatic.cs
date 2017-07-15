@@ -40,8 +40,8 @@ namespace AIO.Champions
                     t =>
                         !t.Name.Equals("Target Dummy") &&
                         t.IsValidTarget(SpellClass.W.Range) &&
-                        !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        !t.ActionState.HasFlag(ActionState.CanMove)))
+                        !t.ActionState.HasFlag(ActionState.CanMove) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false)))
                 {
                     Vector3 targetPosAfterW;
                     var targetPred = SpellClass.W.GetPrediction(target).CastPosition;

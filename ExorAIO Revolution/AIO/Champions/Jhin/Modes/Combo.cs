@@ -30,7 +30,7 @@ namespace AIO.Champions
                 this.IsUltimateShooting() &&
                 MenuClass.Spells["r"]["combo"].As<MenuBool>().Value)
             {
-                var validEnemiesInsideCone = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.R.Range).Where(t => this.UltimateCone().IsInside((Vector2)t.Position));
+                var validEnemiesInsideCone = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.R.Range).Where(t => this.UltimateCone().IsInside((Vector2)t.ServerPosition));
                 var objAiHeroes = validEnemiesInsideCone as Obj_AI_Hero[] ?? validEnemiesInsideCone.ToArray();
                 if (objAiHeroes.Any())
                 {

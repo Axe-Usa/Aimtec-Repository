@@ -92,7 +92,7 @@ namespace AIO.Champions
                 {
                     if (target.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target")))
                     {
-                        SpellClass.E.Cast(target.Position);
+                        SpellClass.E.Cast(target.ServerPosition);
                     }
                 }
             }

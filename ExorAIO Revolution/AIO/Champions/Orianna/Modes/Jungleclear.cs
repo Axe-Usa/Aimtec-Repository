@@ -53,11 +53,11 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 var polygon = new Geometry.Rectangle(
-                    (Vector2)UtilityClass.Player.Position,
-                    (Vector2)UtilityClass.Player.Position.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition)),
+                    (Vector2)UtilityClass.Player.ServerPosition,
+                    (Vector2)UtilityClass.Player.ServerPosition.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition)),
                     SpellClass.E.Width);
 
-                if (!polygon.IsOutside((Vector2)jungleTarget.Position))
+                if (!polygon.IsOutside((Vector2)jungleTarget.ServerPosition))
                 {
                     SpellClass.E.CastOnUnit(UtilityClass.Player);
                 }

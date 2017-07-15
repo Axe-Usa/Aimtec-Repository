@@ -52,8 +52,8 @@ namespace AIO.Champions
             var hit = 0;
             foreach (var feather in this.Feathers)
             {
-                var playerToFeatherRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.Q.Width);
-                if (playerToFeatherRectangle.IsInside((Vector2)unit.Position))
+                var playerToFeatherRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.ServerPosition, (Vector2)feather.Value, SpellClass.Q.Width);
+                if (playerToFeatherRectangle.IsInside((Vector2)unit.ServerPosition))
                 {
                     hit++;
                 }
@@ -67,7 +67,7 @@ namespace AIO.Champions
         /// </summary>
         public int CountFeathersKillableMinions()
         {
-            return Extensions.GetAllGenericMinionsTargets().Count(m => this.GetPerfectFeatherDamage(m, this.CountFeathersHitOnUnit(m)) > m.Health);
+            return Extensions.GetAllGenericMinionsTargets().Count(m => this.GetPerfectFeatherDamage(m, this.CountFeathersHitOnUnit(m)) >= m.Health);
         }
 
         /// <summary>
@@ -91,11 +91,17 @@ namespace AIO.Champions
         /// </summary>
         public bool IsPerfectFeatherTarget(Obj_AI_Base unit)
         {
-            switch (unit.Type)
+            if (unit.IsValidTarget() &&
+                this.CanFeathersHitUnit(unit))
             {
-                case GameObjectType.obj_AI_Minion:
-                case GameObjectType.AIHeroClient:
-                    return unit.IsValidTarget() && this.CanFeathersHitUnit(unit) && (!(unit is Obj_AI_Hero) || !Invulnerable.Check((Obj_AI_Hero)unit));
+                switch (unit.Type)
+                {
+                    case GameObjectType.obj_AI_Minion:
+                        return true;
+
+                    case GameObjectType.obj_AI_Hero:
+                        return !Invulnerable.Check((Obj_AI_Hero)unit);
+                }
             }
 
             return false;
@@ -111,7 +117,7 @@ namespace AIO.Champions
                 switch (feather.Name)
                 {
                     case "Xayah_Base_Passive_Dagger_Mark8s.troy":
-                        this.Feathers.Add(feather.NetworkId, feather.Position);
+                        this.Feathers.Add(feather.NetworkId, feather.ServerPosition);
                         break;
                 }
             }

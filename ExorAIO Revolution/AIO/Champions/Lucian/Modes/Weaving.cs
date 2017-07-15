@@ -30,51 +30,157 @@ namespace AIO.Champions
                 return;
             }
 
-            /// <summary>
-            ///     The E Combo Logic.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                !UtilityClass.Player.Position.Extend(Game.CursorPos, 425f).PointUnderEnemyTurret())
+            switch (MenuClass.Spells["pattern"].As<MenuList>().Value)
             {
-                switch (MenuClass.Spells["e"]["mode"].As<MenuList>().Value)
-                {
-                    case 0:
-                        var point = UtilityClass.Player.Position.Extend(
-                            Game.CursorPos, UtilityClass.Player.Distance(Game.CursorPos) < UtilityClass.Player.AttackRange
-                                                ? UtilityClass.Player.BoundingRadius
-                                                : 475f);
-                        SpellClass.E.Cast(point);
-                        return;
+                case 0:
+                case 2:
+                    /// <summary>
+                    ///     The E Combo Logic.
+                    /// </summary>
+                    if (SpellClass.E.Ready)
+                    {
+                        switch (MenuClass.Spells["e"]["mode"].As<MenuList>().Value)
+                        {
+                            case 0:
+                                Vector3 point;
+                                if (UtilityClass.Player.IsUnderEnemyTurret() ||
+                                    UtilityClass.Player.Distance(Game.CursorPos) < UtilityClass.Player.AttackRange)
+                                {
+                                    point = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, UtilityClass.Player.BoundingRadius);
+                                }
+                                else
+                                {
+                                    point = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 475f);
+                                }
 
-                    case 1:
-                        SpellClass.E.Cast(UtilityClass.Player.Position.Extend(Game.CursorPos, 425f));
-                        return;
+                                SpellClass.E.Cast(point);
+                                return;
 
-                    case 2:
-                        SpellClass.E.Cast(UtilityClass.Player.Position.Extend(Game.CursorPos, UtilityClass.Player.BoundingRadius));
-                        return;
-                }
+                            case 1:
+                                SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 425f));
+                                return;
+
+                            case 2:
+                                SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, UtilityClass.Player.BoundingRadius));
+                                return;
+                        }
+                    }
+                    break;
+
+                case 1:
+                    /// <summary>
+                    ///     The Q Combo Logic.
+                    /// </summary>
+                    if (SpellClass.Q.Ready &&
+                        heroTarget.IsValidTarget(SpellClass.Q.Range) &&
+                        MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.Q.CastOnUnit(heroTarget);
+                    }
+                    break;
+
+                case 3:
+                    /// <summary>
+                    ///     The W Combo Logic.
+                    /// </summary>
+                    if (SpellClass.W.Ready &&
+                        heroTarget.IsValidTarget(SpellClass.W.Range) &&
+                        MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.W.Cast(heroTarget);
+                    }
+                    break;
             }
 
-            /// <summary>
-            ///     The Q Combo Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                heroTarget.IsValidTarget(SpellClass.Q.Range) &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            switch (MenuClass.Spells["pattern"].As<MenuList>().Value)
             {
-                SpellClass.Q.CastOnUnit(heroTarget);
-                return;
+                case 0:
+                    /// <summary>
+                    ///     The Q Combo Logic.
+                    /// </summary>
+                    if (SpellClass.Q.Ready &&
+                        heroTarget.IsValidTarget(SpellClass.Q.Range) &&
+                        MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.Q.CastOnUnit(heroTarget);
+                    }
+                    break;
+
+                case 1:
+                case 3:
+                    /// <summary>
+                    ///     The E Combo Logic.
+                    /// </summary>
+                    if (SpellClass.E.Ready)
+                    {
+                        switch (MenuClass.Spells["e"]["mode"].As<MenuList>().Value)
+                        {
+                            case 0:
+                                Vector3 point;
+                                if (UtilityClass.Player.IsUnderEnemyTurret() ||
+                                    UtilityClass.Player.Distance(Game.CursorPos) < UtilityClass.Player.AttackRange)
+                                {
+                                    point = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, UtilityClass.Player.BoundingRadius);
+                                }
+                                else
+                                {
+                                    point = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 475f);
+                                }
+
+                                SpellClass.E.Cast(point);
+                                return;
+
+                            case 1:
+                                SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 425f));
+                                return;
+
+                            case 2:
+                                SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, UtilityClass.Player.BoundingRadius));
+                                return;
+                        }
+                    }
+                    break;
+
+                case 2:
+                    /// <summary>
+                    ///     The W Combo Logic.
+                    /// </summary>
+                    if (SpellClass.W.Ready &&
+                        heroTarget.IsValidTarget(SpellClass.W.Range) &&
+                        MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.W.Cast(heroTarget);
+                    }
+                    break;
             }
 
-            /// <summary>
-            ///     The W Combo Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                heroTarget.IsValidTarget(SpellClass.W.Range) &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            switch (MenuClass.Spells["pattern"].As<MenuList>().Value)
             {
-                SpellClass.W.Cast(heroTarget);
+                case 0:
+                case 1:
+                    /// <summary>
+                    ///     The W Combo Logic.
+                    /// </summary>
+                    if (SpellClass.W.Ready &&
+                        heroTarget.IsValidTarget(SpellClass.W.Range) &&
+                        MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.W.Cast(heroTarget);
+                    }
+                    break;
+
+                case 2:
+                case 3:
+                    /// <summary>
+                    ///     The Q Combo Logic.
+                    /// </summary>
+                    if (SpellClass.Q.Ready &&
+                        heroTarget.IsValidTarget(SpellClass.Q.Range) &&
+                        MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.Q.CastOnUnit(heroTarget);
+                    }
+                    break;
             }
         }
 

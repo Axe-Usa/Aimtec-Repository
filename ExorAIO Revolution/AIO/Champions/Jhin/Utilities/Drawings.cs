@@ -64,7 +64,7 @@ namespace AIO.Champions
                 {
                     if (this.End != Vector3.Zero)
                     {
-                        this.UltimateCone().Draw(GameObjects.EnemyHeroes.Any(t => t.IsValidTarget() && this.UltimateCone().IsInside((Vector2)t.Position)) ? Color.Green : Color.Red);
+                        this.UltimateCone().Draw(GameObjects.EnemyHeroes.Any(t => t.IsValidTarget() && this.UltimateCone().IsInside((Vector2)t.ServerPosition)) ? Color.Green : Color.Red);
                     }
                 }
                 /// <summary>

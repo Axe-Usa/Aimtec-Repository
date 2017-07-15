@@ -41,7 +41,7 @@ namespace AIO.Champions
                         t.IsValidTarget(SpellClass.W.Range) &&
                         !t.ActionState.HasFlag(ActionState.CanMove)))
                 {
-                    SpellClass.W.Cast(target.Position);
+                    SpellClass.W.Cast(target.ServerPosition);
                 }
             }
 
@@ -55,9 +55,9 @@ namespace AIO.Champions
                     t =>
                         !t.Name.Equals("Target Dummy") &&
                         !t.ActionState.HasFlag(ActionState.CanMove) &&
-                        t.Distance(UtilityClass.Player) < SpellClass.W.Range))
+                        t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
-                    SpellClass.E.Cast(target.Position);
+                    SpellClass.E.Cast(target.ServerPosition);
                 }
             }
         }

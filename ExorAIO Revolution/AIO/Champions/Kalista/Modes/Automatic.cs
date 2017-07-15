@@ -78,7 +78,7 @@ namespace AIO.Champions
                 }
 
                 var validTargets = GameObjects.EnemyHeroes.Where(this.IsPerfectRendTarget);
-                var validMinions = Extensions.GetAllGenericMinionsTargets().Where(m => this.IsPerfectRendTarget(m) && m.Health < this.GetTotalRendDamage(m));
+                var validMinions = Extensions.GetAllGenericMinionsTargets().Where(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m));
 
                 var rendableHeroes = validTargets as IList<Obj_AI_Hero> ?? validTargets.ToList();
                 var rendableMinions = validMinions as IList<Obj_AI_Minion> ?? validMinions.ToList();

@@ -116,7 +116,7 @@ namespace AIO.Champions
                                         break;
                                     }
 
-                                    var position = UtilityClass.Player.Position.Extend(Game.CursorPos, SpellClass.R.Range);
+                                    var position = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, SpellClass.R.Range);
                                     if (heroTarget.IsValidTarget(RRadius, false, false, position))
                                     {
                                         DelayAction.Queue(200+Game.Ping, ()=> SpellClass.R.Cast(position));
@@ -164,7 +164,7 @@ namespace AIO.Champions
                                 break;
                             }
 
-                            var position = UtilityClass.Player.Position.Extend(Game.CursorPos, SpellClass.R.Range);
+                            var position = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, SpellClass.R.Range);
                             if (heroTarget.IsValidTarget(RRadius, false, false, position))
                             {
                                 SpellClass.R.Cast(position);

@@ -40,7 +40,7 @@ namespace AIO.Champions
                         !t.ActionState.HasFlag(ActionState.CanMove) &&
                         t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
-                    SpellClass.E.Cast(target.Position);
+                    SpellClass.E.Cast(target.ServerPosition);
                 }
             }
 

@@ -57,7 +57,7 @@ namespace AIO.Champions
                     >= (MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled ? 2 : 1) &&
                     MenuClass.Spells["e"]["vision"].As<MenuBool>().Enabled)
                 {
-                    SpellClass.E.Cast(sender.Position);
+                    SpellClass.E.Cast(sender.ServerPosition);
                 }
             }
         }

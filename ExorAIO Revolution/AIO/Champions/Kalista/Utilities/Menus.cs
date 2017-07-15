@@ -98,7 +98,7 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuBool("ondeath", "Before death"));
                     MenuClass.E.Add(new MenuBool("harass", "Harass with minions"));
-                    MenuClass.E.Add(new MenuBool("laneclear", "laneclear"));
+                    MenuClass.E.Add(new MenuBool("laneclear", "Laneclear"));
                     MenuClass.E.Add(new MenuBool("junglesteal", "Junglesteal"));
                     //MenuClass.E.Add(new MenuSeperator("separator"));
                     //MenuClass.E.Add(new MenuSeperator("separator1", "It will cast E if there are any minions with"));

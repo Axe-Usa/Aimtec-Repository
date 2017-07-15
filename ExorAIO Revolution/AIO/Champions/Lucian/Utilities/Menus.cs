@@ -29,6 +29,11 @@ namespace AIO.Champions
             MenuClass.Spells = new Menu("spells", "Spells");
             {
                 /// <summary>
+                ///     Sets the combo pattern.
+                /// </summary>
+                MenuClass.Spells.Add(new MenuList("pattern", "Combo Pattern", new[] { "E->Q->W", "Q->E->W", "E->W->Q", "W->E->Q" }, 0));
+
+                /// <summary>
                 ///     Sets the menu for the Q.
                 /// </summary>
                 MenuClass.Q = new Menu("q", "Use Q to:");
