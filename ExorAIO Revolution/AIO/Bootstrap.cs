@@ -3,6 +3,7 @@
 namespace AIO
 {
     using System;
+    using System.Linq;
     using System.Reflection;
 
     using AIO.Utilities;
@@ -25,8 +26,16 @@ namespace AIO
                 var type = Type.GetType(pluginName, true);
                 if (type != null)
                 {
-                    Console.WriteLine("Loading new instance of " + type.Name);
-                    Activator.CreateInstance(type);
+                    string[] blackList = { "gimleey" };
+                    if (blackList.Contains(ActiveUser.Name))
+                    {
+                        Console.WriteLine("Loading new instance of " + type.Name);
+                        Activator.CreateInstance(type);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Respect Hana u fkers");
+                    }
                 }
             }
             catch (Exception e)
