@@ -26,7 +26,7 @@ namespace AIO
                 var type = Type.GetType(pluginName, true);
                 if (type != null)
                 {
-                    string[] blackList = { "gimleey", "Lola" };
+                    string[] blackList = { "gimleey", "Lola", "Hidend" };
                     if (!blackList.Contains(ActiveUser.Name))
                     {
                         Console.WriteLine("Loading new instance of " + type.Name);
