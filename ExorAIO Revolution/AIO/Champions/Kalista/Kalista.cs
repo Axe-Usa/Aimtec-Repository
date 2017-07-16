@@ -139,8 +139,13 @@ namespace AIO.Champions
         public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
             var target = args.Target;
+            if (target == null)
+            {
+                return;
+            }
+
             if (sender.IsMe &&
-                target != null && target is Obj_AI_Hero &&
+                target is Obj_AI_Hero &&
                 args.SpellData.Name.Equals("KalistaPInvocation"))
             {
                 this.SoulBound = (Obj_AI_Hero)target;

@@ -104,7 +104,6 @@ namespace AIO.Champions
                                 SpellClass.E.Cast(this.GetTargetPositionAfterW(bestTarget));
                             }
                             break;
-
                     }
                 }
             }
@@ -120,7 +119,7 @@ namespace AIO.Champions
                 if (bestTarget.IsValidTarget() &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    SpellClass.E.Cast(this.GetTargetPositionAfterW(bestTarget));
+                    SpellClass.E.Cast(bestTarget.ServerPosition);
                 }
             }
 

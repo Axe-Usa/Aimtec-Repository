@@ -6,13 +6,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("ExorAIO Revolution")]
-[assembly:
-    AssemblyDescription(
-"")]
+[assembly: AssemblyDescription("The Revolution introduced me to art, and in turn, art introduced me to the Revolution.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aimtec")]
 [assembly: AssemblyProduct("ExorAIO Revolution")]
-[assembly: AssemblyCopyright("Copyright © Aimtec 2017")]
+[assembly: AssemblyCopyright("Copyright © Aimtec 2017-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -37,5 +35,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("7.13.0.0")]
-[assembly: AssemblyFileVersion("7.13.0.0")]
+[assembly: AssemblyVersion("7.14.0.0")]
+[assembly: AssemblyFileVersion("7.14.0.0")]

@@ -49,10 +49,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aimtec">
-      <HintPath>..\..\..\..\Desktop\AimTec Beta\System\Aimtec.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\AimtecLoader\System\Aimtec.dll</HintPath>
     </Reference>
     <Reference Include="Aimtec.SDK">
-      <HintPath>..\..\..\..\Desktop\AimTec Beta\System\Aimtec.SDK.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Local\AimtecLoader\System\Aimtec.SDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

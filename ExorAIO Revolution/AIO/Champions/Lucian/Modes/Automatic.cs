@@ -22,6 +22,18 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            /// <summary>
+            ///     The Automatic R Orbwalking.
+            /// </summary>
+            if (MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
+                MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+            {
+                DelayAction.Queue(100 + Game.Ping, () =>
+                    {
+                        UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
+                    });
+            }
+
             var bestHero = Extensions.GetBestEnemyHeroTarget();
             if (bestHero == null)
             {
@@ -29,16 +41,7 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Automatic R Orbwalking.
-            /// </summary>
-            if (MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
-                MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
-            {
-                DelayAction.Queue(100 + Game.Ping, () => { UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos); });
-            }
-
-            /// <summary>
-            ///     The Semi-Automatic R Management.
+            ///     The Semi-Automatic R Management. //TODO: Check.
             /// </summary>
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&

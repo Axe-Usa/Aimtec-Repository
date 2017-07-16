@@ -1,5 +1,6 @@
 ﻿
 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
+// ReSharper disable LoopCanBeConvertedToQuery
 #pragma warning disable 1587
 
 namespace AIO.Champions
@@ -20,6 +21,26 @@ namespace AIO.Champions
     internal partial class Taliyah
     {
         #region Fields
+
+        /// <summary>
+        ///     Returns the Boulders' width.
+        /// </summary>
+        public const float BouldersWidth = 30f;
+
+        /// <summary>
+        ///     Returns the number of maximum hittable boulders per enemy.
+        /// </summary>
+        public const int MaxHittableBoulders = 4;
+
+        /// <summary>
+        ///     Returns the W Push distance.
+        /// </summary>
+        public const float WPushDistance = 300f; //TODO: Find real push distance.
+
+        /// <summary>
+        ///     Returns the Worked Ground's width.
+        /// </summary>
+        public const float WorkedGroundWidth = 412.5f;
 
         /// <summary>
         ///     Returns the MineField position.
@@ -52,7 +73,7 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Reloads the MineField.
+        ///     Gets the Best position inside the MineField for W Cast.
         /// </summary>
         /// <param name="unit">The unit.</param>
         public Vector3 GetBestBouldersHitPosition(Obj_AI_Base unit)
@@ -61,12 +82,17 @@ namespace AIO.Champions
             var mostBouldersHitPos = Vector3.Zero;
             foreach (var mine in this.MineField)
             {
-                var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, 300f), unit.BoundingRadius);
+                var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, WPushDistance), unit.BoundingRadius);
                 var bouldersHit = this.MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
                 if (bouldersHit > mostBouldersHit)
                 {
                     mostBouldersHit = bouldersHit;
                     mostBouldersHitPos = mine.Value;
+
+                    if (bouldersHit >= MaxHittableBoulders)
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -74,7 +100,7 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Reloads the MineField.
+        ///     Gets the approximative number of mines hit by the target inside the MineField after W Cast.
         /// </summary>
         /// <param name="unit">The unit.</param>
         public int GetBestBouldersHitPositionHitBoulders(Obj_AI_Base unit)
@@ -82,7 +108,7 @@ namespace AIO.Champions
             var mostBouldersHit = 0;
             foreach (var mine in this.MineField)
             {
-                var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, 300f), unit.BoundingRadius);
+                var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, WPushDistance), unit.BoundingRadius);
                 var bouldersHit = this.MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
                 if (bouldersHit > mostBouldersHit)
                 {
@@ -99,7 +125,7 @@ namespace AIO.Champions
         public Vector3 GetUnitPositionAfterPull(Obj_AI_Base unit)
         {
             var targetPred = SpellClass.W.GetPrediction(unit).CastPosition;
-            return targetPred.Extend(UtilityClass.Player.Position, 300f);
+            return targetPred.Extend(UtilityClass.Player.Position, WPushDistance);
         }
 
         /// <summary>
@@ -108,7 +134,7 @@ namespace AIO.Champions
         public Vector3 GetUnitPositionAfterPush(Obj_AI_Base unit)
         {
             var targetPred = SpellClass.W.GetPrediction(unit).CastPosition;
-            return targetPred.Extend(UtilityClass.Player.Position, -300f);
+            return targetPred.Extend(UtilityClass.Player.Position, -WPushDistance);
         }
 
         /// <summary>
@@ -186,7 +212,7 @@ namespace AIO.Champions
         /// </summary>
         public bool IsNearWorkedGround()
         {
-            return this.AnyTerrainInRange(412.5f);
+            return this.AnyTerrainInRange(WorkedGroundWidth);
         }
 
         /// <summary>

@@ -29,7 +29,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
-                Render.Circle(UtilityClass.Player.Position, UtilityClass.Player.HasBuff("JinxQ") ? SpellClass.Q.Range : SpellClass.Q2.Range, 100, Color.LightGreen);
+                Render.Circle(UtilityClass.Player.Position, UtilityClass.Player.HasBuff("JinxQ") ? SpellClass.Q.Range : SpellClass.Q2.Range, 30, Color.LightGreen);
             }
 
             /// <summary>
@@ -38,7 +38,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["w"].As<MenuBool>().Enabled)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.W.Range, 100, Color.Purple);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.W.Range, 30, Color.Purple);
             }
 
             /// <summary>
@@ -47,7 +47,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Drawings["e"].As<MenuBool>().Enabled)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.E.Range, 100, Color.Cyan);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.E.Range, 30, Color.Cyan);
             }
         }
 
