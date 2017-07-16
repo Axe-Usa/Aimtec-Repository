@@ -38,11 +38,11 @@
   <ItemGroup>
     <Reference Include="Aimtec, Version=1.0.6396.31692, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Desktop\AimTec Beta\System\Aimtec.dll</HintPath>
+      <HintPath>C:\Users\Enrico\AppData\Local\AimtecLoader\Data\System\Aimtec.dll</HintPath>
     </Reference>
     <Reference Include="Aimtec.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Desktop\AimTec Beta\System\Aimtec.SDK.dll</HintPath>
+      <HintPath>C:\Users\Enrico\AppData\Local\AimtecLoader\Data\System\Aimtec.SDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
