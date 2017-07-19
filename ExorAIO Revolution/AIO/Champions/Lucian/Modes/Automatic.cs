@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
@@ -34,30 +36,33 @@ namespace AIO.Champions
                     });
             }
 
-            var bestHero = Extensions.GetBestEnemyHeroTarget();
-            if (bestHero == null)
-            {
-                return;
-            }
-
             /// <summary>
-            ///     The Semi-Automatic R Management. //TODO: Check.
+            ///     The Semi-Automatic R Management.
             /// </summary>
             if (SpellClass.R.Ready &&
-                MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
-                MenuClass.Spells["r"]["whitelist"][bestHero.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled)
             {
-                if (bestHero.IsValidTarget(SpellClass.R.Range) &&
-                    !UtilityClass.Player.HasBuff("LucianR") &&
-                    MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+                var bestTarget = GameObjects.EnemyHeroes
+                    .Where(
+                        t =>
+                            t.IsValidTarget(SpellClass.R.Range) &&
+                            !Invulnerable.Check(t) &&
+                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    .OrderBy(o => o.Health)
+                    .FirstOrDefault();
+                if (bestTarget != null)
                 {
-                    SpellClass.W.Cast(bestHero);
-                    SpellClass.R.Cast(bestHero);
-                }
-                else if (UtilityClass.Player.HasBuff("LucianR") &&
-                         !MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
-                {
-                    SpellClass.R.Cast(bestHero);
+                    if (!UtilityClass.Player.HasBuff("LucianR") &&
+                        MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+                    {
+                        SpellClass.W.Cast(bestTarget.ServerPosition);
+                        SpellClass.R.Cast(bestTarget.ServerPosition);
+                    }
+                    else if (UtilityClass.Player.HasBuff("LucianR") &&
+                             !MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+                    {
+                        SpellClass.R.Cast();
+                    }
                 }
             }
         }

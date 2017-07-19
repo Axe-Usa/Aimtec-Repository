@@ -76,6 +76,7 @@ namespace AIO.Champions
                         MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                     {
                         SpellClass.Q.CastOnUnit(heroTarget);
+                        return;
                     }
                     break;
 
@@ -88,6 +89,7 @@ namespace AIO.Champions
                         MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                     {
                         SpellClass.W.Cast(heroTarget);
+                        return;
                     }
                     break;
             }
@@ -103,6 +105,7 @@ namespace AIO.Champions
                         MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                     {
                         SpellClass.Q.CastOnUnit(heroTarget);
+                        return;
                     }
                     break;
 
@@ -150,6 +153,7 @@ namespace AIO.Champions
                         MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                     {
                         SpellClass.W.Cast(heroTarget);
+                        return;
                     }
                     break;
             }
