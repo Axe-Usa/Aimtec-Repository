@@ -47,8 +47,8 @@
             Vector3 center,
             float radius,
             Color color,
-            int thickness = 1,
-            int quality = 254)
+            int thickness = 2,
+            int quality = 100)
         {
             var pointList = new List<Vector3>();
             for (var i = 0; i < quality; i++)
