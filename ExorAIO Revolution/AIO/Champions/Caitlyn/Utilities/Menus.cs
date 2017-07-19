@@ -75,7 +75,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuBool("combo", "Combo (Tries to Predict Enemy Movement)"));
+                    MenuClass.W.Add(new MenuBool("combo", "Combo (Tries to Predict Enemy Movement)", false));
                     MenuClass.W.Add(new MenuBool("triplecombo", "Try Double/Triple HeadShot Combo"));
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuBool("teleport", "On Teleport"));

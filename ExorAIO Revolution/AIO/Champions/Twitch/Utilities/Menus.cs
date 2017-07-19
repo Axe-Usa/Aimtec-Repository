@@ -107,7 +107,7 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("ondeath", "Before death"));
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuBool("junglesteal", "Junglesteal"));
-                    MenuClass.E.Add(new MenuSliderBool("logical", "Automatic / If stacks >= x", true, 6, 1, 6));
+                    MenuClass.E.Add(new MenuSliderBool("logical", "Automatic / If stacks >= x", false, 6, 1, 6));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
