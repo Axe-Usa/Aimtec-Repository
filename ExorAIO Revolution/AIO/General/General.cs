@@ -6,6 +6,7 @@ namespace AIO
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Orbwalking;
 
@@ -63,7 +64,27 @@ namespace AIO
         }
 
         /// <summary>
-        ///     Called on do-cast.
+        ///     Called on postattack.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
+        public static void OnPostAttack(object sender, PostAttackEventArgs args)
+        {
+            if (MenuClass.General["hydrareset"].Enabled)
+            {
+                if (UtilityClass.Player.HasItem(ItemId.Tiamat))
+                {
+                    var tiamat = UtilityClass.Player.Inventory.Slots.First(s => s.ItemId == ItemId.Tiamat);
+                    if (tiamat != null)
+                    {
+                        //UtilityClass.Player.SpellBook.CastSpell(tiamat);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Called on preattack.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>

@@ -37,6 +37,7 @@ namespace AIO
                     MenuClass.General.Add(new MenuBool("supportmode", "Support Mode", false));
                     MenuClass.General.Add(new MenuBool("disableaa", "Disable AutoAttacks in Combo", false));
                     MenuClass.General.Add(new MenuBool("nomanagerifblue", "Ignore ManaManagers if has Blue Buff", false));
+                    MenuClass.General.Add(new MenuBool("hydrareset", "Use Titanic and Ravenous Hydras"));
                 }
                 MenuClass.Root.Add(MenuClass.General);
             }

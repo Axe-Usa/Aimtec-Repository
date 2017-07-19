@@ -49,6 +49,11 @@
         /// </summary>
         public static Spell W2 { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the Hydra Spell.
+        /// </summary>
+        public static Spell Hydra { get; set; }
+
         #endregion
     }
 }

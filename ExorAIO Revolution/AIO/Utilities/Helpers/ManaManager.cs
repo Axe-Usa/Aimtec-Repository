@@ -15,7 +15,7 @@ namespace AIO.Utilities
         /// <summary>
         ///     The minimum mana needed to cast the Spell from the 'slot' SpellSlot.
         /// </summary>
-        public static int GetNeededMana(SpellSlot slot, MenuComponent value)
+        public static int GetNeededMana(SpellSlot slot, IMenuComponent value)
         {
             if (UtilityClass.Player.HasBuff("crestoftheancientgolem") &&
                 MenuClass.General["nomanagerifblue"].As<MenuBool>().Enabled)
