@@ -1,0 +1,49 @@
+﻿namespace AIO.Champions
+{
+    using Aimtec;
+    using Aimtec.SDK.Damage;
+    using Aimtec.SDK.Damage.JSON;
+    using Aimtec.SDK.Extensions;
+
+    using Utilities;
+
+    /// <summary>
+    ///     The definitions class.
+    /// </summary>
+    internal partial class Twitch
+    {
+        /// <summary>
+        ///     Gets the total expunge damage on a determined unit.
+        /// </summary>
+        public double GetTotalExpungeDamage(Obj_AI_Base unit)
+        {
+            var player = UtilityClass.Player;
+            return player.GetSpellDamage(unit, SpellSlot.E) +
+                   player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Buff);
+        }
+
+        /// <summary>
+        ///     Returns true if the target is a perfectly valid expunge target.
+        /// </summary>
+        public bool IsPerfectExpungeTarget(Obj_AI_Base unit)
+        {
+            if (unit.HasBuff("twitchdeadlyvenom"))
+            {
+                switch (unit.Type)
+                {
+                    case GameObjectType.obj_AI_Minion:
+                        return true;
+
+                    case GameObjectType.obj_AI_Hero:
+                        if (unit.IsValidTarget(SpellClass.E.Range))
+                        {
+                            return !Invulnerable.Check((Obj_AI_Hero)unit);
+                        }
+                        break;
+                }
+            }
+
+            return false;
+        }
+    }
+}

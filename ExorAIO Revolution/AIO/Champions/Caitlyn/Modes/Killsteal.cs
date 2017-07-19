@@ -35,7 +35,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
-                    var collisions = SpellClass.Q.GetPrediction(bestTarget).Collisions;
+                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
                     if (collisions.Any())
                     {
                         if (bestTarget.HasBuff("caitlynyordletrapsight"))

@@ -31,7 +31,7 @@ namespace AIO.Utilities
         /// <summary>
         ///     Gets the Prediction implementation.
         /// </summary>
-        public static IPrediction IPrediction = Prediction.Implementation;
+        //public static IPrediction IPrediction = Prediction.Implementation;
 
         /// <summary>
         ///     Gets the TargetSelector implementation.

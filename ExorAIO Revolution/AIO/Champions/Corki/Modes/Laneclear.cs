@@ -50,7 +50,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var target = ImplementationClass.IOrbwalker.GetTarget();
+                var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
                 if (minions.Contains((Obj_AI_Minion)target) &&
                     minions.Count(m => m.Distance(target) <= SpellClass.E.Width) >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {

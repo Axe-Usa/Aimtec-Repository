@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Damage.JSON;
@@ -45,35 +47,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Gets the total expunge damage on a determined unit.
-        /// </summary>
-        public double GetTotalExpungeDamage(Obj_AI_Base unit)
-        {
-            var player = UtilityClass.Player;
-            return player.GetSpellDamage(unit, SpellSlot.E) +
-                   player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Buff);
-        }
-
-        /// <summary>
-        ///     Returns true if the target is a perfectly valid expunge target.
-        /// </summary>
-        public bool IsPerfectExpungeTarget(Obj_AI_Base unit)
-        {
-            switch (unit.Type)
-            {
-                case GameObjectType.obj_AI_Minion:
-                case GameObjectType.obj_AI_Hero:
-                    if (unit.IsValidTarget(SpellClass.E.Range))
-                    {
-                        return unit.HasBuff("twitchdeadlyvenom") && (!(unit is Obj_AI_Hero) || !Invulnerable.Check((Obj_AI_Hero)unit));
-                    }
-                    break;
-            }
-
-            return false;
-        }
-
-        /// <summary>
         ///     Called on spell cast.
         /// </summary>
         /// <param name="sender">The SpellBook.</param>
@@ -109,6 +82,11 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public void OnPostAttack(object sender, PostAttackEventArgs args)
         {
+            Console.WriteLine("");
+            Console.WriteLine("Expunge Damage: " + (UtilityClass.Player.GetSpellDamage((Obj_AI_Base)args.Target, SpellSlot.E) +
+                              UtilityClass.Player.GetSpellDamage((Obj_AI_Base)args.Target, SpellSlot.E, DamageStage.Buff)));
+            Console.WriteLine("");
+
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>

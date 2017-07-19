@@ -37,12 +37,12 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget, DamageType.Physical) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    var collisions = SpellClass.Q.GetPrediction(bestTarget).Collisions;
+                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
                     if (collisions.Any())
                     {
                         if (collisions.All(c =>
-                                               Extensions.GetAllGenericUnitTargets().Contains(c) &&
-                                               ((Obj_AI_Base)c).GetRealHealth() < (float)UtilityClass.Player.GetSpellDamage((Obj_AI_Base)c, SpellSlot.Q)))
+                               Extensions.GetAllGenericUnitTargets().Contains(c) &&
+                               c.GetRealHealth() < (float)UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
                         {
                             SpellClass.Q.Cast(bestTarget);
                         }

@@ -51,7 +51,7 @@
     <Reference Include="Aimtec">
       <HintPath>C:\Users\Enrico\AppData\Local\AimtecLoader\Data\System\Aimtec.dll</HintPath>
     </Reference>
-    <Reference Include="Aimtec.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Aimtec.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\Enrico\AppData\Local\AimtecLoader\Data\System\Aimtec.SDK.dll</HintPath>
     </Reference>
@@ -172,6 +172,7 @@
     <Compile Include="AIO\Champions\Twitch\Modes\Harass.cs" />
     <Compile Include="AIO\Champions\Twitch\Modes\Killsteal.cs" />
     <Compile Include="AIO\Champions\Twitch\Modes\Weaving.cs" />
+    <Compile Include="AIO\Champions\Twitch\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\Twitch\Utilities\Drawings.cs" />
     <Compile Include="AIO\Champions\Twitch\Utilities\Menus.cs" />
     <Compile Include="AIO\Champions\Twitch\Utilities\Methods.cs" />

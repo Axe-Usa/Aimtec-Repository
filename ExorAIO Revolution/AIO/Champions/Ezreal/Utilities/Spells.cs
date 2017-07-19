@@ -24,10 +24,10 @@ namespace AIO.Champions
             SpellClass.E = new Spell(SpellSlot.E, 475f);
             SpellClass.R = new Spell(SpellSlot.R, 1500f);
 
-            SpellClass.Q.SetSkillshot(0.25f, 60f, 2000f, true, SkillType.Line);
-            SpellClass.W.SetSkillshot(0.25f, 80f, 1600f, false, SkillType.Line);
-            SpellClass.E.SetSkillshot(0.75f, 60f, 1000f, false, SkillType.Circle);
-            SpellClass.R.SetSkillshot(1.1f, 160f, 2000f, false, SkillType.Line);
+            SpellClass.Q.SetSkillshot(0.25f, 60f, 2000f, true, SkillshotType.Line);
+            SpellClass.W.SetSkillshot(0.25f, 80f, 1600f, false, SkillshotType.Line);
+            SpellClass.E.SetSkillshot(0.75f, 60f, 1000f, false, SkillshotType.Circle);
+            SpellClass.R.SetSkillshot(1.1f, 160f, 2000f, false, SkillshotType.Line);
         }
 
         #endregion

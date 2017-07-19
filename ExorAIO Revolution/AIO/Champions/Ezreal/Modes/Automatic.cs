@@ -70,33 +70,10 @@ namespace AIO.Champions
                 return;
             }
 
-            var target = ImplementationClass.IOrbwalker.GetTarget();
-
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (ImplementationClass.IOrbwalker.Mode)
+            var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+            if (!GameObjects.Jungle.Contains(target) && !(target is Obj_AI_Hero) && !target.IsBuilding())
             {
-                case OrbwalkingMode.Combo:
-                    if (!(target is Obj_AI_Hero))
-                    {
-                        return;
-                    }
-                    break;
-
-                case OrbwalkingMode.Laneclear:
-                    if (!target.IsBuilding())
-                    {
-                        return;
-                    }
-                    break;
-
-                default:
-                    if (!GameObjects.Jungle.Contains(target) && !(target is Obj_AI_Hero) && !target.IsBuilding())
-                    {
-                        return;
-                    }
-                    break;
+                return;
             }
 
             /// <summary>

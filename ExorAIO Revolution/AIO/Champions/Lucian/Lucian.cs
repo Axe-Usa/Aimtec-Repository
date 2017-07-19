@@ -54,7 +54,7 @@ namespace AIO.Champions
                 return;
             }
 
-            if (SpellClass.E.State == SpellState.Ready && args.Sender.IsMelee && args.SkillType == GapcloserType.Targeted
+            if (SpellClass.E.State == SpellState.Ready && args.Sender.IsMelee && args.SkillshotType == GapcloserType.Targeted
                 && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (args.Target.IsMe)

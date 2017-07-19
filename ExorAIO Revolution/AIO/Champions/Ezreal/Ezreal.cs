@@ -80,8 +80,8 @@ namespace AIO.Champions
                 case OrbwalkingMode.Lasthit:
                 case OrbwalkingMode.Mixed:
                     if (SpellClass.Q.Ready &&
-                        minion.GetRealHealth() <
-                        UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
+                        minion.Health <
+                            UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
                         UtilityClass.Player.ManaPercent()
                             > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
                         MenuClass.Spells["q"]["farmhelper"].As<MenuSliderBool>().Enabled)
@@ -138,7 +138,7 @@ namespace AIO.Champions
             }
 
             if (SpellClass.E.State == SpellState.Ready && args.Sender.IsMelee && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
-                && args.SkillType == GapcloserType.Targeted
+                && args.SkillshotType == GapcloserType.Targeted
                 && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (args.Target.IsMe)

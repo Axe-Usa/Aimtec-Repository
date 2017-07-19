@@ -46,7 +46,7 @@ namespace AIO.Champions
                 {
                     var posAfterQ = UtilityClass.Player.Position.Extend(Game.CursorPos, 300f);
                     if (posAfterQ.CountEnemyHeroesInRange(1000f) < 3 &&
-                        UtilityClass.Player.Distance(Game.CursorPos) > UtilityClass.Player.GetFullAttackRange(heroTarget))
+                        UtilityClass.Player.Distance(Game.CursorPos) < UtilityClass.Player.GetFullAttackRange(heroTarget))
                     {
                         SpellClass.Q.Cast(Game.CursorPos);
                     }

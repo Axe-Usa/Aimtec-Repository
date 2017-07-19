@@ -51,7 +51,7 @@ namespace AIO.Champions
                 if (bestTarget.IsValidTarget() &&
                     !Invulnerable.Check(bestTarget, DamageType.Physical))
                 {
-                    var collisions = (IList<Obj_AI_Base>)SpellClass.Q.GetPrediction(bestTarget).Collisions;
+                    var collisions = (IList<Obj_AI_Base>)SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
                     if (collisions.Any())
                     {
                         if (collisions.All(c => Extensions.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() < UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))

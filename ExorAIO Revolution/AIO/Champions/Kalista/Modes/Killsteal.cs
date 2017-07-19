@@ -35,13 +35,12 @@ namespace AIO.Champions
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    var collisions = SpellClass.Q.GetPrediction(bestTarget).Collisions;
+                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
                     if (collisions.Any())
                     {
-                        if (collisions.All(
-                            c =>
+                        if (collisions.All(c =>
                                 Extensions.GetAllGenericUnitTargets().Contains(c) &&
-                                ((Obj_AI_Base)c).GetRealHealth() < UtilityClass.Player.GetSpellDamage((Obj_AI_Base)c, SpellSlot.Q)))
+                                c.GetRealHealth() < UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
                         {
                             SpellClass.Q.Cast(bestTarget);
                         }

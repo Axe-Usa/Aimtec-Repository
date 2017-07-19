@@ -51,24 +51,18 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="NonKillableMinionEventArgs" /> instance containing the event data.</param>
         public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
         {
-            var minion = (Obj_AI_Minion)args.Target;
-
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (ImplementationClass.IOrbwalker.Mode)
+            var minion = args.Target as Obj_AI_Minion;
+            if (minion == null || ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo)
             {
-                case OrbwalkingMode.Laneclear:
-                case OrbwalkingMode.Lasthit:
-                case OrbwalkingMode.Mixed:
-                    if (SpellClass.E.Ready &&
-                        this.IsPerfectRendTarget(minion) &&
-                        minion.Health <= this.GetTotalRendDamage(minion) &&
-                        MenuClass.Spells["e"]["farmhelper"].As<MenuBool>().Enabled)
-                    {
-                        SpellClass.E.Cast();
-                    }
-                    break;
+                return;
+            }
+
+            if (SpellClass.E.Ready &&
+                this.IsPerfectRendTarget(minion) &&
+                minion.Health <= this.GetTotalRendDamage(minion) &&
+                MenuClass.Spells["e"]["farmhelper"].As<MenuBool>().Enabled)
+            {
+                SpellClass.E.Cast();
             }
         }
 

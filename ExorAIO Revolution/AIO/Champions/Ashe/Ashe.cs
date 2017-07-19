@@ -109,7 +109,7 @@ namespace AIO.Champions
             }
 
             if (SpellClass.R.State == SpellState.Ready && args.Sender.IsMelee && args.Sender.IsValidTarget(SpellClass.R.SpellData.Range)
-                && args.SkillType == GapcloserType.Targeted
+                && args.SkillshotType == GapcloserType.Targeted
                 && MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (args.Target.IsMe)

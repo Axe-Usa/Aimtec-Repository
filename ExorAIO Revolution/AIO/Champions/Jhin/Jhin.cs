@@ -63,7 +63,7 @@ namespace AIO.Champions
                 switch (args.Slot)
                 {
                     case SpellSlot.E:
-                        var target = ImplementationClass.IOrbwalker.GetTarget() as Obj_AI_Hero;
+                        var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
                         if (target != null &&
                             target.HasBuff("jhinetrapslow"))
                         {
@@ -81,26 +81,20 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="NonKillableMinionEventArgs" /> instance containing the event data.</param>
         public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
         {
-            var minion = (Obj_AI_Minion)args.Target;
-
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (ImplementationClass.IOrbwalker.Mode)
+            var minion = args.Target as Obj_AI_Minion;
+            if (minion == null || ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo)
             {
-                case OrbwalkingMode.Laneclear:
-                case OrbwalkingMode.Lasthit:
-                case OrbwalkingMode.Mixed:
-                    if (SpellClass.Q.Ready &&
-                        minion.IsValidTarget(SpellClass.Q.Range) &&
-                        minion.Health <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
-                        UtilityClass.Player.ManaPercent()
-                            > ManaManager.GetNeededMana(SpellSlot.Q, MenuClass.Spells["q"]["farmhelper"]) &&
-                        MenuClass.Spells["q"]["farmhelper"].As<MenuBool>().Enabled)
-                    {
-                        SpellClass.Q.CastOnUnit(minion);
-                    }
-                    break;
+                return;
+            }
+
+            if (SpellClass.Q.Ready &&
+                minion.IsValidTarget(SpellClass.Q.Range) &&
+                minion.Health <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellSlot.Q, MenuClass.Spells["q"]["farmhelper"]) &&
+                MenuClass.Spells["q"]["farmhelper"].As<MenuBool>().Enabled)
+            {
+                SpellClass.Q.CastOnUnit(minion);
             }
         }
 

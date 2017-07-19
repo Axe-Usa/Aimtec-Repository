@@ -13,7 +13,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The definitions class.
@@ -77,7 +77,7 @@ namespace AIO.Champions
         {
             double damage = 0;
             double multiplier = 1;
-            for (var cycle = 0; cycle <= feathers; cycle++)
+            for (var cycle = 1; cycle < feathers-1; cycle++)
             {
                 multiplier -= 0.1 * cycle;
                 damage += UtilityClass.Player.GetSpellDamage(unit, SpellSlot.E) * Math.Max(0.1, multiplier);
@@ -117,7 +117,7 @@ namespace AIO.Champions
                 switch (feather.Name)
                 {
                     case "Xayah_Base_Passive_Dagger_Mark8s.troy":
-                        this.Feathers.Add(feather.NetworkId, feather.ServerPosition);
+                        this.Feathers.Add(feather.NetworkId, feather.Position);
                         break;
                 }
             }

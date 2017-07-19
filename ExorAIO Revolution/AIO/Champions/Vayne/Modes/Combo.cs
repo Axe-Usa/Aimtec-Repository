@@ -42,24 +42,24 @@ namespace AIO.Champions
                     for (var i = 1; i < 10; i++)
                     {
                         var playerPos = UtilityClass.Player.Position;
-                        var predictedPos1 = SpellClass.E.GetPrediction(target).PredictedPosition;
-                        var predictedPos2 = SpellClass.E2.GetPrediction(target).PredictedPosition;
+                        var predictedPos1 = SpellClass.E.GetPrediction(target).UnitPosition;
+                        var predictedPos2 = SpellClass.E2.GetPrediction(target).UnitPosition;
 
                         var targetPosition = target.Position.Extend(playerPos, -40 * i);
                         var targetPositionExtended = target.Position.Extend(playerPos, -41 * i);
 
-                        var predictedPosition1 = predictedPos1.Extend(playerPos, -40 * i);
-                        var predictedPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
+                        var UnitPosition1 = predictedPos1.Extend(playerPos, -40 * i);
+                        var UnitPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
 
-                        var predictedPosition2 = predictedPos2.Extend(playerPos, -40 * i);
-                        var predictedPosition2Extended = predictedPos2.Extend(playerPos, -41 * i);
+                        var UnitPosition2 = predictedPos2.Extend(playerPos, -40 * i);
+                        var UnitPosition2Extended = predictedPos2.Extend(playerPos, -41 * i);
 
                         if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(predictedPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(predictedPosition1Extended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(predictedPosition2).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(predictedPosition2Extended).Flags.HasFlag(NavCellFlags.Wall))
+                            NavMesh.WorldToCell(UnitPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(UnitPosition1Extended).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(UnitPosition2).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(UnitPosition2Extended).Flags.HasFlag(NavCellFlags.Wall))
                         {
                             SpellClass.E.CastOnUnit(target);
                         }

@@ -7,6 +7,7 @@
 namespace AIO.Utilities
 {
     using System;
+    using System.Collections.Generic;
 
     using Aimtec;
     using Aimtec.SDK.Extensions;
@@ -59,6 +60,23 @@ namespace AIO.Utilities
 
             return false;
         }
+
+        /// <summary>
+        ///     The Traps in the game and their position.
+        /// </summary>
+        public static Dictionary<int, Tuple<Vector3, float>> ActualTraps = new Dictionary<int, Tuple<Vector3, float>>();
+
+        /// <summary>
+        ///     The Trap names and their collision radius.
+        /// </summary>
+        public static Dictionary<string, float> Traps = new Dictionary<string, float>
+            {
+                { "Jinx_Base_E_Mine_Ready_Green.troy",      50f   },
+                { "Caitlyn_Base_W_Indicator_SizeRing.troy", 67.5f },
+                { "ZiggsTrap",                              30f   }, // TODO: Find the real name of the ziggs traps.
+                { "Nidalee_Base_W_TC_Green.troy",           75f   },
+                { "Taliyah_Base_E_Mines.troy",              30f   }
+            };
 
         /// <summary>
         ///     Gets the angle by 'degrees' degrees.

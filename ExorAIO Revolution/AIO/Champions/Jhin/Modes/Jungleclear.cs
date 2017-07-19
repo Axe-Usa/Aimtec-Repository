@@ -108,7 +108,7 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetTarget();
+            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetOrbwalkingTarget();;
             if (!this.IsReloading() ||
                 !jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
