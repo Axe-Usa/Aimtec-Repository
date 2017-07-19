@@ -83,7 +83,7 @@ namespace AIO.Champions
             {
                 MenuClass.Miscellaneous.Add(new MenuBool("alwaysq", "Always Q after AA"));
                 MenuClass.Miscellaneous.Add(new MenuBool("focusw", "Focus enemies with 2 W stacks"));
-                MenuClass.Miscellaneous.Add(new MenuBool("wstacks", "Use Q only to proc 3rd W Ring"));
+                MenuClass.Miscellaneous.Add(new MenuBool("wstacks", "Use Q only to proc 3rd W Ring", false));
                 MenuClass.Miscellaneous.Add(new MenuSlider("stealthtime", "Stay in stealth mode for at least x (ms) [1000 ms = 1 second]", 0, 0, 1000));
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);

@@ -28,7 +28,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.LightGreen);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range+UtilityClass.Player.AttackRange, 30, Color.LightGreen);
             }
 
             /// <summary>
