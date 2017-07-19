@@ -44,6 +44,15 @@ namespace AIO.Champions
 
         #region Public Methods and Operators
 
+        public void OnPerformCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            if (sender.IsMe &&
+                args.SpellSlot == SpellSlot.E)
+            {
+                ImplementationClass.IOrbwalker.ResetAutoAttackTimer();
+            }
+        }
+
         /// <summary>
         ///     Called on post attack.
         /// </summary>

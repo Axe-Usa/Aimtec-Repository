@@ -19,6 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            Obj_AI_Base.OnPerformCast += this.OnPerformCast;
             Render.OnPresent += this.OnPresent;
         }
 
