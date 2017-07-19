@@ -43,7 +43,8 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuSliderBool("combo", "Combo / If can hit >= x enemies", true, 1, 1, GameObjects.EnemyHeroes.Count()));
+                    MenuClass.W.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.W.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", true, 3, 1, GameObjects.EnemyHeroes.Count()));
                     MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));

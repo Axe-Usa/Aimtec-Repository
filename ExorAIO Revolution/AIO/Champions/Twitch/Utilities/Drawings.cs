@@ -34,12 +34,13 @@ namespace AIO.Champions
                 var buff = UtilityClass.Player.GetBuff("TwitchHideInShadows");
                 if (buff != null)
                 {
-                    Render.Circle(UtilityClass.Player.Position, buff.EndTime - Game.ClockTime * UtilityClass.Player.MoveSpeed, 30, Color.Green);
+                    Render.Circle(UtilityClass.Player.Position, (buff.EndTime - Game.ClockTime) * UtilityClass.Player.MoveSpeed, 30, Color.Green);
                 }
                 else
                 {
-                    var qDuration = new[] { 10, 11, 12, 13, 14 }[UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level];
+                    var qDuration = new[] { 10, 11, 12, 13, 14 }[UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level - 1];
                     Render.Circle(UtilityClass.Player.Position, qDuration * UtilityClass.Player.MoveSpeed, 30, Color.Green);
+                    Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, qDuration * UtilityClass.Player.MoveSpeed, Color.White);
                 }
             }
 

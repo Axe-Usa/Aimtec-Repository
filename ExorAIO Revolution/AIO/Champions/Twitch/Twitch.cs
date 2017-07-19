@@ -3,11 +3,7 @@
 
 namespace AIO.Champions
 {
-    using System;
-
     using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Damage.JSON;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -82,11 +78,6 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public void OnPostAttack(object sender, PostAttackEventArgs args)
         {
-            Console.WriteLine("");
-            Console.WriteLine("Expunge Damage: " + (UtilityClass.Player.GetSpellDamage((Obj_AI_Base)args.Target, SpellSlot.E) +
-                              UtilityClass.Player.GetSpellDamage((Obj_AI_Base)args.Target, SpellSlot.E, DamageStage.Buff)));
-            Console.WriteLine("");
-
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>

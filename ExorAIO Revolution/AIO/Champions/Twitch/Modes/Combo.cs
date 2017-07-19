@@ -24,11 +24,11 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["combo"].As<MenuSliderBool>().Enabled)
+                MenuClass.Spells["w"]["aoe"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
                 if (bestTarget.IsValidTarget() &&
-                    bestTarget.CountEnemyHeroesInRange(SpellClass.W.Width) >= MenuClass.Spells["w"]["combo"].As<MenuSliderBool>().Value)
+                    bestTarget.CountEnemyHeroesInRange(SpellClass.W.Width) >= MenuClass.Spells["w"]["aoe"].As<MenuSliderBool>().Value)
                 {
                     SpellClass.W.Cast(bestTarget);
                 }

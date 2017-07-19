@@ -30,12 +30,22 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The W Weaving Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            {
+                SpellClass.W.Cast(heroTarget);
+                return;
+            }
+
+            /// <summary>
             ///     The Q Weaving Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.Cast(Game.CursorPos);
+                SpellClass.Q.Cast();
             }
         }
 
