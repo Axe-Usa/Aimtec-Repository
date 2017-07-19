@@ -35,23 +35,23 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
-                var target = GameObjects.EnemyHeroes
+                var bestTarget = GameObjects.EnemyHeroes
                     .Where(
                         t =>
-                            t.IsValidTarget(SpellClass.R.Range) &&
+                            t.IsValidTarget(2000f) &&
                             !Invulnerable.Check(t, DamageType.Magical, false) &&
                             MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .OrderBy(o => o.Health)
                     .FirstOrDefault();
-                if (target != null)
+                if (bestTarget != null)
                 {
                     if (SpellClass.E.Ready &&
                         MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
                     {
-                        SpellClass.E.Cast(target);
+                        SpellClass.E.Cast(bestTarget);
                     }
 
-                    SpellClass.R.Cast(target);
+                    SpellClass.R.Cast(bestTarget);
                 }
             }
         }
