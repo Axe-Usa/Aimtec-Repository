@@ -70,6 +70,10 @@ namespace AIO.Champions
         public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
         {
             var minion = (Obj_AI_Minion)args.Target;
+            if (minion == null)
+            {
+                return;
+            }
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.

@@ -84,7 +84,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
                 MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
             {
-                foreach (var ally in GameObjects.AllyHeroes.Where(a => !a.IsMe && a.SpellBook.IsAutoAttacking && a.IsValidTarget(SpellClass.W.Range, true)))
+                foreach (var ally in GameObjects.AllyHeroes.Where(a => !a.IsMe && a.IsValidTarget(SpellClass.W.Range, true)))
                 {
                     SpellClass.W.Cast(ally);
                 }
