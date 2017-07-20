@@ -28,7 +28,7 @@ namespace AIO.Utilities
         public static bool HasSheenLikeBuff(this Obj_AI_Hero unit)
         {
             var sheenLikeBuffNames = new[] { "sheen", "LichBane", "dianaarcready", "ItemFrozenFist", "sonapassiveattack", "AkaliTwinDisciplines" };
-            return unit.Buffs.Any(b => sheenLikeBuffNames.Contains(b.Name));
+            return sheenLikeBuffNames.Any(b => UtilityClass.Player.HasBuff(b));
         }
 
         /// <summary>
@@ -36,15 +36,10 @@ namespace AIO.Utilities
         /// </summary>
         public static bool HasTearLikeItem(this Obj_AI_Hero unit)
         {
-            if (Game.MapId.Equals(GameMapId.SummonersRift))
-            {
-                return
-                    unit.HasItem(ItemId.Manamune) ||
-                    unit.HasItem(ItemId.ArchangelsStaff) ||
-                    unit.HasItem(ItemId.TearoftheGoddess);
-            }
-
             return
+                unit.HasItem(ItemId.Manamune) ||
+                unit.HasItem(ItemId.ArchangelsStaff) ||
+                unit.HasItem(ItemId.TearoftheGoddess) ||
                 unit.HasItem(ItemId.ManamuneQuickCharge) ||
                 unit.HasItem(ItemId.ArchangelsStaffQuickCharge) ||
                 unit.HasItem(ItemId.TearoftheGoddessQuickCharge);
@@ -53,9 +48,17 @@ namespace AIO.Utilities
         /// <returns>
         ///     true if an unit is a Building; otherwise, false.
         /// </returns>
-        public static bool IsBuilding(this GameObject unit)
+        public static bool IsBuilding(this AttackableUnit unit)
         {
-            return unit is Obj_AI_Turret; // TODO: Add enemy Nexus and enemy Inhibitors once API is ready.
+            switch (unit.Type)
+            {
+                case GameObjectType.obj_AI_Turret:
+                case GameObjectType.obj_BarracksDampener:
+                case GameObjectType.obj_HQ:
+                    return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -63,6 +66,11 @@ namespace AIO.Utilities
         /// </summary>
         public static bool IsImmobile(this Obj_AI_Base target)
         {
+            if (target.Name.Equals("Target Dummy"))
+            {
+                return false;
+            }
+
             if (target.Buffs.Any(
                 buff =>
                     buff.Type == BuffType.Stun ||
@@ -77,17 +85,14 @@ namespace AIO.Utilities
                 return true;
             }
 
-            if (!target.Name.Equals("Target Dummy"))
+            switch (target.ActionState)
             {
-                switch (target.ActionState)
-                {
-                    case ActionState.Asleep:
-                    case ActionState.Feared:
-                    case ActionState.Charmed:
-                    case ActionState.Fleeing:
-                    case ActionState.Surpressed:
-                        return true;
-                }
+                case ActionState.Asleep:
+                case ActionState.Feared:
+                case ActionState.Charmed:
+                case ActionState.Fleeing:
+                case ActionState.Surpressed:
+                    return true;
             }
 
             return false;

@@ -131,7 +131,7 @@
                 return target;
             }
 
-            return ts.GetOrderedTargets(range).FirstOrDefault(t => !Invulnerable.Check(t));
+            return ts.GetOrderedTargets(range).FirstOrDefault(t => t != null && !Invulnerable.Check(t));
         }
 
         public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
