@@ -3,9 +3,12 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Prediction.Skillshots;
 
     using AIO.Utilities;
 
@@ -29,7 +32,7 @@ namespace AIO.Champions
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
                 if (bestTarget.IsValidTarget() &&
-                    !Invulnerable.Check(bestTarget, DamageType.Physical) &&
+                    !Invulnerable.Check(bestTarget) &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
                     SpellClass.Q.Cast(bestTarget);
@@ -43,6 +46,12 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (UtilityClass.Player.TotalAbilityDamage < UtilityClass.Player.TotalAttackDamage &&
+                    !Prediction.GetPrediction(SpellClass.Q.GetPredictionInput(bestTarget)).CollisionObjects.Any())
+                {
+                    return;
+                }
+
                 if (bestTarget.IsValidTarget() &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
