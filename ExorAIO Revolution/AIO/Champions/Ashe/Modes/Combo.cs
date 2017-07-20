@@ -29,7 +29,7 @@ namespace AIO.Champions
             {
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
                 if (!heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) &&
-                    !Invulnerable.Check(heroTarget, DamageType.Physical))
+                    !Invulnerable.Check(heroTarget))
                 {
                     SpellClass.W.Cast(heroTarget);
                 }
