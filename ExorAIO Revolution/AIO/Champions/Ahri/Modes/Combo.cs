@@ -72,50 +72,45 @@ namespace AIO.Champions
                     break;
             }
 
-            if (!SpellClass.R.Ready ||
-                SpellClass.R.Ready && UtilityClass.Player.HasBuff("AhriTumble") ||
-                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).State == SpellState.NotLearned)
+            /// <summary>
+            ///     The E Combo Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                /// <summary>
-                ///     The E Combo Logic.
-                /// </summary>
-                if (SpellClass.E.Ready &&
-                    MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-100f);
+                if (heroTarget.IsValidTarget() &&
+                    !Invulnerable.Check(heroTarget, DamageType.Magical, false))
                 {
-                    var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-100f);
-                    if (heroTarget.IsValidTarget() &&
-                        !Invulnerable.Check(heroTarget, DamageType.Magical, false))
-                    {
-                        SpellClass.E.Cast(heroTarget);
-                    }
+                    SpellClass.E.Cast(heroTarget);
                 }
+            }
 
-                /// <summary>
-                ///     The W Combo Logic.
-                /// </summary>
-                if (SpellClass.W.Ready &&
-                    MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            /// <summary>
+            ///     The W Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            {
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-100f);
+                if (heroTarget.IsValidTarget() &&
+                    !Invulnerable.Check(heroTarget, DamageType.Magical))
                 {
-                    var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-100f);
-                    if (heroTarget.IsValidTarget() &&
-                        !Invulnerable.Check(heroTarget, DamageType.Magical))
-                    {
-                        SpellClass.W.Cast();
-                    }
+                    SpellClass.W.Cast();
                 }
+            }
 
-                /// <summary>
-                ///     The Q Combo Logic.
-                /// </summary>
-                if (SpellClass.Q.Ready &&
-                    MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            /// <summary>
+            ///     The Q Combo Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            {
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-100f);
+                if (heroTarget.IsValidTarget() &&
+                    !Invulnerable.Check(heroTarget, DamageType.Magical))
                 {
-                    var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-100f);
-                    if (heroTarget.IsValidTarget() &&
-                        !Invulnerable.Check(heroTarget, DamageType.Magical))
-                    {
-                        SpellClass.Q.Cast(heroTarget);
-                    }
+                    SpellClass.Q.Cast(heroTarget);
                 }
             }
         }

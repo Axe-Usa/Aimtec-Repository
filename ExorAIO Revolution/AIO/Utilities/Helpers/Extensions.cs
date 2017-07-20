@@ -126,12 +126,12 @@
         {
             var ts = ImplementationClass.ITargetSelector;
             var target = ts.GetTarget(range);
-            if (target != null && !Invulnerable.Check(target))
+            if (target != null && target.IsValidTarget() && !Invulnerable.Check(target))
             {
                 return target;
             }
 
-            return ts.GetOrderedTargets(range).FirstOrDefault(t => t != null && !Invulnerable.Check(t));
+            return ts.GetOrderedTargets(range).FirstOrDefault(t => t != null && t.IsValidTarget() && !Invulnerable.Check(t));
         }
 
         public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
