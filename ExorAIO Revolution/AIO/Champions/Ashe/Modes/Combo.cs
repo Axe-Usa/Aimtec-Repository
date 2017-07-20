@@ -28,7 +28,7 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
-                if (heroTarget.IsValidTarget() &&
+                if (!heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) &&
                     !Invulnerable.Check(heroTarget, DamageType.Physical))
                 {
                     SpellClass.W.Cast(heroTarget);
