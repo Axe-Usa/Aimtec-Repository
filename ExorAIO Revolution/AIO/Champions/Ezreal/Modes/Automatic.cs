@@ -71,7 +71,7 @@ namespace AIO.Champions
             }
 
             var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-            if (!GameObjects.Jungle.Contains(target) && !(target is Obj_AI_Hero) && !target.IsBuilding())
+            if (target == null || !GameObjects.Jungle.Contains(target) && !(target is Obj_AI_Hero) && !target.IsBuilding())
             {
                 return;
             }
