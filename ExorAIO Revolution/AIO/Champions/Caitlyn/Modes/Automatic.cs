@@ -56,7 +56,7 @@ namespace AIO.Champions
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         t.IsValidTarget(SpellClass.Q.Range) &&
-                        !Invulnerable.Check(t, DamageType.Physical) &&
+                        !Invulnerable.Check(t) &&
                         t.HasBuff("caitlynyordletrapdebuff")))
                 {
                     SpellClass.Q.Cast(target);
