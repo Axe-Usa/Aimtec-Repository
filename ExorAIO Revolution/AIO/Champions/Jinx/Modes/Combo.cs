@@ -105,7 +105,7 @@ namespace AIO.Champions
                     var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
                     if (target != null &&
                         target.IsValidTarget() &&
-                        !Invulnerable.Check(target, DamageType.Physical))
+                        !Invulnerable.Check(target))
                     {
                         switch (MenuClass.Spells["w"]["mode"].As<MenuList>().Value)
                         {
