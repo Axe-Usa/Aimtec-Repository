@@ -35,15 +35,15 @@ namespace AIO.Utilities
             PEntries.AddRange(
                 new List<InvulnerableEntry>
                     {
-                        new InvulnerableEntry("UndyingRage") { ChampionName = "Tryndamere", MinHealthPercent = 1, CheckFunction = (target, type) => ((Obj_AI_Hero)target).HealthPercent() <= 5 },
-                        new InvulnerableEntry("Kayle") { ChampionName = "JudicatorIntervention", IsShield = true },
+                        new InvulnerableEntry("UndyingRage") { ChampionName = "Tryndamere", MinHealthPercent = 1, CheckFunction = (target, type) => ((Obj_AI_Hero)target).HealthPercent() <= 1 },
+                        new InvulnerableEntry("Kayle") { ChampionName = "JudicatorIntervention" },
                         new InvulnerableEntry("fizztrickslamsounddummy") { ChampionName = "Fizz" },
                         new InvulnerableEntry("VladimirSanguinePool") { ChampionName = "Vladimir" },
                         new InvulnerableEntry("FioraW") { ChampionName = "Fiora" },
                         new InvulnerableEntry("JaxCounterStrike") { ChampionName = "Jax", DamageType = DamageType.Physical },
                         new InvulnerableEntry("BlackShield") { IsShield = true, DamageType = DamageType.Magical },
                         new InvulnerableEntry("BansheesVeil") { IsShield = true, DamageType = DamageType.Magical },
-                        new InvulnerableEntry("SivirE") { ChampionName = "Sivir", IsShield = true, MinHealthPercent = 0 },
+                        new InvulnerableEntry("SivirE") { ChampionName = "Sivir", IsShield = true },
                         new InvulnerableEntry("ShroudofDarkness") { ChampionName = "Nocturne", IsShield = true },
                         new InvulnerableEntry("KindredrNoDeathBuff") { MinHealthPercent = 10, CheckFunction = (target, type) => ((Obj_AI_Hero)target).HealthPercent() <= 10 }
                     });

@@ -168,7 +168,8 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetEnemyLaneMinionsTargetsInRange(float range)
         {
-            return GameObjects.EnemyMinions.Where(m => m.IsValidTarget(range)).ToList();
+            var blackList = new[] { "SRU_Plant", "Beacon", "ward", "trinket" };
+            return GameObjects.EnemyMinions.Where(m => m.IsValidTarget(range) && !blackList.Any(b => m.UnitSkinName.Contains(b))).ToList();
         }
 
         /// <summary>
@@ -184,7 +185,8 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetGenericJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.Jungle.Concat(GameObjects.JungleSmall).Where(m => m.IsValidTarget(range)).ToList();
+            var blackList = new[] { "SRU_Plant", "Beacon", "ward", "trinket" };
+            return GameObjects.Jungle.Concat(GameObjects.JungleSmall).Where(m => m.IsValidTarget(range) && !blackList.Any(b => m.UnitSkinName.Contains(b))).ToList();
         }
 
         /// <summary>
@@ -200,7 +202,8 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetLargeJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.JungleLarge.Where(m => m.IsValidTarget(range)).ToList();
+            var blackList = new[] { "SRU_Plant", "Beacon", "ward", "trinket" };
+            return GameObjects.JungleLarge.Where(m => m.IsValidTarget(range) && !blackList.Any(b => m.UnitSkinName.Contains(b))).ToList();
         }
 
         /// <summary>
@@ -216,7 +219,8 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetLegendaryJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.JungleLegendary.Where(m => m.IsValidTarget(range)).ToList();
+            var blackList = new[] { "SRU_Plant", "Beacon", "ward", "trinket" };
+            return GameObjects.JungleLegendary.Where(m => m.IsValidTarget(range) && !blackList.Any(b => m.UnitSkinName.Contains(b))).ToList();
         }
 
         /// <summary>
@@ -232,7 +236,8 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetSmallJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.JungleSmall.Where(m => m.IsValidTarget(range)).ToList();
+            var blackList = new[] { "SRU_Plant", "Beacon", "ward", "trinket" };
+            return GameObjects.JungleSmall.Where(m => m.IsValidTarget(range) && !blackList.Any(b => m.UnitSkinName.Contains(b))).ToList();
         }
 
         #endregion

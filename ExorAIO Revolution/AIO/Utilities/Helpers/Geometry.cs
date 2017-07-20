@@ -47,18 +47,19 @@
             Vector3 center,
             float radius,
             Color color,
-            int thickness = 2,
+            int thickness = 1,
             int quality = 100)
         {
             var pointList = new List<Vector3>();
             for (var i = 0; i < quality; i++)
             {
                 var angle = i * Math.PI * 2 / quality;
-                var x = center.X + radius * (float)Math.Cos(angle);
-                var y = center.Y + radius * (float)Math.Sin(angle);
-                var z = NavMesh.GetHeightForWorld(x, y);
-
-                pointList.Add(new Vector3(x, z, y));
+                pointList.Add(
+                    new Vector3(
+                        center.X + radius * (float)Math.Cos(angle),
+                        center.Y,
+                        center.Z + radius * (float)Math.Sin(angle))
+                );
             }
             for (var i = 0; i < pointList.Count; i++)
             {
@@ -67,6 +68,7 @@
 
                 Vector2 aonScreen;
                 Vector2 bonScreen;
+
                 Render.WorldToMinimap(a, out aonScreen);
                 Render.WorldToMinimap(b, out bonScreen);
 
