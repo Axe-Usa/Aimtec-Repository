@@ -42,14 +42,14 @@ namespace AIO.Champions
             /// </summary>
             var playerSpellbook = UtilityClass.Player.SpellBook;
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.Mana
-                    < playerSpellbook.GetSpell(SpellSlot.Q).Cost +
-                playerSpellbook.GetSpell(SpellSlot.E).Cost &&
+                UtilityClass.Player.Mana >=
+                    playerSpellbook.GetSpell(SpellSlot.Q).Cost +
+                    playerSpellbook.GetSpell(SpellSlot.E).Cost &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
                 if (bestTarget.IsValidTarget() &&
-                    !Invulnerable.Check(bestTarget, DamageType.Physical))
+                    !Invulnerable.Check(bestTarget))
                 {
                     var collisions = (IList<Obj_AI_Base>)SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
                     if (collisions.Any())

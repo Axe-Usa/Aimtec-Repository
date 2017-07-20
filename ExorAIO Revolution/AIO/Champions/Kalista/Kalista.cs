@@ -67,27 +67,6 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Called on post attack.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void OnPostAttack(object sender, PostAttackEventArgs args)
-        {
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (ImplementationClass.IOrbwalker.Mode)
-            {
-                case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
-                    break;
-                case OrbwalkingMode.Laneclear:
-                    this.Jungleclear(sender, args);
-                    break;
-            }
-        }
-
-        /// <summary>
         ///     Called on pre attack.
         /// </summary>
         /// <param name="sender">The object.</param>
@@ -183,6 +162,7 @@ namespace AIO.Champions
                     break;
                 case OrbwalkingMode.Laneclear:
                     this.Laneclear();
+                    this.Jungleclear();
                     break;
             }
         }

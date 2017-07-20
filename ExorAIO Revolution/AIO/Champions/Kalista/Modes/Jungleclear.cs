@@ -19,16 +19,14 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on post attack.
+        ///     Fired when the game is updated.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void Jungleclear(object sender, PostAttackEventArgs args)
+        public void Jungleclear()
         {
-            var jungleTarget = args.Target as Obj_AI_Minion;
-            if (jungleTarget == null ||
+            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+            if (!jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
-                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
             {
                 return;
             }
@@ -41,7 +39,6 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-
                 SpellClass.Q.Cast(jungleTarget);
             }
         }
