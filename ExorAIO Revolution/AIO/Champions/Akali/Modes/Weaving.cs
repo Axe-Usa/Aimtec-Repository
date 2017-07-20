@@ -24,7 +24,7 @@ namespace AIO.Champions
         public void Weaving(object sender, PostAttackEventArgs args)
         {
             var heroTarget = args.Target as Obj_AI_Hero;
-            if (heroTarget == null || Invulnerable.Check(heroTarget, DamageType.Physical))
+            if (heroTarget == null || Invulnerable.Check(heroTarget))
             {
                 return;
             }
