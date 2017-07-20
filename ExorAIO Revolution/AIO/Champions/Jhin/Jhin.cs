@@ -6,7 +6,6 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
-    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -71,30 +70,6 @@ namespace AIO.Champions
                         }
                         break;
                 }
-            }
-        }
-
-        /// <summary>
-        ///     Called on non killable minion.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="NonKillableMinionEventArgs" /> instance containing the event data.</param>
-        public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
-        {
-            var minion = args.Target as Obj_AI_Minion;
-            if (minion == null || ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo)
-            {
-                return;
-            }
-
-            if (SpellClass.Q.Ready &&
-                minion.IsValidTarget(SpellClass.Q.Range) &&
-                minion.Health <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
-                UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellSlot.Q, MenuClass.Spells["q"]["farmhelper"]) &&
-                MenuClass.Spells["q"]["farmhelper"].As<MenuBool>().Enabled)
-            {
-                SpellClass.Q.CastOnUnit(minion);
             }
         }
 
@@ -284,6 +259,10 @@ namespace AIO.Champions
                 case OrbwalkingMode.Laneclear:
                     this.Laneclear();
                     this.Jungleclear();
+                    break;
+
+                case OrbwalkingMode.Lasthit:
+                    this.Lasthit();
                     break;
             }
         }

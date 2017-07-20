@@ -26,7 +26,7 @@ namespace AIO.Champions
         public void Jungleclear(object sender, PostAttackEventArgs args)
         {
             var jungleTarget = args.Target as Obj_AI_Minion;
-            if (jungleTarget == null ||
+            if (!jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;
@@ -43,7 +43,7 @@ namespace AIO.Champions
                 SpellClass.Q.CastOnUnit(jungleTarget);
             }
 
-            if (jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+            if (jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }
@@ -69,7 +69,7 @@ namespace AIO.Champions
         {
             var jungleTarget = args.Target as Obj_AI_Minion;
             if (!this.HasFourthShot() ||
-                jungleTarget == null ||
+                !jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;
@@ -86,7 +86,7 @@ namespace AIO.Champions
                 SpellClass.Q.CastOnUnit(jungleTarget);
             }
 
-            if (jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+            if (jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }
@@ -108,7 +108,7 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetOrbwalkingTarget();;
+            var jungleTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
             if (!this.IsReloading() ||
                 !jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
@@ -127,7 +127,7 @@ namespace AIO.Champions
                 SpellClass.Q.CastOnUnit(jungleTarget);
             }
 
-            if (jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+            if (jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }

@@ -24,7 +24,6 @@ namespace AIO.Champions
             ImplementationClass.IOrbwalker.PreMove += this.OnPreMove;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            ImplementationClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
 
             //Events.OnGapCloser += OnGapCloser;
         }

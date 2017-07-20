@@ -35,7 +35,7 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Lasthit unkillable minions / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("lasthit", "Lasthit / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
@@ -44,6 +44,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
+                        MenuClass.Q2.Add(new MenuBool("lasthitonreload", "Only Lasthit while Reloading"));
                         MenuClass.Q2.Add(new MenuBool("comboonreload", "Also use Reload Q in combo"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
