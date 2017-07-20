@@ -84,8 +84,7 @@ namespace AIO.Champions
                 case OrbwalkingMode.Lasthit:
                 case OrbwalkingMode.Mixed:
                     if (SpellClass.Q.Ready &&
-                        minion.Health <
-                            UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
+                        minion.Health < UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q) &&
                         UtilityClass.Player.ManaPercent()
                             > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["farmhelper"]) &&
                         MenuClass.Spells["q"]["farmhelper"].As<MenuSliderBool>().Enabled)
