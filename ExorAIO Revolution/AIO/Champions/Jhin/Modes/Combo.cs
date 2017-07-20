@@ -59,7 +59,7 @@ namespace AIO.Champions
                     t =>
                         t.HasBuff("jhinespotteddebuff") &&
                         t.IsValidTarget(SpellClass.W.Range - 150f) &&
-                        !Invulnerable.Check(t, DamageType.Physical, false) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
                         MenuClass.Spells["w"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Value))
                 {
                     if (MenuClass.Spells["w"]["customization"]["onlyslowed"].As<MenuBool>().Value)

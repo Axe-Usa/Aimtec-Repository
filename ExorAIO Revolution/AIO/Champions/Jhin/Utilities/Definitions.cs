@@ -68,7 +68,11 @@ namespace AIO.Champions
         /// </summary>
         public Geometry.Sector UltimateCone()
         {
-            return new Geometry.Sector((Vector2)UtilityClass.Player.Position.Extend(this.End, -UtilityClass.Player.BoundingRadius * 3), (Vector2)this.End, UtilityClass.GetAngleByDegrees(55f), SpellClass.R.Range);
+            return new Geometry.Sector(
+                (Vector2)UtilityClass.Player.Position.Extend(this.End, -UtilityClass.Player.BoundingRadius * 3),
+                (Vector2)this.End,
+                UtilityClass.GetAngleByDegrees(55f),
+                SpellClass.R.Range);
         }
 
         #endregion
