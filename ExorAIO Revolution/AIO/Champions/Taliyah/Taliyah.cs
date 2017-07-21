@@ -85,8 +85,8 @@ namespace AIO.Champions
                             case SpellSlot.W:
                                 var spellBook = UtilityClass.Player.SpellBook;
                                 if (UtilityClass.Player.Mana <
-                                    spellBook.GetSpell(SpellSlot.W).Cost +
-                                    spellBook.GetSpell(SpellSlot.E).Cost &&
+                                     spellBook.GetSpell(SpellSlot.W).Cost +
+                                     spellBook.GetSpell(SpellSlot.E).Cost &&
                                     MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled)
                                 {
                                     args.Process = false;
@@ -256,7 +256,10 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
-            SpellClass.R = new Spell(SpellSlot.R, 1500 + 1500 * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);
+            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 3)
+            {
+                SpellClass.R = new Spell(SpellSlot.R, 1500 + 1500 * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);
+            }
 
             if (UtilityClass.Player.IsDead)
             {

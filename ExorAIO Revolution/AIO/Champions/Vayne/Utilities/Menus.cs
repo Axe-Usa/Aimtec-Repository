@@ -37,6 +37,16 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Help to farm / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the Q spell.
+                    /// </summary>
+                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    {
+                        MenuClass.Q2.Add(new MenuBool("alwaysq", "Always Q after AA"));
+                        MenuClass.Q2.Add(new MenuBool("wstacks", "Use Q only to proc 3rd W Ring", false));
+                    }
+                    MenuClass.Q.Add(MenuClass.Q2);
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
 
@@ -50,6 +60,15 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        MenuClass.E2.Add(new MenuSlider("eaacheck", "Don't try to stun if target can die in x autos", 3, 1, 5));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -81,10 +100,17 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
-                MenuClass.Miscellaneous.Add(new MenuBool("alwaysq", "Always Q after AA"));
                 MenuClass.Miscellaneous.Add(new MenuBool("focusw", "Focus enemies with 2 W stacks"));
-                MenuClass.Miscellaneous.Add(new MenuBool("wstacks", "Use Q only to proc 3rd W Ring", false));
-                MenuClass.Miscellaneous.Add(new MenuSlider("stealthtime", "Stay in stealth mode for at least x (ms) [1000 ms = 1 second]", 0, 0, 1000));
+                MenuClass.Miscellaneous.Add(new MenuSlider("stealthtime", "Minimum stealth time: x (ms) [1000 ms = 1 second]", 0, 0, 1000));
+
+                if (GameObjects.EnemyHeroes.Any())
+                {
+                    MenuClass.Miscellaneous.Add(new MenuSlider("stealthcheck", "Don't break stealth if >= x enemies in AA Range", 3, 0, GameObjects.EnemyHeroes.Count()));
+                }
+                else
+                {
+                    MenuClass.Miscellaneous.Add(new MenuSeperator("exseparator", "No enemies found, no need for stealth slider check."));
+                }
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);
 

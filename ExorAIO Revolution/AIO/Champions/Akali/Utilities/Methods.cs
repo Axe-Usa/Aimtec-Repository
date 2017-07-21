@@ -18,7 +18,9 @@ namespace AIO.Champions
         {
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             Render.OnPresent += this.OnPresent;
+            SpellBook.OnCastSpell += this.OnCastSpell;
         }
 
         #endregion

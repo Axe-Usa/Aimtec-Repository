@@ -44,6 +44,11 @@ namespace AIO.Champions
 
         #region Public Methods and Operators
 
+        /// <summary>
+        ///     Called perform cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
         public void OnPerformCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
             if (sender.IsMe &&
@@ -69,6 +74,7 @@ namespace AIO.Champions
                     this.Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
+                    this.Lasthit(sender, args);
                     this.Laneclear(sender, args);
                     this.Jungleclear(sender, args);
                     this.Buildingclear(sender, args);
@@ -92,7 +98,14 @@ namespace AIO.Champions
                 {
                     args.Cancel = true;
                 }
-                else if (UtilityClass.Player.HasBuff("summonerexhaust"))
+
+                if (UtilityClass.Player.HasBuff("summonerexhaust"))
+                {
+                    args.Cancel = true;
+                }
+
+                if (GameObjects.EnemyHeroes.Count(t => t.IsValidTarget(UtilityClass.Player.AttackRange)) >=
+                    MenuClass.Miscellaneous["stealthcheck"].As<MenuSlider>().Value)
                 {
                     args.Cancel = true;
                 }

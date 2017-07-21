@@ -29,7 +29,8 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["extendedq"]["mixed"]) &&
-                MenuClass.Spells["extendedq"]["mixed"].As<MenuSliderBool>().Enabled)
+                MenuClass.Spells["extendedq"]["mixed"].As<MenuSliderBool>().Enabled &&
+                Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Any(m => m.IsValidTarget(SpellClass.Q.Range)))
             {
                 var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
                 foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Where(m => m.IsValidTarget(SpellClass.Q.Range))
@@ -39,7 +40,6 @@ namespace AIO.Champions
                                                             SpellClass.Q2.Width)
                                        where
                                            target != null &&
-                                           polygon != null &&
                                            target != minion &&
                                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).UnitPosition)
                                        select minion)

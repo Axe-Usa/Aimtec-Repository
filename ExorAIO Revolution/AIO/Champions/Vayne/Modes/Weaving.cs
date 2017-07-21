@@ -36,13 +36,13 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                if (MenuClass.Miscellaneous["wstacks"].As<MenuBool>().Enabled
+                if (MenuClass.Spells["q"]["customization"]["wstacks"].As<MenuBool>().Enabled
                     && heroTarget.GetBuffCount("vaynesilvereddebuff") != 1)
                 {
                     return;
                 }
 
-                if (!MenuClass.Miscellaneous["alwaysq"].As<MenuBool>().Enabled)
+                if (!MenuClass.Spells["q"]["customization"]["alwaysq"].As<MenuBool>().Enabled)
                 {
                     var posAfterQ = UtilityClass.Player.Position.Extend(Game.CursorPos, 300f);
                     if (posAfterQ.CountEnemyHeroesInRange(1000f) < 3 &&

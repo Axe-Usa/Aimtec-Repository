@@ -146,6 +146,16 @@ namespace AIO.Champions
             MenuClass.Root.Add(MenuClass.Spells);
 
             /// <summary>
+            ///     Sets the miscellaneous menu.
+            /// </summary>
+            MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
+            {
+                MenuClass.Miscellaneous.Add(new MenuBool("staystealthsp", "Don't cast spells if you are stealthed"));
+                MenuClass.Miscellaneous.Add(new MenuBool("staystealthaa", "Don't attack if you are stealthed"));
+            }
+            MenuClass.Root.Add(MenuClass.Miscellaneous);
+
+            /// <summary>
             ///     Sets the menu for the drawings.
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");

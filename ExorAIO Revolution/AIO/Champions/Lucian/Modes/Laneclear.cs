@@ -30,7 +30,8 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["extendedq"]["laneclear"]) &&
-                MenuClass.Spells["extendedq"]["laneclear"].As<MenuSliderBool>().Enabled)
+                MenuClass.Spells["extendedq"]["laneclear"].As<MenuSliderBool>().Enabled &&
+                Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Any(m => m.IsValidTarget(SpellClass.Q.Range)))
             {
                 var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
                 foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Where(m => m.IsValidTarget(SpellClass.Q.Range))

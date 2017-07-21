@@ -192,8 +192,14 @@ namespace AIO.Champions
         public void OnUpdate()
         {
             var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-            SpellClass.E = new Spell(SpellSlot.E, target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange);
-            SpellClass.R = new Spell(SpellSlot.R, target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange);
+            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Level < 5)
+            {
+                SpellClass.E = new Spell(SpellSlot.E, target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange);
+            }
+            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 3)
+            {
+                SpellClass.R = new Spell(SpellSlot.R, 1500 + 1500 * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);
+            }
 
             if (UtilityClass.Player.IsDead)
             {

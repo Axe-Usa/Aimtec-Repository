@@ -46,7 +46,8 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Extended.
                 /// </summary>
-                if (MenuClass.Spells["extendedq"]["killsteal"].As<MenuBool>().Enabled)
+                if (MenuClass.Spells["extendedq"]["killsteal"].As<MenuBool>().Enabled &&
+                    Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Any(m => m.IsValidTarget(SpellClass.Q.Range)))
                 {
                     var target = SpellClass.Q2.GetBestKillableHero(DamageType.Physical);
                     foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Where(m => m.IsValidTarget(SpellClass.Q.Range))

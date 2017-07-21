@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
@@ -24,6 +26,7 @@ namespace AIO.Champions
             ///     The Q Weaving Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
+                GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.Cast();

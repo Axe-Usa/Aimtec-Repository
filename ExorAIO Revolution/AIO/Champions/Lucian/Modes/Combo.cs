@@ -27,7 +27,8 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["extendedq"]["combo"].As<MenuBool>().Enabled)
+                MenuClass.Spells["extendedq"]["combo"].As<MenuBool>().Enabled &&
+                Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Any(m => m.IsValidTarget(SpellClass.Q.Range)))
             {
                 var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
                 foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Where(m => m.IsValidTarget(SpellClass.Q.Range))

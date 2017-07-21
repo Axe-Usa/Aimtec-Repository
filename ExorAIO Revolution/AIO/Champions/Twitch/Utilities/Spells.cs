@@ -23,9 +23,7 @@ namespace AIO.Champions
             SpellClass.Q = new Spell(SpellSlot.Q);
             SpellClass.W = new Spell(SpellSlot.W, 950f);
             SpellClass.E = new Spell(SpellSlot.E, 1200f);
-
-            var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-            SpellClass.R = new Spell(SpellSlot.R, UtilityClass.Player.GetFullAttackRange(target != null ? target : null) + 300f);
+            SpellClass.R = new Spell(SpellSlot.R, UtilityClass.Player.AttackRange + 300f);
 
             SpellClass.W.SetSkillshot(0.25f, 120f, 1400f, false, SkillshotType.Circle);
         }
