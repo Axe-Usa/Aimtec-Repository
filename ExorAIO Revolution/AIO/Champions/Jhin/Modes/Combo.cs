@@ -53,8 +53,15 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 !GameObjects.Player.IsUnderEnemyTurret() &&
-                MenuClass.Spells["w"]["logical"].As<MenuBool>().Value)
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
             {
+                if (!this.IsReloading() &&
+                    GameObjects.EnemyHeroes.Any(t => t.Distance(UtilityClass.Player) < UtilityClass.Player.AttackRange) &&
+                    MenuClass.Spells["w"]["customization"]["noenemiesaa"].As<MenuBool>().Value)
+                {
+                    return;
+                }
+
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         t.HasBuff("jhinespotteddebuff") &&

@@ -88,7 +88,8 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
-                        MenuClass.W2.Add(new MenuBool("onlyslowed", "Combo only if Slowed"));
+                        MenuClass.W2.Add(new MenuBool("noenemiesaa", "Combo: only if no enemies in AA Range"));
+                        MenuClass.W2.Add(new MenuBool("onlyslowed", "Combo: only if enemy Slowed"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
