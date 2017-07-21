@@ -43,23 +43,17 @@ namespace AIO.Champions
                     {
                         var playerPos = UtilityClass.Player.Position;
                         var predictedPos1 = SpellClass.E.GetPrediction(target).UnitPosition;
-                        var predictedPos2 = SpellClass.E2.GetPrediction(target).UnitPosition;
 
                         var targetPosition = target.Position.Extend(playerPos, -40 * i);
                         var targetPositionExtended = target.Position.Extend(playerPos, -41 * i);
 
-                        var unitPosition1 = predictedPos1.Extend(playerPos, -40 * i);
-                        var unitPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
-
-                        var unitPosition2 = predictedPos2.Extend(playerPos, -40 * i);
-                        var unitPosition2Extended = predictedPos2.Extend(playerPos, -41 * i);
+                        var unitPosition = predictedPos1.Extend(playerPos, -40 * i);
+                        var unitPositionExtended = predictedPos1.Extend(playerPos, -41 * i);
 
                         if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition1Extended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition2).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition2Extended).Flags.HasFlag(NavCellFlags.Wall))
+                            NavMesh.WorldToCell(unitPosition).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(unitPositionExtended).Flags.HasFlag(NavCellFlags.Wall))
                         {
                             SpellClass.E.CastOnUnit(target);
                         }

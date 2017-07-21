@@ -2,6 +2,8 @@
 #pragma warning disable 1587
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -40,13 +42,13 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (!Extensions.GetLegendaryJungleMinionsTargets().Contains(jungleTarget))
+                if (UtilityClass.JungleList.Contains(jungleTarget.UnitSkinName) &&
+                    !Extensions.GetLegendaryJungleMinionsTargets().Contains(jungleTarget))
                 {
                     for (var i = 1; i < 10; i++)
                     {
                         var playerPos = UtilityClass.Player.Position;
                         var predictedPos1 = SpellClass.E.GetPrediction(jungleTarget).UnitPosition;
-                        var predictedPos2 = SpellClass.E2.GetPrediction(jungleTarget).UnitPosition;
 
                         var targetPosition = jungleTarget.Position.Extend(playerPos, -40 * i);
                         var targetPositionExtended = jungleTarget.Position.Extend(playerPos, -41 * i);
@@ -54,15 +56,10 @@ namespace AIO.Champions
                         var unitPosition1 = predictedPos1.Extend(playerPos, -40 * i);
                         var unitPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
 
-                        var unitPosition2 = predictedPos2.Extend(playerPos, -40 * i);
-                        var unitPosition2Extended = predictedPos2.Extend(playerPos, -41 * i);
-
                         if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(unitPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition1Extended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition2).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition2Extended).Flags.HasFlag(NavCellFlags.Wall))
+                            NavMesh.WorldToCell(unitPosition1Extended).Flags.HasFlag(NavCellFlags.Wall))
                         {
                             SpellClass.E.CastOnUnit(jungleTarget);
                         }
