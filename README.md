@@ -102,3 +102,7 @@ ExorAIO: Revolution Changelog:
   Jinx: E should now cast more often,
   Jinx: Fixed R not being casted.
   Vayne: Q killsteal fix.
+
+7.14.0.20:
+  Kalista: Minion Orbwalk fixed, and now works even without runaans.
+  Vayne: Little Q Killsteal improvement.

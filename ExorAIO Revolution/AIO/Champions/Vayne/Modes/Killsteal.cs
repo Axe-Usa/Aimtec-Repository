@@ -37,7 +37,7 @@ namespace AIO.Champions
                         UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) +
                         (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
                     {
-                        SpellClass.Q.Cast(bestTarget.Position);
+                        SpellClass.Q.Cast(bestTarget.ServerPosition);
                     }
                 }
             }

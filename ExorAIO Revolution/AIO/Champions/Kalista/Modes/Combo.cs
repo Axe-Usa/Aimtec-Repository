@@ -28,13 +28,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Orbwalk on minions.
             /// </summary>
-            var minionsInAaRange = Extensions.GetAllGenericMinionsTargets().Where(m => m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m))).ToArray();
-            if (minionsInAaRange.Any() &&
-                UtilityClass.Player.HasItem(ItemId.RunaansHurricane) &&
+            var minion = Extensions.GetAllGenericMinionsTargetsInRange(UtilityClass.Player.AttackRange).OrderBy(o => o.Health).FirstOrDefault();
+            if (minion != null &&
                 !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
                 MenuClass.Miscellaneous["minionsorbwalk"].As<MenuBool>().Enabled)
             {
-                UtilityClass.Player.IssueOrder(OrderType.AttackUnit, minionsInAaRange.FirstOrDefault());
+                UtilityClass.Player.IssueOrder(OrderType.AttackUnit, minion);
             }
 
             /// <summary>
