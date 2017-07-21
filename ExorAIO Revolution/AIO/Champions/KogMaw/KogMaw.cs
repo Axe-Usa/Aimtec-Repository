@@ -3,9 +3,12 @@
 
 namespace AIO.Champions
 {
+    using Aimtec;
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
+
+    using Spell = Aimtec.SDK.Spell;
 
     /// <summary>
     ///     The champion class.
@@ -28,6 +31,11 @@ namespace AIO.Champions
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
+
+            /// <summary>
+            ///     Updates the spells.
+            /// </summary>
+            this.Spells();
         }
 
         #endregion
@@ -97,15 +105,12 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
+            SpellClass.R = new Spell(SpellSlot.R, 900f + 300f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);
+
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
-
-            /// <summary>
-            ///     Updates the spells.
-            /// </summary>
-            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.

@@ -46,6 +46,16 @@ namespace NabbTracker
                 MenuClass.Menu.Add(MenuClass.ExpTracker);
 
                 /// <summary>
+                ///     Sets the menu for the TowerRangeTracker.
+                /// </summary>
+                MenuClass.TowerRangeTracker = new Menu("towerrangetracker", "TowerRangeTracker");
+                {
+                    MenuClass.TowerRangeTracker.Add(new MenuBool("allies", "Allies", false));
+                    MenuClass.TowerRangeTracker.Add(new MenuBool("enemies", "Enemies"));
+                }
+                MenuClass.Menu.Add(MenuClass.TowerRangeTracker);
+
+                /// <summary>
                 ///     The miscellaneous Menu.
                 /// </summary>
                 MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");

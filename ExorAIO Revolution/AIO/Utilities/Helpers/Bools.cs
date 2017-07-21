@@ -36,6 +36,7 @@ namespace AIO.Utilities
         /// </summary>
         public static bool HasTearLikeItem(this Obj_AI_Hero unit)
         {
+
             return
                 unit.HasItem(ItemId.Manamune) ||
                 unit.HasItem(ItemId.ArchangelsStaff) ||

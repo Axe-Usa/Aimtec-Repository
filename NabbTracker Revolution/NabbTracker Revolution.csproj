@@ -53,6 +53,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Trackers\SpellTracker.cs" />
     <Compile Include="Trackers\ExpTracker.cs" />
+    <Compile Include="Trackers\TowerRangeTracker.cs" />
     <Compile Include="Utilities\ColorConvert.cs" />
     <Compile Include="Utilities\MenuClass.cs" />
     <Compile Include="Utilities\Menus.cs" />

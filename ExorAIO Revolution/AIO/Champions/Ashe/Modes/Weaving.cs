@@ -31,15 +31,6 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Q Weaving Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
-            {
-                SpellClass.Q.Cast();
-            }
-
-            /// <summary>
             ///     The W Weaving Logic.
             /// </summary>
             if (SpellClass.W.Ready &&

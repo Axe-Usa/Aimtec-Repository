@@ -37,8 +37,8 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var minionsInRange = GameObjects.EnemyMinions.Count(
-                    m =>
+                var minionsInRange =
+                    Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q2.Range+MenuClass.Spells["q"]["customization"]["splashrange"].Value).Count(m =>
                         m.Distance(minionTarget) < MenuClass.Spells["q"]["customization"]["splashrange"].Value);
 
                 if (UtilityClass.Player.HasBuff("JinxQ"))

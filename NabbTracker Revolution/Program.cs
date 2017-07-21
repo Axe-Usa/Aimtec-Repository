@@ -27,6 +27,7 @@
         {
             SpellTracker.Initialize();
             ExpTracker.Initialize();
+            TowerRangeTracker.Initialize();
         }
 
         /// <summary>

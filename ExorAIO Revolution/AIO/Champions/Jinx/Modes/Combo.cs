@@ -38,13 +38,12 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                float splashRange = MenuClass.Spells["q"]["customization"]["splashrange"].Value;
-                var minSplashRangeEnemies = MenuClass.Spells["q"]["customization"]["minenemies"].As<MenuSliderBool>().Value;
-
                 if (UtilityClass.Player.HasBuff("JinxQ"))
                 {
-                    if (heroTarget.IsValidTarget(SpellClass.Q.Range) &&
-                        heroTarget.CountEnemyHeroesInRange(splashRange, heroTarget) < minSplashRangeEnemies)
+                    float splashRange = MenuClass.Spells["q"]["customization"]["splashrange"].Value;
+                    var minSplashRangeEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
+                    if (heroTarget.IsValidTarget(SpellClass.Q.Range) || minSplashRangeEnemies != null &&
+                        heroTarget.CountEnemyHeroesInRange(splashRange, heroTarget) < minSplashRangeEnemies.As<MenuSliderBool>().Value)
                     {
                         SpellClass.Q.Cast();
                     }
@@ -77,6 +76,7 @@ namespace AIO.Champions
             ///     The E AoE Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["aoe"] != null &&
                 MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(h => h.IsValidTarget(SpellClass.E.Range) && !Invulnerable.Check(h)))
@@ -98,9 +98,9 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 !UtilityClass.Player.IsUnderEnemyTurret())
             {
-                if (MenuClass.Miscellaneous["wsafetycheck"].As<MenuSliderBool>().Enabled &&
-                    UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q2.Range) <
-                        MenuClass.Miscellaneous["wsafetycheck"].As<MenuSliderBool>().Value)
+                if (UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q2.Range) <
+                        MenuClass.Spells["w"]["customization"]["wsafetycheck"].As<MenuSliderBool>().Value &&
+                    MenuClass.Spells["w"]["customization"]["wsafetycheck"].As<MenuSliderBool>().Enabled)
                 {
                     var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
                     if (target != null &&

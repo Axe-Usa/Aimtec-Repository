@@ -3,7 +3,6 @@
 
 namespace AIO.Champions
 {
-    using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
@@ -21,6 +20,15 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
+            /// <summary>
+            ///     The Q Weaving Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            {
+                SpellClass.Q.Cast();
+            }
+
             /// <summary>
             ///     The W Combo Logic.
             /// </summary>

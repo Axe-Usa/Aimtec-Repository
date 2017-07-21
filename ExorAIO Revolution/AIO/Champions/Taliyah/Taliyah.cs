@@ -12,6 +12,8 @@ namespace AIO.Champions
 
     using AIO.Utilities;
 
+    using Spell = Aimtec.SDK.Spell;
+
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -33,6 +35,11 @@ namespace AIO.Champions
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
+
+            /// <summary>
+            ///     Initializes the spells.
+            /// </summary>
+            this.Spells();
 
             /// <summary>
             ///     Reloads the MineField.
@@ -249,15 +256,12 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
+            SpellClass.R = new Spell(SpellSlot.R, 1500 + 1500 * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);
+
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
-
-            /// <summary>
-            ///     Initializes the spells.
-            /// </summary>
-            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.

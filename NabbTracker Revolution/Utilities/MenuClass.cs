@@ -34,6 +34,11 @@
         /// </summary>
         public static Menu SpellTracker { internal get; set; }
 
+        /// <summary>
+        ///     The TowerRangeTracker Menu.
+        /// </summary>
+        public static Menu TowerRangeTracker { internal get; set; }
+
         #endregion
     }
 }

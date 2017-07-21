@@ -8,6 +8,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
 
@@ -26,6 +27,17 @@ namespace AIO.Champions
             if (UtilityClass.Player.IsRecalling())
             {
                 return;
+            }
+
+            /// <summary>
+            ///     The Force Pow Pow Logic. 
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                UtilityClass.Player.HasBuff("JinxQ") &&
+                ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
+                MenuClass.Miscellaneous["forcepowpow"].As<MenuBool>().Enabled)
+            {
+                SpellClass.Q.Cast();
             }
 
             /// <summary>

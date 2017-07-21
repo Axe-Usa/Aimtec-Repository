@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExorAIO Revolution", "ExorA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NabbTracker Revolution", "NabbTracker Revolution\NabbTracker Revolution.csproj", "{F290C2D6-57B6-4948-A1BF-86AE281F3DE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AimDev", "AimDev\AimDev.csproj", "{56E6DCC8-968E-4F5C-B578-E61E32B029A4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{F290C2D6-57B6-4948-A1BF-86AE281F3DE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F290C2D6-57B6-4948-A1BF-86AE281F3DE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F290C2D6-57B6-4948-A1BF-86AE281F3DE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56E6DCC8-968E-4F5C-B578-E61E32B029A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56E6DCC8-968E-4F5C-B578-E61E32B029A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56E6DCC8-968E-4F5C-B578-E61E32B029A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56E6DCC8-968E-4F5C-B578-E61E32B029A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
