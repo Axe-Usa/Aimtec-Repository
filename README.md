@@ -63,3 +63,15 @@ ExorAIO: Revolution Changelog:
 7.14.0.12
   Tristana: Fixed FPS Drops.
   Ezreal: Fixed Console debug Spamming.
+
+7.14.0.13
+  AIO: Improved IsImmobile and GetTarget checks.
+  AIO: Fixed a rare critical error.
+  Vayne: Don't condemn if dashing.
+  Corki: Completely fixed spell usage.
+  Ahri: Fixed On-CC Logics.
+  Caitlyn: Fixed On-CC Logics.
+  Jhin: Fixed On-CC Logics.
+  Jinx: Fixed On-CC Logics.
+  Kog'Maw: Fixed On-CC Logics.
+  Taliyah; Fixed On-CC Logics.
