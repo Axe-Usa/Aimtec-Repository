@@ -77,4 +77,10 @@ ExorAIO: Revolution Changelog:
   Taliyah; Fixed On-CC Logics.
 
 7.14.0.14
-	Corki: Fixed E being used randomly.
+  Corki: Fixed E being used randomly.
+
+7.14.0.15:
+  AIO: Fixed Minion Selection (It wont cast spell to random units like traps anymore).
+	
+7.14.0.16:
+  Lucian: Fixed Engager E Option.

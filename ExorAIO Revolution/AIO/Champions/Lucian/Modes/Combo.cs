@@ -53,9 +53,9 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["engage"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
-                if (bestTarget.IsValidTarget() &&
-                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
-                    bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                if (bestTarget != null &&
+                    !Invulnerable.Check(bestTarget) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
                     var posAfterE = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 425f);
                     if (posAfterE.CountEnemyHeroesInRange(1000f) < 3 &&
