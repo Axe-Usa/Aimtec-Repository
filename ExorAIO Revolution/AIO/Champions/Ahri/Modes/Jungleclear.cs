@@ -7,7 +7,6 @@ namespace AIO.Champions
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
 
@@ -23,8 +22,10 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
+            var jungleTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
+            if (!jungleTarget.IsValidTarget() ||
+                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
+                jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
             {
                 return;
             }

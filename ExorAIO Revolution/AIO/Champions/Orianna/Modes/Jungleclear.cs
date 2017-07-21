@@ -24,8 +24,10 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) || jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
+            var jungleTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
+            if (!jungleTarget.IsValidTarget() ||
+                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
+                jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 4)
             {
                 return;
             }
@@ -57,7 +59,8 @@ namespace AIO.Champions
                     (Vector2)UtilityClass.Player.ServerPosition.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition)),
                     SpellClass.E.Width);
 
-                if (!polygon.IsOutside((Vector2)jungleTarget.ServerPosition))
+                if (jungleTarget != null &&
+                    !polygon.IsOutside((Vector2)jungleTarget.ServerPosition))
                 {
                     SpellClass.E.CastOnUnit(UtilityClass.Player);
                 }

@@ -23,10 +23,10 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = (Obj_AI_Minion)ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+            var jungleTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
             if (!jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
-                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
+                jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
             {
                 return;
             }
@@ -92,10 +92,12 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.Cast(
-                    SpellClass.W.Ready
+                if (jungleTarget != null)
+                {
+                    SpellClass.E.Cast(SpellClass.W.Ready
                         ? targetPosAfterW
                         : jungleTarget.Position);
+                }
             }
 
             /// <summary>

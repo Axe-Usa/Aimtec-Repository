@@ -51,18 +51,18 @@ namespace AIO.Champions
                         var targetPosition = jungleTarget.Position.Extend(playerPos, -40 * i);
                         var targetPositionExtended = jungleTarget.Position.Extend(playerPos, -41 * i);
 
-                        var UnitPosition1 = predictedPos1.Extend(playerPos, -40 * i);
-                        var UnitPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
+                        var unitPosition1 = predictedPos1.Extend(playerPos, -40 * i);
+                        var unitPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
 
-                        var UnitPosition2 = predictedPos2.Extend(playerPos, -40 * i);
-                        var UnitPosition2Extended = predictedPos2.Extend(playerPos, -41 * i);
+                        var unitPosition2 = predictedPos2.Extend(playerPos, -40 * i);
+                        var unitPosition2Extended = predictedPos2.Extend(playerPos, -41 * i);
 
                         if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
                             NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(UnitPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(UnitPosition1Extended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(UnitPosition2).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(UnitPosition2Extended).Flags.HasFlag(NavCellFlags.Wall))
+                            NavMesh.WorldToCell(unitPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(unitPosition1Extended).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(unitPosition2).Flags.HasFlag(NavCellFlags.Wall) &&
+                            NavMesh.WorldToCell(unitPosition2Extended).Flags.HasFlag(NavCellFlags.Wall))
                         {
                             SpellClass.E.CastOnUnit(jungleTarget);
                         }

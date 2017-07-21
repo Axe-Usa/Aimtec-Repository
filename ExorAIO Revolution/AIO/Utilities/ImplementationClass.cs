@@ -8,7 +8,6 @@ namespace AIO.Utilities
 {
     using Aimtec.SDK.Orbwalking;
     using Aimtec.SDK.Prediction.Health;
-    using Aimtec.SDK.Prediction.Skillshots;
     using Aimtec.SDK.TargetSelector;
 
     /// <summary>

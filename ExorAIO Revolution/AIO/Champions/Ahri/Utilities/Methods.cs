@@ -2,8 +2,6 @@ namespace AIO.Champions
 {
     using Aimtec;
 
-    using AIO.Utilities;
-
     /// <summary>
     ///     The methods class.
     /// </summary>
