@@ -50,21 +50,21 @@ ExorAIO: Revolution Changelog:
   Taliyah: Fixed Range Updating
   Taliyah: Fixed FPS Drops
 
-7.14.0.9
+7.14.0.9:
   Twitch: Fixed Nullreference.
   
-7.14.0.10
+7.14.0.10:
   Ahri: Added Q on CC'ed enemies option.
 
-7.14.0.11
+7.14.0.11:
   Xayah: Added E before Death option
   Twitch: Fixed rare Nullref.
 
-7.14.0.12
+7.14.0.12:
   Tristana: Fixed FPS Drops.
   Ezreal: Fixed Console debug Spamming.
 
-7.14.0.13
+7.14.0.13:
   AIO: Improved IsImmobile and GetTarget checks.
   AIO: Fixed a rare critical error.
   Vayne: Don't condemn if dashing.
@@ -76,5 +76,8 @@ ExorAIO: Revolution Changelog:
   Kog'Maw: Fixed On-CC Logics.
   Taliyah; Fixed On-CC Logics.
 
-7.14.0.14
+7.14.0.14:
 	Corki: Fixed E being used randomly.
+
+7.14.0.15:
+	AIO: Fixed Minion Selection (It wont cast spell to random units like traps anymore).
