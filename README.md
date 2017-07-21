@@ -75,3 +75,6 @@ ExorAIO: Revolution Changelog:
   Jinx: Fixed On-CC Logics.
   Kog'Maw: Fixed On-CC Logics.
   Taliyah; Fixed On-CC Logics.
+
+7.14.0.14
+	Corki: Fixed E being used randomly.
