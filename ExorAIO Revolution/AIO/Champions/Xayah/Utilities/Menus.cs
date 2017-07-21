@@ -89,6 +89,7 @@ namespace AIO.Champions
                     //MenuClass.E.Add(new MenuSeperator("separator1", "If the targets gets hit by 3 or more Feathers"));
                     //MenuClass.E.Add(new MenuSeperator("separator2", "it gets rooted for a brief period."));
                     MenuClass.E.Add(new MenuSliderBool("combo", "Combo / If can Hit >= x Feathers", true, 3, 3, 8));
+                    MenuClass.E.Add(new MenuBool("ondeath", "Before death"));
                     //MenuClass.E.Add(new MenuSeperator("separator3"));
                     MenuClass.E.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));

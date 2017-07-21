@@ -30,6 +30,16 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The E Before death Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["ondeath"].As<MenuBool>().Enabled &&
+                ImplementationClass.IHealthPrediction.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
+            {
+                SpellClass.E.Cast();
+            }
+
+            /// <summary>
             ///     The Automatic R Orbwalking.
             /// </summary>
             if (MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&

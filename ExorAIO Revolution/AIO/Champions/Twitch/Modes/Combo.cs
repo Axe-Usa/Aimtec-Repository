@@ -24,6 +24,7 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["aoe"] != null &&
                 MenuClass.Spells["w"]["aoe"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
