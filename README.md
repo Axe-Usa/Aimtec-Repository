@@ -90,4 +90,8 @@ ExorAIO: Revolution Changelog:
   Taliyah: Fixed Jungleclear Nullref.
   Ahri: Fixed Jungleclear Nullref.
   Orianna: Fixed Jungleclear Nullref.
-Kalista: Fixed Jungleclear Nullref.
+  Kalista: Fixed Jungleclear Nullref.
+
+7.14.0.18
+  Vayne: Faster and more accurate condemn.
+  Vayne: Fixed small jungle monsters condemning.
