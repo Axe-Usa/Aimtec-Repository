@@ -37,7 +37,7 @@ ExorAIO: Revolution Changelog:
 
 7.14.0.8
   AIO: Reduced the menu's width for many champions
-  Ashe: Fixed Combo Q stopping sometimes.
+  Ashe: Fixed Combo Q stopping sometimes
   Caitlyn: Fixed Range Updating
   Caitlyn: Fixed FPS Drops.
   Jinx: Fixed Range Updating
