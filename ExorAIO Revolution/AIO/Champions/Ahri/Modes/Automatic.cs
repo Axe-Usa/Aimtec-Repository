@@ -29,6 +29,22 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The Automatic Q Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
+            {
+                foreach (var target in GameObjects.EnemyHeroes.Where(
+                    t =>
+                        !t.Name.Equals("Target Dummy") &&
+                        t.IsValidTarget(SpellClass.Q.Range) &&
+                        !t.ActionState.HasFlag(ActionState.CanMove)))
+                {
+                    SpellClass.Q.Cast(target);
+                }
+            }
+
+            /// <summary>
             ///     The Automatic E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
