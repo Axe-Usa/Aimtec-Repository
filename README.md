@@ -84,3 +84,10 @@ ExorAIO: Revolution Changelog:
 	
 7.14.0.16:
   Lucian: Fixed Engager E Option.
+  
+7.14.0.17:
+  AIO; Code cleanup.
+  Taliyah: Fixed Jungleclear Nullref.
+  Ahri: Fixed Jungleclear Nullref.
+  Orianna: Fixed Jungleclear Nullref.
+Kalista: Fixed Jungleclear Nullref.
