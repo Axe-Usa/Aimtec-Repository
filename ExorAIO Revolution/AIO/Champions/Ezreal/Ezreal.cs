@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -157,6 +159,7 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
+            Console.WriteLine(UtilityClass.Player.HasTearLikeItem());
             if (UtilityClass.Player.IsDead)
             {
                 return;

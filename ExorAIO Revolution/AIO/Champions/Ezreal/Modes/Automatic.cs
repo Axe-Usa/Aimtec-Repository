@@ -34,9 +34,9 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.HasTearLikeItem() &&
-                !Extensions.GetEnemyLaneMinionsTargets().Any() &&
-                ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 UtilityClass.Player.CountEnemyHeroesInRange(1500) == 0 &&
+                ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
+                !Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any() &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Miscellaneous["tear"]) &&
                 MenuClass.Miscellaneous["tear"].As<MenuSliderBool>().Enabled)
