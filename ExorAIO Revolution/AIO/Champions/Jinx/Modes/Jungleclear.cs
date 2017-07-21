@@ -25,8 +25,9 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
         public void Jungleclear(object sender, PreAttackEventArgs args)
         {
-            var minionTarget = args.Target as Obj_AI_Minion;
-            if (minionTarget == null)
+            var jungleTarget = args.Target as Obj_AI_Minion;
+            if (!jungleTarget.IsValidTarget() ||
+                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
                 return;
             }
@@ -41,7 +42,7 @@ namespace AIO.Champions
             {
                 var minionsInRange = GameObjects.EnemyMinions.Count(
                     m =>
-                        m.Distance(minionTarget) < MenuClass.Spells["q"]["customization"]["splashrange"].Value);
+                        m.Distance(jungleTarget) < MenuClass.Spells["q"]["customization"]["splashrange"].Value);
 
                 if (UtilityClass.Player.HasBuff("JinxQ"))
                 {
@@ -63,12 +64,12 @@ namespace AIO.Champions
             ///     The Jungleclear W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                minionTarget.IsValidTarget(SpellClass.W.Range) &&
+                jungleTarget.IsValidTarget(SpellClass.W.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.W.Cast(minionTarget);
+                SpellClass.W.Cast(jungleTarget);
             }
         }
 
