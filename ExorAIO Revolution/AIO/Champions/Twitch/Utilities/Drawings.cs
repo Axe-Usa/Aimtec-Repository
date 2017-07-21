@@ -29,7 +29,8 @@ namespace AIO.Champions
             /// <summary>
             ///     Loads the Q duration drawing.
             /// </summary>
-            if (MenuClass.Drawings["qduration"].As<MenuBool>().Enabled)
+            if (!UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).State.HasFlag(SpellState.NotLearned) &&
+                MenuClass.Drawings["qduration"].As<MenuBool>().Enabled)
             {
                 var buff = UtilityClass.Player.GetBuff("TwitchHideInShadows");
                 if (buff != null)
