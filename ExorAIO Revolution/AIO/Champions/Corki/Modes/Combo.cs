@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
@@ -40,6 +42,7 @@ namespace AIO.Champions
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
+                GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(SpellClass.E.Range)) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast();
