@@ -109,3 +109,8 @@ ExorAIO: Revolution Changelog:
 
 7.14.0.21:
   Jhin: Should now cast spells more often.
+  
+
+7.14.0.22
+  AIO: Fixed a critical minion getter error.
+  Kalista: COmpletely fixed farming, harassing and minion orbwalking.
