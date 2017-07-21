@@ -55,3 +55,7 @@ ExorAIO: Revolution Changelog:
   
 7.14.0.10
   Ahri: Added Q on CC'ed enemies option.
+
+7.14.0.11
+  Xayah: Added E before Death option
+  Twitch: Fixed rare Nullref.
