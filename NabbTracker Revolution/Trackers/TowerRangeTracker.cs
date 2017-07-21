@@ -27,9 +27,9 @@
                           e.IsAlly && MenuClass.TowerRangeTracker["allies"].As<MenuBool>().Value)))
             {
                 var towerAutoAttackRange = 775f + tower.BoundingRadius + player.BoundingRadius - 10f;
-                Render.Circle(tower.ServerPosition, towerAutoAttackRange, 30, player.Distance(tower) > towerAutoAttackRange
-                    ? Colors.GetRealColor(Color.LightGreen)
-                    : Colors.GetRealColor(Color.Red));
+                Render.Circle(tower.ServerPosition, towerAutoAttackRange, 30, tower.IsEnemy && player.Distance(tower) <= towerAutoAttackRange
+                    ? Colors.GetRealColor(Color.Red)
+                    : Colors.GetRealColor(Color.LightGreen));
             }
         }
 
