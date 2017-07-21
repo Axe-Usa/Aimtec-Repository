@@ -159,7 +159,6 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
-            Console.WriteLine(UtilityClass.Player.HasTearLikeItem());
             if (UtilityClass.Player.IsDead)
             {
                 return;

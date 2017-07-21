@@ -14,6 +14,8 @@ namespace AIO.Champions
 
     using AIO.Utilities;
 
+    using Spell = Aimtec.SDK.Spell;
+
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -35,6 +37,11 @@ namespace AIO.Champions
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
+
+            /// <summary>
+            ///     Updates the spells.
+            /// </summary>
+            this.Spells();
         }
 
         #endregion
@@ -184,20 +191,20 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
+            var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+            SpellClass.E = new Spell(SpellSlot.E, target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange);
+            SpellClass.R = new Spell(SpellSlot.R, target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange);
+
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
             /// <summary>
-            ///     Updates the spells.
-            /// </summary>
-            this.Spells();
-
-            /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
             this.Killsteal();
+
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
                 return;
