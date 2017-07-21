@@ -85,7 +85,7 @@ namespace AIO.Champions
                             h2 =>
                                 !Invulnerable.Check(h2) &&
                                 h2.IsValidTarget(SpellClass.E.Range) &&
-                                h2.Distance(target) < SpellClass.E.Width) >= MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Value)
+                                h2.Distance(target) < SpellClass.E.Width*3) >= MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Value)
                     {
                         SpellClass.E.Cast(target.ServerPosition);
                     }

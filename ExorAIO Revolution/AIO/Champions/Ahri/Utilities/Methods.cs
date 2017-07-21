@@ -17,7 +17,6 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += this.OnUpdate;
-            ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             Render.OnPresent += this.OnPresent;
             Obj_AI_Base.OnPerformCast += this.OnPerformCast;
 

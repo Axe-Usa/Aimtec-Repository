@@ -36,8 +36,6 @@ namespace AIO.Champions
             ///     The Jungleclear Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent()
-                > MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 var minionsInRange = GameObjects.EnemyMinions.Count(
@@ -46,7 +44,9 @@ namespace AIO.Champions
 
                 if (UtilityClass.Player.HasBuff("JinxQ"))
                 {
-                    if (minionsInRange < MenuClass.Spells["q"]["customization"]["jungleclear"].Value)
+                    if (UtilityClass.Player.ManaPercent()
+                            < MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Value ||
+                        minionsInRange < MenuClass.Spells["q"]["customization"]["jungleclear"].Value)
                     {
                         SpellClass.Q.Cast();
                     }

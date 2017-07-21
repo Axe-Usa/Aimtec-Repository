@@ -30,6 +30,11 @@ namespace AIO.Champions
             this.Menus();
 
             /// <summary>
+            ///     Updates the spells.
+            /// </summary>
+            this.Spells();
+
+            /// <summary>
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
@@ -128,11 +133,6 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            /// <summary>
-            ///     Updates the spells.
-            /// </summary>
-            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.

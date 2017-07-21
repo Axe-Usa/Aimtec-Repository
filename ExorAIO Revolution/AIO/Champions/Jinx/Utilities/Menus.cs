@@ -60,10 +60,10 @@ namespace AIO.Champions
                         }
                         //MenuClass.Q2.Add(new MenuSeperator("separator5"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator6", "Laneclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Use Fishbones if Hittable minions >= x", 3, 2, 5));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Laneclear: Fishbones if Hittable minions >= x", 3, 2, 5));
                         //MenuClass.Q2.Add(new MenuSeperator("separator7"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator8", "Jungleclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Use Fishbones if Hittable minions >= x", 2, 1, 5));
+                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Jungleclear: Fishbones if Hittable minions >= x", 2, 1, 5));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 

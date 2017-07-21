@@ -44,24 +44,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on do-cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void OnPostAttack(object sender, PostAttackEventArgs args)
-        {
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (ImplementationClass.IOrbwalker.Mode)
-            {
-                case OrbwalkingMode.Laneclear:
-                    this.Jungleclear(sender, args);
-                    break;
-            }
-        }
-
-        /// <summary>
         ///     Fired on present.
         /// </summary>
         public void OnPresent()
@@ -234,6 +216,7 @@ namespace AIO.Champions
                     break;
                 case OrbwalkingMode.Laneclear:
                     this.Laneclear();
+                    this.Jungleclear();
                     break;
             }
         }

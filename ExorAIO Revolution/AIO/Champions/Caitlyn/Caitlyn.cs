@@ -33,6 +33,11 @@ namespace AIO.Champions
             ///     Initializes the methods.
             /// </summary>
             this.Methods();
+
+            /// <summary>
+            ///     Initializes the spells.
+            /// </summary>
+            this.Spells();
         }
 
         #endregion
@@ -231,11 +236,6 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            /// <summary>
-            ///     Initializes the spells.
-            /// </summary>
-            this.Spells();
 
             /// <summary>
             ///     Initializes the Killsteal events.
