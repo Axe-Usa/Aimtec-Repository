@@ -17,7 +17,7 @@ namespace AIO
         public static void Methods()
         {
             ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
-            ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
+            //ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
         }
 
         #endregion
