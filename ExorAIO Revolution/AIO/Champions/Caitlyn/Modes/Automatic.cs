@@ -5,7 +5,6 @@ namespace AIO.Champions
 {
     using System.Linq;
 
-    using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -37,9 +36,8 @@ namespace AIO.Champions
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
-                        !t.Name.Equals("Target Dummy") &&
-                        t.IsValidTarget(SpellClass.W.Range) &&
-                        !t.ActionState.HasFlag(ActionState.CanMove)))
+                        t.IsImmobile() &&
+                        t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
                     SpellClass.W.Cast(target.ServerPosition);
                 }
@@ -55,8 +53,8 @@ namespace AIO.Champions
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
-                        t.IsValidTarget(SpellClass.Q.Range) &&
                         !Invulnerable.Check(t) &&
+                        t.IsValidTarget(SpellClass.Q.Range) &&
                         t.HasBuff("caitlynyordletrapdebuff")))
                 {
                     SpellClass.Q.Cast(target);

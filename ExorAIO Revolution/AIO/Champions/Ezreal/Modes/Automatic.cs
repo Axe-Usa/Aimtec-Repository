@@ -77,7 +77,7 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Automatic W Logic.
+            ///     The Ally W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
                 UtilityClass.Player.ManaPercent()

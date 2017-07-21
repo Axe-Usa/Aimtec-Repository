@@ -31,7 +31,7 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Automatic R Logic.
+            ///     The Lifesaver R Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
                 this.SoulBound.IsValidTarget(SpellClass.R.Range) &&
@@ -43,7 +43,7 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Automatic W Logic.
+            ///     The Spot W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
                 !UtilityClass.Player.IsRecalling() &&

@@ -88,11 +88,15 @@ namespace AIO.Utilities
 
             switch (target.ActionState)
             {
+                case ActionState.CanMove:
+                    return false;
+
                 case ActionState.Asleep:
                 case ActionState.Feared:
                 case ActionState.Charmed:
                 case ActionState.Fleeing:
                 case ActionState.Surpressed:
+                case ActionState.Taunted:
                     return true;
             }
 

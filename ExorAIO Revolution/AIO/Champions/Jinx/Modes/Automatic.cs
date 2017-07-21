@@ -48,8 +48,7 @@ namespace AIO.Champions
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
-                        !t.Name.Equals("Target Dummy") &&
-                        !t.ActionState.HasFlag(ActionState.CanMove) &&
+                        t.IsImmobile() &&
                         t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target.ServerPosition);

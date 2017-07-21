@@ -54,7 +54,7 @@ namespace AIO.Champions
             {
                 if (SpellClass.E.Ready &&
                     UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Ammo
-                    >= (MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled ? 2 : 1) &&
+                        >= (MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled ? 2 : 1) &&
                     MenuClass.Spells["e"]["vision"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast(sender.ServerPosition);

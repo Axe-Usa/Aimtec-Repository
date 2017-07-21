@@ -52,8 +52,7 @@ namespace AIO.Champions
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         t.IsImmobile() &&
-                        !Invulnerable.Check(t) &&
-                        t.IsValidTarget(SpellClass.E.Range)))
+                        t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target);
                 }

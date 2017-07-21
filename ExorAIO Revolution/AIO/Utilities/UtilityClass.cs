@@ -27,7 +27,7 @@ namespace AIO.Utilities
         /// <summary>
         ///     Gets the Player.
         /// </summary>
-        public static Obj_AI_Hero Player = ObjectManager.GetLocalPlayer();
+        public static Obj_AI_Hero Player => ObjectManager.GetLocalPlayer();
 
         /// <summary>
         ///     The jungle HP bar offset list.

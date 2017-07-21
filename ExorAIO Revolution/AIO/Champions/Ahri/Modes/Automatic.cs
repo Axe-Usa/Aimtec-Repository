@@ -36,9 +36,9 @@ namespace AIO.Champions
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
-                        !t.Name.Equals("Target Dummy") &&
+                        t.IsImmobile() &&
                         t.IsValidTarget(SpellClass.Q.Range) &&
-                        !t.ActionState.HasFlag(ActionState.CanMove)))
+                        !Invulnerable.Check(t, DamageType.Magical)))
                 {
                     SpellClass.Q.Cast(target);
                 }
@@ -52,9 +52,9 @@ namespace AIO.Champions
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
-                        !t.Name.Equals("Target Dummy") &&
+                        t.IsImmobile() &&
                         t.IsValidTarget(SpellClass.E.Range) &&
-                        !t.ActionState.HasFlag(ActionState.CanMove)))
+                        !Invulnerable.Check(t, DamageType.Magical, false)))
                 {
                     SpellClass.E.Cast(target);
                 }
