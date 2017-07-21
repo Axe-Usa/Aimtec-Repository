@@ -92,6 +92,13 @@ ExorAIO: Revolution Changelog:
   Orianna: Fixed Jungleclear Nullref.
   Kalista: Fixed Jungleclear Nullref.
 
-7.14.0.18
+7.14.0.18:
   Vayne: Faster and more accurate condemn.
   Vayne: Fixed small jungle monsters condemning.
+
+7.14.0.19:
+  Ezreal: Should now cast Q out of aa range more often.
+  Jinx: Shouldn't spaz anymore while switching Q.
+  Jinx: E should now cast more often,
+  Jinx: Fixed R not being casted.
+  Vayne: Q killsteal fix.
