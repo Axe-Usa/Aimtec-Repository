@@ -52,3 +52,6 @@ ExorAIO: Revolution Changelog:
 
 7.14.0.9
   Twitch: Fixed Nullreference.
+  
+7.14.0.10
+  Ahri: Added Q on CC'ed enemies option.
