@@ -3,7 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using Aimtec;
@@ -77,17 +76,11 @@ namespace AIO.Champions
                     SpellClass.E.Cast();
                 }
 
-                var validTargets = GameObjects.EnemyHeroes.Where(this.IsPerfectRendTarget);
-                var validMinions = Extensions.GetAllGenericMinionsTargets().Where(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m));
-
-                var rendableHeroes = validTargets as IList<Obj_AI_Hero> ?? validTargets.ToList();
-                var rendableMinions = validMinions as IList<Obj_AI_Minion> ?? validMinions.ToList();
-
                 /// <summary>
                 ///     The E Minion Harass Logic.
                 /// </summary>
-                if (rendableHeroes.Any() &&
-                    rendableMinions.Any() &&
+                if (GameObjects.EnemyHeroes.Any(this.IsPerfectRendTarget) &&
+                    Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Any(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m)) &&
                     MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast();

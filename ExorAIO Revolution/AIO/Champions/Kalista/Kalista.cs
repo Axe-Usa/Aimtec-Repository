@@ -52,7 +52,7 @@ namespace AIO.Champions
         public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
         {
             var minion = args.Target as Obj_AI_Minion;
-            if (minion == null || ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo)
+            if (minion == null)
             {
                 return;
             }
@@ -163,6 +163,9 @@ namespace AIO.Champions
                 case OrbwalkingMode.Laneclear:
                     this.Laneclear();
                     this.Jungleclear();
+                    break;
+                case OrbwalkingMode.Lasthit:
+                    this.Lasthit();
                     break;
             }
         }

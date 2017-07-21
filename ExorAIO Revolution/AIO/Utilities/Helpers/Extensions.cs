@@ -174,7 +174,7 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetEnemyLaneMinionsTargetsInRange(float range)
         {
-            return GameObjects.EnemyMinions.Where(m => m.IsValidTarget(range) && m.Name.Contains("minion") && !m.Name.Contains("odin")).ToList();
+            return GameObjects.EnemyMinions.Where(m => m.IsValidTarget(range) && m.UnitSkinName.Contains("Minion") && !m.UnitSkinName.Contains("Odin")).ToList();
         }
 
         /// <summary>
@@ -190,7 +190,7 @@
         /// </summary>
         public static List<Obj_AI_Minion> GetGenericJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.Jungle.Concat(GameObjects.JungleSmall).Where(m => m.IsValidTarget(range)).ToList();
+            return GameObjects.Jungle.Where(m => !GameObjects.JungleSmall.Contains(m) && m.IsValidTarget(range)).ToList();
         }
 
         /// <summary>
