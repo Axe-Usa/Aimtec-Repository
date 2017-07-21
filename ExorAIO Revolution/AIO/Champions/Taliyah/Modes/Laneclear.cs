@@ -62,13 +62,13 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
+                /*
                 if (this.IsNearWorkedGround() &&
                     MenuClass.Spells["q"]["customization"]["laneclearfull"].As<MenuBool>().Enabled)
                 {
                     return;
                 }
 
-                /*
                 var farmLocation = SpellClass.Q.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width*2);
                 if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value))
                 {

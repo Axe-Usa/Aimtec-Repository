@@ -42,7 +42,7 @@ namespace AIO.Champions
                 {
                     float splashRange = MenuClass.Spells["q"]["customization"]["splashrange"].Value;
                     var minSplashRangeEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
-                    if (heroTarget.IsValidTarget(SpellClass.Q.Range) || minSplashRangeEnemies != null &&
+                    if (heroTarget.IsValidTarget(SpellClass.Q.Range-50f) || minSplashRangeEnemies != null &&
                         heroTarget.CountEnemyHeroesInRange(splashRange, heroTarget) < minSplashRangeEnemies.As<MenuSliderBool>().Value)
                     {
                         SpellClass.Q.Cast();
@@ -64,7 +64,7 @@ namespace AIO.Champions
             {
                 if (!UtilityClass.Player.HasBuff("JinxQ"))
                 {
-                    if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
+                    if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range-50f).Any() &&
                         Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Any())
                     {
                         SpellClass.Q.Cast();
