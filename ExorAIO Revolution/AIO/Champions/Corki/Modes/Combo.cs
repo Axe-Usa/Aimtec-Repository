@@ -42,7 +42,7 @@ namespace AIO.Champions
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(SpellClass.E.Range)) &&
+                GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.AttackRange-50f)) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast();
