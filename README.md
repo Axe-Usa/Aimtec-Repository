@@ -135,3 +135,12 @@ ExorAIO: Revolution Changelog:
   Kog'Maw: Fixed W in combo.
   Jhin: Now should cast W more often.
   Corki: E now casts on AA.
+
+7.14.1.0:
+  Syndra: BETA Released!
+  Jinx: Finally 100% Fixed FPS Drops!
+  Caitlyn: Finally 100% Fixed FPS Drops!
+  Tristana: Finally 100% Fixed FPS Drops!
+  Kog'Maw: Finally 100% Fined FPS Drops!
+  Taliyah: Finally 100% Fixed FPS Drops! (May still be heavy cause good logics)
+  Jhin: Now he will never cancel his ult anymore (Unless manually movement)
