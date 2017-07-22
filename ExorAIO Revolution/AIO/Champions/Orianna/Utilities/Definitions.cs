@@ -31,27 +31,19 @@ namespace AIO.Champions
         /// </summary>
         public Vector3 GetBallPosition()
         {
-            var possiblePosition1 = GameObjects.AllyMinions.FirstOrDefault(
-                m =>
+            var possiblePosition1 = GameObjects.AllyMinions.FirstOrDefault(m =>
                     Math.Abs(m.Health) > 0 &&
                     m.UnitSkinName.Equals("OriannaBall"));
-
-            var possiblePosition2 = GameObjects.AllyHeroes.FirstOrDefault(
-                a =>
-                    !a.IsMe &&
-                    a.Buffs.Any(
-                        b =>
-                            b.IsValid &&
-                            b.IsActive &&
-                            b.Caster != null &&
-                            b.Caster.IsMe &&
-                            b.Name.Equals("orianaghost")));
-
             if (possiblePosition1 != null)
             {
                 return possiblePosition1.ServerPosition;
             }
 
+            var possiblePosition2 = GameObjects.AllyHeroes.FirstOrDefault(a =>
+                !a.IsMe && a.Buffs.Any(b =>
+                    b.IsValid && b.IsActive &&
+                    b.Caster != null && b.Caster.IsMe &&
+                    b.Name.Equals("orianaghost")));
             if (possiblePosition2 != null)
             {
                 return possiblePosition2.ServerPosition;

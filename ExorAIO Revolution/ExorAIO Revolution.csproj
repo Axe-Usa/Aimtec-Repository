@@ -176,6 +176,7 @@
     <Compile Include="AIO\Champions\Taliyah\Taliyah.cs" />
     <Compile Include="AIO\Champions\Tristana\Modes\Buildingclear.cs" />
     <Compile Include="AIO\Champions\Tristana\Modes\Laneclear.cs" />
+    <Compile Include="AIO\Champions\Tristana\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\Tristana\Utilities\Drawings.cs" />
     <Compile Include="AIO\Champions\Twitch\Modes\Automatic.cs" />
     <Compile Include="AIO\Champions\Twitch\Modes\Buildingclear.cs" />

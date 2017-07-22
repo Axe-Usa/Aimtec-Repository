@@ -31,9 +31,8 @@ namespace AIO.Champions
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null)
                 {
-                    var shouldIncludeEDamage = bestTarget.HasBuff("TristanaECharge");
                     if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) +
-                        (shouldIncludeEDamage ? this.GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
+                        (this.IsCharged(bestTarget) ? this.GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
                     {
                         SpellClass.R.CastOnUnit(bestTarget);
                     }

@@ -16,22 +16,6 @@
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Counts the ally heroes inside a determined range of a determined unit.
-        /// </summary>
-        public static int CountAllyHeroesInRange(float range, GameObject unit)
-        {
-            return GameObjects.AllyHeroes.Count(h => h.Distance(unit) < range);
-        }
-
-        /// <summary>
-        ///     Counts the enemy heroes inside a determined range of a determined unit.
-        /// </summary>
-        public static int CountEnemyHeroesInRange(float range, GameObject unit)
-        {
-            return GameObjects.EnemyHeroes.Count(h => h.Distance(unit) < range);
-        }
-
-        /// <summary>
         ///     Gets the valid generic (lane or jungle) minions targets in the game inside a determined range.
         /// </summary>
         public static List<Obj_AI_Minion> GetAllGenericMinionsTargets()

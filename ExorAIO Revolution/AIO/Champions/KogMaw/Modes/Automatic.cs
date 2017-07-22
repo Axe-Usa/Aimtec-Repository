@@ -23,7 +23,10 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-            SpellClass.W.Range = UtilityClass.Player.AttackRange + (60f + 30f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).Level);
+            if (!UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned))
+            {
+                SpellClass.W.Range = UtilityClass.Player.BoundingRadius + new[] { 630, 650, 670, 690, 710 }[UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).Level - 1];
+            }
             SpellClass.R.Range = 900f + 300f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level;
 
             if (UtilityClass.Player.IsRecalling())

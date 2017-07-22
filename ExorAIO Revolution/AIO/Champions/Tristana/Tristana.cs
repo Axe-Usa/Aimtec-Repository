@@ -47,16 +47,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Gets the total explosion damage on a determined unit.
-        /// </summary>
-        public double GetTotalExplosionDamage(Obj_AI_Base unit)
-        {
-            var player = UtilityClass.Player;
-            return player.GetSpellDamage(unit, SpellSlot.E) +
-                   player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Buff);
-        }
-
-        /// <summary>
         ///     Fired when a buff is added.
         /// </summary>
         /// <param name="sender">The sender.</param>

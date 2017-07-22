@@ -52,34 +52,26 @@ namespace AIO.Champions
         /// </summary>
         public GameObject ForceOfWillObject()
         {
-            if (this.IsHoldingForceOfWillObject())
-            {
-                return null;
-            }
-
             var possibleTarget1 = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m =>
                     m.IsValidTarget(SpellClass.W.Range) &&
                     m.UnitSkinName == "SRU_Blue" || m.UnitSkinName == "SRU_Red");
-
-            var possibleTarget2 = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m =>
-                     m.IsValidTarget(SpellClass.W.Range) &&
-                    (m.IsClone || Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.W.Range).Contains(m)));
-
-            var possibleTarget3 = ObjectManager.Get<GameObject>().FirstOrDefault(o =>
-                    o.IsValid &&
-                    this.IsDarkSphere(o) &&
-                    o.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range);
-
             if (possibleTarget1 != null)
             {
                 return possibleTarget1;
             }
 
+            var possibleTarget2 = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m =>
+                    m.IsValidTarget(SpellClass.W.Range) &&
+                    (m.IsClone || Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.W.Range).Contains(m)));
             if (possibleTarget2 != null)
             {
                 return possibleTarget2;
             }
 
+            var possibleTarget3 = ObjectManager.Get<GameObject>().FirstOrDefault(o =>
+                    o.IsValid &&
+                    this.IsDarkSphere(o) &&
+                    o.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range);
             if (possibleTarget3 != null)
             {
                 return possibleTarget3;

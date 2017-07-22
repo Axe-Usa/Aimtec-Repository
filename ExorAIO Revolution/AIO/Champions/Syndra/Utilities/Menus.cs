@@ -202,6 +202,7 @@ namespace AIO.Champions
                 MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range"));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range"));
+                MenuClass.Drawings.Add(new MenuBool("rdmg", "R Damage"));
                 MenuClass.Drawings.Add(new MenuBool("spheres", "Draw Spheres"));
                 MenuClass.Drawings.Add(new MenuBool("scatter", "Draw Spheres' E Push Rectangles", false));
             }

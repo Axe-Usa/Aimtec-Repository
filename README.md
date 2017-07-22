@@ -144,3 +144,11 @@ ExorAIO: Revolution Changelog:
   Kog'Maw: Finally 100% Fined FPS Drops!
   Taliyah: Finally 100% Fixed FPS Drops! (May still be heavy cause good logics)
   Jhin: Now he will never cancel his ult anymore (Unless manually movement)
+
+7.14.1.1:
+  AIO: Some code cleanup.
+  Syndra: Little Performance Improvement.
+  Syndra: Added R Damage on healthbar drawing.
+  Orianna: Little Performance Improvement.
+  Kog'Maw: Finally fixed W Range.
+  Tristana: Fixed Random damage drawings all over the screen.

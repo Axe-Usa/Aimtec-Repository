@@ -1,7 +1,6 @@
 namespace AIO.Champions
 {
     using Aimtec;
-    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Prediction.Skillshots;
 
     using AIO.Utilities;
