@@ -86,7 +86,9 @@ namespace NabbTracker
             }
 
             if (unit.IsMe &&
-                unitSpell.State.HasFlag(SpellState.Surpressed | SpellState.Disabled | SpellState.Unknown))
+                unitSpell.State.HasFlag(SpellState.Unknown) ||
+                unitSpell.State.HasFlag(SpellState.Disabled) ||
+                unitSpell.State.HasFlag(SpellState.Surpressed))
             {
                 return "X";
             }
@@ -107,7 +109,8 @@ namespace NabbTracker
             }
 
             if (unit.IsMe &&
-                unitSpellState.HasFlag(SpellState.Disabled | SpellState.Surpressed))
+                unitSpellState.HasFlag(SpellState.Disabled) ||
+                unitSpellState.HasFlag(SpellState.Surpressed))
             {
                 return Color.Purple;
             }
@@ -123,7 +126,12 @@ namespace NabbTracker
                 return unitSpellCooldown <= 5 ? Color.Red : Color.Yellow;
             }
 
-            return unitSpellState.HasFlag(SpellState.Ready) ? Color.LightGreen : Color.Black;
+            if (unitSpellState.HasFlag(SpellState.Ready))
+            {
+                return Color.LightGreen;
+            }
+            
+            return Color.Black;
         }
 
         /// <summary>
@@ -166,7 +174,8 @@ namespace NabbTracker
             var unitSummonerSpell = unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]);
             var unitSummonerSpellState = unitSummonerSpell.State;
             if (unit.IsMe &&
-                unitSummonerSpellState.HasFlag(SpellState.Disabled | SpellState.Surpressed))
+                unitSummonerSpellState.HasFlag(SpellState.Disabled) ||
+                unitSummonerSpellState.HasFlag(SpellState.Surpressed))
             {
                 return Color.Purple;
             }
@@ -177,7 +186,12 @@ namespace NabbTracker
                 return unitSpellCooldown <= 5 ? Color.Red : Color.Yellow;
             }
 
-            return unitSummonerSpellState.HasFlag(SpellState.Ready) ? Color.LightGreen : Color.Black;
+            if (unitSummonerSpellState.HasFlag(SpellState.Ready))
+            {
+                return Color.LightGreen;
+            }
+
+            return Color.Black;
         }
 
         /// <summary>
