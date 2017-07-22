@@ -110,9 +110,8 @@ namespace NabbTracker
                 return Color.Gray;
             }
 
-            if (unit.IsMe &&
-                unitSpellState.HasFlag(SpellState.Disabled) ||
-                unitSpellState.HasFlag(SpellState.Surpressed))
+            if (unitSpellState.HasFlag(SpellState.Disabled) ||
+                unit.IsMe && unitSpellState.HasFlag(SpellState.Surpressed))
             {
                 return Color.Purple;
             }
@@ -175,9 +174,8 @@ namespace NabbTracker
         {
             var unitSummonerSpell = unit.SpellBook.GetSpell(SummonerSpellSlots[summonerSpell]);
             var unitSummonerSpellState = unitSummonerSpell.State;
-            if (unit.IsMe &&
-                unitSummonerSpellState.HasFlag(SpellState.Disabled) ||
-                unitSummonerSpellState.HasFlag(SpellState.Surpressed))
+            if (unitSummonerSpellState.HasFlag(SpellState.Disabled) ||
+                unit.IsMe && unitSummonerSpellState.HasFlag(SpellState.Surpressed))
             {
                 return Color.Purple;
             }
