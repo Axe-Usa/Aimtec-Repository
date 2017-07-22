@@ -101,11 +101,6 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
         public void OnPreAttack(object sender, PreAttackEventArgs args)
         {
-            if (this.IsUltimateShooting())
-            {
-                args.Cancel = true;
-            }
-
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
@@ -117,19 +112,6 @@ namespace AIO.Champions
                 case OrbwalkingMode.Laneclear:
                     this.Jungleclear(sender, args);
                     break;
-            }
-        }
-
-        /// <summary>
-        ///     Called on pre attack.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PreMoveEventArgs" /> instance containing the event data.</param>
-        public void OnPreMove(object sender, PreMoveEventArgs args)
-        {
-            if (this.IsUltimateShooting())
-            {
-                args.Cancel = true;
             }
         }
 
@@ -217,6 +199,21 @@ namespace AIO.Champions
             }
         }
         */
+
+        /// <summary>
+        ///     Fired on issuing an order.
+        /// </summary>
+        /// <param name="sender">The object.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseIssueOrderEventArgs" /> instance containing the event data.</param>
+        public void OnIssueOrder(Obj_AI_Base sender, Obj_AI_BaseIssueOrderEventArgs args)
+        {
+            if (sender.IsMe &&
+                this.IsUltimateShooting() &&
+                args.OrderType == OrderType.MoveTo)
+            {
+                args.ProcessEvent = false;
+            }
+        }
 
         /// <summary>
         ///     Fired when the game is updated.

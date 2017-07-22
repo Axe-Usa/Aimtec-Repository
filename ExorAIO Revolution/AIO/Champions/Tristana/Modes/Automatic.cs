@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using AIO.Utilities;
+
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -15,6 +17,8 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            SpellClass.E.Range = UtilityClass.Player.AttackRange;
+            SpellClass.R.Range = UtilityClass.Player.AttackRange;
         }
 
         #endregion

@@ -5,6 +5,7 @@ namespace AIO.Champions
 {
     using System.Linq;
 
+    using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -23,6 +24,8 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            SpellClass.R.Range = UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level;
+
             if (UtilityClass.Player.IsRecalling())
             {
                 return;

@@ -12,8 +12,6 @@ namespace AIO.Champions
 
     using AIO.Utilities;
 
-    using Spell = Aimtec.SDK.Spell;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -131,11 +129,6 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
-            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level < 5)
-            {
-                SpellClass.Q2 = new Spell(SpellSlot.Q, SpellClass.Q.Range + 50f + 25f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level);
-            }
-
             if (UtilityClass.Player.IsDead)
             {
                 return;

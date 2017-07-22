@@ -60,7 +60,7 @@ namespace AIO.Champions
         /// </returns>
         public bool IsUltimateShooting()
         {
-            return UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Name.Equals("JhinRShot");
+            return UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Name.Equals("JhinRShot"); //TODO: get togglestate
         }
 
         /// <summary>

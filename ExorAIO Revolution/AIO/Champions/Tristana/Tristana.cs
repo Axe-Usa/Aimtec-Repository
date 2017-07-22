@@ -14,8 +14,6 @@ namespace AIO.Champions
 
     using AIO.Utilities;
 
-    using Spell = Aimtec.SDK.Spell;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -191,16 +189,6 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
-            var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Level < 5)
-            {
-                SpellClass.E = new Spell(SpellSlot.E, target != null ? UtilityClass.Player.GetFullAttackRange(target) : UtilityClass.Player.AttackRange);
-            }
-            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 3)
-            {
-                SpellClass.R = new Spell(SpellSlot.R, 1500 + 1500 * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);
-            }
-
             if (UtilityClass.Player.IsDead)
             {
                 return;
@@ -210,6 +198,11 @@ namespace AIO.Champions
             ///     Initializes the Killsteal events.
             /// </summary>
             this.Killsteal();
+
+            /// <summary>
+            ///     Initializes the Automatic events.
+            /// </summary>
+            this.Automatic();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {

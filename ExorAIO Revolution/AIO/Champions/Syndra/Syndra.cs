@@ -3,6 +3,9 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
+    using Aimtec;
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
@@ -10,14 +13,14 @@ namespace AIO.Champions
     /// <summary>
     ///     The champion class.
     /// </summary>
-    internal partial class KogMaw
+    internal partial class Syndra
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Loads Kog'Maw.
+        ///     Loads Syndra.
         /// </summary>
-        public KogMaw()
+        public Syndra()
         {
             /// <summary>
             ///     Initializes the menus.
@@ -40,23 +43,54 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on do-cast.
+        ///     Fired on spell cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void OnPostAttack(object sender, PostAttackEventArgs args)
+        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
+        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (ImplementationClass.IOrbwalker.Mode)
+            if (sender.IsMe &&
+                args.Slot == SpellSlot.W)
             {
-                case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
-                    break;
-                case OrbwalkingMode.Laneclear:
-                    this.Jungleclear(sender, args);
-                    break;
+                if (Game.TickCount - UtilityClass.LastTick >= 500)
+                {
+                    UtilityClass.LastTick = Game.TickCount;
+                }
+                else
+                {
+                    args.Process = false;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Fired upon GameObject creation.
+        /// </summary>
+        public void OnCreate(GameObject obj)
+        {
+            if (obj != null)
+            {
+                switch (obj.Name)
+                {
+                    case "Syndra_Base_Q_idle.troy":
+                    case "Syndra_Base_Q_Lv5_idle.troy":
+                        this.DarkSpheres.Add(obj.NetworkId, obj.Position);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Fired upon GameObject creation.
+        /// </summary>
+        public void OnDestroy(GameObject obj)
+        {
+            if (obj != null && obj.IsValid)
+            {
+                if (this.DarkSpheres.Any(o => o.Key == obj.NetworkId))
+                {
+                    this.DarkSpheres.Remove(obj.NetworkId);
+                }
             }
         }
 
@@ -112,15 +146,15 @@ namespace AIO.Champions
             /// </summary>
             this.Killsteal();
 
-            if (ImplementationClass.IOrbwalker.IsWindingUp)
-            {
-                return;
-            }
-
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
             this.Automatic();
+
+            /// <summary>
+            ///     Reloads the DarkSpheres.
+            /// </summary>
+            this.ReloadDarkSpheres();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -135,6 +169,7 @@ namespace AIO.Champions
                     break;
                 case OrbwalkingMode.Laneclear:
                     this.Laneclear();
+                    this.Jungleclear();
                     break;
             }
         }

@@ -46,11 +46,11 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     if (GameObjects.EnemyHeroes.Count() >= 2)
                     {
-                        MenuClass.W.Add(new MenuSliderBool("aoe", "Try AoE / If can hit >= x enemies", false, 3, 2, GameObjects.EnemyHeroes.Count()));
+                        MenuClass.W.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", false, 3, 2, GameObjects.EnemyHeroes.Count()));
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("separator", "Try AoE / No enemies found."));
+                        MenuClass.W.Add(new MenuSeperator("separator", "AoE / Not enough enemies found."));
                     }
                     MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));

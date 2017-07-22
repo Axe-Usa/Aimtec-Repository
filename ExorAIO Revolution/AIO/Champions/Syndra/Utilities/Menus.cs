@@ -7,14 +7,13 @@ namespace AIO.Champions
 
     using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Util;
 
     using AIO.Utilities;
 
     /// <summary>
     ///     The menu class.
     /// </summary>
-    internal partial class Jinx
+    internal partial class Syndra
     {
         #region Public Methods and Operators
 
@@ -33,44 +32,26 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
-                    MenuClass.Q.Add(new MenuBool("combo", "Use Fishbones if target out of PowPow range"));
-                    //MenuClass.Q.Add(new MenuSeperator("separator2"));
+                    MenuClass.Q.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("lasthit", "Lasthit out of PowPow range / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
-                    ///     Sets the menu for the Q customization.
+                    ///     Sets the customization menu for the Q spell.
                     /// </summary>
-                    MenuClass.Q2 = new Menu("customization", "Fishbones Customization:");
+                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
-                        //MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("splashrange", "Splash damage radius", 160, 125, 175));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator2"));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator3", "Combo settings:"));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator4", "This option will also be valid for the PowPow range."));
-                        if (GameObjects.EnemyHeroes.Count() >= 2)
-                        {
-                            MenuClass.Q2.Add(new MenuSliderBool("minenemies", "Use Fishbones / if hittable enemies >= x", true, 3, 2, GameObjects.EnemyHeroes.Count()));
-                        }
-                        else
-                        {
-                            MenuClass.Q2.Add(new MenuSeperator("separator", "Use Fishbones / Less than 2 Enemies in the game."));
-                        }
-                        //MenuClass.Q2.Add(new MenuSeperator("separator5"));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator6", "Laneclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Laneclear: Fishbones if Hittable minions >= x", 3, 2, 5));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator7"));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator8", "Jungleclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("jungleclear", "Jungleclear: Fishbones if Hittable minions >= x", 2, 1, 5));
+                        //MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
-                        ///     Sets the menu for the Q Whitelist.
+                        ///     Sets the menu for the Q Harass Whitelist.
                         /// </summary>
                         MenuClass.WhiteList = new Menu("whitelist", "Harass: Whitelist");
                         {
@@ -93,31 +74,26 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuList("mode", "W Cast Mode", new[] { "out of PowPow range", "out of Fishbones range", "Don't use W in Combo" }, 0));
+                    MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
-                    ///     Sets the menu for the Q customization.
+                    ///     Sets the customization menu for the W spell.
                     /// </summary>
-                    MenuClass.W2 = new Menu("customization", "Fishbones Customization:");
+                    MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
-                        if (GameObjects.EnemyHeroes.Any())
-                        {
-                            MenuClass.W2.Add(new MenuSliderBool("wsafetycheck", "W only if enemies in Fishbones Range <= x", true, 2, 1, GameObjects.EnemyHeroes.Count()));
-                        }
-                        else
-                        {
-                            MenuClass.W2.Add(new MenuSeperator("wsafetycheck", "No enemies found / No need for a W safety check"));
-                        }
+                        //MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
-                        ///     Sets the menu for the W Whitelist.
+                        ///     Sets the menu for the Q Harass Whitelist.
                         /// </summary>
                         MenuClass.WhiteList2 = new Menu("whitelist", "Harass: Whitelist");
                         {
@@ -140,18 +116,50 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
+                    MenuClass.E.Add(new MenuBool("combo", "Q -> E / E Spheres to enemy"));
+                    MenuClass.E.Add(new MenuBool("longcombo", "Use E-> Q if not normally stunnable"));
                     if (GameObjects.EnemyHeroes.Count() >= 2)
                     {
-                        MenuClass.E.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", false, 3, 2, GameObjects.EnemyHeroes.Count()));
+                        MenuClass.E.Add(new MenuSliderBool("aoe", "AoE (BETA) / If stunnable enemies >= x", true, 2, 1, GameObjects.EnemyHeroes.Count()));
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("separator", "AoE / Not enough enemies found."));
+                        MenuClass.E.Add(new MenuSeperator("separator", "AoE (BETA) / Not enough enemies found."));
                     }
-                    MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
-                    MenuClass.E.Add(new MenuBool("teleport", "On Teleport"));
+                    MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'ed Enemies"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
-                    MenuClass.E.Add(new MenuBool("interrupter", "On Channelling Immobile Targets"));
+                    MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
+                    MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", false, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
+
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the E Stun Whitelist.
+                        /// </summary>
+                        MenuClass.WhiteList3 = new Menu("whitelist", "Stun: Whitelist");
+                        {
+                            foreach (var target in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList3.Add(new MenuBool(target.ChampionName.ToLower(), "Stun: " + target.ChampionName));
+                            }
+                        }
+                        MenuClass.E.Add(MenuClass.WhiteList3);
+                    }
+                    else
+                    {
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 
@@ -160,24 +168,21 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    //MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));
-                    //MenuClass.R.Add(new MenuSeperator("separator2", "whitelisted and non-invulnerable enemy in range."));
-                    MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
-                    MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
+                    MenuClass.R.Add(new MenuBool("killsteal", "KillSteal"));
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
                         ///     Sets the menu for the R Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList3 = new Menu("whitelist", "Ultimate: Whitelist");
+                        MenuClass.WhiteList4 = new Menu("whitelist", "Ultimate: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList3.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
+                                MenuClass.WhiteList4.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
                             }
                         }
-                        MenuClass.R.Add(MenuClass.WhiteList3);
+                        MenuClass.R.Add(MenuClass.WhiteList4);
                     }
                     else
                     {
@@ -189,22 +194,16 @@ namespace AIO.Champions
             MenuClass.Root.Add(MenuClass.Spells);
 
             /// <summary>
-            ///     Sets the miscellaneous menu.
-            /// </summary>
-            MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
-            {
-                MenuClass.Miscellaneous.Add(new MenuBool("forcepowpow", "Force PowPow switch after switching Orbwalking Mode"));
-            }
-            MenuClass.Root.Add(MenuClass.Miscellaneous);
-
-            /// <summary>
             ///     Sets the drawings menu.
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
                 MenuClass.Drawings.Add(new MenuBool("q", "Q Range"));
                 MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
-                MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
+                MenuClass.Drawings.Add(new MenuBool("e", "E Range"));
+                MenuClass.Drawings.Add(new MenuBool("r", "R Range"));
+                MenuClass.Drawings.Add(new MenuBool("spheres", "Draw Spheres"));
+                MenuClass.Drawings.Add(new MenuBool("scatter", "Draw Spheres' E Push Rectangles", false));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

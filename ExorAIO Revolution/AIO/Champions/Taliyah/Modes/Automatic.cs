@@ -24,6 +24,8 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            SpellClass.R.Range = 1500 + 1500 * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level;
+
             if (UtilityClass.Player.IsRecalling())
             {
                 return;

@@ -22,6 +22,9 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            ImplementationClass.IOrbwalker.MovingEnabled = !this.IsUltimateShooting();
+            ImplementationClass.IOrbwalker.AttackingEnabled = !this.IsUltimateShooting();
+
             if (UtilityClass.Player.IsRecalling())
             {
                 return;

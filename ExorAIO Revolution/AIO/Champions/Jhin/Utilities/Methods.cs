@@ -21,9 +21,9 @@ namespace AIO.Champions
             Obj_AI_Base.OnTeleport += this.OnTeleport;
             Render.OnPresent += this.OnPresent;
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
-            ImplementationClass.IOrbwalker.PreMove += this.OnPreMove;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            Obj_AI_Base.OnIssueOrder += this.OnIssueOrder;
 
             //Events.OnGapCloser += OnGapCloser;
         }
