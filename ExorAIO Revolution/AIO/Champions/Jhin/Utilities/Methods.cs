@@ -23,7 +23,7 @@ namespace AIO.Champions
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            Obj_AI_Base.OnIssueOrder += this.OnIssueOrder;
+            //Obj_AI_Base.OnIssueOrder += this.OnIssueOrder;
 
             //Events.OnGapCloser += OnGapCloser;
         }
