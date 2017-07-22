@@ -128,3 +128,10 @@ ExorAIO: Revolution Changelog:
 
 7.14.0.24:
   Taliyah: Less wasted Es.
+  
+7.14.0.25:
+  Taliyah: E range fixes.
+  Kog'Maw: Fixed W Range drawing.
+  Kog'Maw: Fixed W in combo.
+  Jhin: Now should cast W more often.
+  Corki: E now casts on AA.

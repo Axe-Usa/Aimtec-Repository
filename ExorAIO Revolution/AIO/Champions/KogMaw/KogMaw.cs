@@ -105,6 +105,10 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
+            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).Level < 5)
+            {
+                SpellClass.W = new Spell(SpellSlot.W, UtilityClass.Player.AttackRange + (60f + 30f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).Level));
+            }
             if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 3)
             {
                 SpellClass.R = new Spell(SpellSlot.R, 900f + 300f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);

@@ -39,16 +39,6 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The E Combo Logic.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.AttackRange-50f)) &&
-                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
-            {
-                SpellClass.E.Cast();
-            }
-
-            /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
