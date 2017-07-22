@@ -61,19 +61,24 @@ namespace AIO.Champions
                     }
 
                     /// <summary>
-                    ///     The E Long Combo Logic.
+                    ///     The E Out of range catch Logic.
                     /// </summary>
                     if (SpellClass.Q.Ready &&
                         !target.IsValidTarget(SpellClass.Q.Range) &&
-                        target.IsValidTarget(1100f+SpellClass.Q.Width) &&
-                        MenuClass.Spells["e"]["longcombo"].As<MenuBool>().Enabled)
+                        target.IsValidTarget(1100f+SpellClass.Q.Width))
                     {
-                        SpellClass.E.Cast(target);
-                        SpellClass.Q.Cast(
-                            UtilityClass.Player.Position.Extend(
-                                Prediction.GetPrediction
-                                    (SpellClass.Q.GetPredictionInput(target)).CastPosition,
-                                SpellClass.Q.Range-50f));
+                        var qPosition = UtilityClass.Player.Position.Extend(Prediction.GetPrediction(SpellClass.Q.GetPredictionInput(target)).CastPosition, SpellClass.Q.Range - 50f);
+                        switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
+                        {
+                            case 0:
+                                SpellClass.E.Cast(target);
+                                SpellClass.Q.Cast(qPosition);
+                                break;
+                            case 1:
+                                SpellClass.Q.Cast(qPosition);
+                                SpellClass.E.Cast(target);
+                                break;
+                        }
                     }
                 }
 

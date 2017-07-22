@@ -49,7 +49,7 @@ namespace AIO.Utilities
         /// </summary>
         public static bool AnyWallInBetween(Vector3 startPos, Vector3 endPos)
         {
-            for (var i = 0; i < startPos.Distance(endPos); i++)
+            for (var i = 0; i < startPos.Distance(endPos); i+=5)
             {
                 var point = NavMesh.WorldToCell(startPos.Extend(endPos, i));
                 if (point.Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building))

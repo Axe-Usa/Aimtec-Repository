@@ -163,3 +163,11 @@ ExorAIO: Revolution Changelog:
   Orianna: Added Killsteal R.
   Orianna: Fixed Killsteal W,
   Vayne: Tentative Orbwalking fixes.
+
+7.14.1.4:
+  AIO: W spell drawings are now Yellow instead of Purple.
+  Ahri: Improved Charm.
+  Xayah: Fixed Nullref.
+  Xayah: Fixed Buildingclear.
+  Orianna: Spellcasting should be fixed.
+  Vayne: Now also takes into account buildings for condemn.

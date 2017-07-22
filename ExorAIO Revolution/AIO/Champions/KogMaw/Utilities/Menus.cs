@@ -140,9 +140,9 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuSliderBool("combo", "Combo / if Stacks <= x", true, 1, 1, 10));
-                    MenuClass.R.Add(new MenuSliderBool("killsteal", "KillSteal / if Stacks <= x", true, 3, 1, 10));
-                    MenuClass.R.Add(new MenuSliderBool("laneclear", "Laneclear / if Stacks <= x", true, 3, 1, 10));
+                    MenuClass.R.Add(new MenuSliderBool("combo", "Combo / if Stacks <= x", true, 1, 2, 10));
+                    MenuClass.R.Add(new MenuSliderBool("killsteal", "KillSteal / if Stacks <= x", true, 2, 2, 10));
+                    MenuClass.R.Add(new MenuSliderBool("laneclear", "Laneclear / if Stacks <= x", true, 3, 2, 10));
 
                     /// <summary>
                     ///     Sets the customization menu for the R spell.

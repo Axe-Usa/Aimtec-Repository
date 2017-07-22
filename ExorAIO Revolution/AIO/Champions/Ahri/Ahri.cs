@@ -115,7 +115,7 @@ namespace AIO.Champions
                                 if (SpellClass.E.Ready &&
                                     MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                                 {
-                                    var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-100f);
+                                    var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-150f);
                                     if (!heroTarget.IsValidTarget() ||
                                         Invulnerable.Check(heroTarget, DamageType.Magical, false))
                                     {

@@ -36,8 +36,8 @@ namespace AIO.Champions
                     GameObjects.EnemyHeroes.Where(
                         t =>
                             !Invulnerable.Check(t, DamageType.Magical, false) &&
+                            !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
                             t.IsValidTarget(SpellClass.E.Range + t.BoundingRadius) &&
-                            !t.IsValidTarget(UtilityClass.Player.BoundingRadius * 2) &&
                             t.GetRealHealth() >
                                 UtilityClass.Player.GetAutoAttackDamage(t) *
                                 MenuClass.Spells["e"]["customization"]["eaacheck"].As<MenuSlider>().Value &&
@@ -54,10 +54,10 @@ namespace AIO.Champions
                         var unitPosition = predictedPos1.Extend(playerPos, -40 * i);
                         var unitPositionExtended = predictedPos1.Extend(playerPos, -41 * i);
 
-                        if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPositionExtended).Flags.HasFlag(NavCellFlags.Wall))
+                        if (NavMesh.WorldToCell(unitPosition).Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building) &&
+                            NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building) &&
+                            NavMesh.WorldToCell(unitPositionExtended).Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building) &&
+                            NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building))
                         {
                             SpellClass.E.CastOnUnit(target);
                         }

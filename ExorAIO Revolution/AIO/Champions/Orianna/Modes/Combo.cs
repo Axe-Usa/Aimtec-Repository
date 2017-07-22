@@ -92,11 +92,10 @@ namespace AIO.Champions
                         (Vector2)UtilityClass.Player.ServerPosition.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition) + 30f),
                         SpellClass.E.Width);
 
-                    if (GameObjects.EnemyHeroes.Any(
-                        t =>
+                    if (GameObjects.EnemyHeroes.Any(t =>
                             t.IsValidTarget() &&
-                            !playerToBallRectangle.IsOutside((Vector2)t.ServerPosition) &&
-                            !Invulnerable.Check(t, DamageType.Magical)))
+                            !Invulnerable.Check(t, DamageType.Magical) &&
+                            playerToBallRectangle.IsInside((Vector2)t.ServerPosition)))
                     {
                         SpellClass.E.CastOnUnit(UtilityClass.Player);
                         return;
