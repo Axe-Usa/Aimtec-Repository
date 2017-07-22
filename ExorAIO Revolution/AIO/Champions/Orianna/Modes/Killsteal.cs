@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -42,13 +44,26 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
-                foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.W.Range))
+                if (GameObjects.EnemyHeroes.Any(t =>
+                        t.IsValidTarget(SpellClass.W.Width, false, false, this.BallPosition) &&
+                        UtilityClass.Player.GetSpellDamage(t, SpellSlot.W) >= t.GetRealHealth()))
                 {
-                    if (target.IsValidTarget(SpellClass.W.Width, false, true, this.BallPosition) &&
-                        UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) >= target.GetRealHealth())
-                    {
-                        SpellClass.W.Cast();
-                    }
+                    SpellClass.W.Cast();
+                    return;
+                }
+            }
+
+            /// <summary>
+            ///     The KillSteal R Logic.
+            /// </summary>
+            if (SpellClass.R.Ready &&
+                MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
+            {
+                if (GameObjects.EnemyHeroes.Any(t =>
+                        t.IsValidTarget(SpellClass.R.Width, false, false, this.BallPosition) &&
+                        UtilityClass.Player.GetSpellDamage(t, SpellSlot.R) >= t.GetRealHealth()))
+                {
+                    SpellClass.R.Cast();
                 }
             }
         }

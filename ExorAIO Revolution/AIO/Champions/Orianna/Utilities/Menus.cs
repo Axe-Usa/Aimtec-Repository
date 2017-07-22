@@ -181,14 +181,15 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
+                    MenuClass.R.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
-                    if (GameObjects.EnemyHeroes.Any())
+                    if (GameObjects.EnemyHeroes.Count() >= 2)
                     {
-                        MenuClass.R.Add(new MenuSliderBool("combo", "Combo / If can hit >= x enemies", true, 2, 1, GameObjects.EnemyHeroes.Count()));
+                        MenuClass.R.Add(new MenuSliderBool("combo", "AoE / If can hit >= x enemies", true, 2, 2, GameObjects.EnemyHeroes.Count()));
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("combo", "Combo / No enemies found"));
+                        MenuClass.R.Add(new MenuSeperator("combo", "AoE / Not enough enemies found"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

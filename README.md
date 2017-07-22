@@ -157,3 +157,9 @@ ExorAIO: Revolution Changelog:
   Kog'Maw: Little Combo R Logic cleanup.
   Kog'Maw: Improved R Logic and Prediction.
   Kog'Maw: Fixed a bug on the stacksmanager.
+
+7.14.1.3:
+  Orianna: Changed R Combo option to R AoE.
+  Orianna: Added Killsteal R.
+  Orianna: Fixed Killsteal W,
+  Vayne: Tentative Orbwalking fixes.
