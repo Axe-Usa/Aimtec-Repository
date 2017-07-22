@@ -171,3 +171,4 @@ ExorAIO: Revolution Changelog:
   Xayah: Fixed Buildingclear.
   Orianna: Spellcasting should be fixed.
   Vayne: Now also takes into account buildings for condemn.
+  Syndra: Now has a Catchmode stringlist, to let you choose whether to use E-> Q or Q -> E to catch enemies out of Q range, or not try to catch enemies out of range at all.
