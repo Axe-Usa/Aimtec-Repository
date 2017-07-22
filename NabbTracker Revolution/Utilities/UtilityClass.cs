@@ -85,12 +85,14 @@ namespace NabbTracker
                 return ((int)cooldownRemaining).ToString();
             }
 
-            if (unit.IsMe &&
-                unitSpell.State.HasFlag(SpellState.Unknown) ||
-                unitSpell.State.HasFlag(SpellState.Disabled) ||
-                unitSpell.State.HasFlag(SpellState.Surpressed))
+            if (unitSpell.State.HasFlag(SpellState.Disabled) ||
+                unit.IsMe && unitSpell.State.HasFlag(SpellState.Surpressed))
             {
                 return "X";
+            }
+            if (unitSpell.State.HasFlag(SpellState.Unknown))
+            {
+                return "?";
             }
 
             return SpellSlots[spell].ToString();
