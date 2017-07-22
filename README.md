@@ -125,3 +125,6 @@ ExorAIO: Revolution Changelog:
   Vayne: Now it wont Q to lasthit in a dangerous position anymore.
   Vayne: Added Don't try to stun if enemy can die in X autos option.
   Vayne: Added don't break stealth if >= x enemies in AA Range option.
+
+7.14.0.24:
+  Taliyah: Less wasted Es.
