@@ -152,3 +152,8 @@ ExorAIO: Revolution Changelog:
   Orianna: Little Performance Improvement.
   Kog'Maw: Finally fixed W Range.
   Tristana: Fixed Random damage drawings all over the screen.
+
+7.14.1.2:
+  Kog'Maw: Little Combo R Logic cleanup.
+  Kog'Maw: Improved R Logic and Prediction.
+  Kog'Maw: Fixed a bug on the stacksmanager.

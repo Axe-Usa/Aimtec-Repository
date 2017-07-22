@@ -58,7 +58,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value
-                > UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") &&
+                    > UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost")+1 &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);

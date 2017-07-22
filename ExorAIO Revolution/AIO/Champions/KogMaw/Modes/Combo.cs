@@ -37,17 +37,14 @@ namespace AIO.Champions
             ///     The R Combo Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                UtilityClass.Player.Mana
-                    > UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
-                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value
-                    > UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
+                    > UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost")+1 &&
+                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled)
             {
-                foreach (var target in Extensions.GetBestEnemyHeroesTargets())
+                foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range))
                 {
-                    if (target.IsValidTarget() &&
-                        target.HealthPercent() <= 40 &&
-                        !Invulnerable.Check(target, DamageType.Magical) ||
+                    if (target.HealthPercent() <= 40 &&
+                        !Invulnerable.Check(target, DamageType.Magical) &&
                         MenuClass.Spells["r"]["whitelist"][target.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     {
                         SpellClass.R.Cast(target);
