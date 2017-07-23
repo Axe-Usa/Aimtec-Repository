@@ -203,4 +203,5 @@ ExorAIO: Revolution Changelog:
   Syndra: Fixed W usage.
   Syndra: Improved W Killsteal.
   Syndra: Improved E->Q casting.
+  Syndra: Fixed R Killsteal.
   Caitlyn: Added Option to not use Q if enemies in AA Range >= X (Customizable).
