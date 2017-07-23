@@ -30,7 +30,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.Green);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.LightGreen);
             }
 
             /// <summary>
@@ -66,7 +66,7 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Drawings["rdmg"].As<MenuBool>().Enabled)
                 {
-                    ObjectManager.Get<Obj_AI_Hero>()
+                    Extensions.GetEnemyHeroesTargetsInRange(SpellClass.R.Range)
                         .Where(h => h.IsValidTarget() && !Invulnerable.Check(h, DamageType.Magical, false))
                         .ToList()
                         .ForEach(

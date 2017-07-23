@@ -109,8 +109,7 @@ namespace AIO.Champions
         /// </summary>
         public bool CanSphereHitUnit(Obj_AI_Base unit, KeyValuePair<int, Vector3> sphere)
         {
-            var targetPos = (Vector2)unit.ServerPosition;
-            if (this.DarkSphereScatterRectangle(sphere).IsInside(targetPos))
+            if (this.DarkSphereScatterRectangle(sphere).IsInside((Vector2)SpellClass.Q.GetPrediction(unit).UnitPosition))
             {
                 return true;
             }
@@ -123,9 +122,8 @@ namespace AIO.Champions
         /// </summary>
         public double GetPerfectUnleashedPowerDamage(Obj_AI_Hero target)
         {
-            var rBaseDamage = UtilityClass.Player.GetSpellDamage(target, SpellSlot.R);
-            return
-                rBaseDamage + rBaseDamage / 3 * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Ammo;
+            var player = UtilityClass.Player;
+            return player.GetSpellDamage(target, SpellSlot.R) * player.SpellBook.GetSpell(SpellSlot.R).Ammo;
         }
 
         /// <summary>

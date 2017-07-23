@@ -50,9 +50,10 @@ namespace AIO.Champions
         public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
             if (sender.IsMe &&
-                args.Slot == SpellSlot.W)
+                args.Slot == SpellSlot.W &&
+                !this.IsHoldingForceOfWillObject())
             {
-                if (Game.TickCount - UtilityClass.LastTick >= 500)
+                if (Game.TickCount - UtilityClass.LastTick >= 400)
                 {
                     UtilityClass.LastTick = Game.TickCount;
                 }

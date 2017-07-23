@@ -25,9 +25,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Loads the Ball drawing.
             /// </summary>
-            if (MenuClass.Drawings["ball"].As<MenuBool>().Enabled)
+            if (MenuClass.Drawings["ball"].As<MenuSliderBool>().Enabled)
             {
-                Render.Circle(this.BallPosition, SpellClass.Q.Width, 30, Color.Blue);
+                for (var i = 1; i < MenuClass.Drawings["ball"].As<MenuSliderBool>().Value; i++)
+                {
+                    Render.Circle(this.BallPosition, (uint)(60 + i * 2.5), 30, Color.Black);
+                }
             }
 
             /// <summary>
@@ -36,7 +39,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.Green);
+                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.LightGreen);
             }
 
             /// <summary>

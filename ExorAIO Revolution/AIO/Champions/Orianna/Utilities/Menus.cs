@@ -121,7 +121,7 @@ namespace AIO.Champions
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo: To Orianna"));
-                    MenuClass.E.Add(new MenuBool("comboallies", "Shield: To allies if can damage enemy"));
+                    MenuClass.E.Add(new MenuBool("comboallies", "Combo: To allies"));
                     MenuClass.E.Add(new MenuBool("protect", "Shield: To allies if can protect from enemy"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
@@ -213,7 +213,7 @@ namespace AIO.Champions
             {
                 MenuClass.Drawings.Add(new MenuBool("q", "Q Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
-                MenuClass.Drawings.Add(new MenuBool("ball", "Ball Position"));
+                MenuClass.Drawings.Add(new MenuSliderBool("ball", "Ball Position / Draw X circles", true, 2, 1, 5));
                 MenuClass.Drawings.Add(new MenuBool("ballw", "Ball W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("ballr", "Ball R Range", false));
             }

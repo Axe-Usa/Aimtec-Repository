@@ -45,12 +45,13 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) >= bestTarget.GetRealHealth())
                 {
+                    /*
                     var obj = this.ForceOfWillObject();
                     if (obj != null &&
                         !this.IsHoldingForceOfWillObject())
                     {
                         SpellClass.W.CastOnUnit(obj);
-                    }
+                    }*/
 
                     if (this.IsHoldingForceOfWillObject())
                     {

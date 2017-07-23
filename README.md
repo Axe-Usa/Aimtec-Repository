@@ -193,3 +193,14 @@ ExorAIO: Revolution Changelog:
   Caitlyn: Reversed E default: OFF
   Caitlyn: Prediction changes.
   Corki: Prediction changes.
+
+7.14.1.8:
+  AIO: Q drawings back to LightGreen.
+  Orianna: Ball's Drawing color changed to Black.
+  Orianna: Option to enhance the Ball's drawing, so you can see it better.
+  Orianna: Completely fixed, and improved prediction.
+  Syndra: Completely fixed, and improved prediction.
+  Syndra: Fixed W usage.
+  Syndra: Improved W Killsteal.
+  Syndra: Improved E->Q casting.
+  Caitlyn: Added Option to not use Q if enemies in AA Range >= X (Customizable).

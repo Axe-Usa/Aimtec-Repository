@@ -44,6 +44,14 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
+                        if (GameObjects.EnemyHeroes.Any())
+                        {
+                            MenuClass.Q2.Add(new MenuSlider("safeq", "Combo: Only Q if enemies in AA Range <= x", 0, 2, GameObjects.EnemyHeroes.Count()));
+                        }
+                        else
+                        {
+                            MenuClass.Q2.Add(new MenuSeperator("exseparator", "Combo: Only Q if enemies / No enemies found"));
+                        }
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
                     }

@@ -55,6 +55,14 @@ namespace AIO.Champions
             {
                 switch (args.Slot)
                 {
+                    case SpellSlot.Q:
+                        if (GameObjects.EnemyHeroes.Count(t => !t.IsDead && t.Distance(UtilityClass.Player) < UtilityClass.Player.AttackRange)
+                                > MenuClass.Spells["q"]["customization"]["safeq"].As<MenuSlider>().Value)
+                        {
+                            args.Process = false;
+                        }
+                        break;
+
                     case SpellSlot.W:
                         if (ObjectManager.Get<Obj_AI_Minion>().Any(m => m.Distance(args.End) < 200 && m.UnitSkinName.Equals("CaitlynTrap")))
                         {
