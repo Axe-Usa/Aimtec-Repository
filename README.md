@@ -172,3 +172,15 @@ ExorAIO: Revolution Changelog:
   Orianna: Spellcasting should be fixed.
   Vayne: Now also takes into account buildings for condemn.
   Syndra: Now has a Catchmode stringlist, to let you choose whether to use E-> Q or Q -> E to catch enemies out of Q range, or not try to catch enemies out of range at all.
+
+7.14.1.5:
+  Ezreal; Code fixes.
+  Ezreal: W to allies Fix attempt.
+  Jhin: Only W Combo if slowed turned OFF by default,
+  Kalista: Added Rend only if Killable Minions >= x Slider.
+  Orianna: Added Farmhelper Q if killable minions out of aa range with ManaManager.
+  Syndra: Prediction Improvement Attempt.
+  Tristana: Added Semi-Automatic Ult to nearest enemy with Whitelist (Default: T)
+  Vayne: Q Range drawing fix.
+  Vayne: Added Engager Q (Q to enemy out of aa range but in aa+q range) [Default: OFF]
+  Vayne: Added E Prediction Drawings
