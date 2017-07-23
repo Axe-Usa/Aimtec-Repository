@@ -119,7 +119,6 @@ namespace AIO.Champions
                             MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.CastOnUnit(UtilityClass.Player);
-                            return;
                         }
                     }
                     else

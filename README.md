@@ -213,3 +213,11 @@ ExorAIO: Revolution Changelog:
   Caitlyn: Fixed W on-Teleport.
   Caitlyn: Fixed On-CC Traps.
   Caitlyn: Fixed R not being used.
+
+7.14.1.10:
+  Tristana: Whitelist now works for both Harass and Combo.
+  Orianna: Q should now work properly even at max range.
+  Jinx: Fixed W Killsteal.
+  Jinx: Will not W while under enemy turret again.
+  Ezreal: Prediction Improvements.
+  Jinx: Prediction Improvements.

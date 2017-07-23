@@ -29,7 +29,7 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Q Harass Logic.
+            ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
@@ -38,10 +38,11 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The E Harass Logic.
+            ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled &&
+                MenuClass.Spells["e"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(heroTarget);
             }

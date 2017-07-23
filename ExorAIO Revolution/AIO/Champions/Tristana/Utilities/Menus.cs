@@ -77,11 +77,11 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the menu for the Q Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList = new Menu("whitelist", "Harass: Whitelist");
+                        MenuClass.WhiteList = new Menu("whitelist", "E: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                                MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Use on: " + target.ChampionName));
                             }
                         }
                         MenuClass.E.Add(MenuClass.WhiteList);

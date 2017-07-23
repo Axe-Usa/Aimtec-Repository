@@ -28,7 +28,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-100f);
                 if (bestTarget.IsValidTarget() &&
                     !Invulnerable.Check(bestTarget) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
@@ -45,7 +45,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
                 MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-150f);
                 if (bestTarget.IsValidTarget() ||
                     !Invulnerable.Check(bestTarget) ||
                     MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)

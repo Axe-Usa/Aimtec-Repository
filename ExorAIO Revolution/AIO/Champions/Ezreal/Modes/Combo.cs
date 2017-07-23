@@ -29,7 +29,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-100f);
                 if (bestTarget.IsValidTarget() &&
                     !Invulnerable.Check(bestTarget) &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
@@ -44,7 +44,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-150f);
                 if (!SpellClass.Q.GetPrediction(bestTarget).CollisionObjects.Any() &&
                     UtilityClass.Player.TotalAbilityDamage < UtilityClass.Player.TotalAttackDamage)
                 {
