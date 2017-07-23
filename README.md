@@ -188,3 +188,8 @@ ExorAIO: Revolution Changelog:
 7.14.1.6:
   AIO; Overall Prediction fixes attempt.
   Vayne: Added Semi-Automatic E to nearest target in range (Default Key: T)
+  
+7.14.1.7:
+  Caitlyn: Reversed E default: OFF
+  Caitlyn: Prediction changes.
+  Corki: Prediction changes.

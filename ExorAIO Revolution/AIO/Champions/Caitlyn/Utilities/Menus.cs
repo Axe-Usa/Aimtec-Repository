@@ -135,7 +135,7 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
-                MenuClass.Miscellaneous.Add(new MenuBool("reversede", "Reverse E if manually casted (Dash to Cursor Position)"));
+                MenuClass.Miscellaneous.Add(new MenuBool("reversede", "Reverse E if manually casted (Dash to Cursor Position)", false));
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);
 

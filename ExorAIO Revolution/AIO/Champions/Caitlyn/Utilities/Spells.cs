@@ -25,9 +25,9 @@ namespace AIO.Champions
             SpellClass.E = new Spell(SpellSlot.E, 950f);
             SpellClass.R = new Spell(SpellSlot.R, 1500f + 500f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);
 
-            SpellClass.Q.SetSkillshot(0.65f, 60f, 2200f, false, SkillshotType.Line);
-            SpellClass.Q2.SetSkillshot(0.65f, 120f, 2200f, false, SkillshotType.Line);
-            SpellClass.W.SetSkillshot(1.5f, 67.5f, float.MaxValue, false, SkillshotType.Circle);
+            SpellClass.Q.SetSkillshot(0.65f, 60f, 2200f, false, SkillshotType.Line, false, HitChance.None);
+            SpellClass.Q2.SetSkillshot(0.65f, 120f, 2200f, false, SkillshotType.Line, false, HitChance.None);
+            SpellClass.W.SetSkillshot(1.5f, 67.5f, float.MaxValue, false, SkillshotType.Circle, false, HitChance.None);
             SpellClass.E.SetSkillshot(0.30f, 70f, 2000f, true, SkillshotType.Line);
         }
 
