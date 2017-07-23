@@ -32,6 +32,7 @@ namespace AIO.Champions
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.Q.Add(new MenuBool("engage", "Engager", false));
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Help to farm / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
@@ -120,6 +121,7 @@ namespace AIO.Champions
             {
                 MenuClass.Drawings.Add(new MenuBool("q", "Q Range"));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
+                MenuClass.Drawings.Add(new MenuBool("epred", "E Prediction Rectangles", false));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

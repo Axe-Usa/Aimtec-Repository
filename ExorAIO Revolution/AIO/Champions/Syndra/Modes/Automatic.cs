@@ -8,7 +8,6 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Prediction.Skillshots;
 
     using AIO.Utilities;
 
@@ -47,17 +46,13 @@ namespace AIO.Champions
                 {
                     if (target.IsValidTarget(SpellClass.Q.Range))
                     {
-                        SpellClass.Q.Cast(target);
-                        SpellClass.E.Cast(target);
+                        SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(target.ServerPosition, SpellClass.Q.Range));
+                        SpellClass.E.Cast(target.ServerPosition);
                     }
                     else
                     {
-                        SpellClass.E.Cast(target.Position);
-                        SpellClass.Q.Cast(
-                            UtilityClass.Player.Position.Extend(
-                                Prediction.GetPrediction
-                                    (SpellClass.Q.GetPredictionInput(target)).CastPosition,
-                                    SpellClass.Q.Range));
+                        SpellClass.E.Cast(target.ServerPosition);
+                        SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(target.ServerPosition, SpellClass.Q.Range));
                     }
                 }
             }

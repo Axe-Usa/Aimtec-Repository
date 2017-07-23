@@ -7,6 +7,7 @@ namespace AIO.Champions
 
     using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Util;
 
     using AIO.Utilities;
 
@@ -100,6 +101,28 @@ namespace AIO.Champions
                     MenuClass.R.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.R.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
+                    MenuClass.R.Add(new MenuSeperator("separator"));
+                    MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
+                    MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
+
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the R Whitelist.
+                        /// </summary>
+                        MenuClass.WhiteList2 = new Menu("whitelist", "Ultimate: Whitelist");
+                        {
+                            foreach (var target in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
+                            }
+                        }
+                        MenuClass.R.Add(MenuClass.WhiteList2);
+                    }
+                    else
+                    {
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
             }

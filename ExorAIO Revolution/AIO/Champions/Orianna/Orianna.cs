@@ -179,6 +179,9 @@ namespace AIO.Champions
                     this.Laneclear();
                     this.Jungleclear();
                     break;
+                case OrbwalkingMode.Lasthit:
+                    this.Lasthit();
+                    break;
             }
         }
 

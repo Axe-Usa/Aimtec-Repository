@@ -3,6 +3,12 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
+    using Aimtec;
+    using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu.Components;
+
     using AIO.Utilities;
 
     /// <summary>
@@ -19,6 +25,27 @@ namespace AIO.Champions
         {
             SpellClass.E.Range = UtilityClass.Player.AttackRange;
             SpellClass.R.Range = UtilityClass.Player.AttackRange;
+
+            /// <summary>
+            ///     The Semi-Automatic R Management.
+            /// </summary>
+            if (SpellClass.R.Ready &&
+                MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
+                MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+            {
+                var bestTarget = GameObjects.EnemyHeroes
+                    .Where(
+                        t =>
+                            t.IsValidTarget(SpellClass.R.Range) &&
+                            !Invulnerable.Check(t, DamageType.Magical, false) &&
+                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    .OrderBy(o => o.Distance(UtilityClass.Player))
+                    .FirstOrDefault();
+                if (bestTarget != null)
+                {
+                    SpellClass.R.CastOnUnit(bestTarget);
+                }
+            }
         }
 
         #endregion

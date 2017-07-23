@@ -26,6 +26,27 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
+            ///     The Q Combo Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                MenuClass.Spells["q"]["engage"].As<MenuBool>().Enabled)
+            {
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (bestTarget != null &&
+                    !Invulnerable.Check(bestTarget) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                {
+                    var posAfterQ = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 300f);
+                    if (posAfterQ.CountEnemyHeroesInRange(1000f) < 3 &&
+                        UtilityClass.Player.Distance(Game.CursorPos) > UtilityClass.Player.AttackRange &&
+                        bestTarget.Distance(posAfterQ) < UtilityClass.Player.GetFullAttackRange(bestTarget))
+                    {
+                        SpellClass.Q.Cast(posAfterQ);
+                    }
+                }
+            }
+
+            /// <summary>
             ///     The E Stun Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
@@ -54,10 +75,8 @@ namespace AIO.Champions
                         var unitPosition = predictedPos1.Extend(playerPos, -40 * i);
                         var unitPositionExtended = predictedPos1.Extend(playerPos, -41 * i);
 
-                        if (NavMesh.WorldToCell(unitPosition).Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building) &&
-                            NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building) &&
-                            NavMesh.WorldToCell(unitPositionExtended).Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building) &&
-                            NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building))
+                        if (unitPosition.IsWall(true) && targetPosition.IsWall(true) &&
+                            unitPositionExtended.IsWall(true) && targetPositionExtended.IsWall(true))
                         {
                             SpellClass.E.CastOnUnit(target);
                         }

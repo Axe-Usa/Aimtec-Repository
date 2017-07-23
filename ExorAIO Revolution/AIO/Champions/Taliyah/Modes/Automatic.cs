@@ -38,8 +38,7 @@ namespace AIO.Champions
                 SpellClass.E.Ready &&
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
                         t.IsImmobile() &&
                         t.IsValidTarget(SpellClass.W.Range) &&
                         !Invulnerable.Check(t, DamageType.Magical, false)))

@@ -61,7 +61,7 @@ namespace AIO.Champions
                     var posAfterE = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 425f);
                     if (posAfterE.CountEnemyHeroesInRange(1000f) < 3 &&
                         UtilityClass.Player.Distance(Game.CursorPos) > UtilityClass.Player.AttackRange &&
-                        bestTarget.Distance(posAfterE) < UtilityClass.Player.AttackRange)
+                        bestTarget.Distance(posAfterE) < UtilityClass.Player.GetFullAttackRange(bestTarget))
                     {
                         SpellClass.E.Cast(posAfterE);
                     }

@@ -22,6 +22,13 @@ namespace AIO.Utilities
 
         #region Public Methods and Operators
 
+        public static bool IsWall(this Vector3 pos, bool includeBuildings = false)
+        {
+            return
+                NavMesh.WorldToCell(pos).Flags.HasFlag(NavCellFlags.Wall) ||
+                includeBuildings && NavMesh.WorldToCell(pos).Flags.HasFlag(NavCellFlags.Building);
+        }
+
         /// <returns>
         ///     true if an unit has a Sheen-Like buff; otherwise, false.
         /// </returns>

@@ -8,7 +8,6 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Prediction.Skillshots;
 
     using AIO.Utilities;
 
@@ -67,7 +66,7 @@ namespace AIO.Champions
                         !target.IsValidTarget(SpellClass.Q.Range) &&
                         target.IsValidTarget(1100f+SpellClass.Q.Width))
                     {
-                        var qPosition = UtilityClass.Player.Position.Extend(Prediction.GetPrediction(SpellClass.Q.GetPredictionInput(target)).CastPosition, SpellClass.Q.Range - 50f);
+                        var qPosition = UtilityClass.Player.Position.Extend(SpellClass.Q.GetPrediction(target).CastPosition, SpellClass.Q.Range - 50f);
                         switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
                         {
                             case 0:

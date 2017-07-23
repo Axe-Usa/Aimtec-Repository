@@ -23,9 +23,10 @@ namespace AIO.Champions
             ///     The E Lasthit Logics.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["laneclear"].As<MenuBool>().Enabled)
+                MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Any(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m)))
+                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range)
+                        .Count(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m)) >= MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Value)
                 {
                     SpellClass.E.Cast();
                 }

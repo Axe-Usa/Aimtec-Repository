@@ -43,9 +43,10 @@ namespace AIO.Champions
             ///     The E Laneclear Logics.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["laneclear"].As<MenuBool>().Enabled)
+                MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                if (Extensions.GetEnemyLaneMinionsTargets().Any(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m)))
+                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range)
+                        .Count(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m)) >= MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Value)
                 {
                     SpellClass.E.Cast();
                 }

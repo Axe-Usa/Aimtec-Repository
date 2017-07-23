@@ -8,7 +8,6 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Prediction.Skillshots;
 
     using AIO.Utilities;
 
@@ -46,8 +45,8 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
-                if (UtilityClass.Player.TotalAbilityDamage < UtilityClass.Player.TotalAttackDamage &&
-                    !Prediction.GetPrediction(SpellClass.Q.GetPredictionInput(bestTarget)).CollisionObjects.Any())
+                if (!SpellClass.Q.GetPrediction(bestTarget).CollisionObjects.Any() &&
+                    UtilityClass.Player.TotalAbilityDamage < UtilityClass.Player.TotalAttackDamage)
                 {
                     return;
                 }
