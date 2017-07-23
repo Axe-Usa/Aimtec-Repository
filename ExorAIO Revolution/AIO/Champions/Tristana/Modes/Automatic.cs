@@ -33,12 +33,9 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
-                var bestTarget = GameObjects.EnemyHeroes
-                    .Where(
-                        t =>
-                            t.IsValidTarget(SpellClass.R.Range) &&
-                            !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                var bestTarget = GameObjects.EnemyHeroes.Where(t =>
+                        t.IsValidTarget(SpellClass.R.Range) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false))
                     .OrderBy(o => o.Distance(UtilityClass.Player))
                     .FirstOrDefault();
                 if (bestTarget != null)

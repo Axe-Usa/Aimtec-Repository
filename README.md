@@ -180,7 +180,11 @@ ExorAIO: Revolution Changelog:
   Kalista: Added Rend only if Killable Minions >= x Slider.
   Orianna: Added Farmhelper Q if killable minions out of aa range with ManaManager.
   Syndra: Prediction Improvement Attempt.
-  Tristana: Added Semi-Automatic Ult to nearest enemy with Whitelist (Default: T)
+  Tristana: Added Semi-Automatic Ult to nearest Whitelisted enemy (Default Key: T)
   Vayne: Q Range drawing fix.
-  Vayne: Added Engager Q (Q to enemy out of aa range but in aa+q range) [Default: OFF]
+  Vayne: Added Engager Q (Q to enemy out of AA range but inside AA+Q range) [Default: OFF]
   Vayne: Added E Prediction Drawings
+
+7.14.1.6:
+  AIO; Overall Prediction fixes attempt.
+  Vayne: Added Semi-Automatic E to nearest target in range (Default Key: T)

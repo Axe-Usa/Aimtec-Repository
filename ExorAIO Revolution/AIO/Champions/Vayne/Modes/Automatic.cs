@@ -3,6 +3,14 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
+    using Aimtec;
+    using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu.Components;
+
+    using AIO.Utilities;
+
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -15,7 +23,23 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-
+            /// <summary>
+            ///     The Semi-Automatic E Management.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["bool"].As<MenuBool>().Enabled &&
+                MenuClass.Spells["e"]["key"].As<MenuKeyBind>().Enabled)
+            {
+                var bestTarget = GameObjects.EnemyHeroes.Where(t =>
+                        t.IsValidTarget(SpellClass.E.Range) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false))
+                    .OrderBy(o => o.Distance(UtilityClass.Player))
+                    .FirstOrDefault();
+                if (bestTarget != null)
+                {
+                    SpellClass.E.CastOnUnit(bestTarget);
+                }
+            }
         }
 
         #endregion

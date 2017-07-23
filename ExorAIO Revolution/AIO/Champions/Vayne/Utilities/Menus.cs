@@ -6,6 +6,7 @@ namespace AIO.Champions
 
     using Aimtec.SDK.Menu;
     using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Util;
 
     using AIO.Utilities;
 
@@ -34,7 +35,7 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("engage", "Engager", false));
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
-                    MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Help to farm / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Farmhelper / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
 
@@ -60,13 +61,16 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSeperator("separator"));
+                    MenuClass.E.Add(new MenuBool("bool", "Semi-Automatic E"));
+                    MenuClass.E.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
-                        MenuClass.E2.Add(new MenuSlider("eaacheck", "Don't try to stun if target can die in x autos", 3, 1, 5));
+                        MenuClass.E2.Add(new MenuSlider("eaacheck", "Combo: Don't condemn if target can die in x AAs", 3, 1, 5));
                     }
                     MenuClass.E.Add(MenuClass.E2);
 

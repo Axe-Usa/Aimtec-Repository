@@ -104,25 +104,6 @@ namespace AIO.Champions
                     MenuClass.R.Add(new MenuSeperator("separator"));
                     MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
-
-                    if (GameObjects.EnemyHeroes.Any())
-                    {
-                        /// <summary>
-                        ///     Sets the menu for the R Whitelist.
-                        /// </summary>
-                        MenuClass.WhiteList2 = new Menu("whitelist", "Ultimate: Whitelist");
-                        {
-                            foreach (var target in GameObjects.EnemyHeroes)
-                            {
-                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
-                            }
-                        }
-                        MenuClass.R.Add(MenuClass.WhiteList2);
-                    }
-                    else
-                    {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
-                    }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
             }

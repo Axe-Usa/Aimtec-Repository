@@ -54,15 +54,14 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in
-                    GameObjects.EnemyHeroes.Where(
-                        t =>
-                            !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
-                            t.IsValidTarget(SpellClass.E.Range + t.BoundingRadius) &&
-                            t.GetRealHealth() >
-                                UtilityClass.Player.GetAutoAttackDamage(t) *
-                                MenuClass.Spells["e"]["customization"]["eaacheck"].As<MenuSlider>().Value &&
-                            MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
+                    GameObjects.EnemyHeroes.Where(t =>
+                        t.IsValidTarget(SpellClass.E.Range) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
+                        t.GetRealHealth() >
+                            UtilityClass.Player.GetAutoAttackDamage(t) *
+                            MenuClass.Spells["e"]["customization"]["eaacheck"].As<MenuSlider>().Value &&
+                        MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
                     for (var i = 1; i < 10; i++)
                     {
