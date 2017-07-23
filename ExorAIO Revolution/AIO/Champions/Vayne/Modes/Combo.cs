@@ -53,6 +53,9 @@ namespace AIO.Champions
                 !UtilityClass.Player.IsDashing() &&
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
+                var playerPos = UtilityClass.Player.Position;
+                const int CondemnDistancePush = 410;
+
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
                         t.IsValidTarget(SpellClass.E.Range) &&
@@ -65,17 +68,16 @@ namespace AIO.Champions
                 {
                     for (var i = 1; i < 10; i++)
                     {
-                        var playerPos = UtilityClass.Player.Position;
-                        var predictedPos1 = SpellClass.E.GetPrediction(target).UnitPosition;
+                        var targetPos = (Vector2)target.Position;
 
-                        var targetPosition = target.Position.Extend(playerPos, -40 * i);
-                        var targetPositionExtended = target.Position.Extend(playerPos, -41 * i);
+                        var posImpact1 = (Vector2)target.Position.Extend(playerPos, -CondemnDistancePush);
+                        var posImpact2 = (Vector2)target.Position.Extend(playerPos, -CondemnDistancePush - 10f);
 
-                        var unitPosition = predictedPos1.Extend(playerPos, -40 * i);
-                        var unitPositionExtended = predictedPos1.Extend(playerPos, -41 * i);
+                        var predImpact1 = (Vector2)SpellClass.E.GetPrediction(target).UnitPosition.Extend(playerPos, -CondemnDistancePush);
+                        var predImpact2 = (Vector2)SpellClass.E.GetPrediction(target).UnitPosition.Extend(playerPos, -CondemnDistancePush - 10f);
 
-                        if (unitPosition.IsWall(true) && targetPosition.IsWall(true) &&
-                            unitPositionExtended.IsWall(true) && targetPositionExtended.IsWall(true))
+                        if (Bools.AnyWallInBetween(targetPos, posImpact1) && Bools.AnyWallInBetween(targetPos, posImpact2) &&
+                            Bools.AnyWallInBetween(targetPos, predImpact1) && Bools.AnyWallInBetween(targetPos, predImpact2))
                         {
                             SpellClass.E.CastOnUnit(target);
                         }

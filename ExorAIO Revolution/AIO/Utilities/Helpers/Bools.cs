@@ -71,6 +71,24 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Returns true if there is a Wall between X pos and Y pos.
+        /// </summary>
+        public static bool AnyWallInBetween(Vector2 startPos, Vector2 endPos)
+        {
+            for (var i = 0; i < startPos.Distance(endPos); i+=5)
+            {
+                var point = NavMesh.WorldToCell((Vector3)startPos.Extend(endPos, i));
+                if (point.Flags.HasFlag(NavCellFlags.Wall) ||
+                    point.Flags.HasFlag(NavCellFlags.Building))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         ///     Gets a value indicating whether a determined champion can move or not.
         /// </summary>
         public static bool IsImmobile(this Obj_AI_Base target)

@@ -45,23 +45,6 @@ namespace AIO.Utilities
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Returns true if there is a Wall between X pos and Y pos.
-        /// </summary>
-        public static bool AnyWallInBetween(Vector3 startPos, Vector3 endPos)
-        {
-            for (var i = 0; i < startPos.Distance(endPos); i+=5)
-            {
-                var point = NavMesh.WorldToCell(startPos.Extend(endPos, i));
-                if (point.Flags.HasFlag(NavCellFlags.Wall | NavCellFlags.Building))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
         ///     The Traps in the game and their position.
         /// </summary>
         public static Dictionary<int, Tuple<Vector3, float>> ActualTraps = new Dictionary<int, Tuple<Vector3, float>>();

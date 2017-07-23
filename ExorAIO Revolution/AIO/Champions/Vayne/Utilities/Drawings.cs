@@ -58,13 +58,15 @@ namespace AIO.Champions
                     {
                         var targetPos = (Vector2)target.Position;
                         var targetRadius = target.BoundingRadius;
+
                         var posImpact = (Vector2)target.Position.Extend(playerPos, -CondemnDistancePush);
                         var posRectangle = new Geometry.Rectangle(targetPos, posImpact, targetRadius);
 
-                        var predImpact = (Vector2)(-SpellClass.E.GetPrediction(target).UnitPosition.Extend(playerPos, -CondemnDistancePush));
+                        var predImpact = (Vector2)SpellClass.E.GetPrediction(target).UnitPosition.Extend(playerPos, -CondemnDistancePush);
                         var predRectangle = new Geometry.Rectangle(targetPos, predImpact, targetRadius);
-                        posRectangle.Draw(((Vector3)posImpact).IsWall(true) ? Color.OrangeRed : Color.Blue);
-                        predRectangle.Draw(((Vector3)predImpact).IsWall(true) ? Color.OrangeRed : Color.Blue);
+
+                        posRectangle.Draw(Bools.AnyWallInBetween(targetPos, posImpact) ? Color.Blue : Color.OrangeRed);
+                        predRectangle.Draw(Bools.AnyWallInBetween(targetPos, predImpact) ? Color.Blue : Color.OrangeRed);
                     }
                 }
             }
