@@ -3,11 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
@@ -78,29 +73,6 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             this.Drawings();
-        }
-
-        /// <summary>
-        ///     Called on teleport issued.
-        /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseTeleportEventArgs" /> instance containing the event data.</param>
-        public void OnTeleport(Obj_AI_Base sender, Obj_AI_BaseTeleportEventArgs args)
-        {
-            if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["teleport"].As<MenuBool>().Enabled)
-            {
-                foreach (var target in ObjectManager.Get<Obj_AI_Minion>().Where(
-                    m =>
-                        m.IsEnemy &&
-                        m.Distance(UtilityClass.Player) <= SpellClass.E.Range))
-                {
-                    if (target.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target")))
-                    {
-                        SpellClass.E.Cast(target.ServerPosition);
-                    }
-                }
-            }
         }
 
         /*

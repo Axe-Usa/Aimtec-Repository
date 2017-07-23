@@ -4,6 +4,7 @@ namespace AIO.Utilities
 
     using Aimtec;
     using Aimtec.SDK.Damage;
+    using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
 
     /// <summary>
@@ -74,9 +75,17 @@ namespace AIO.Utilities
         /// </summary>
         public static bool IsImmobile(this Obj_AI_Base target)
         {
-            if (target.Name.Equals("Target Dummy"))
+            if (target.IsDead ||
+                target.IsDashing() ||
+                target.Name.Equals("Target Dummy") ||
+                target.HasBuffOfType(BuffType.Knockback))
             {
                 return false;
+            }
+
+            if (!target.ActionState.HasFlag(ActionState.CanMove))
+            {
+                return true;
             }
 
             if (target.Buffs.Any(
@@ -93,18 +102,14 @@ namespace AIO.Utilities
                 return true;
             }
 
-            switch (target.ActionState)
+            if (target.ActionState.HasFlag(ActionState.Asleep) ||
+                target.ActionState.HasFlag(ActionState.Feared) ||
+                target.ActionState.HasFlag(ActionState.Charmed) ||
+                target.ActionState.HasFlag(ActionState.Fleeing) ||
+                target.ActionState.HasFlag(ActionState.Taunted) ||
+                target.ActionState.HasFlag(ActionState.Surpressed))
             {
-                case ActionState.CanMove:
-                    return false;
-
-                case ActionState.Asleep:
-                case ActionState.Feared:
-                case ActionState.Charmed:
-                case ActionState.Fleeing:
-                case ActionState.Surpressed:
-                case ActionState.Taunted:
-                    return true;
+                return true;
             }
 
             return false;

@@ -46,7 +46,7 @@ namespace AIO.Champions
                     {
                         if (GameObjects.EnemyHeroes.Any())
                         {
-                            MenuClass.Q2.Add(new MenuSlider("safeq", "Combo: Only Q if enemies in AA Range <= x", 0, 2, GameObjects.EnemyHeroes.Count()));
+                            MenuClass.Q2.Add(new MenuSlider("safeq", "Combo: Only Q if enemies in AA Range <= x", 1, 0, GameObjects.EnemyHeroes.Count()));
                         }
                         else
                         {

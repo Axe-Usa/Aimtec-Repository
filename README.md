@@ -205,3 +205,11 @@ ExorAIO: Revolution Changelog:
   Syndra: Improved E->Q casting.
   Syndra: Fixed R Killsteal.
   Caitlyn: Added Option to not use Q if enemies in AA Range >= X (Customizable).
+  
+7.14.1.9:
+  Jinx: Fixed W not being used.
+  Jinx: Fixed E on-Teleport.
+  Jhin: Fixed E on-Teleport.
+  Caitlyn: Fixed W on-Teleport.
+  Caitlyn: Fixed On-CC Traps.
+  Caitlyn: Fixed R not being used.

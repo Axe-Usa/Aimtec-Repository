@@ -56,7 +56,8 @@ namespace AIO.Champions
                 switch (args.Slot)
                 {
                     case SpellSlot.Q:
-                        if (GameObjects.EnemyHeroes.Count(t => !t.IsDead && t.Distance(UtilityClass.Player) < UtilityClass.Player.AttackRange)
+                        if (MenuClass.Spells["q"]["customization"]["safeq"] != null &&
+                            UtilityClass.Player.CountEnemyHeroesInRange(UtilityClass.Player.AttackRange)
                                 > MenuClass.Spells["q"]["customization"]["safeq"].As<MenuSlider>().Value)
                         {
                             args.Process = false;
@@ -64,7 +65,7 @@ namespace AIO.Champions
                         break;
 
                     case SpellSlot.W:
-                        if (ObjectManager.Get<Obj_AI_Minion>().Any(m => m.Distance(args.End) < 200 && m.UnitSkinName.Equals("CaitlynTrap")))
+                        if (ObjectManager.Get<GameObject>().Any(m => m.Distance(args.End) < 200 && m.Name.Equals("caitlyn_Base_yordleTrap_idle_green.troy")))
                         {
                             args.Process = false;
                         }
@@ -150,29 +151,6 @@ namespace AIO.Champions
                                 break;
                         }
                         break;
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Called on teleport issued.
-        /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseTeleportEventArgs" /> instance containing the event data.</param>
-        public void OnTeleport(Obj_AI_Base sender, Obj_AI_BaseTeleportEventArgs args)
-        {
-            if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
-            {
-                foreach (var target in ObjectManager.Get<Obj_AI_Minion>().Where(
-                    m =>
-                        m.IsEnemy &&
-                        m.Distance(UtilityClass.Player) <= SpellClass.W.Range))
-                {
-                    if (target.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target")))
-                    {
-                        SpellClass.W.Cast(target.ServerPosition);
-                    }
                 }
             }
         }

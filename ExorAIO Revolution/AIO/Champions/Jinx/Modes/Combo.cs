@@ -98,30 +98,32 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 !UtilityClass.Player.IsUnderEnemyTurret())
             {
-                if (UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q2.Range) <
-                        MenuClass.Spells["w"]["customization"]["wsafetycheck"].As<MenuSliderBool>().Value &&
+                if (UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q2.Range) >
+                    MenuClass.Spells["w"]["customization"]["wsafetycheck"].As<MenuSliderBool>().Value &&
                     MenuClass.Spells["w"]["customization"]["wsafetycheck"].As<MenuSliderBool>().Enabled)
                 {
-                    var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
-                    if (target != null &&
-                        target.IsValidTarget() &&
-                        !Invulnerable.Check(target))
+                    return;
+                }
+
+                var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (target != null &&
+                    target.IsValidTarget() &&
+                    !Invulnerable.Check(target))
+                {
+                    switch (MenuClass.Spells["w"]["mode"].As<MenuList>().Value)
                     {
-                        switch (MenuClass.Spells["w"]["mode"].As<MenuList>().Value)
-                        {
-                            case 0:
-                                if (target.Distance(UtilityClass.Player) >= SpellClass.Q.Range * 1.1)
-                                {
-                                    SpellClass.W.Cast(target);
-                                }
-                                break;
-                            case 1:
-                                if (target.Distance(UtilityClass.Player) >= SpellClass.Q2.Range * 1.1)
-                                {
-                                    SpellClass.W.Cast(target);
-                                }
-                                break;
-                        }
+                        case 0:
+                            if (target.Distance(UtilityClass.Player) >= SpellClass.Q.Range * 1.1)
+                            {
+                                SpellClass.W.Cast(target);
+                            }
+                            break;
+                        case 1:
+                            if (target.Distance(UtilityClass.Player) >= SpellClass.Q2.Range * 1.1)
+                            {
+                                SpellClass.W.Cast(target);
+                            }
+                            break;
                     }
                 }
             }

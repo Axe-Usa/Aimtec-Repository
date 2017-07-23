@@ -5,6 +5,7 @@ namespace AIO.Champions
 {
     using System.Linq;
 
+    using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
@@ -58,6 +59,22 @@ namespace AIO.Champions
                         t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target.ServerPosition);
+                }
+            }
+
+            /// <summary>
+            ///     The Automatic E on Teleport Logic. 
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["teleport"].As<MenuBool>().Enabled)
+            {
+                foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(
+                    m =>
+                        m.IsEnemy &&
+                        m.Distance(UtilityClass.Player) <= SpellClass.E.Range &&
+                        m.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target"))))
+                {
+                    SpellClass.E.Cast(minion.ServerPosition);
                 }
             }
         }

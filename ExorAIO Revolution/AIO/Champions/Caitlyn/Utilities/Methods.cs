@@ -21,7 +21,6 @@ namespace AIO.Champions
             Render.OnPresent += this.OnPresent;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
-            Obj_AI_Base.OnTeleport += this.OnTeleport;
 
             //Events.OnGapCloser += OnGapCloser;
             //Events.OnInterruptableTarget += OnInterruptableTarget;

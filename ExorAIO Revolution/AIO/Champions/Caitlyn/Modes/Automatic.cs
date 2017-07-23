@@ -3,6 +3,7 @@
 
 namespace AIO.Champions
 {
+    using System;
     using System.Linq;
 
     using Aimtec;
@@ -24,7 +25,7 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-            SpellClass.R.Range = UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level;
+            SpellClass.R.Range = 1500f + 500f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level;
 
             if (UtilityClass.Player.IsRecalling())
             {
@@ -37,12 +38,32 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
+                Console.WriteLine("ready!");
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         t.IsImmobile() &&
                         t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
-                    SpellClass.W.Cast(target.ServerPosition);
+                    Console.WriteLine("ready!?!?!?");
+                    UtilityClass.Player.SpellBook.CastSpell(SpellSlot.W, target);
+                    UtilityClass.Player.SpellBook.CastSpell(SpellSlot.W, target.Position);
+                    UtilityClass.Player.SpellBook.CastSpell(SpellSlot.W, target.ServerPosition);
+                }
+            }
+
+            /// <summary>
+            ///     The Automatic W on Teleport Logic. 
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
+            {
+                foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(
+                    m =>
+                        m.IsEnemy &&
+                        m.Distance(UtilityClass.Player) <= SpellClass.W.Range &&
+                        m.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target"))))
+                {
+                    SpellClass.W.Cast(minion.ServerPosition);
                 }
             }
 
