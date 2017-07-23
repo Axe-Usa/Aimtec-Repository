@@ -221,3 +221,9 @@ ExorAIO: Revolution Changelog:
   Jinx: Will not W while under enemy turret again.
   Ezreal: Prediction Improvements.
   Jinx: Prediction Improvements.
+
+7.14.1.11:
+  AIO; Fixed IsWallInBetween Function.
+  Vayne: Fixed E Prediction Rectangles Drawings.
+  Vayne: Fixed Condemn.
+  Orianna: Slight Change to Q Prediction.
