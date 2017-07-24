@@ -6,6 +6,7 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
@@ -53,7 +54,7 @@ namespace AIO.Champions
                 args.Slot == SpellSlot.W &&
                 !this.IsHoldingForceOfWillObject())
             {
-                if (Game.TickCount - UtilityClass.LastTick >= 400)
+                if (Game.TickCount - UtilityClass.LastTick >= 300)
                 {
                     UtilityClass.LastTick = Game.TickCount;
                 }
@@ -104,6 +105,23 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             this.Drawings();
+        }
+
+        /// <summary>
+        ///     Called while processing spellcast operations.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
+        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                if (args.SpellSlot == SpellSlot.Q &&
+                    MenuClass.Spells["e"]["customization"]["forcee"].As<MenuBool>().Enabled)
+                {
+                    SpellClass.E.Cast(args.End);
+                }
+            }
         }
 
         /*

@@ -221,11 +221,6 @@ namespace AIO.Champions
             /// </summary>
             this.Killsteal();
 
-            if (ImplementationClass.IOrbwalker.IsWindingUp)
-            {
-                return;
-            }
-
             /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>

@@ -19,8 +19,10 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            //Events.OnGapCloser += OnGapCloser;
+            Render.OnPresent += this.OnPresent;
             Obj_AI_Base.OnPlayAnimation += this.OnPlayAnimation;
+
+            //Events.OnGapCloser += OnGapCloser;
         }
 
         #endregion

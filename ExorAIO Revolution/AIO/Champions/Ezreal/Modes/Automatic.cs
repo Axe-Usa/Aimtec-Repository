@@ -51,46 +51,15 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
-                var bestTarget = GameObjects.EnemyHeroes
-                    .Where(
-                        t =>
-                            t.IsValidTarget(2000f) &&
-                            !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                var bestTarget = GameObjects.EnemyHeroes.Where(t =>
+                        t.IsValidTarget(2000f) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .OrderBy(o => o.Health)
                     .FirstOrDefault();
                 if (bestTarget != null)
                 {
                     SpellClass.R.Cast(bestTarget);
-                }
-            }
-
-            var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-            if (target == null)
-            {
-                return;
-            }
-
-            if (UtilityClass.Player.TotalAttackDamage < UtilityClass.Player.TotalAbilityDamage ||
-                Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Contains(target))
-            {
-                return;
-            }
-
-            /// <summary>
-            ///     The Ally W Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
-                MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
-            {
-                foreach (var ally in GameObjects.AllyHeroes.Where(a =>
-                    !a.IsMe &&
-                    a.SpellBook.IsAutoAttacking &&
-                    a.IsValidTarget(SpellClass.W.Range, true)))
-                {
-                    SpellClass.W.Cast(ally);
                 }
             }
         }

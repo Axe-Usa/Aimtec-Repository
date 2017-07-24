@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -58,6 +60,62 @@ namespace AIO.Champions
                     buff.Name.Equals("rocketgrab2"))
                 {
                     SpellClass.E.Cast(UtilityClass.Player.Position.Extend(buff.Caster.ServerPosition, -SpellClass.E.Range));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Called on process autoattack.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
+        public void OnProcessAutoAttack(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            var target = args.Target;
+            if (target == null)
+            {
+                return;
+            }
+
+            if (UtilityClass.Player.TotalAbilityDamage >= this.GetMinimumApForApMode() &&
+                GameObjects.EnemyHeroes.Any(t => t.Distance(UtilityClass.Player) < SpellClass.Q.Range))
+            {
+                return;
+            }
+
+            var unitTarget = args.Target as Obj_AI_Base;
+
+            /// <summary>
+            ///     The Ally W Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
+                MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
+            {
+                switch (ImplementationClass.IOrbwalker.Mode)
+                {
+                    case OrbwalkingMode.Combo:
+                        if (!(unitTarget is Obj_AI_Hero))
+                        {
+                            return;
+                        }
+                        break;
+                    default:
+                        if (!unitTarget.IsBuilding() &&
+                            !Extensions.GetLegendaryJungleMinionsTargets().Contains(unitTarget))
+                        {
+                            return;
+                        }
+                        break;
+                }
+
+                foreach (var ally in GameObjects.AllyHeroes.Where(a =>
+                    !a.IsMe &&
+                    a.SpellBook.IsAutoAttacking &&
+                    a.IsValidTarget(SpellClass.W.Range, true)))
+                {
+                    SpellClass.W.Cast(ally);
                 }
             }
         }

@@ -45,21 +45,20 @@ namespace AIO.Champions
                 if (UtilityClass.JungleList.Contains(jungleTarget.UnitSkinName) &&
                     !Extensions.GetLegendaryJungleMinionsTargets().Contains(jungleTarget))
                 {
+                    var playerPos = UtilityClass.Player.ServerPosition;
+                    const int CondemnPushDistance = 410 / 10;
                     for (var i = 1; i < 10; i++)
                     {
-                        var playerPos = UtilityClass.Player.Position;
-                        var predictedPos1 = SpellClass.E.GetPrediction(jungleTarget).UnitPosition;
+                        var predictedPos = SpellClass.E.GetPrediction(jungleTarget).UnitPosition;
 
-                        var targetPosition = jungleTarget.Position.Extend(playerPos, -40 * i);
-                        var targetPositionExtended = jungleTarget.Position.Extend(playerPos, -41 * i);
+                        var targetPosition = jungleTarget.ServerPosition.Extend(playerPos, -CondemnPushDistance * i);
+                        var targetPositionExtended = jungleTarget.ServerPosition.Extend(playerPos, (-CondemnPushDistance + 1) * i);
 
-                        var unitPosition1 = predictedPos1.Extend(playerPos, -40 * i);
-                        var unitPosition1Extended = predictedPos1.Extend(playerPos, -41 * i);
+                        var predPosition = predictedPos.Extend(playerPos, -CondemnPushDistance * i);
+                        var predPositionExtended = predictedPos.Extend(playerPos, (-CondemnPushDistance + 1) * i);
 
-                        if (NavMesh.WorldToCell(targetPosition).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(targetPositionExtended).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition1).Flags.HasFlag(NavCellFlags.Wall) &&
-                            NavMesh.WorldToCell(unitPosition1Extended).Flags.HasFlag(NavCellFlags.Wall))
+                        if (targetPosition.IsWall(true) && targetPositionExtended.IsWall(true) &&
+                            predPosition.IsWall(true) && predPositionExtended.IsWall(true))
                         {
                             SpellClass.E.CastOnUnit(jungleTarget);
                         }

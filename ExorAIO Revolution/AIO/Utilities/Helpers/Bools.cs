@@ -54,22 +54,6 @@ namespace AIO.Utilities
                 unit.HasItem(ItemId.TearoftheGoddessQuickCharge);
         }
 
-        /// <returns>
-        ///     true if an unit is a Building; otherwise, false.
-        /// </returns>
-        public static bool IsBuilding(this AttackableUnit unit)
-        {
-            switch (unit.Type)
-            {
-                case GameObjectType.obj_AI_Turret:
-                case GameObjectType.obj_BarracksDampener:
-                case GameObjectType.obj_HQ:
-                    return true;
-            }
-
-            return false;
-        }
-
         /// <summary>
         ///     Returns true if there is a Wall between X pos and Y pos.
         /// </summary>

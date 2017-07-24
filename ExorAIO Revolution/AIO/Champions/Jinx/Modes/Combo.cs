@@ -33,17 +33,16 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Q Logic.
+            ///     The Fishbones to PowPow Logic.
             /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            if (this.IsUsingFishBones())
             {
-                if (UtilityClass.Player.HasBuff("JinxQ"))
+                if (SpellClass.Q.Ready &&
+                    MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                 {
-                    float splashRange = MenuClass.Spells["q"]["customization"]["splashrange"].Value;
-                    var minSplashRangeEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
-                    if (heroTarget.IsValidTarget(SpellClass.Q.Range-50f) || minSplashRangeEnemies != null &&
-                        heroTarget.CountEnemyHeroesInRange(splashRange, heroTarget) < minSplashRangeEnemies.As<MenuSliderBool>().Value)
+                    if (heroTarget.IsValidTarget(SpellClass.Q.Range) &&
+                        MenuClass.Spells["q"]["customization"]["minenemies"].As<MenuSliderBool>().Value >
+                            heroTarget.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].Value))
                     {
                         SpellClass.Q.Cast();
                     }
@@ -57,15 +56,18 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
-            ///     The Q Logic.
+            ///     The PowPow to Fishbones Logic.
             /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            if (!this.IsUsingFishBones())
             {
-                if (!UtilityClass.Player.HasBuff("JinxQ"))
+                if (SpellClass.Q.Ready &&
+                    MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                 {
-                    if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range-50f).Any() &&
-                        Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Any())
+                    var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+                    if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
+                        Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range+200f).Any() ||
+                        MenuClass.Spells["q"]["customization"]["minenemies"].As<MenuSliderBool>().Value <=
+                            target?.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].Value))
                     {
                         SpellClass.Q.Cast();
                     }
@@ -99,7 +101,7 @@ namespace AIO.Champions
                 !UtilityClass.Player.IsUnderEnemyTurret())
             {
                 if (UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q2.Range) >
-                    MenuClass.Spells["w"]["customization"]["wsafetycheck"].As<MenuSliderBool>().Value &&
+                        MenuClass.Spells["w"]["customization"]["wsafetycheck"].As<MenuSliderBool>().Value &&
                     MenuClass.Spells["w"]["customization"]["wsafetycheck"].As<MenuSliderBool>().Enabled)
                 {
                     return;

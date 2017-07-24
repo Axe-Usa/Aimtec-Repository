@@ -21,6 +21,7 @@ namespace AIO.Champions
             BuffManager.OnAddBuff += this.OnAddBuff;
             ImplementationClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
             Render.OnPresent += this.OnPresent;
+            Obj_AI_Base.OnProcessAutoAttack += this.OnProcessAutoAttack;
 
             //Events.OnGapCloser += OnGapCloser;
         }

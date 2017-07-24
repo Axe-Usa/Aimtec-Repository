@@ -227,3 +227,15 @@ ExorAIO: Revolution Changelog:
   Vayne: Fixed E Prediction Rectangles Drawings.
   Vayne: Fixed Condemn.
   Orianna: Slight Change to Q Prediction.
+
+7.14.1.12:
+  AIO; Fixed CompilingError.
+  Jinx: Finally fixed Q switching.
+  Vayne: Fixes to Condemn.
+  Syndra: Faster W.
+  Syndra: Added Force Q after E option.
+  Syndra: Combo Fixes.
+  Orianna: Ball Drawing fixes.
+  Lucian: Fixed Drawings not being shown.
+  Ezreal: Dynamic AD-AP Mode implemented.
+  Ezreal: Fixed W to allies.

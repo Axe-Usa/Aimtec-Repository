@@ -123,7 +123,8 @@ namespace AIO.Champions
                     return;
                 }
 
-                if (!this.IsHoldingForceOfWillObject())
+                if (!SpellClass.E.Ready &&
+                    !this.IsHoldingForceOfWillObject())
                 {
                     var obj = this.ForceOfWillObject();
                     if (obj != null &&

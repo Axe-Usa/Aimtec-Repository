@@ -27,9 +27,9 @@ namespace AIO.Champions
             /// </summary>
             if (MenuClass.Drawings["ball"].As<MenuSliderBool>().Enabled)
             {
-                for (var i = 1; i < MenuClass.Drawings["ball"].As<MenuSliderBool>().Value; i++)
+                for (var i = 0; i < MenuClass.Drawings["ball"].As<MenuSliderBool>().Value; i++)
                 {
-                    Render.Circle(this.BallPosition, (uint)(60 + i * 2.5), 30, Color.Black);
+                    Render.Circle(this.BallPosition, (uint)(60 + i * 5), 30, Color.Black);
                 }
             }
 
