@@ -4,8 +4,10 @@ namespace AIO
 {
     using System.Linq;
 
+    using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
@@ -24,14 +26,18 @@ namespace AIO
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public static void OnPostAttack(object sender, PostAttackEventArgs args)
         {
-            if (MenuClass.General["hydrareset"].Enabled)
+            var hydraMenu = MenuClass.General["hydrareset"];
+            if (hydraMenu != null && hydraMenu.As<MenuBool>().Enabled)
             {
-                if (UtilityClass.Player.HasItem(ItemId.Tiamat))
+                var hydraItems = new[]{ ItemId.TitanicHydra, ItemId.RavenousHydra, ItemId.Tiamat };
+                var hydraSlot = UtilityClass.Player.Inventory.Slots.First(s => hydraItems.Contains(s.ItemId));
+                if (hydraSlot != null)
                 {
-                    var tiamat = UtilityClass.Player.Inventory.Slots.First(s => s.ItemId == ItemId.Tiamat);
-                    if (tiamat != null)
+                    var hydraSpellSlot = hydraSlot.SpellSlot;
+                    if (hydraSpellSlot != SpellSlot.Unknown &&
+                        UtilityClass.Player.SpellBook.GetSpell(hydraSpellSlot).State == SpellState.Ready)
                     {
-                        //UtilityClass.Player.SpellBook.CastSpell(tiamat);
+                        UtilityClass.Player.SpellBook.CastSpell(hydraSpellSlot);
                     }
                 }
             }

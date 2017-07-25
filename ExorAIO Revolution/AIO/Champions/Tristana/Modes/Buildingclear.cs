@@ -24,7 +24,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
         public void Buildingclear(object sender, PreAttackEventArgs args)
         {
-            var target = (Obj_AI_Base)args.Target;
+            var target = args.Target;
             if (!target.IsBuilding())
             {
                 return;
@@ -47,7 +47,11 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
                 MenuClass.Spells["e"]["buildings"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.Cast(target);
+                var turretTarget = (Obj_AI_Turret)target;
+                if (turretTarget != null)
+                {
+                    SpellClass.E.CastOnUnit(turretTarget);
+                }
             }
         }
 

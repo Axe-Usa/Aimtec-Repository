@@ -23,11 +23,13 @@ namespace AIO.Utilities
 
         #region Public Methods and Operators
 
+        /// <returns>
+        ///     true if a determined cell has a Wall flag, else, false.
+        /// </returns>
         public static bool IsWall(this Vector3 pos, bool includeBuildings = false)
         {
-            return
-                NavMesh.WorldToCell(pos).Flags.HasFlag(NavCellFlags.Wall) ||
-                includeBuildings && NavMesh.WorldToCell(pos).Flags.HasFlag(NavCellFlags.Building);
+            var point = NavMesh.WorldToCell(pos).Flags;
+            return point.HasFlag(NavCellFlags.Wall) || includeBuildings && point.HasFlag(NavCellFlags.Building);
         }
 
         /// <returns>

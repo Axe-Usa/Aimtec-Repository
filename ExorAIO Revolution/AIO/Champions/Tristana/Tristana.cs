@@ -76,7 +76,7 @@ namespace AIO.Champions
             /// </summary>
             if (MenuClass.Miscellaneous["focuse"].As<MenuBool>().Enabled)
             {
-                var forceTarget = Extensions.GetBestEnemyHeroesTargets().FirstOrDefault(t =>
+                var forceTarget = Extensions.GetAllGenericUnitTargets().FirstOrDefault(t =>
                         this.IsCharged(t) &&
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
                 if (forceTarget != null)

@@ -17,8 +17,10 @@ namespace AIO.Utilities
         /// </summary>
         public static int GetNeededMana(SpellSlot slot, IMenuComponent value)
         {
-            if (UtilityClass.Player.HasBuff("crestoftheancientgolem") &&
-                MenuClass.General["nomanagerifblue"].As<MenuBool>().Enabled)
+            var ignoreManaManagerMenu = MenuClass.General["nomanagerifblue"];
+            if (ignoreManaManagerMenu != null &&
+                UtilityClass.Player.HasBuff("crestoftheancientgolem") &&
+                ignoreManaManagerMenu.As<MenuBool>().Enabled)
             {
                 return 0;
             }
