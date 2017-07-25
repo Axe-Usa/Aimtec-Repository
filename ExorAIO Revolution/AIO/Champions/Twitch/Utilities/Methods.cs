@@ -1,6 +1,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
 
     using AIO.Utilities;
 
@@ -20,6 +21,7 @@ namespace AIO.Champions
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             SpellBook.OnCastSpell += this.OnCastSpell;
             Render.OnPresent += this.OnPresent;
+            Dash.HeroDashed += this.OnGapcloser;
         }
 
         #endregion

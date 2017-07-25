@@ -109,9 +109,17 @@ namespace AIO.Champions
         /// </summary>
         public bool CanSphereHitUnit(Obj_AI_Base unit, KeyValuePair<int, Vector3> sphere)
         {
-            if (this.DarkSphereScatterRectangle(sphere).IsInside((Vector2)SpellClass.Q.GetPrediction(unit).UnitPosition))
+            var targetPos = (Vector2)unit.ServerPosition;
+            if (this.DarkSphereScatterRectangle(sphere).IsInside(targetPos) &&
+                UtilityClass.Player.Distance(sphere.Value) < SpellClass.E.Range)
             {
-                return true;
+                switch (unit.Type)
+                {
+                    case GameObjectType.obj_AI_Minion:
+                        return true;
+                    case GameObjectType.obj_AI_Hero:
+                        return !Invulnerable.Check((Obj_AI_Hero)unit, DamageType.Magical, false);
+                }
             }
 
             return false;
@@ -123,7 +131,8 @@ namespace AIO.Champions
         public double GetPerfectUnleashedPowerDamage(Obj_AI_Hero target)
         {
             var player = UtilityClass.Player;
-            return player.GetSpellDamage(target, SpellSlot.R) * player.SpellBook.GetSpell(SpellSlot.R).Ammo;
+            var singleSphereDamage = player.GetSpellDamage(target, SpellSlot.R) / 3;
+            return singleSphereDamage * player.SpellBook.GetSpell(SpellSlot.R).Ammo;
         }
 
         /// <summary>

@@ -6,6 +6,8 @@ namespace AIO.Champions
     using System;
 
     using Aimtec;
+    using Aimtec.SDK.Events;
+    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
@@ -95,30 +97,45 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            if (SpellClass.R.State == SpellState.Ready && args.Sender.IsMelee && args.Sender.IsValidTarget(SpellClass.R.SpellData.Range)
-                && args.SkillshotType == GapcloserType.Targeted
-                && MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null ||
+                !gapSender.IsEnemy ||
+                Invulnerable.Check(gapSender, DamageType.Magical, false))
             {
-                if (args.Target.IsMe)
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser R.
+            /// </summary>
+            if (SpellClass.R.Ready &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.R.Range &&
+                MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                if (args.EndPos.Distance(UtilityClass.Player.ServerPosition) >= 200)
                 {
-                    SpellClass.R.Cast(args.Sender.ServerPosition);
+                    SpellClass.R.Cast(args.EndPos);
+                }
+                else
+                {
+                    SpellClass.R.Cast(gapSender.ServerPosition);
                 }
             }
         }
 
+        /*
         /// <summary>
         ///     Called on interruptable spell.
         /// </summary>

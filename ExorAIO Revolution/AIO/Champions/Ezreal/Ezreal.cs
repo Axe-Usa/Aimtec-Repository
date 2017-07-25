@@ -7,6 +7,7 @@ namespace AIO.Champions
 
     using Aimtec;
     using Aimtec.SDK.Damage;
+    using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -185,30 +186,37 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            if (SpellClass.E.State == SpellState.Ready && args.Sender.IsMelee && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
-                && args.SkillshotType == GapcloserType.Targeted
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
             {
-                if (args.Target.IsMe)
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser E.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                var playerPos = UtilityClass.Player.ServerPosition;
+                if (args.EndPos.Distance(playerPos) <= 200)
                 {
-                    SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.Sender.ServerPosition, SpellClass.E.SpellData.Range));
+                    SpellClass.E.Cast(playerPos.Extend(args.EndPos, -SpellClass.E.Range));
                 }
             }
         }
-        */
 
         /// <summary>
         ///     Fired when the game is updated.

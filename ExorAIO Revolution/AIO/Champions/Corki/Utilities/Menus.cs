@@ -70,6 +70,15 @@ namespace AIO.Champions
                 MenuClass.Spells.Add(MenuClass.Q);
 
                 /// <summary>
+                ///     Sets the menu for the W.
+                /// </summary>
+                MenuClass.W = new Menu("w", "Use W to:");
+                {
+                    MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                }
+                MenuClass.Spells.Add(MenuClass.W);
+
+                /// <summary>
                 ///     Sets the menu for the E.
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");

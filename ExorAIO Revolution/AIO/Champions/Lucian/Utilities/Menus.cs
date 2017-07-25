@@ -173,7 +173,7 @@ namespace AIO.Champions
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
                 MenuClass.Drawings.Add(new MenuBool("q", "Q Range"));
-                MenuClass.Drawings.Add(new MenuBool("qe", "Extended Q Range"));
+                MenuClass.Drawings.Add(new MenuBool("qextended", "Extended Q Range"));
                 MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));

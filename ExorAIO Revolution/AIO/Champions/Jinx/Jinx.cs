@@ -3,6 +3,10 @@
 
 namespace AIO.Champions
 {
+    using Aimtec;
+    using Aimtec.SDK.Events;
+    using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
@@ -75,26 +79,36 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
         {
-            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            if (SpellClass.E.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null ||
+                !gapSender.IsEnemy ||
+                Invulnerable.Check(gapSender, DamageType.Magical, false))
             {
-                SpellClass.E.Cast(args.IsDirectedToPlayer ? UtilityClass.Player.ServerPosition : args.End);
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser E.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
+                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                SpellClass.E.Cast(args.EndPos);
             }
         }
-        */
 
         /// <summary>
         ///     Fired when the game is updated.

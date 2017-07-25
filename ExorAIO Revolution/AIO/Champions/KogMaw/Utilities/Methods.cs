@@ -1,6 +1,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
 
     using AIO.Utilities;
 
@@ -17,9 +18,9 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += this.OnUpdate;
-            //Events.OnGapCloser += KogMaw.OnGapCloser;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             Render.OnPresent += this.OnPresent;
+            Dash.HeroDashed += this.OnGapcloser;
         }
 
         #endregion

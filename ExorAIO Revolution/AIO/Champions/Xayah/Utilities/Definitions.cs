@@ -37,6 +37,14 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
+        ///     Returns true if the target is flying by using R, else, false.
+        /// </summary>
+        public bool IsFlying()
+        {
+            return UtilityClass.Player.HasBuff("XayahR");
+        }
+
+        /// <summary>
         ///     Returns true if the target unit can be hit by any feather.
         /// </summary>
         public bool CanFeathersHitUnit(Obj_AI_Base unit)

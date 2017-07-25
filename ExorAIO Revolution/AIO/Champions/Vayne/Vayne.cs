@@ -6,6 +6,7 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -139,53 +140,39 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
         {
-            if (UtilityClass.Player.IsDead ||
-                Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            if (SpellClass.E.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range))
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
             {
-                /// <summary>
-                ///     The Anti-GapCloser E Logic.
-                /// </summary>
-                if (args.Sender.IsMelee && args.IsDirectedToPlayer
-                    && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
-                {
-                    UtilityClass.Player.SpellBook.CastSpell(SpellSlot.E, args.Sender);
-                }
+                return;
+            }
 
-                /// <summary>
-                ///     The Dash-Condemn Prediction Logic.
-                /// </summary>
-                if (!UtilityClass.Player.IsDashing()
-                    && UtilityClass.Player.Distance(args.End) > UtilityClass.Player.BoundingRadius
-                    && MenuClass.Spells["e"]["dashpred"].As<MenuBool>().Enabled
-                    && MenuClass.Spells["e"]["whitelist"][args.Sender.ChampionName.ToLower()].As<MenuBool>()
-                           .Value)
+            /// <summary>
+            ///     The Anti-Gapcloser E.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                var playerPos = UtilityClass.Player.ServerPosition;
+                if (args.EndPos.Distance(playerPos) <= 200)
                 {
-                    for (var i = 1; i < 10; i++)
-                    {
-                        var vector = Vector3.Normalize(args.End - UtilityClass.Player.ServerPosition);
-                        if ((args.End + vector * (float)(i * 42.5)).IsWall()
-                            && (args.End + vector * (float)(i * 44.5)).IsWall())
-                        {
-                            UtilityClass.Player.SpellBook.CastSpell(SpellSlot.E, args.Sender);
-                        }
-                    }
+                    SpellClass.E.CastOnUnit(gapSender);
                 }
             }
         }
 
+        /*
         /// <summary>
         ///     Called on interruptable spell.
         /// </summary>

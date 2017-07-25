@@ -6,6 +6,7 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -145,35 +146,42 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
         {
-            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            if (SpellClass.E.State == SpellState.Ready && args.IsDirectedToPlayer && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
             {
-                if (!SpellClass.E.GetPrediction(args.Sender).CollisionObjects.Any())
-                {
-                    SpellClass.E.Cast(args.Sender.ServerPosition);
-                }
+                return;
             }
 
-            if (SpellClass.W.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.W.SpellData.Range)
-                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+            /// <summary>
+            ///     The Anti-Gapcloser R.
+            /// </summary>
+            if (SpellClass.R.Ready &&
+                MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast(args.End);
+                var playerPos = UtilityClass.Player.ServerPosition;
+                if (args.EndPos.Distance(playerPos) <= 200)
+                {
+                    if (SpellClass.Q.Ready)
+                    {
+                        SpellClass.Q.Cast(gapSender.ServerPosition);
+                    }
+
+                    SpellClass.R.Cast(gapSender.ServerPosition);
+                }
             }
         }
-        */
 
         /// <summary>
         ///     Fired when the game is updated.

@@ -6,6 +6,7 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -54,10 +55,10 @@ namespace AIO.Champions
             if (sender.IsMe &&
                 args.Slot == SpellSlot.R)
             {
-                if (!GameObjects.EnemyHeroes.Any(
-                        t =>
-                            !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            t.IsValidTarget(SpellClass.R.Width, false, false, this.BallPosition)))
+                if (!GameObjects.EnemyHeroes.Any(t =>
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        t.IsValidTarget(SpellClass.R.Width, false, false, this.BallPosition)) &&
+                    MenuClass.Miscellaneous["blockr"].As<MenuBool>().Enabled)
                 {
                     args.Process = false;
                 }
@@ -75,26 +76,50 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
         {
-            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            if (SpellClass.E.State == SpellState.Ready && args.Sender.IsMelee && args.IsDirectedToPlayer
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null || !gapSender.IsEnemy)
             {
-                UtilityClass.Player.SpellBook.CastSpell(SpellSlot.E, ObjectManager.GetLocalPlayer());
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser E.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                var playerPos = UtilityClass.Player.ServerPosition;
+                if (args.EndPos.Distance(playerPos) <= 200)
+                {
+                    SpellClass.E.CastOnUnit(UtilityClass.Player);
+                }
+                else
+                {
+                    var bestAlly = GameObjects.AllyHeroes
+                        .Where(a => a.IsValidTarget(SpellClass.E.Range, true))
+                        .OrderBy(o => o.Distance(args.EndPos))
+                        .FirstOrDefault();
+                    if (bestAlly != null)
+                    {
+                        SpellClass.E.CastOnUnit(bestAlly);
+                    }
+                }
             }
         }
 
+        /*
         /// <summary>
         ///     Called on interruptable spell.
         /// </summary>

@@ -4,7 +4,9 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
@@ -121,6 +123,38 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             this.Drawings();
+        }
+
+        /// <summary>
+        ///     Fired on an incoming gapcloser.
+        /// </summary>
+        /// <param name="sender">The object.</param>
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
+        {
+            if (UtilityClass.Player.IsDead)
+            {
+                return;
+            }
+
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null ||
+                !gapSender.IsEnemy ||
+                !gapSender.IsMelee ||
+                Invulnerable.Check(gapSender, DamageType.Magical, false))
+            {
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser E.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
+                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                SpellClass.E.Cast(args.EndPos);
+            }
         }
 
         /// <summary>

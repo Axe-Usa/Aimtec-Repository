@@ -1,6 +1,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
 
     using AIO.Utilities;
 
@@ -21,6 +22,7 @@ namespace AIO.Champions
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             ImplementationClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
+            Dash.HeroDashed += this.OnGapcloser;
         }
 
         #endregion

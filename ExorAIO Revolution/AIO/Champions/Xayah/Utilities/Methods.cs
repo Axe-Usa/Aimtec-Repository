@@ -1,6 +1,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
 
     using AIO.Utilities;
 
@@ -20,9 +21,9 @@ namespace AIO.Champions
             SpellBook.OnCastSpell += this.OnCastSpell;
             Render.OnPresent += this.OnPresent;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            //Events.OnGapCloser += OnGapCloser;
             GameObject.OnCreate += this.OnCreate;
             GameObject.OnDestroy += this.OnDestroy;
+            Dash.HeroDashed += this.OnGapcloser;
         }
 
         #endregion

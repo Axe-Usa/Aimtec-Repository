@@ -1,6 +1,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
 
     using AIO.Utilities;
 
@@ -19,8 +20,8 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             Render.OnPresent += this.OnPresent;
+            Dash.HeroDashed += this.OnGapcloser;
 
-            //Events.OnGapCloser += OnGapCloser;
             //Events.OnInterruptableTarget += OnInterruptableTarget;
         }
 

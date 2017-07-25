@@ -6,6 +6,8 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Events;
+    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
     using Aimtec.SDK.Util;
@@ -147,42 +149,55 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
         {
-            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
+            if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            if (SpellClass.E.State == SpellState.Ready && UtilityClass.Player.Distance(args.End) < SpellClass.E.SpellData.Range - 50f
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null ||
+                !gapSender.IsEnemy ||
+                Invulnerable.Check(gapSender, DamageType.Magical, false))
             {
-                SpellClass.E.Cast(args.End);
+                return;
             }
 
-            if (SpellClass.W.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.W.SpellData.Range)
-                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+            /// <summary>
+            ///     The Anti-Gapcloser E Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
+                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
-                if (args.Sender.ChampionName.Equals("MasterYi"))
+                if (args.EndPos.Distance(UtilityClass.Player.ServerPosition) >= 200)
                 {
-                    DelayAction.Add(250, () => { SpellClass.W.Cast(UtilityClass.Player.ServerPosition, args.Start); });
-                    return;
+                    SpellClass.E.Cast(args.EndPos);
                 }
+                else
+                {
+                    SpellClass.E.Cast(gapSender.ServerPosition);
+                }
+            }
 
-                SpellClass.W.Cast(
-                    args.End,
-                    args.Sender.IsMelee
-                        ? UtilityClass.Player.ServerPosition.Extend(args.End, UtilityClass.Player.Distance(args.End) * 2)
-                        : UtilityClass.Player.ServerPosition);
+            /// <summary>
+            ///     The Anti-Gapcloser W Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
+                MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                SpellClass.W.Cast((Vector3)args.EndPos, (Vector3)args.EndPos.Extend(args.StartPos, 200f));
             }
         }
 
+        /*
         /// <summary>
         ///     Called on interruptable spell.
         /// </summary>

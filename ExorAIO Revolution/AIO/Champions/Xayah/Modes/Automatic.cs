@@ -24,6 +24,8 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            ImplementationClass.IOrbwalker.AttackingEnabled = !this.IsFlying();
+
             if (UtilityClass.Player.IsRecalling())
             {
                 return;

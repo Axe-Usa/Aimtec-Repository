@@ -35,7 +35,7 @@ namespace AIO.Champions
             ///     Loads the Extended Q drawing.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Drawings["q2"].As<MenuBool>().Enabled)
+                MenuClass.Drawings["qextended"].As<MenuBool>().Enabled)
             {
                 Render.Circle(UtilityClass.Player.Position, SpellClass.Q2.Range, 30, Color.Green);
             }

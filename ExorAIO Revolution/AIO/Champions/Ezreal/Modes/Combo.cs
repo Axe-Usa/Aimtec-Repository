@@ -28,13 +28,9 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-150f);
-                if (UtilityClass.Player.TotalAbilityDamage < this.GetMinimumApForApMode())
-                {
-                    return;
-                }
-
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    UtilityClass.Player.TotalAbilityDamage >= this.GetMinimumApForApMode() &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
                     SpellClass.W.Cast(bestTarget);

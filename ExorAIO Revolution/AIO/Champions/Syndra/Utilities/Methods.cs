@@ -1,6 +1,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
 
     /// <summary>
     ///     The methods class.
@@ -20,8 +21,8 @@ namespace AIO.Champions
             Render.OnPresent += this.OnPresent;
             SpellBook.OnCastSpell += this.OnCastSpell;
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
+            Dash.HeroDashed += this.OnGapcloser;
 
-            //Events.OnGapCloser += this.OnGapCloser;
             //Events.OnInterrupt += this.OnInterrupt;
         }
 

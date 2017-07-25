@@ -1,6 +1,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
 
     /// <summary>
     ///     The methods class.
@@ -17,8 +18,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             Render.OnPresent += this.OnPresent;
             Obj_AI_Base.OnPerformCast += this.OnPerformCast;
-
-            //Events.OnGapCloser += OnGapCloser;
+            Dash.HeroDashed += this.OnGapcloser;
         }
 
         #endregion

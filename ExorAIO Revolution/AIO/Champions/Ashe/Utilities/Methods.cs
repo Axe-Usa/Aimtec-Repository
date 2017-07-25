@@ -1,6 +1,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
 
     using AIO.Utilities;
 
@@ -20,8 +21,8 @@ namespace AIO.Champions
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             Render.OnPresent += this.OnPresent;
             AttackableUnit.OnLeaveVisible += this.OnLeaveVisibility;
+            Dash.HeroDashed += this.OnGapcloser;
 
-            //Events.OnGapCloser += Ashe.OnGapCloser;
             //Events.OnInterruptableTarget += Ashe.OnInterruptableTarget;
         }
 

@@ -69,7 +69,7 @@ namespace AIO.Champions
                         var targetPred = SpellClass.Q.GetPrediction(target);
                         if (targetPred != null)
                         {
-                            var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPred.CastPosition, SpellClass.Q.Range - 50f);
+                            var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPred.CastPosition, SpellClass.Q.Range - 75f);
                             switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
                             {
                                 case 0:

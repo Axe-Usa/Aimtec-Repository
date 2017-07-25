@@ -105,11 +105,11 @@ namespace AIO.Champions
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
                 MenuClass.Miscellaneous.Add(new MenuBool("focusw", "Focus enemies with 2 W stacks"));
-                MenuClass.Miscellaneous.Add(new MenuSlider("stealthtime", "Minimum stealth time: x (ms) [1000 ms = 1 second]", 0, 0, 1000));
+                MenuClass.Miscellaneous.Add(new MenuSlider("stealthtime", "Stay Invisible: For at least x ms [1000 ms = 1 second]", 0, 0, 1000));
 
                 if (GameObjects.EnemyHeroes.Any())
                 {
-                    MenuClass.Miscellaneous.Add(new MenuSlider("stealthcheck", "Don't break stealth if >= x enemies in AA Range", 3, 0, GameObjects.EnemyHeroes.Count()));
+                    MenuClass.Miscellaneous.Add(new MenuSlider("stealthcheck", "Stay Invisible: if >= x enemies in AA Range", 3, 0, GameObjects.EnemyHeroes.Count()));
                 }
                 else
                 {

@@ -4,6 +4,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -104,29 +105,36 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /*
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(object sender, Dash.DashArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            /// <summary>
-            ///     The Anti-Gapcloser W Logic.
-            /// </summary>
-            if (SpellClass.W.State == SpellState.Ready && UtilityClass.Player.Distance(args.End) < SpellClass.W.SpellData.Range
-                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+            var gapSender = (Obj_AI_Hero)args.Unit;
+            if (gapSender == null ||
+                !gapSender.IsEnemy ||
+                Invulnerable.Check(gapSender, DamageType.Magical, false))
             {
-                SpellClass.W.Cast(args.End);
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser W.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
+                MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                SpellClass.W.Cast(args.EndPos);
             }
         }
-        */
 
         /// <summary>
         ///     Fired when the game is updated.
