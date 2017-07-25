@@ -267,3 +267,6 @@ ExorAIO: Revolution Changelog:
 7.14.2.0:
   Syndra: More combo fixes.
   Miss Fortune: Beta Released (Extended Q may be clunky)
+
+7.14.2.1:
+  Syndra: More combo fixes.
