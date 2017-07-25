@@ -280,3 +280,6 @@ ExorAIO: Revolution Changelog:
 
 7.14.2.3:
   Caitlyn: Now it will not whiff Q on traps anymore. 
+
+7.14.2.4:
+  Jinx: Fixed Q switch Nullref in customs.
