@@ -263,3 +263,7 @@ ExorAIO: Revolution Changelog:
   Vayne: Implemented Anti-Gapcloser E (If you need Anti-Gapcloser Q too just ask).
   Xayah: Implemented Anti-Gapcloser Q+R combo.
   Xayah: Now it will not stop in place while using R anymore.
+  
+7.14.2.0:
+  Syndra: More combo fixes.
+  Miss Fortune: Beta Released (Extended Q may be clunky)

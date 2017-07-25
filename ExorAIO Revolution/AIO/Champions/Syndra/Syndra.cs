@@ -59,6 +59,7 @@ namespace AIO.Champions
                 if (Game.TickCount - UtilityClass.LastTick >= 300)
                 {
                     UtilityClass.LastTick = Game.TickCount;
+                    this.HoldedSphere = args.Target;
                 }
                 else
                 {

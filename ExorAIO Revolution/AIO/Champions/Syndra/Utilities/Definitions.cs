@@ -23,9 +23,19 @@ namespace AIO.Champions
         #region Fields
 
         /// <summary>
+        ///     Returns the HoldedSphere.
+        /// </summary>
+        public GameObject HoldedSphere;
+
+        /// <summary>
         ///     Returns the DarkSpheres.
         /// </summary>
         public Dictionary<int, Vector3> DarkSpheres = new Dictionary<int, Vector3>();
+
+        /// <summary>
+        ///     Returns the Selected DarkSphere's NetworkID.
+        /// </summary>
+        public int SelectedDarkSphereNetworkId = 0;
 
         #endregion
 
@@ -71,6 +81,7 @@ namespace AIO.Champions
             var possibleTarget3 = ObjectManager.Get<GameObject>().FirstOrDefault(o =>
                     o.IsValid &&
                     this.IsDarkSphere(o) &&
+                    o.NetworkId != this.SelectedDarkSphereNetworkId &&
                     o.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range);
             if (possibleTarget3 != null)
             {
@@ -162,7 +173,7 @@ namespace AIO.Champions
         public Geometry.Rectangle DarkSphereScatterRectangle(KeyValuePair<int, Vector3> sphere)
         {
             return new Geometry.Rectangle(
-                           (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width/2),
+                           (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width*2),
                            (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, -1100f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
                            SpellClass.Q.Width - 100f);
         }

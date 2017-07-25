@@ -47,14 +47,15 @@ namespace AIO.Champions
                     /// <summary>
                     ///     The Normal E Combo Logic.
                     /// </summary>
-                    if (!this.IsHoldingForceOfWillObject() &&
-                        MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                    if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                     {
                         foreach (var sphere in this.DarkSpheres)
                         {
-                            if (this.CanSphereHitUnit(target, sphere))
+                            if (sphere.Key != this.HoldedSphere?.NetworkId &&
+                                this.CanSphereHitUnit(target, sphere))
                             {
                                 SpellClass.E.Cast(target);
+                                this.SelectedDarkSphereNetworkId = sphere.Key;
                             }
                         }
                     }
@@ -69,41 +70,21 @@ namespace AIO.Champions
                         var targetPred = SpellClass.Q.GetPrediction(target);
                         if (targetPred != null)
                         {
-                            var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPred.CastPosition, SpellClass.Q.Range - 75f);
-                            switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
+                            if (!SpellClass.W.Ready ||!target.IsValidTarget(SpellClass.W.Range) || this.IsHoldingForceOfWillObject())
                             {
-                                case 0:
-                                    SpellClass.E.Cast(target);
-                                    SpellClass.Q.Cast(qPosition);
-                                    break;
-                                case 1:
-                                    SpellClass.Q.Cast(qPosition);
-                                    SpellClass.E.Cast(target);
-                                    break;
+                                var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPred.CastPosition, SpellClass.Q.Range - 75f);
+                                switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
+                                {
+                                    case 0:
+                                        SpellClass.E.Cast(target);
+                                        SpellClass.Q.Cast(qPosition);
+                                        break;
+                                    case 1:
+                                        SpellClass.Q.Cast(qPosition);
+                                        SpellClass.E.Cast(target);
+                                        break;
+                                }
                             }
-                        }
-                    }
-                }
-
-                /// <summary>
-                ///     The E AoE Logic.
-                /// </summary>
-                if (MenuClass.Spells["e"]["aoe"] != null &&
-                    MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Enabled)
-                {
-                    foreach (var target in GameObjects.EnemyHeroes.Where(
-                        t =>
-                            !Invulnerable.Check(t, DamageType.Magical) &&
-                            t.IsValidTarget(SpellClass.E.Range + SpellClass.Q.Range)))
-                    {
-                        var cone = this.ScatterTheWeakCone((Vector2)target.ServerPosition);
-                        var count = this.DarkSpheres
-                            .Where(s => s.Value.IsInside(cone))
-                            .Sum(sphere => GameObjects.EnemyHeroes.Count(t => this.CanSphereHitUnit(t, sphere)));
-
-                        if (count >= MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Value)
-                        {
-                            SpellClass.E.Cast(target.ServerPosition);
                         }
                     }
                 }

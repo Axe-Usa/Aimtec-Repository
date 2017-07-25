@@ -55,7 +55,10 @@ namespace AIO.Champions
                     if (!UtilityClass.Player.HasBuff("LucianR") &&
                         MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
                     {
-                        SpellClass.W.Cast(bestTarget.ServerPosition);
+                        if (SpellClass.W.Ready)
+                        {
+                            SpellClass.W.Cast(bestTarget.ServerPosition);
+                        }
                         SpellClass.R.Cast(bestTarget.ServerPosition);
                     }
                     else if (UtilityClass.Player.HasBuff("LucianR") &&

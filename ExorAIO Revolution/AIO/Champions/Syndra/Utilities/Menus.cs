@@ -117,15 +117,7 @@ namespace AIO.Champions
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Q -> E / E Spheres to enemy"));
-                    MenuClass.E.Add(new MenuList("catchmode", "Catch out of Q range people with", new[] { "E->Q", "Q->E", "Don't catch enemies out of Q range" }, 0));
-                    if (GameObjects.EnemyHeroes.Count() >= 2)
-                    {
-                        MenuClass.E.Add(new MenuSliderBool("aoe", "AoE (BETA) / If stunnable enemies >= x", true, 2, 1, GameObjects.EnemyHeroes.Count()));
-                    }
-                    else
-                    {
-                        MenuClass.E.Add(new MenuSeperator("separator", "AoE (BETA) / Not enough enemies found."));
-                    }
+                    MenuClass.E.Add(new MenuList("catchmode", "Catch out of Q range people with", new[] { "E->Q", "Q->E" }, 0));
                     MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'ed Enemies"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
