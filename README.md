@@ -239,3 +239,27 @@ ExorAIO: Revolution Changelog:
   Lucian: Fixed Drawings not being shown.
   Ezreal: Dynamic AD-AP Mode implemented.
   Ezreal: Fixed W to allies.
+
+7.14.1.13:
+  Ahri: Implemented Anti-Gapcloser E.
+  Ashe: Implemented Anti-Gapcloser R.
+  Caitlyn: Implemented Anti-Gapcloser W.
+  Corki: Implemented Melee Anti-Gapcloser W.
+  Corki: Now should throw skillshots more frequently.
+  Ezreal: Now should throw skillshots more frequently.
+  Ezreal: Implemented Melee Anti-Gapcloser E.
+  Jhin: Implemented Anti-Gapcloser E.
+  Jinx: Implemented Anti-Gapcloser E.
+  Kog'Maw: Implemented Anti-Gapcloser Q-E.
+  Lucian: Implemented Melee Anti-Gapcloser E.
+  Orianna: Implemented Anti-Gapcloser E (For allies and self.)
+  Syndra: Fixed R Damage finally.
+  Syndra: Implemented Anti-Gapcloser Q->E
+  Syndra: Combo works properly now.
+  Taliyah: Implemented Anti-Gapcloser W and E.
+  Taliyah: Fixed E usage without W.
+  Tristana: Implemented Melee Anti-Gapcloser W and R.
+  Twitch: Implemented Anti-Gapcloser W.
+  Vayne: Implemented Anti-Gapcloser E (If you need Anti-Gapcloser Q too just ask).
+  Xayah: Implemented Anti-Gapcloser Q+R combo.
+  Xayah: Now it will not stop in place while using R anymore.
