@@ -81,7 +81,7 @@ namespace AIO.Champions
                         t.IsValidTarget(SpellClass.Q.Range) &&
                         t.HasBuff("caitlynyordletrapdebuff")))
                 {
-                    SpellClass.Q.Cast(target);
+                    SpellClass.Q.Cast(target.ServerPosition);
                 }
             }
 

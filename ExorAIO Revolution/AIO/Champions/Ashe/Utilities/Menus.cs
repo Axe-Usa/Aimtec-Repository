@@ -46,7 +46,6 @@ namespace AIO.Champions
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
-                    MenuClass.W.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
@@ -54,7 +53,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the W spell.
                     /// </summary>
-                    MenuClass.W2 = new Menu("customization", "Q Customization:");
+                    MenuClass.W2 = new Menu("customization", "W Customization:");
                     {
                         //MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.W2.Add(new MenuBool("nowflurry", "Don't W while flurring AAs with Q"));
