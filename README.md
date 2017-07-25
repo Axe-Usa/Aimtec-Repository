@@ -270,3 +270,10 @@ ExorAIO: Revolution Changelog:
 
 7.14.2.1:
   Syndra: More combo fixes.
+
+7.14.2.2:
+  Vayne: Fixed 2W Target Focus Logic.
+  Tristana: Fixed Charge Focus Logic.
+  Kalista: Fixed Oathsword Focus Logic.
+  Miss Fortune: Fixed Passive Target Switching Logic.
+  Miss Fortune: Completely Fixed Extended Q Logics.
