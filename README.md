@@ -283,3 +283,11 @@ ExorAIO: Revolution Changelog:
 
 7.14.2.4:
   Jinx: Fixed Q switch Nullref in customs.
+
+7.14.2.5:
+  AIO: Added Dynamic Ravenous/Tiamat/Titanic Hydras usage. (General menu)
+  Kog'Maw: R prediction Improvement attempt.
+  Tristana: Fixed NullRef.
+  Tristana Fixed E charged target focus.
+  Tristana: Now attacks inhibitors properly.
+  Miss Fortune: Now uses extended Q in combo on a minion only if the minion is killable.
