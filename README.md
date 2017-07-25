@@ -277,3 +277,6 @@ ExorAIO: Revolution Changelog:
   Kalista: Fixed Oathsword Focus Logic.
   Miss Fortune: Fixed Passive Target Switching Logic.
   Miss Fortune: Completely Fixed Extended Q Logics.
+
+7.14.2.3:
+  Caitlyn: Now it will not whiff Q on traps anymore. 
