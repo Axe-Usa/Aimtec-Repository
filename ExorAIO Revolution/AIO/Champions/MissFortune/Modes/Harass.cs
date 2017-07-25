@@ -46,8 +46,9 @@ namespace AIO.Champions
                     foreach (var minion in objAiBases)
                     {
                         var polygon = this.QCone(minion);
-                        if (MenuClass.Spells["extendedq"]["whitelist"][hero.ChampionName.ToLower()].Enabled &&
-                            (this.LoveTapTargetNetworkId == hero.NetworkId || objAiBases.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
+                        if (polygon.IsInside((Vector2)hero.ServerPosition) &&
+                            MenuClass.Spells["extendedq"]["whitelist"][hero.ChampionName.ToLower()].Enabled &&
+                            (this.LoveTapTargetNetworkId == hero.NetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
                             polygon.IsInside((Vector2)Prediction.GetPrediction(hero, UtilityClass.Player.Distance(hero) / SpellClass.Q2.Speed + SpellClass.Q2.Delay).UnitPosition))
                         {
                             SpellClass.Q.CastOnUnit(minion);

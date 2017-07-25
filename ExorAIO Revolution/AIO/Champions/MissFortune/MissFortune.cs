@@ -132,10 +132,13 @@ namespace AIO.Champions
             /// </summary>
             if (MenuClass.Miscellaneous["focusp"].As<MenuBool>().Enabled)
             {
-                var differentTarget = Extensions.GetBestEnemyHeroesTargetsInRange(UtilityClass.Player.AttackRange).FirstOrDefault(t => t.NetworkId != this.LoveTapTargetNetworkId);
-                if (differentTarget != null)
+                var forceTarget = Extensions.GetBestEnemyHeroesTargets().FirstOrDefault(t =>
+                        t.NetworkId != this.LoveTapTargetNetworkId &&
+                        t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
+                if (forceTarget != null)
                 {
-                    ImplementationClass.IOrbwalker.ForceTarget(differentTarget);
+                    //ImplementationClass.IOrbwalker.ForceTarget(differentTarget);
+                    args.Target = forceTarget;
                 }
             }
         }

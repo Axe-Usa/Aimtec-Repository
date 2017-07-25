@@ -27,13 +27,15 @@ namespace AIO.Champions
             if (passiveObject != null)
             {
                 var objAiBase = Extensions.GetAllGenericUnitTargets()
-                    .Where(m => !m.IsValidTarget() && m.IsValidSpellTarget())
+                    .Where(m => m.IsValidTarget())
                     .OrderBy(o => o.Distance(passiveObject))
                     .FirstOrDefault();
-                if (objAiBase != null)
-                {
-                    this.LoveTapTargetNetworkId = objAiBase.NetworkId;
-                }
+
+                this.LoveTapTargetNetworkId = objAiBase?.NetworkId ?? 0;
+            }
+            else
+            {
+                this.LoveTapTargetNetworkId = 0;
             }
 
             if (UtilityClass.Player.IsRecalling())

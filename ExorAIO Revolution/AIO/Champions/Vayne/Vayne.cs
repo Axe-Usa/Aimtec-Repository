@@ -117,14 +117,13 @@ namespace AIO.Champions
             /// </summary>
             if (MenuClass.Miscellaneous["focusw"].As<MenuBool>().Enabled)
             {
-                var orbTarget = args.Target as Obj_AI_Hero;
-                var forceTarget = Extensions.GetBestEnemyHeroesTargetsInRange(UtilityClass.Player.AttackRange).FirstOrDefault(t => t.GetBuffCount("vaynesilvereddebuff") == 2);
-
-                if (orbTarget != null &&
-                    forceTarget != null &&
-                    orbTarget.NetworkId != forceTarget.NetworkId)
+                var forceTarget = Extensions.GetBestEnemyHeroesTargets().FirstOrDefault(t =>
+                        t.GetBuffCount("vaynesilvereddebuff") == 2 &&
+                        t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
+                if (forceTarget != null)
                 {
-                    ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
+                    //ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
+                    args.Target = forceTarget;
                 }
             }
         }

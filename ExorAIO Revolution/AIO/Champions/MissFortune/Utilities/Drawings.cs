@@ -47,14 +47,13 @@ namespace AIO.Champions
                     foreach (var obj in unitsToIterate)
                     {
                         var polygon = this.QCone(obj);
-                        var target =  GameObjects.EnemyHeroes.FirstOrDefault(t =>
+                        foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Where(t =>
                                !Invulnerable.Check(t) &&
-                               t.IsValidTarget(SpellClass.Q2.Range) &&
-                               (t.NetworkId == this.LoveTapTargetNetworkId || unitsToIterate.All(m => polygon.IsOutside((Vector2)m.ServerPosition))));
-                        if (target != null)
+                               t.IsValidTarget(SpellClass.Q2.Range)))
                         {
                             polygon.Draw(
                                 polygon.IsInside((Vector2)target.ServerPosition) &&
+                                (target.NetworkId == this.LoveTapTargetNetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
                                 polygon.IsInside((Vector2)Prediction.GetPrediction(target, UtilityClass.Player.Distance(target) / SpellClass.Q2.Speed + SpellClass.Q2.Delay).UnitPosition)
                                     ? Color.Green
                                     : Color.Red);
