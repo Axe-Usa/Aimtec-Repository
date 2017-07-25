@@ -38,6 +38,37 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The W Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            {
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range + 200f);
+                if (bestTarget != null &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    if (!SpellClass.E.Ready &&
+                        !this.IsHoldingForceOfWillObject())
+                    {
+                        var obj = this.ForceOfWillObject();
+                        if (obj != null &&
+                            obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
+                        {
+                            SpellClass.W.CastOnUnit(obj);
+                        }
+                    }
+                    else
+                    {
+                        if (bestTarget.IsValidTarget(SpellClass.W.Range - 100f))
+                        {
+                            SpellClass.W.Cast(bestTarget);
+                        }
+                    }
+                }
+            }
+
+            /// <summary>
             ///     The E Logics.
             /// </summary>
             if (SpellClass.E.Ready)
@@ -86,39 +117,6 @@ namespace AIO.Champions
                                 }
                             }
                         }
-                    }
-                }
-            }
-
-            /// <summary>
-            ///     The W Combo Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
-            {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range+200f);
-                if (bestTarget == null ||
-                    Invulnerable.Check(bestTarget, DamageType.Magical) ||
-                    !MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                {
-                    return;
-                }
-
-                if (!SpellClass.E.Ready &&
-                    !this.IsHoldingForceOfWillObject())
-                {
-                    var obj = this.ForceOfWillObject();
-                    if (obj != null &&
-                        obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
-                    {
-                        SpellClass.W.CastOnUnit(obj);
-                    }
-                }
-                else
-                {
-                    if (bestTarget.IsValidTarget(SpellClass.W.Range-100f))
-                    {
-                        SpellClass.W.Cast(bestTarget);
                     }
                 }
             }
