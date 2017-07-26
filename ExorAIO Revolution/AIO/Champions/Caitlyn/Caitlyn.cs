@@ -66,7 +66,7 @@ namespace AIO.Champions
                         break;
 
                     case SpellSlot.W:
-                        if (ObjectManager.Get<GameObject>().Any(m => m.Distance(args.End) < 200 && m.Name.Equals("caitlyn_Base_yordleTrap_idle_green.troy")))
+                        if (ObjectManager.Get<GameObject>().Any(m => m.Distance(args.End) <= 250 && m.Name.Equals("caitlyn_Base_yordleTrap_idle_green.troy")))
                         {
                             args.Process = false;
                         }

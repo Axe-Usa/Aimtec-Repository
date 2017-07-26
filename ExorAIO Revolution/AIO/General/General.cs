@@ -26,9 +26,36 @@ namespace AIO
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public static void OnPostAttack(object sender, PostAttackEventArgs args)
         {
-            var hydraMenu = MenuClass.General["hydrareset"];
-            if (hydraMenu != null && hydraMenu.As<MenuBool>().Enabled)
+            if (MenuClass.Hydra != null)
             {
+                switch (ImplementationClass.IOrbwalker.Mode)
+                {
+                    case OrbwalkingMode.Combo:
+                        if (!MenuClass.Hydra["combo"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+                        break;
+                    case OrbwalkingMode.Mixed:
+                        if (!MenuClass.Hydra["mixed"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+                        break;
+                    case OrbwalkingMode.Laneclear:
+                        if (!MenuClass.Hydra["laneclear"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+                        break;
+                    case OrbwalkingMode.Lasthit:
+                        if (!MenuClass.Hydra["lasthit"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+                        break;
+                }
+
                 var hydraItems = new[]{ ItemId.TitanicHydra, ItemId.RavenousHydra, ItemId.Tiamat };
                 var hydraSlot = UtilityClass.Player.Inventory.Slots.First(s => hydraItems.Contains(s.ItemId));
                 if (hydraSlot != null)

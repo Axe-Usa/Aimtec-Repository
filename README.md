@@ -291,3 +291,10 @@ ExorAIO: Revolution Changelog:
   Tristana Fixed E charged target focus.
   Tristana: Now attacks inhibitors properly.
   Miss Fortune: Now uses extended Q in combo on a minion only if the minion is killable.
+
+7.14.2.6:
+  AIO: Added Hydra modes (now you can customize on which modes you want to use them)
+  Orianna: Now should also cast ball at max range.
+  Caitlyn: Rare Trap spam should be fixed.
+  Ashe: Fixed W Killsteal.
+  Ashe: Fixed Nullref.

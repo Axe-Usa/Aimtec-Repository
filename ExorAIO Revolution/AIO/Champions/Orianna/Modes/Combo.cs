@@ -73,8 +73,8 @@ namespace AIO.Champions
 
                         if (GameObjects.EnemyHeroes.Any(t =>
                                 t.IsValidTarget() &&
-                                !allyToBallRectangle.IsOutside((Vector2)t.ServerPosition) &&
-                                !Invulnerable.Check(t, DamageType.Magical)))
+                                !Invulnerable.Check(t, DamageType.Magical) &&
+                                allyToBallRectangle.IsInside((Vector2)t.ServerPosition)))
                         {
                             SpellClass.E.CastOnUnit(ally);
                             return;

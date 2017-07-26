@@ -42,7 +42,14 @@ namespace AIO
                     }
                     if (UtilityClass.Player.IsMelee)
                     {
-                        MenuClass.General.Add(new MenuBool("hydrareset", "Use Titanic and Ravenous Hydras"));
+                        MenuClass.Hydra = new Menu("hydramenu", "Hydras Menu");
+                        {
+                            MenuClass.Hydra.Add(new MenuBool("combo", "Use Hydras in Combo"));
+                            MenuClass.Hydra.Add(new MenuBool("laneclear", "Use Hydras in Laneclear"));
+                            MenuClass.Hydra.Add(new MenuBool("mixed", "Use Hydras in Harass"));
+                            MenuClass.Hydra.Add(new MenuBool("lasthit", "Use Hydras in Lasthit"));
+                        }
+                        MenuClass.General.Add(MenuClass.Hydra);
                     }
                 }
                 MenuClass.Root.Add(MenuClass.General);

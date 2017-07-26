@@ -46,6 +46,7 @@ namespace AIO.Champions
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.W.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));

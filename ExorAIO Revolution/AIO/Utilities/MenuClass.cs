@@ -109,6 +109,11 @@
         /// </summary>
         public static Menu Pattern { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the Hydra menu.
+        /// </summary>
+        public static Menu Hydra { get; set; }
+
         #endregion
     }
 }
