@@ -298,3 +298,13 @@ ExorAIO: Revolution Changelog:
   Caitlyn: Rare Trap spam should be fixed.
   Ashe: Fixed W Killsteal.
   Ashe: Fixed Nullref.
+
+7.15.0.0:
+  AIO: Fixed Allies declaration.
+  Orianna: Clarified Menu
+  Orianna: E Logic cleanup.
+  Orianna: Won't Randomly E anymore.
+  MissFortune: Passive target fixes.
+  Kog'Maw: Prediction R fix attempt.
+  Caitlyn: Total Logic cleanup (I was drunk dont look at git plz Kappa)
+  Jinx: Fixed Q Harass Switch (Have to test)
