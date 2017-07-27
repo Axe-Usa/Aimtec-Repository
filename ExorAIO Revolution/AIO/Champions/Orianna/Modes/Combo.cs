@@ -61,10 +61,14 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The E Combo to Allies Logic.
                 /// </summary>
-                if (MenuClass.Spells["e"]["comboallies"].As<MenuBool>().Enabled)
+                if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                 {
-                    var bestAllies = GameObjects.AllyHeroes.Where(t => !t.IsMe && t.IsValidTarget(SpellClass.E.Range, true)).OrderBy(o => o.Health);
-                    foreach (var ally in bestAllies.Where(a => MenuClass.Spells["e"]["combowhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled))
+                    var bestAllies = GameObjects.AllyHeroes
+                        .Where(t =>
+                            MenuClass.Spells["e"]["combowhitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled &&
+                            t.IsValidTarget(SpellClass.E.Range, true))
+                        .OrderBy(o => o.Health);
+                    foreach (var ally in bestAllies)
                     {
                         var allyToBallRectangle = new Geometry.Rectangle(
                             (Vector2)ally.ServerPosition,
@@ -79,26 +83,6 @@ namespace AIO.Champions
                             SpellClass.E.CastOnUnit(ally);
                             return;
                         }
-                    }
-                }
-
-                /// <summary>
-                ///     The E Combo to Orianna Logic.
-                /// </summary>
-                if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
-                {
-                    var playerToBallRectangle = new Geometry.Rectangle(
-                        (Vector2)UtilityClass.Player.ServerPosition,
-                        (Vector2)UtilityClass.Player.ServerPosition.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition) + 30f),
-                        SpellClass.E.Width);
-
-                    if (GameObjects.EnemyHeroes.Any(t =>
-                            t.IsValidTarget() &&
-                            !Invulnerable.Check(t, DamageType.Magical) &&
-                            playerToBallRectangle.IsInside((Vector2)t.ServerPosition)))
-                    {
-                        SpellClass.E.CastOnUnit(UtilityClass.Player);
-                        return;
                     }
                 }
             }

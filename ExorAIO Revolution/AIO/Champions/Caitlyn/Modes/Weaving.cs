@@ -38,21 +38,7 @@ namespace AIO.Champions
                 !heroTarget.HasBuff("caitlynyordletrapinternal") &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                if (SpellClass.W.Ready &&
-                    MenuClass.Spells["w"]["triplecombo"].As<MenuBool>().Enabled)
-                {
-                    if (heroTarget.IsValidTarget(SpellClass.W.Range - 50f))
-                    {
-                        SpellClass.E.Cast(heroTarget);
-                    }
-                }
-                else
-                {
-                    if (heroTarget.IsValidTarget(SpellClass.E.Range - 100f))
-                    {
-                        SpellClass.E.Cast(heroTarget);
-                    }
-                }
+                SpellClass.E.Cast(heroTarget);
             }
         }
 

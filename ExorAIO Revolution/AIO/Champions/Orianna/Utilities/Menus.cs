@@ -120,9 +120,8 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuBool("combo", "Combo: To Orianna"));
-                    MenuClass.E.Add(new MenuBool("comboallies", "Combo: To allies"));
-                    MenuClass.E.Add(new MenuBool("protect", "Shield: To allies if can protect from enemy"));
+                    MenuClass.E.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.E.Add(new MenuBool("protect", "Protect"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
@@ -132,7 +131,7 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the whitelist menu for the Combo E.
                         /// </summary>
-                        MenuClass.WhiteList3 = new Menu("combowhitelist", "Shield Allies: Combo Whitelist");
+                        MenuClass.WhiteList3 = new Menu("combowhitelist", "Combo: Whitelist");
                         {
                             foreach (var ally in GameObjects.AllyHeroes)
                             {
@@ -151,7 +150,7 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the whitelist menu for the Protect E.
                         /// </summary>
-                        MenuClass.WhiteList4 = new Menu("protectwhitelist", "Shield Allies: Protect Whitelist");
+                        MenuClass.WhiteList4 = new Menu("protectwhitelist", "Shield: Whitelist");
                         {
                             foreach (var ally in GameObjects.AllyHeroes)
                             {

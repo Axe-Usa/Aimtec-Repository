@@ -35,18 +35,15 @@ namespace AIO.Champions
             /// <summary>
             ///     The Fishbones to PowPow Logic.
             /// </summary>
-            if (this.IsUsingFishBones())
+            if (SpellClass.Q.Ready &&
+                this.IsUsingFishBones())
             {
-                if (SpellClass.Q.Ready &&
-                    MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
+                if (heroTarget.IsValidTarget(SpellClass.Q.Range) &&
+                    minEnemies == null || minEnemies?.As<MenuSliderBool>().Value >
+                        heroTarget.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
                 {
-                    var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
-                    if (heroTarget.IsValidTarget(SpellClass.Q.Range) &&
-                        minEnemies == null || minEnemies?.As<MenuSliderBool>().Value >
-                            heroTarget.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
-                    {
-                        SpellClass.Q.Cast();
-                    }
+                    SpellClass.Q.Cast();
                 }
             }
         }
@@ -59,20 +56,18 @@ namespace AIO.Champions
             /// <summary>
             ///     The PowPow to Fishbones Logic.
             /// </summary>
-            if (!this.IsUsingFishBones())
+            if (SpellClass.Q.Ready &&
+                !this.IsUsingFishBones() &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                if (SpellClass.Q.Ready &&
-                    MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+                var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
+                if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
+                    Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range+200f).Any() ||
+                    minEnemies != null && minEnemies.As<MenuSliderBool>().Value <=
+                        target?.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
                 {
-                    var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-                    var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
-                    if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
-                        Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range+200f).Any() ||
-                        minEnemies != null && minEnemies.As<MenuSliderBool>().Value <=
-                            target?.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
-                    {
-                        SpellClass.Q.Cast();
-                    }
+                    SpellClass.Q.Cast();
                 }
             }
 

@@ -108,7 +108,9 @@ namespace AIO.Champions
                 else
                 {
                     var bestAlly = GameObjects.AllyHeroes
-                        .Where(a => a.IsValidTarget(SpellClass.E.Range, true))
+                        .Where(a =>
+                            a.IsValidTarget(SpellClass.E.Range, true) &&
+                            args.EndPos.Distance(a.ServerPosition) <= 200)
                         .OrderBy(o => o.Distance(args.EndPos))
                         .FirstOrDefault();
                     if (bestAlly != null)

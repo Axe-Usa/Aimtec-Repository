@@ -26,12 +26,12 @@ namespace AIO.Champions
             var passiveObject = ObjectManager.Get<GameObject>().FirstOrDefault(o => o.IsValid && o.Name == "MissFortune_Base_P_Mark.troy");
             if (passiveObject != null)
             {
-                var objAiBase = Extensions.GetAllGenericUnitTargets()
+                var passiveUnit = ObjectManager.Get<AttackableUnit>()
                     .Where(m => m.IsValidTarget())
                     .OrderBy(o => o.Distance(passiveObject))
                     .FirstOrDefault();
 
-                this.LoveTapTargetNetworkId = objAiBase?.NetworkId ?? 0;
+                this.LoveTapTargetNetworkId = passiveUnit?.NetworkId ?? 0;
             }
             else
             {

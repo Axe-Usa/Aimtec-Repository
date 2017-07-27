@@ -5,6 +5,7 @@ namespace AIO.Champions
 {
     using System.Linq;
 
+    using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
@@ -25,21 +26,30 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
         public void Harass(object sender, PreAttackEventArgs args)
         {
+            var heroTarget = args.Target as Obj_AI_Hero;
+            if (heroTarget == null)
+            {
+                return;
+            }
+
             /// <summary>
-            ///     The Harass Q Logic.
+            ///     The Fishbones to PowPow Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent()
-                    > MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value &&
-                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
+                this.IsUsingFishBones())
             {
-                if (!UtilityClass.Player.HasBuff("JinxQ"))
+                if (UtilityClass.Player.ManaPercent() <= MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value)
                 {
-                    if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
-                        Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Any())
-                    {
-                        SpellClass.Q.Cast();
-                    }
+                    SpellClass.Q.Cast();
+                    return;
+                }
+
+                var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
+                if (heroTarget.IsValidTarget(SpellClass.Q.Range) &&
+                    minEnemies == null || minEnemies?.As<MenuSliderBool>().Value >
+                        heroTarget.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
+                {
+                    SpellClass.Q.Cast();
                 }
             }
         }
@@ -49,6 +59,29 @@ namespace AIO.Champions
         /// </summary>
         public void Harass()
         {
+            /// <summary>
+            ///     The PowPow to Fishbones Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                !this.IsUsingFishBones() &&
+                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
+            {
+                if (UtilityClass.Player.ManaPercent() <= MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value)
+                {
+                    return;
+                }
+
+                var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+                var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
+                if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
+                    Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range + 200f).Any() ||
+                    minEnemies != null && minEnemies.As<MenuSliderBool>().Value <=
+                        target?.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
+                {
+                    SpellClass.Q.Cast();
+                }
+            }
+
             /// <summary>
             ///     The W Harass Logic.
             /// </summary>

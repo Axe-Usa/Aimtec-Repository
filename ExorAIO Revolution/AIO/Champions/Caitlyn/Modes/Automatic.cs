@@ -3,7 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System;
     using System.Linq;
 
     using Aimtec;
@@ -38,16 +37,12 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
-                Console.WriteLine("ready!");
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         t.IsImmobile() &&
                         t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
-                    Console.WriteLine("ready!?!?!?");
-                    UtilityClass.Player.SpellBook.CastSpell(SpellSlot.W, target);
-                    UtilityClass.Player.SpellBook.CastSpell(SpellSlot.W, target.Position);
-                    UtilityClass.Player.SpellBook.CastSpell(SpellSlot.W, target.ServerPosition);
+                    SpellClass.W.Cast(target.ServerPosition);
                 }
             }
 
@@ -61,7 +56,7 @@ namespace AIO.Champions
                     m =>
                         m.IsEnemy &&
                         m.Distance(UtilityClass.Player) <= SpellClass.W.Range &&
-                        m.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target"))))
+                        m.ValidActiveBuffs().Any(b => b.Name.Equals("teleport_target"))))
                 {
                     SpellClass.W.Cast(minion.ServerPosition);
                 }

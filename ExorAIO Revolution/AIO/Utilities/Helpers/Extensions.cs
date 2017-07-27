@@ -60,7 +60,7 @@
         /// </summary>
         public static List<Obj_AI_Hero> GetAllyHeroesTargetsInRange(float range)
         {
-            return GameObjects.AllyHeroes.Where(h => h.IsValidTarget(range)).ToList();
+            return GameObjects.AllyHeroes.Where(h => h.IsValidTarget(range, true)).ToList();
         }
 
         /// <summary>
