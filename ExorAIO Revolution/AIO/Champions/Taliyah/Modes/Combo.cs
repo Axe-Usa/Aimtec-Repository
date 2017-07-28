@@ -127,11 +127,12 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                !SpellClass.W.Ready &&
-                !SpellClass.E.Ready)
+                MenuClass.Spells["q"]["combomode"].As<MenuList>().Value < 2 &&
+                (!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled) &&
+                (!SpellClass.E.Ready || !MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled))
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 150f);
-                if (bestTarget.IsValidTarget() &&
+                if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
                     switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)

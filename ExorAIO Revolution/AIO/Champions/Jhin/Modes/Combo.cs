@@ -52,7 +52,7 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                !GameObjects.Player.IsUnderEnemyTurret() &&
+                !UtilityClass.Player.IsUnderEnemyTurret() &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
             {
                 if (!this.IsReloading() &&
