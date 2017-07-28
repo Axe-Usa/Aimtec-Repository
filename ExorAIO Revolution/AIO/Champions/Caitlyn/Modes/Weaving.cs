@@ -36,6 +36,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 !Invulnerable.Check(heroTarget) &&
                 !heroTarget.HasBuff("caitlynyordletrapinternal") &&
+                heroTarget.IsValidTarget(SpellClass.E.Range-100f) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(heroTarget);

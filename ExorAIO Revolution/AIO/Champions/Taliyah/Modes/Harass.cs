@@ -32,7 +32,6 @@ namespace AIO.Champions
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 100f);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
-                    SpellClass.Q.GetPrediction(bestTarget).CollisionObjects.Count == 0 &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
                     if (this.IsNearWorkedGround() &&

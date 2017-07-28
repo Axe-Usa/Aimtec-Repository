@@ -308,3 +308,9 @@ ExorAIO: Revolution Changelog:
   Kog'Maw: Prediction R fix attempt.
   Caitlyn: Total Logic cleanup (I was drunk dont look at git plz Kappa)
   Jinx: Fixed Q Harass Switch (Have to test)
+
+7.15.0.1:
+  Taliyah: Re-Added Q Collision check.
+  Kog'Maw: R Prediction fix attempt.
+  Caitlyn: Now shouldn't waste E anymore.
+  Caitlyn: Trap distance treshhold has been diminished.
