@@ -36,7 +36,7 @@ namespace AIO.Champions
                 foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Where(m => m.IsValidTarget(SpellClass.Q.Range))
                                        let polygon = new Geometry.Rectangle(
                                                             (Vector2)UtilityClass.Player.ServerPosition,
-                                                            (Vector2)UtilityClass.Player.ServerPosition.Extend(minion.ServerPosition, SpellClass.Q2.Range),
+                                                            (Vector2)UtilityClass.Player.ServerPosition.Extend(minion.ServerPosition, SpellClass.Q2.Range-150f),
                                                             SpellClass.Q2.Width)
                                        where
                                            target != null &&

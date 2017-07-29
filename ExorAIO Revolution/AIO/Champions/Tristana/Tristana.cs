@@ -59,7 +59,7 @@ namespace AIO.Champions
                 if (buff.Name.Equals("ThreshQ") ||
                     buff.Name.Equals("rocketgrab2"))
                 {
-                    SpellClass.W.Cast(UtilityClass.Player.Position.Extend(buff.Caster.Position, -SpellClass.W.Range));
+                    SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(buff.Caster.ServerPosition, -SpellClass.W.Range));
                 }
             }
         }

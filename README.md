@@ -329,7 +329,6 @@ ExorAIO: Revolution Changelog:
   Syndra: Now W should catch objects more often.
 
 7.15.0.4:
-  AIO: Now it wont cast spells on grabbed targets's start position anymore.
   AIO: Fixed a rare Nullref.
   Lucian: Now shouldn't miss Extended Q range anymore.
   Orianna: Q Prediction change.
@@ -337,12 +336,4 @@ ExorAIO: Revolution Changelog:
   Ezreal: Q and W Prediction changes.
   Ezreal: Improved Anti-Grab E.
   Tristana: Improved Anti-Grab W.
-
-7.15.0.5:
   Syndra: Q and W prediction changes.
-
-7.15.0.6:
-  AIO: Tentative bugsplats fix.
-
-7.15.0.7:
-  AIO: Bugsplats fixed.
