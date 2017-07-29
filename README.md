@@ -340,3 +340,6 @@ ExorAIO: Revolution Changelog:
 
 7.15.0.5:
   Syndra: Q and W prediction changes.
+
+7.15.0.6:
+  AIO: Tentative bugsplats fix.
