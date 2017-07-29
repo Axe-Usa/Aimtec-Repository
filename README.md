@@ -337,3 +337,6 @@ ExorAIO: Revolution Changelog:
   Ezreal: Improved Anti-Grab E.
   Tristana: Improved Anti-Grab W.
   Syndra: Q and W prediction changes.
+
+7.15.1.0:
+  AIO: Released Sivir (No spellshield).
