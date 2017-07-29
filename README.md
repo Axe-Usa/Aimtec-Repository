@@ -314,3 +314,16 @@ ExorAIO: Revolution Changelog:
   Kog'Maw: R Prediction fix attempt.
   Caitlyn: Now shouldn't waste E anymore.
   Caitlyn: Trap distance treshhold has been diminished.
+
+7.15.0.2:
+  AIO: Fixed Invulnerability Class.
+  AIO: Added missing Invulnerabilities' definitions.
+  Jhin: Fixed Don't W under enemy turret Check.
+  Kog'Maw: Now shouldn't refrain from casting anymore, under certain conditions.
+  Taliyah: Q casting fix.
+  
+7.15.0.3:
+  Syndra: Better W Prediction.
+  Syndra: Force E after Q now only works in combo mode.
+  Syndra: Now E -> Q shouldn't rarely fail anymore.
+  Syndra: Now W should catch objects more often.
