@@ -79,11 +79,17 @@ namespace AIO.Utilities
         /// </summary>
         public static bool IsGrabbed(this Obj_AI_Hero hero)
         {
-            return hero.Buffs.Any(b =>
-                b.Caster.IsEnemy &&
-                    b.Caster.Name == "Thresh" && (b.Name.Equals("ThreshQ") || b.Name.Equals("threshqfakeknockup")) ||
-                    b.Caster.Name == "Blitzcrank" && (b.Name.Equals("Stun") || b.Name.Equals("rocketgrab2")) ||
-                    b.Caster.Name == "Nautilus" && b.Name.Equals("nautilusanchordragglobalroot"));
+            return
+                hero != null &&
+                hero.Buffs.Any(b =>
+                    b.Caster != null &&
+                    b.Caster.IsEnemy &&
+                        (b.Caster.Name == "Thresh" &&
+                            (b.Name.Equals("ThreshQ") || b.Name.Equals("threshqfakeknockup")) ||
+                        b.Caster.Name == "Blitzcrank" &&
+                            (b.Name.Equals("Stun") || b.Name.Equals("rocketgrab2")) ||
+                        b.Caster.Name == "Nautilus" &&
+                            b.Name.Equals("nautilusanchordragglobalroot")));
         }
 
         /// <summary>
