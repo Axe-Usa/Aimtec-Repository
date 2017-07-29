@@ -62,17 +62,13 @@ namespace AIO.Champions
         /// </summary>
         public GameObject ForceOfWillObject()
         {
-            var possibleTarget1 = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m =>
-                    m.IsValidTarget(SpellClass.W.Range) &&
-                    m.UnitSkinName == "SRU_Blue" || m.UnitSkinName == "SRU_Red");
+            var possibleTarget1 = GameObjects.JungleLarge.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
             if (possibleTarget1 != null)
             {
                 return possibleTarget1;
             }
 
-            var possibleTarget2 = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m =>
-                    m.IsValidTarget(SpellClass.W.Range) &&
-                    (m.IsClone || Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.W.Range).Contains(m)));
+            var possibleTarget2 = GameObjects.EnemyMinions.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
             if (possibleTarget2 != null)
             {
                 return possibleTarget2;

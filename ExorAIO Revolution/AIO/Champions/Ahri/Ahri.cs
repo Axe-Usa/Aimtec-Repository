@@ -92,8 +92,8 @@ namespace AIO.Champions
 
                                     const float RRadius = 500f;
                                     var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + RRadius);
-                                    if (!heroTarget.IsValidTarget() ||
-                                        Invulnerable.Check(heroTarget, DamageType.Magical) ||
+                                    if (heroTarget == null ||
+                                         Invulnerable.Check(heroTarget, DamageType.Magical) ||
                                         !MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                                     {
                                         break;
@@ -117,7 +117,7 @@ namespace AIO.Champions
                                     MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                                 {
                                     var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-150f);
-                                    if (!heroTarget.IsValidTarget() ||
+                                    if (heroTarget == null ||
                                         Invulnerable.Check(heroTarget, DamageType.Magical, false))
                                     {
                                         break;
@@ -140,7 +140,7 @@ namespace AIO.Champions
                         {
                             const float RRadius = 500f;
                             var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + RRadius);
-                            if (!heroTarget.IsValidTarget() ||
+                            if (heroTarget == null ||
                                 Invulnerable.Check(heroTarget, DamageType.Magical) ||
                                 !MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                             {

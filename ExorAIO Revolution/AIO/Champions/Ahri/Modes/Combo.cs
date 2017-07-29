@@ -31,7 +31,7 @@ namespace AIO.Champions
                         MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                     {
                         var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-150f);
-                        if (!heroTarget.IsValidTarget() ||
+                        if (heroTarget == null ||
                             Invulnerable.Check(heroTarget, DamageType.Magical, false))
                         {
                             break;
@@ -56,7 +56,7 @@ namespace AIO.Champions
 
                         const float RRadius = 500f;
                         var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + RRadius);
-                        if (!heroTarget.IsValidTarget() ||
+                        if (heroTarget == null ||
                             Invulnerable.Check(heroTarget, DamageType.Magical) ||
                             !MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                         {
@@ -79,7 +79,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range-150f);
-                if (heroTarget.IsValidTarget() &&
+                if (heroTarget != null &&
                     !Invulnerable.Check(heroTarget, DamageType.Magical, false))
                 {
                     SpellClass.E.Cast(heroTarget);
@@ -93,7 +93,7 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-100f);
-                if (heroTarget.IsValidTarget() &&
+                if (heroTarget != null &&
                     !Invulnerable.Check(heroTarget, DamageType.Magical))
                 {
                     SpellClass.W.Cast();
@@ -106,8 +106,8 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-100f);
-                if (heroTarget.IsValidTarget() &&
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-150f);
+                if (heroTarget != null &&
                     !Invulnerable.Check(heroTarget, DamageType.Magical))
                 {
                     SpellClass.Q.Cast(heroTarget);

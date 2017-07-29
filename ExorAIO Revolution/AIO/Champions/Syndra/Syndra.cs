@@ -120,6 +120,7 @@ namespace AIO.Champions
             if (sender.IsMe)
             {
                 if (args.SpellSlot == SpellSlot.Q &&
+                    ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo &&
                     MenuClass.Spells["e"]["customization"]["forcee"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast(args.End);
