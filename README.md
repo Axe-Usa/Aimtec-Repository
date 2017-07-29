@@ -343,3 +343,6 @@ ExorAIO: Revolution Changelog:
 
 7.15.0.6:
   AIO: Tentative bugsplats fix.
+
+7.15.0.7:
+  AIO: Bugsplats fixed.
