@@ -337,3 +337,6 @@ ExorAIO: Revolution Changelog:
   Ezreal: Q and W Prediction changes.
   Ezreal: Improved Anti-Grab E.
   Tristana: Improved Anti-Grab W.
+
+7.15.0.5:
+  Syndra: Q and W prediction changes.
