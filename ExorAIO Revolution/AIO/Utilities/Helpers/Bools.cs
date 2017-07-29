@@ -75,6 +75,18 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Returns true a 'hero' is being grabbed.
+        /// </summary>
+        public static bool IsGrabbed(this Obj_AI_Hero hero)
+        {
+            return hero.Buffs.Any(b =>
+                b.Caster.IsEnemy &&
+                    b.Caster.Name == "Thresh" && (b.Name.Equals("ThreshQ") || b.Name.Equals("threshqfakeknockup")) ||
+                    b.Caster.Name == "Blitzcrank" && (b.Name.Equals("Stun") || b.Name.Equals("rocketgrab2")) ||
+                    b.Caster.Name == "Nautilus" && b.Name.Equals("nautilusanchordragglobalroot"));
+        }
+
+        /// <summary>
         ///     Gets a value indicating whether a determined champion can move or not.
         /// </summary>
         public static bool IsImmobile(this Obj_AI_Base target)
@@ -83,6 +95,13 @@ namespace AIO.Utilities
                 target.IsDashing() ||
                 target.Name.Equals("Target Dummy") ||
                 target.HasBuffOfType(BuffType.Knockback))
+            {
+                return false;
+            }
+
+            var heroTarget = target as Obj_AI_Hero;
+            if (heroTarget != null &&
+                heroTarget.IsGrabbed())
             {
                 return false;
             }
