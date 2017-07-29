@@ -327,3 +327,13 @@ ExorAIO: Revolution Changelog:
   Syndra: Force E after Q now only works in combo mode.
   Syndra: Now E -> Q shouldn't rarely fail anymore.
   Syndra: Now W should catch objects more often.
+
+7.15.0.4:
+  AIO: Now it wont cast spells on grabbed targets's start position anymore.
+  AIO: Fixed a rare Nullref.
+  Lucian: Now shouldn't miss Extended Q range anymore.
+  Orianna: Q Prediction change.
+  Jinx: W Prediction change.
+  Ezreal: Q and W Prediction changes.
+  Ezreal: Improved Anti-Grab E.
+  Tristana: Improved Anti-Grab W.
