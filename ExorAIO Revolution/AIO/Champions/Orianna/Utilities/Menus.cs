@@ -185,11 +185,11 @@ namespace AIO.Champions
                     MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     if (GameObjects.EnemyHeroes.Count() >= 2)
                     {
-                        MenuClass.R.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", true, 2, 2, GameObjects.EnemyHeroes.Count()));
+                        MenuClass.R.Add(new MenuSliderBool("combo", "AoE / If can hit >= x enemies", true, 2, 2, GameObjects.EnemyHeroes.Count()));
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("aoe", "AoE / Not enough enemies found"));
+                        MenuClass.R.Add(new MenuSeperator("combo", "AoE / Not enough enemies found"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

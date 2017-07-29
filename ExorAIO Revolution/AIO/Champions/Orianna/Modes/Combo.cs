@@ -38,6 +38,22 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The Automatic R Logic.
+            /// </summary>
+            if (SpellClass.R.Ready &&
+                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled)
+            {
+                var countValidTargets = GameObjects.EnemyHeroes.Count(t =>
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        t.IsValidTarget(SpellClass.R.Width-50f, false, false, this.BallPosition));
+
+                if (countValidTargets >= MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value)
+                {
+                    SpellClass.R.Cast();
+                }
+            }
+
+            /// <summary>
             ///     The E Combo Logics.
             /// </summary>
             if (SpellClass.E.Ready)

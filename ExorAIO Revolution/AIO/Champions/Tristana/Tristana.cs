@@ -54,10 +54,13 @@ namespace AIO.Champions
         {
             if (sender.IsMe &&
                 SpellClass.W.Ready &&
-                UtilityClass.Player.IsGrabbed() &&
                 MenuClass.Spells["w"]["antigrab"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(buff.Caster.ServerPosition, -SpellClass.W.Range));
+                if (buff.Name.Equals("ThreshQ") ||
+                    buff.Name.Equals("rocketgrab2"))
+                {
+                    SpellClass.W.Cast(UtilityClass.Player.Position.Extend(buff.Caster.Position, -SpellClass.W.Range));
+                }
             }
         }
 

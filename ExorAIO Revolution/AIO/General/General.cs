@@ -57,7 +57,7 @@ namespace AIO
                 }
 
                 var hydraItems = new[]{ ItemId.TitanicHydra, ItemId.RavenousHydra, ItemId.Tiamat };
-                var hydraSlot = UtilityClass.Player.Inventory.Slots.FirstOrDefault(s => hydraItems.Contains(s.ItemId));
+                var hydraSlot = UtilityClass.Player.Inventory.Slots.First(s => hydraItems.Contains(s.ItemId));
                 if (hydraSlot != null)
                 {
                     var hydraSpellSlot = hydraSlot.SpellSlot;

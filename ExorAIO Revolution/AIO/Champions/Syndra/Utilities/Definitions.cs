@@ -46,7 +46,7 @@ namespace AIO.Champions
         /// </summary>
         public bool IsDarkSphere(GameObject obj)
         {
-            return obj.IsValid && (obj.Name == "Syndra_Base_Q_idle.troy" || obj.Name == "Syndra_Base_Q_Lv5_idle.troy");
+            return obj.Name == "Syndra_Base_Q_idle.troy" || obj.Name == "Syndra_Base_Q_Lv5_idle.troy";
         }
 
         /// <summary>
@@ -62,31 +62,26 @@ namespace AIO.Champions
         /// </summary>
         public GameObject ForceOfWillObject()
         {
-            var possibleTarget1 = GameObjects.JungleLarge.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range) && (m.UnitSkinName == "SRU_Blue" || m.UnitSkinName == "SRU_Red"));
+            var possibleTarget1 = GameObjects.JungleLarge.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
             if (possibleTarget1 != null)
             {
                 return possibleTarget1;
             }
 
-            var possibleTarget2 = ObjectManager.Get<GameObject>().FirstOrDefault(o =>
-                        this.IsDarkSphere(o) &&
-                        o.NetworkId != this.SelectedDarkSphereNetworkId &&
-                        o.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range);
+            var possibleTarget2 = GameObjects.EnemyMinions.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
             if (possibleTarget2 != null)
             {
                 return possibleTarget2;
             }
 
-            var possibleTarget3 = GameObjects.EnemyMinions.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
+            var possibleTarget3 = ObjectManager.Get<GameObject>().FirstOrDefault(o =>
+                    o.IsValid &&
+                    this.IsDarkSphere(o) &&
+                    o.NetworkId != this.SelectedDarkSphereNetworkId &&
+                    o.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range);
             if (possibleTarget3 != null)
             {
                 return possibleTarget3;
-            }
-
-            var possibleTarget4 = GameObjects.Jungle.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
-            if (possibleTarget4 != null)
-            {
-                return possibleTarget4;
             }
 
             return null;
