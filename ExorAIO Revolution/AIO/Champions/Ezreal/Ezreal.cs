@@ -58,7 +58,7 @@ namespace AIO.Champions
                 UtilityClass.Player.IsGrabbed() &&
                 MenuClass.Spells["e"]["antigrab"].As<MenuBool>().Enabled)
             {
-                SpellClass.E.Cast(UtilityClass.Player.Position.Extend(buff.Caster.ServerPosition, -SpellClass.E.Range));
+                SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(buff.Caster.ServerPosition, -SpellClass.E.Range));
             }
         }
 

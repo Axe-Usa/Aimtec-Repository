@@ -75,13 +75,13 @@ namespace AIO.Utilities
         }
 
         /// <summary>
-        ///     Returns true a 'hero' is being grabbed.
+        ///     Returns true if an 'unit' is being grabbed.
         /// </summary>
-        public static bool IsGrabbed(this Obj_AI_Hero hero)
+        public static bool IsGrabbed(this Obj_AI_Base unit)
         {
             return
-                hero != null &&
-                hero.Buffs.Any(b =>
+                unit != null &&
+                unit.Buffs.Any(b =>
                     b.Caster != null &&
                     b.Caster.IsEnemy &&
                         (b.Caster.Name == "Thresh" &&
@@ -105,9 +105,7 @@ namespace AIO.Utilities
                 return false;
             }
 
-            var heroTarget = target as Obj_AI_Hero;
-            if (heroTarget != null &&
-                heroTarget.IsGrabbed())
+            if (target.IsGrabbed())
             {
                 return false;
             }
