@@ -24,8 +24,8 @@ namespace AIO.Champions
         ///     Called on post attack.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void Laneclear(object sender, PostAttackEventArgs args)
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void Laneclear(object sender, PreAttackEventArgs args)
         {
             /// <summary>
             ///     The Laneclear Q Logic.
@@ -45,21 +45,6 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Laneclear W Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["w"]["laneclear"]) &&
-                MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
-            {
-                var mainMinion = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
-                if (mainMinion != null)
-                {
-                    SpellClass.W.Cast();
-                }
-            }
-
-            /// <summary>
             ///     The E Big Minions Lasthit Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
@@ -70,6 +55,21 @@ namespace AIO.Champions
                     m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.E)))
                 {
                     SpellClass.E.CastOnUnit(minion);
+                }
+            }
+
+            /// <summary>
+            ///     The Laneclear W Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                UtilityClass.Player.ManaPercent()
+                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["w"]["laneclear"]) &&
+                MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
+            {
+                var mainMinion = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
+                if (mainMinion != null)
+                {
+                    SpellClass.W.Cast();
                 }
             }
         }

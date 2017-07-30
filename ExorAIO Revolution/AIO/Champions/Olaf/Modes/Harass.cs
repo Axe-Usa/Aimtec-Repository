@@ -36,7 +36,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition.Extend(UtilityClass.Player.ServerPosition, -100f - bestTarget.BoundingRadius));
                 }
             }
 
@@ -65,8 +65,8 @@ namespace AIO.Champions
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void Harass(object sender, PostAttackEventArgs args)
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void Harass(object sender, PreAttackEventArgs args)
         {
             var heroTarget = args.Target as Obj_AI_Hero;
             if (heroTarget == null)

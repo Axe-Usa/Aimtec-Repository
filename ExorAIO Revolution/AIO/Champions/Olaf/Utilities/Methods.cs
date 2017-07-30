@@ -19,7 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             GameObject.OnCreate += this.OnCreate;
             GameObject.OnDestroy += this.OnDestroy;
-            ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
+            ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             Render.OnPresent += this.OnPresent;
         }
 

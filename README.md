@@ -348,3 +348,7 @@ ExorAIO: Revolution Changelog:
   AIO; Fixed CompilingError for some PC's.
   Orianna: Fixed Rare Nullref.
   Olaf: Fixed E BigMinions LastHit.
+
+7.15.2.2:
+  Olaf: Now Will Cast E before attack to not lose CD.
+  Olaf: Will now cast Q more often and with a better prediction.

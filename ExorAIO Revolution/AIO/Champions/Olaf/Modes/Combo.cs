@@ -28,10 +28,9 @@ namespace AIO.Champions
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 150f);
                 if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget) &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                    !Invulnerable.Check(bestTarget))
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition.Extend(UtilityClass.Player.ServerPosition, -100f-bestTarget.BoundingRadius));
                 }
             }
         }

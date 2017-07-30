@@ -20,8 +20,8 @@ namespace AIO.Champions
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void Buildingclear(object sender, PostAttackEventArgs args)
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void Buildingclear(object sender, PreAttackEventArgs args)
         {
             var target = args.Target;
             if (!target.IsBuilding())

@@ -81,8 +81,8 @@ namespace AIO.Champions
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void OnPostAttack(object sender, PostAttackEventArgs args)
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPreAttack(object sender, PreAttackEventArgs args)
         {
             /// <summary>
             ///     Initializes the orbwalkingmodes.

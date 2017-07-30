@@ -22,8 +22,8 @@ namespace AIO.Champions
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void Jungleclear(object sender, PostAttackEventArgs args)
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void Jungleclear(object sender, PreAttackEventArgs args)
         {
             var jungleTarget = args.Target as Obj_AI_Minion;
             if (jungleTarget == null ||
@@ -41,8 +41,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast(jungleTarget);
-                return;
+                SpellClass.Q.Cast(SpellClass.Q.GetPrediction(jungleTarget).CastPosition.Extend(UtilityClass.Player.ServerPosition, -50f - jungleTarget.BoundingRadius));
             }
 
             /// <summary>
