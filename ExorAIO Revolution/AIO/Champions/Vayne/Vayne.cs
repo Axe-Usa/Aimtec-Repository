@@ -94,7 +94,7 @@ namespace AIO.Champions
                 UtilityClass.Player.HasBuff("vaynetumblefade"))
             {
                 var invisibilityBuff = UtilityClass.Player.GetBuff("vaynetumblefade");
-                if (invisibilityBuff.EndTime - Game.ClockTime >
+                if (invisibilityBuff.GetRemainingBuffTime() >
                     invisibilityBuff.EndTime - invisibilityBuff.StartTime - MenuClass.Miscellaneous["stealthtime"].As<MenuSlider>().Value / 1000f)
                 {
                     args.Cancel = true;

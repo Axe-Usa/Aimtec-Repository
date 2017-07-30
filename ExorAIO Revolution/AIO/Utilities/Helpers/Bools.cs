@@ -75,6 +75,23 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Returns true if a determined buff is a Hard CC Buff.
+        /// </summary>
+        // ReSharper disable once InconsistentNaming
+        public static bool IsHardCC(this Buff buff)
+        {
+            return
+                buff.Type == BuffType.Stun ||
+                buff.Type == BuffType.Fear ||
+                buff.Type == BuffType.Flee ||
+                buff.Type == BuffType.Snare ||
+                buff.Type == BuffType.Taunt ||
+                buff.Type == BuffType.Charm ||
+                buff.Type == BuffType.Knockup ||
+                buff.Type == BuffType.Suppression;
+        }
+
+        /// <summary>
         ///     Gets a value indicating whether a determined champion can move or not.
         /// </summary>
         public static bool IsImmobile(this Obj_AI_Base target)
@@ -92,16 +109,7 @@ namespace AIO.Utilities
                 return true;
             }
 
-            if (target.Buffs.Any(
-                buff =>
-                    buff.Type == BuffType.Stun ||
-                    buff.Type == BuffType.Fear ||
-                    buff.Type == BuffType.Flee ||
-                    buff.Type == BuffType.Snare ||
-                    buff.Type == BuffType.Taunt ||
-                    buff.Type == BuffType.Charm ||
-                    buff.Type == BuffType.Knockup ||
-                    buff.Type == BuffType.Suppression))
+            if (target.ValidActiveBuffs().Any(buff => buff.IsHardCC()))
             {
                 return true;
             }

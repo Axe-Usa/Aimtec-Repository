@@ -76,6 +76,20 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Gets the remaining buff time of the 'buff' Buff.
+        /// </summary>
+        /// <param name="buff">
+        ///     The buff.
+        /// </param>
+        /// <returns>
+        ///     The remaining buff time.
+        /// </returns>
+        public static double GetRemainingBuffTime(this Buff buff)
+        {
+            return buff.EndTime - Game.ClockTime;
+        }
+
+        /// <summary>
         ///     Gets the health with Blitzcrank's Shield support.
         /// </summary>
         /// <param name="unit">
