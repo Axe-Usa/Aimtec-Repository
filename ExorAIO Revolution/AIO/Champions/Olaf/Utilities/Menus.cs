@@ -108,7 +108,7 @@ namespace AIO.Champions
                 {
                     MenuClass.E.Add(new MenuSliderBool("combo", "Combo / if Health >= x%", true, 10, 10, 99));
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
-                    MenuClass.E.Add(new MenuBool("lasthit", "Lasthit Cannon Minions"));
+                    MenuClass.E.Add(new MenuBool("lasthit", "Lasthit Big Minions"));
                     MenuClass.E.Add(new MenuSliderBool("harass", "Harass / if Health >= x%", true, 10, 10, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Health >= x%", true, 10, 10, 99));
 

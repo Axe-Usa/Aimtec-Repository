@@ -27,6 +27,7 @@ namespace AIO.Champions
             ///     The Automatic R Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
+                MenuClass.Spells["r"]["aoe"] != null &&
                 MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
             {
                 var countValidTargets = GameObjects.EnemyHeroes.Count(t =>

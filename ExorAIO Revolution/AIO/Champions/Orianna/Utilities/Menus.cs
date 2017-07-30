@@ -189,7 +189,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("aoe", "AoE / Not enough enemies found"));
+                        MenuClass.R.Add(new MenuSeperator("separator", "AoE / Not enough enemies found"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

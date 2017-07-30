@@ -66,7 +66,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["lasthit"].As<MenuBool>().Enabled)
             {
                 foreach (var minion in Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Where(m =>
-                    (m.Name.Contains("Siege") || m.Name.Contains("Super")) &&
+                    (m.UnitSkinName.Contains("Siege") || m.UnitSkinName.Contains("Super")) &&
                     m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.E)))
                 {
                     SpellClass.E.CastOnUnit(minion);

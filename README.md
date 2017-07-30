@@ -343,3 +343,8 @@ ExorAIO: Revolution Changelog:
   
 7.15.2.0:
   AIO: Released Olaf (BETA).
+
+7.15.2.1:
+  AIO; Fixed CompilingError for some PC's.
+  Orianna: Fixed Rare Nullref.
+  Olaf: Fixed E BigMinions LastHit.
