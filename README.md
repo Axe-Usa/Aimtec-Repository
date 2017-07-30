@@ -340,3 +340,6 @@ ExorAIO: Revolution Changelog:
 
 7.15.1.0:
   AIO: Released Sivir (No spellshield).
+  
+7.15.2.0:
+  AIO: Released Olaf (BETA).
