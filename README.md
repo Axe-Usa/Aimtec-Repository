@@ -352,3 +352,9 @@ ExorAIO: Revolution Changelog:
 7.15.2.2:
   Olaf: Now Will Cast E before attack to not lose CD.
   Olaf: Will now cast Q more often and with a better prediction.
+
+7.15.2.3:
+  Orianna: Now will use E in combo more accurately.
+  Orianna: Now it should use W a bit more frequently when it can.
+  Sivir: Shield Logic base.
+  Syndra: Now the spells will not try to predict enemy movement anymore, but cast at the center of the enemy position.
