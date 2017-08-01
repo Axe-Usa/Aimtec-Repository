@@ -30,6 +30,38 @@ namespace AIO.Utilities
         public static Obj_AI_Hero Player => ObjectManager.GetLocalPlayer();
 
         /// <summary>
+        ///     Spells that are attacks even if they don't have the "attack" word in their name.
+        /// </summary>
+        public static readonly string[] Attacks =
+            {
+                "caitlynheadshotmissile", "kennenmegaproc", "masteryidoublestrike",
+                "quinnwenhanced", "renektonexecute", "renektonsuperexecute",
+                "trundleq", "viktorqbuff", "xenzhaothrust", "xenzhaothrust2",
+                "xenzhaothrust3"
+            };
+
+        /// <summary>
+        ///     Spells that are not attacks even if they have the "attack" word in their name.
+        /// </summary>
+        public static readonly string[] NoAttacks =
+            {
+                "asheqattacknoonhit", "volleyattackwithsound", "volleyattack",
+                "annietibbersbasicattack", "annietibbersbasicattack2",
+                "azirsoldierbasicattack", "azirsundiscbasicattack",
+                "elisespiderlingbasicattack", "gravesbasicattackspread",
+                "gravesautoattackrecoil", "heimertyellowbasicattack",
+                "heimertyellowbasicattack2", "heimertbluebasicattack",
+                "jarvanivcataclysmattack", "kindredwolfbasicattack",
+                "malzaharvoidlingbasicattack", "malzaharvoidlingbasicattack2",
+                "malzaharvoidlingbasicattack3", "shyvanadoubleattack",
+                "shyvanadoubleattackdragon", "sivirwattackbounce",
+                "monkeykingdoubleattack", "yorickspectralghoulbasicattack",
+                "yorickdecayedghoulbasicattack", "yorickravenousghoulbasicattack",
+                "zyragraspingplantattack", "zyragraspingplantattack2",
+                "zyragraspingplantattackfire", "zyragraspingplantattack2fire"
+            };
+
+        /// <summary>
         ///     The jungle HP bar offset list.
         /// </summary>
         internal static readonly string[] JungleList =

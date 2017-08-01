@@ -116,7 +116,87 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuSeperator("separator", "Coming Soon"));
+                    MenuClass.E.Add(new MenuSliderBool("logical", "Use Shield / with X ms Delay", true, 0, 0, 250));
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the E Whitelist.
+                        /// </summary>
+                        MenuClass.WhiteList = new Menu("whitelist", "Shield: Whitelist Menu");
+                        {
+                            MenuClass.WhiteList.Add(new MenuBool("minions", "Shield: Dragon's Attacks"));
+                            foreach (var enemy in GameObjects.EnemyHeroes)
+                            {
+                                if (enemy.ChampionName.Equals("Alistar"))
+                                {
+                                    MenuClass.WhiteList.Add(
+                                        new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.pulverize",
+                                            $"Shield: {enemy.ChampionName}'s Pulverize (Q)"));
+                                }
+                                if (enemy.ChampionName.Equals("Braum"))
+                                {
+                                    MenuClass.WhiteList.Add(
+                                        new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.passive",
+                                            $"Shield: {enemy.ChampionName}'s Passive"));
+                                }
+                                if (enemy.ChampionName.Equals("Jax"))
+                                {
+                                    MenuClass.WhiteList.Add(
+                                        new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.jaxcounterstrike",
+                                            $"Shield: {enemy.ChampionName}'s JaxCounterStrike (E)"));
+                                }
+                                if (enemy.ChampionName.Equals("KogMaw"))
+                                {
+                                    MenuClass.WhiteList.Add(
+                                        new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.kogmawicathiansurprise",
+                                            $"Shield: {enemy.ChampionName}'s KogMawIcathianSurprise (Passive)"));
+                                }
+                                if (enemy.ChampionName.Equals("Nautilus"))
+                                {
+                                    MenuClass.WhiteList.Add(
+                                        new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.nautilusravagestrikeattack",
+                                            $"Shield: {enemy.ChampionName}'s NautilusRavageStrikeAttack (Passive)"));
+                                }
+                                if (enemy.ChampionName.Equals("Udyr"))
+                                {
+                                    MenuClass.WhiteList.Add(
+                                        new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.udyrbearattack",
+                                            $"Shield: {enemy.ChampionName}'s UdyrBearAttack (E)"));
+                                }
+
+                                string[] excludedSpellsList = { "KatarinaE", "nautiluspiercinggaze" };
+                                string[] assassinList = { "Akali", "Leblanc", "Talon" };
+
+                                foreach (var spell in SpellDatabase.Get().Where(s =>
+                                    !excludedSpellsList.Contains(s.SpellName) &&
+                                    s.ChampionName.Equals(enemy.ChampionName)))
+                                {
+                                    if (spell.CastType != null)
+                                    {
+                                        if (enemy.IsMelee &&
+                                            spell.CastType.Contains(CastType.Activate) &&
+                                            spell.SpellType.HasFlag(SpellType.Activated) &&
+                                            ImplementationClass.IOrbwalker.IsReset(spell.SpellName) || spell.CastType.Contains(CastType.EnemyChampions) &&
+                                            (spell.SpellType.HasFlag(SpellType.Targeted) || spell.SpellType.HasFlag(SpellType.TargetedMissile)))
+                                        {
+                                            MenuClass.WhiteList.Add(
+                                                new MenuBool(
+                                                    $"{enemy.ChampionName.ToLower()}.{spell.SpellName.ToLower()}",
+                                                    $"Shield: {enemy.ChampionName}'s {spell.SpellName} ({spell.Slot})"
+                                                    + (assassinList.Contains(enemy.ChampionName) ? "[May not work]" : "")));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        MenuClass.E.Add(MenuClass.WhiteList);
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
             }

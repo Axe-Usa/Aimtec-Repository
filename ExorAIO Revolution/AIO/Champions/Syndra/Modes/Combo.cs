@@ -28,20 +28,19 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 100f);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(bestTarget.ServerPosition);
                 }
             }
 
             /// <summary>
             ///     The W Combo Logic.
             /// </summary>
-            if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            if (MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range + 200f);
                 if (bestTarget != null &&
@@ -60,9 +59,9 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        if (bestTarget.IsValidTarget(SpellClass.W.Range - 100f))
+                        if (bestTarget.IsValidTarget(SpellClass.W.Range-50f))
                         {
-                            SpellClass.W.Cast(bestTarget);
+                            SpellClass.W.Cast(bestTarget.ServerPosition);
                         }
                     }
                 }
@@ -75,6 +74,8 @@ namespace AIO.Champions
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t => MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                 {
+                    var targetPos = target.ServerPosition;
+
                     /// <summary>
                     ///     The Normal E Combo Logic.
                     /// </summary>
@@ -85,7 +86,7 @@ namespace AIO.Champions
                             if (sphere.Key != this.HoldedSphere?.NetworkId &&
                                 this.CanSphereHitUnit(target, sphere))
                             {
-                                SpellClass.E.Cast(target);
+                                SpellClass.E.Cast(targetPos);
                                 this.SelectedDarkSphereNetworkId = sphere.Key;
                             }
                         }
@@ -98,23 +99,19 @@ namespace AIO.Champions
                         !target.IsValidTarget(SpellClass.Q.Range) &&
                         target.IsValidTarget(1100f+SpellClass.Q.Width-150f))
                     {
-                        var targetPred = SpellClass.Q.GetPrediction(target);
-                        if (targetPred != null)
+                        if (!SpellClass.W.Ready ||!target.IsValidTarget(SpellClass.W.Range) || this.IsHoldingForceOfWillObject())
                         {
-                            if (!SpellClass.W.Ready ||!target.IsValidTarget(SpellClass.W.Range) || this.IsHoldingForceOfWillObject())
+                            var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPos, SpellClass.Q.Range - 125f);
+                            switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
                             {
-                                var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPred.CastPosition, SpellClass.Q.Range - 125f);
-                                switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
-                                {
-                                    case 0:
-                                        SpellClass.E.Cast(target);
-                                        SpellClass.Q.Cast(qPosition);
-                                        break;
-                                    case 1:
-                                        SpellClass.Q.Cast(qPosition);
-                                        SpellClass.E.Cast(target);
-                                        break;
-                                }
+                                case 0:
+                                    SpellClass.E.Cast(targetPos);
+                                    SpellClass.Q.Cast(qPosition);
+                                    break;
+                                case 1:
+                                    SpellClass.Q.Cast(qPosition);
+                                    SpellClass.E.Cast(targetPos);
+                                    break;
                             }
                         }
                     }

@@ -27,7 +27,8 @@
         /// </summary>
         public bool IsPerfectExpungeTarget(Obj_AI_Base unit)
         {
-            if (unit.HasBuff("twitchdeadlyvenom"))
+            if (unit.HasBuff("twitchdeadlyvenom") &&
+                unit.IsValidTarget(SpellClass.E.Range))
             {
                 switch (unit.Type)
                 {
@@ -35,11 +36,8 @@
                         return true;
 
                     case GameObjectType.obj_AI_Hero:
-                        if (unit.IsValidTarget(SpellClass.E.Range))
-                        {
-                            return !Invulnerable.Check((Obj_AI_Hero)unit);
-                        }
-                        break;
+                        var heroUnit = (Obj_AI_Hero)unit;
+                        return !Invulnerable.Check(heroUnit);
                 }
             }
 

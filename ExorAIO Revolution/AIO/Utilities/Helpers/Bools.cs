@@ -23,6 +23,17 @@ namespace AIO.Utilities
 
         #region Public Methods and Operators
 
+        /// <summary>
+        ///     Returns if the name is an auto attack
+        /// </summary>
+        /// <param name="name">Name of spell</param>
+        /// <returns>The <see cref="bool" /></returns>
+        public static bool IsAutoAttack(string name)
+        {
+            name = name.ToLower();
+            return (name.Contains("attack") && !UtilityClass.NoAttacks.Contains(name)) || UtilityClass.Attacks.Contains(name);
+        }
+
         /// <returns>
         ///     true if a determined cell has a Wall flag, else, false.
         /// </returns>

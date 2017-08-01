@@ -178,6 +178,22 @@
     <Compile Include="AIO\Champions\Sivir\Modes\Lasthit.cs" />
     <Compile Include="AIO\Champions\Sivir\Modes\Weaving.cs" />
     <Compile Include="AIO\Champions\Sivir\Sivir.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Data.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\CastType.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\CollisionableObjects.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\DamageScalingTarget.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\DamageScalingType.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\DangerLevel.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\GapcloserType.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\SpellEffectType.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\SpellTags.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\SpellType.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\IFilter.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\JsonFactory.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Resources\ResourceFactory.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Resources\ResourceImportAttribute.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Resources\ResourceLoader.cs" />
+    <Compile Include="AIO\Utilities\Helpers\SpellDatabase\SpellDatabase.cs" />
     <Compile Include="AIO\Champions\Sivir\Utilities\Drawings.cs" />
     <Compile Include="AIO\Champions\Sivir\Utilities\Menus.cs" />
     <Compile Include="AIO\Champions\Sivir\Utilities\Methods.cs" />
@@ -379,6 +395,7 @@
     <Compile Include="AIO\Champions\Akali\Utilities\Spells.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AIO\Utilities\Helpers\SpellDatabase\SpellDatabase.json" />
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>

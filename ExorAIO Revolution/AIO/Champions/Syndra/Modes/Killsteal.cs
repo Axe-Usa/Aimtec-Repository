@@ -31,7 +31,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(bestTarget.ServerPosition);
                 }
             }
 
@@ -55,7 +55,7 @@ namespace AIO.Champions
 
                     if (this.IsHoldingForceOfWillObject())
                     {
-                        SpellClass.W.Cast(bestTarget);
+                        SpellClass.W.Cast(bestTarget.ServerPosition);
                     }
                 }
             }

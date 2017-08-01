@@ -19,6 +19,7 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
             Render.OnPresent += this.OnPresent;
+            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
         }
 
         #endregion

@@ -7,7 +7,6 @@ namespace AIO.Champions
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Util;
 
     using AIO.Utilities;
 
@@ -67,7 +66,10 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                DelayAction.Queue(500, ()=> SpellClass.Q.Cast(jungleTarget));
+                if (jungleTarget != null)
+                {
+                    SpellClass.Q.Cast(jungleTarget.ServerPosition);
+                }
             }
 
             /// <summary>

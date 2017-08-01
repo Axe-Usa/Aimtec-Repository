@@ -171,7 +171,7 @@ namespace AIO.Champions
             return new Geometry.Rectangle(
                            (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width*2),
                            (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, -1100f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
-                           SpellClass.Q.Width - 100f);
+                           SpellClass.Q.Width-25f);
         }
 
         /// <summary>
