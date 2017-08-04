@@ -3,8 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System;
-
     using Aimtec;
     using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;

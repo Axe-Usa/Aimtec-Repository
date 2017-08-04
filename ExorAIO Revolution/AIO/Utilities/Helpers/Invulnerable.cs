@@ -99,7 +99,7 @@ namespace AIO.Utilities
                         new InvulnerableEntry("UndyingRage")
                             {
                                 ChampionName = "Tryndamere",
-                                MinHealthPercent = 1
+                                MinHealthPercent = 5
                             }
                     });
         }
