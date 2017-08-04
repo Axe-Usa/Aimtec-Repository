@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System;
+
     using Aimtec;
     using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
@@ -201,6 +203,8 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
+            Console.WriteLine(UtilityClass.Player.ActionState.HasFlag(ActionState.Asleep));
+
             if (UtilityClass.Player.IsDead)
             {
                 return;

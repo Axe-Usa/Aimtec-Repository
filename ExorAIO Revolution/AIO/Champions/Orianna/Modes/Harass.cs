@@ -36,7 +36,8 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.GetPredictionInput(bestTarget).From = this.BallPosition;
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
 

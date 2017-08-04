@@ -57,7 +57,6 @@ namespace AIO.Utilities
         /// </summary>
         public static bool HasTearLikeItem(this Obj_AI_Hero unit)
         {
-
             return
                 unit.HasItem(ItemId.Manamune) ||
                 unit.HasItem(ItemId.ArchangelsStaff) ||
@@ -115,22 +114,7 @@ namespace AIO.Utilities
                 return false;
             }
 
-            if (!target.ActionState.HasFlag(ActionState.CanMove))
-            {
-                return true;
-            }
-
             if (target.ValidActiveBuffs().Any(buff => buff.IsHardCC()))
-            {
-                return true;
-            }
-
-            if (target.ActionState.HasFlag(ActionState.Asleep) ||
-                target.ActionState.HasFlag(ActionState.Feared) ||
-                target.ActionState.HasFlag(ActionState.Charmed) ||
-                target.ActionState.HasFlag(ActionState.Fleeing) ||
-                target.ActionState.HasFlag(ActionState.Taunted) ||
-                target.ActionState.HasFlag(ActionState.Surpressed))
             {
                 return true;
             }

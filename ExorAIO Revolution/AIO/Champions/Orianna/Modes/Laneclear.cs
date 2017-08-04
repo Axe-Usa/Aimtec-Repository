@@ -71,7 +71,8 @@ namespace AIO.Champions
                 {
                     if (minion.Health < UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
                     {
-                        SpellClass.Q.Cast(minion);
+                        SpellClass.Q.GetPredictionInput(minion).From = this.BallPosition;
+                        SpellClass.Q.Cast(SpellClass.Q.GetPrediction(minion).CastPosition);
                     }
                 }
             }

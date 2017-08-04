@@ -26,8 +26,8 @@ namespace AIO.Champions
             SpellClass.R = new Spell(SpellSlot.R, 1500f);
 
             SpellClass.W.SetSkillshot(0.75f, 60f, 3300f, true, SkillshotType.Line);
-            SpellClass.E.SetSkillshot(0.95f, 325f, 1750f, false, SkillshotType.Circle, false, HitChance.None);
-            SpellClass.R.SetSkillshot(1.1f, 140f, 2500f, false, SkillshotType.Line, false, HitChance.None);
+            SpellClass.E.SetSkillshot(0.95f, 325f, 1750f, false, SkillshotType.Circle);
+            SpellClass.R.SetSkillshot(1.1f, 140f, 2500f, false, SkillshotType.Line);
         }
 
         #endregion

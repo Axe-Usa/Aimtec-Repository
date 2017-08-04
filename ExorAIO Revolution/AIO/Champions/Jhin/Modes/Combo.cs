@@ -24,13 +24,14 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
-            ///     The R Logic.
+            ///     The R Shooting Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
                 this.IsUltimateShooting() &&
                 MenuClass.Spells["r"]["combo"].As<MenuBool>().Value)
             {
-                var validEnemiesInsideCone = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.R.Range).Where(t => this.UltimateCone().IsInside((Vector2)t.ServerPosition));
+                var validEnemiesInsideCone = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.R.Range)
+                    .Where(t => t.IsValidTarget() && !Invulnerable.Check(t) && this.UltimateCone().IsInside((Vector2)t.ServerPosition));
                 var objAiHeroes = validEnemiesInsideCone as Obj_AI_Hero[] ?? validEnemiesInsideCone.ToArray();
                 if (objAiHeroes.Any())
                 {

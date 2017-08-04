@@ -34,7 +34,8 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.GetPredictionInput(bestTarget).From = this.BallPosition;
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
 

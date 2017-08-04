@@ -74,7 +74,8 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast(jungleTarget);
+                SpellClass.Q.GetPredictionInput(jungleTarget).From = this.BallPosition;
+                SpellClass.Q.Cast(SpellClass.Q.GetPrediction(jungleTarget).CastPosition);
             }
         }
 

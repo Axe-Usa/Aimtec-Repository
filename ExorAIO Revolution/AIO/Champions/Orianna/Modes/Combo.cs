@@ -31,7 +31,7 @@ namespace AIO.Champions
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.W.Width-25f, false, false, this.BallPosition)))
+                        t.IsValidTarget(SpellClass.W.Width, false, false, this.BallPosition)))
                 {
                     SpellClass.W.Cast();
                 }
@@ -40,47 +40,27 @@ namespace AIO.Champions
             /// <summary>
             ///     The E Combo Logics.
             /// </summary>
-            if (SpellClass.E.Ready)
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                /// <summary>
-                ///     The E Combo to Allies Logic.
-                /// </summary>
-                if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                var bestAllies = GameObjects.AllyHeroes
+                    .Where(t =>
+                        MenuClass.Spells["e"]["combowhitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled &&
+                        t.IsValidTarget(SpellClass.E.Range, true))
+                    .OrderBy(o => o.Health);
+                foreach (var ally in bestAllies)
                 {
-                    var bestAllies = GameObjects.AllyHeroes
-                        .Where(t =>
-                            MenuClass.Spells["e"]["combowhitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled &&
-                            t.IsValidTarget(SpellClass.E.Range, true))
-                        .OrderBy(o => o.Health);
-                    foreach (var ally in bestAllies)
-                    {
-                        var allyToBallRectangle = new Geometry.Rectangle(
-                            (Vector2)ally.ServerPosition,
-                            (Vector2)ally.ServerPosition.Extend(this.BallPosition, ally.Distance(this.BallPosition) + 30f),
-                            SpellClass.E.Width/2);
+                    var allyToBallRectangle = new Geometry.Rectangle(
+                        (Vector2)ally.ServerPosition,
+                        (Vector2)ally.ServerPosition.Extend(this.BallPosition, ally.Distance(this.BallPosition) + 30f),
+                        SpellClass.E.Width/2);
 
-                        if (GameObjects.EnemyHeroes.Any(t =>
-                                t.IsValidTarget() &&
-                                !Invulnerable.Check(t, DamageType.Magical) &&
-                                allyToBallRectangle.IsInside((Vector2)t.ServerPosition)))
-                        {
-                            SpellClass.E.CastOnUnit(ally);
-                            return;
-                        }
-                    }
-                }
-
-                /// <summary>
-                ///     The E to re-gain Ball Logic.
-                /// </summary>
-                if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
-                {
-                    var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                    if (bestTarget != null &&
-                        !Invulnerable.Check(bestTarget, DamageType.Magical) &&
-                        bestTarget.Distance(this.BallPosition) >= bestTarget.Distance(UtilityClass.Player) + 100f)
+                    if (GameObjects.EnemyHeroes.Any(t =>
+                            t.IsValidTarget() &&
+                            !Invulnerable.Check(t, DamageType.Magical) &&
+                            allyToBallRectangle.IsInside((Vector2)t.ServerPosition)))
                     {
-                        SpellClass.E.CastOnUnit(UtilityClass.Player);
+                        SpellClass.E.CastOnUnit(ally);
                         return;
                     }
                 }
@@ -94,11 +74,22 @@ namespace AIO.Champions
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
                 if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
-                    bestTarget.Distance(this.BallPosition) < bestTarget.Distance(UtilityClass.Player) + 100f)
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    SpellClass.Q.Cast(bestTarget);
-                    return;
+                    if (SpellClass.E.Ready &&
+                        (!MenuClass.E2["gaine"].As<MenuBool>().Enabled ||
+                        bestTarget.Distance(this.BallPosition) >= bestTarget.Distance(UtilityClass.Player) + 100f))
+                    {
+                        SpellClass.E.CastOnUnit(UtilityClass.Player);
+                        return;
+                    }
+
+                    if (!MenuClass.Q2["limitq"].As<MenuBool>().Enabled ||
+                        bestTarget.Distance(this.BallPosition) < bestTarget.Distance(UtilityClass.Player) + 100f)
+                    {
+                        SpellClass.Q.GetPredictionInput(bestTarget).From = this.BallPosition;
+                        SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
+                    }
                 }
             }
 
@@ -113,7 +104,7 @@ namespace AIO.Champions
                 if (bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    if (UtilityClass.Player.Distance(this.BallPosition) < SpellClass.W.Width-50f)
+                    if (UtilityClass.Player.Distance(this.BallPosition) < SpellClass.W.Width)
                     {
                         SpellClass.W.Cast();
                     }

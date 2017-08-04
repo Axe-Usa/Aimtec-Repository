@@ -44,6 +44,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
+                        MenuClass.Q2.Add(new MenuBool("limitq", "Block Q casting if Ball too far away from target."));
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
@@ -169,6 +170,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
+                        MenuClass.E2.Add(new MenuBool("gaine", "Use E to regain Ball if too far away from target."));
                         //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }

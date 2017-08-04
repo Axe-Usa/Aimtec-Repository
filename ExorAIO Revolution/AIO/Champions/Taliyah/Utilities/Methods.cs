@@ -20,6 +20,7 @@ namespace AIO.Champions
             GameObject.OnDestroy += this.OnDestroy;
             SpellBook.OnCastSpell += this.OnCastSpell;
             Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
+            Obj_AI_Base.OnPerformCast += this.OnPerformCast;
             Render.OnPresent += this.OnPresent;
             Dash.HeroDashed += this.OnGapcloser;
 

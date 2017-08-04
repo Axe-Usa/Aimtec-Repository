@@ -108,22 +108,24 @@
         /// </summary>
         public static Obj_AI_Hero GetBestEnemyHeroTargetInRange(float range)
         {
-            var ts = ImplementationClass.ITargetSelector;
-            var target = ts.GetTarget(range);
-            if (target != null && target.IsValidTarget() && !Invulnerable.Check(target))
+            var heroTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
+            var target = heroTarget != null
+                ? heroTarget
+                : ImplementationClass.ITargetSelector.GetTarget(range);
+
+            if (target != null &&
+                target.IsValidTarget() &&
+                !Invulnerable.Check(target))
             {
                 return target;
-            }
-
-            var firstTarget = ts.GetOrderedTargets(range).FirstOrDefault(t => t.IsValidTarget() && !Invulnerable.Check(t));
-            if (firstTarget != null)
-            {
-                return firstTarget;
             }
 
             return null;
         }
 
+        /// <summary>
+        ///     Gets the best valid killable enemy hero target in the game inside a determined range.
+        /// </summary>
         public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
         {
             return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range-100f).FirstOrDefault(t => !Invulnerable.Check(t, damageType, ignoreShields));
