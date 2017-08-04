@@ -365,3 +365,4 @@ ExorAIO: Revolution Changelog:
   Caitlyn: Will not cast traps anymore upon Thresh/Blitzcrank hooks.
   Orianna: Q Cast and Prediction improvement.
   Taliyah: Should not sometimes fail E after W anymore.
+  Jhin: Will not shoot his R at invulnerable targets ever again.
