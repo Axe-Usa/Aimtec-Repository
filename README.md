@@ -358,3 +358,10 @@ ExorAIO: Revolution Changelog:
   Orianna: Now it should use W a bit more frequently when it can.
   Sivir: Shield Logic base.
   Syndra: Now the spells will not try to predict enemy movement anymore, but cast at the center of the enemy position.
+
+7.15.2.4:
+  AIO: Generic target selection improvement, now the champs should not randomly stand still not attacking or casting anymore.
+  Jinx: Will not cast traps anymore upon Thresh/Blitzcrank hooks.
+  Caitlyn: Will not cast traps anymore upon Thresh/Blitzcrank hooks.
+  Orianna: Q Cast and Prediction improvement.
+  Taliyah: Should not sometimes fail E after W anymore.

@@ -203,8 +203,6 @@ namespace AIO.Champions
         /// </summary>
         public void OnUpdate()
         {
-            Console.WriteLine(UtilityClass.Player.ActionState.HasFlag(ActionState.Asleep));
-
             if (UtilityClass.Player.IsDead)
             {
                 return;
