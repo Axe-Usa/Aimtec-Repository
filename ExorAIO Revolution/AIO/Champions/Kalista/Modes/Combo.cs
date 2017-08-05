@@ -3,7 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using Aimtec;
@@ -28,9 +27,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Orbwalk on minions.
             /// </summary>
-            var minion = Extensions.GetAllGenericMinionsTargetsInRange(UtilityClass.Player.AttackRange).OrderBy(o => o.Health).FirstOrDefault();
+            var minion = Extensions.GetAllGenericMinionsTargetsInRange(UtilityClass.Player.AttackRange)
+                .Where(m => m.IsValidSpellTarget(UtilityClass.Player.GetFullAttackRange(m)))
+                .OrderBy(o => o.Health)
+                .FirstOrDefault();
             if (minion != null &&
-                !GameObjects.EnemyHeroes.Any(t => t.IsValidSpellTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
+                !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
                 MenuClass.Miscellaneous["minionsorbwalk"].As<MenuBool>().Enabled)
             {
                 UtilityClass.Player.IssueOrder(OrderType.AttackUnit, minion);
@@ -50,10 +52,10 @@ namespace AIO.Champions
                 if (bestTarget.IsValidTarget() &&
                     !Invulnerable.Check(bestTarget))
                 {
-                    var collisions = (IList<Obj_AI_Base>)SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
+                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
                     if (collisions.Any())
                     {
-                        if (collisions.All(c => Extensions.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() < UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
+                        if (collisions.All(c => Extensions.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
                         {
                             SpellClass.Q.Cast(bestTarget);
                         }

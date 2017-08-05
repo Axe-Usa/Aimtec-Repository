@@ -377,3 +377,6 @@ ExorAIO: Revolution Changelog:
 
 7.15.2.7:
   Taliyah: Was sometimes not casting Q, fixed.
+
+7.15.2.8:
+  Kalista: Fixed Orbwalking to plants and code cleaning.

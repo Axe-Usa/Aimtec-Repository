@@ -45,7 +45,6 @@ namespace AIO.Champions
             ///     The Spot W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                !UtilityClass.Player.IsRecalling() &&
                 !UtilityClass.Player.IsUnderEnemyTurret() &&
                 ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 UtilityClass.Player.CountEnemyHeroesInRange(1500f) == 0 &&
@@ -53,10 +52,9 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
                 MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
             {
-                foreach (var loc in this.Locations.Where(
-                    l =>
-                        UtilityClass.Player.Distance(l) <= SpellClass.W.Range &&
-                        !ObjectManager.Get<Obj_AI_Minion>().Any(m => m.Distance(l) <= 1000f && m.UnitSkinName.Equals("KalistaSpawn"))))
+                foreach (var loc in this.Locations.Where(l =>
+                    UtilityClass.Player.Distance(l) <= SpellClass.W.Range &&
+                    !ObjectManager.Get<Obj_AI_Minion>().Any(m => m.Distance(l) <= 1000f && m.UnitSkinName.Equals("KalistaSpawn"))))
                 {
                     SpellClass.W.Cast(loc);
                 }
