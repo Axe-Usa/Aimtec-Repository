@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
@@ -45,7 +47,10 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["laneclear"]) &&
                 MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.W.Cast();
+                if (Extensions.GetEnemyLaneMinionsTargetsInRange(UtilityClass.Player.AttackRange).Any())
+                {
+                    SpellClass.W.Cast();
+                }
             }
 
             /// <summary>

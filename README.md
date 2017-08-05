@@ -369,3 +369,8 @@ ExorAIO: Revolution Changelog:
 
 7.15.2.5:
   Orianna: Fixed W and R.
+
+7.15.2.6:
+  Kalista: Now wont use plants or GP barrels to orbwalk anymore.
+  Taliyah: Improved W Prediction?
+  Xayah: Fixed W Laneclear spam.

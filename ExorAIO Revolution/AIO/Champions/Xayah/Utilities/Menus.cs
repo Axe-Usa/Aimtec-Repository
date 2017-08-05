@@ -154,7 +154,7 @@ namespace AIO.Champions
                 //MenuClass.Miscellaneous.Add(new MenuSeperator("separator5", "gains 3 Feathers with a cast, this means"));
                 //MenuClass.Miscellaneous.Add(new MenuSeperator("separator6", "She will not cast Q or W until her stacks"));
                 //MenuClass.Miscellaneous.Add(new MenuSeperator("separator7", "get equal or lower than 2, cause 2 + 3 = 5"));
-                MenuClass.Miscellaneous.Add(new MenuBool("feathersweaving", "Feathers Weaving Logic"));
+                MenuClass.Miscellaneous.Add(new MenuBool("feathersweaving", "Feathers Weaving Logic", false));
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);
 
