@@ -108,6 +108,8 @@ namespace AIO.Champions
                 }
             }
 
+            var bestETarget = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.AttackRange - 50f);
+
             /// <summary>
             ///     The E Combo Logic.
             /// </summary>
@@ -115,11 +117,10 @@ namespace AIO.Champions
                 (!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.AttackRange-50f);
-                if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget, DamageType.Magical))
+                if (bestETarget != null &&
+                    !Invulnerable.Check(bestETarget, DamageType.Magical))
                 {
-                    SpellClass.E.Cast(bestTarget.ServerPosition);
+                    SpellClass.E.Cast(bestETarget.ServerPosition);
                 }
             }
 
@@ -128,8 +129,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combomode"].As<MenuList>().Value < 2 &&
-                (!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled) &&
-                (!SpellClass.E.Ready || !MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled))
+                (!SpellClass.E.Ready || !MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled || bestETarget == null))
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 150f);
                 if (bestTarget != null &&

@@ -374,3 +374,6 @@ ExorAIO: Revolution Changelog:
   Kalista: Now wont use plants or GP barrels to orbwalk anymore.
   Taliyah: Improved W Prediction?
   Xayah: Fixed W Laneclear spam.
+
+7.15.2.7:
+  Taliyah: Was sometimes not casting Q, fixed.
