@@ -401,3 +401,6 @@ ExorAIO: Revolution Changelog:
   Kalista: Added Balista.
   Kalista: Added Soulbound Circle Drawing option (Draws X number of circles on the Soulbound character).
   Kalista: "Modified Soulbound Lifesaver" option into "SoulBound Lifesaver / If SoulBound Health <= x%". (Fixes Soulbound lifesaving and gives the user more customization)
+
+7.15.2.12:
+  AIO: Fixed spells not being used sometimes.

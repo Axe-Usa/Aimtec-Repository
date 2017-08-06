@@ -125,7 +125,8 @@ namespace AIO
                 foreach (var slot in UtilityClass.SpellSlots)
                 {
                     var spellSlot = spellBook.GetSpell(slot);
-                    if ((spellSlot.State == SpellState.Ready || spellSlot.CooldownEnd <= 5) &&
+                    if ((spellSlot.State == SpellState.Ready ||
+                         spellSlot.State == SpellState.Cooldown && spellSlot.CooldownEnd - Game.ClockTime <= 5) &&
                         MenuClass.PreserveMana[slot.ToString().ToLower()].As<MenuBool>().Enabled)
                     {
                         manaToPreserve += spellSlot.Cost;
