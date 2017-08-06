@@ -7,11 +7,10 @@ namespace AIO.Champions
 
     using Aimtec;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Util;
 
     using AIO.Utilities;
 
-    using Geometry = AIO.Utilities.Geometry;
+    using Geometry = Utilities.Geometry;
 
     /// <summary>
     ///     The drawings class.

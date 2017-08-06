@@ -29,7 +29,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
-                MenuClass.Spells["q"]["harass"].As<MenuBool>().Enabled)
+                MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 200f);
                 if (bestTarget != null &&
@@ -51,8 +51,8 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget) &&
                     MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    if (UtilityClass.Player.HealthPercent()
-                            >= MenuClass.Spells["e"]["harass"].As<MenuSliderBool>().Value ||
+                    if (UtilityClass.Player.HealthPercent() >=
+                            MenuClass.Spells["e"]["harass"].As<MenuSliderBool>().Value ||
                         UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
                     {
                         SpellClass.E.CastOnUnit(bestTarget);

@@ -112,22 +112,27 @@ namespace AIO
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
         public static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
-            if (sender.IsMe)
+            /// <summary>
+            ///     The 'Preserve Mana' Logic.
+            /// </summary>
+            if (sender.IsMe &&
+                UtilityClass.SpellSlots.Contains(args.Slot))
             {
-                /// <summary>
-                ///     The 'Preserve Mana' Logic.
-                /// </summary>
                 float manaToPreserve = 0;
+                var spellBook = UtilityClass.Player.SpellBook;
+
                 // ReSharper disable once LoopCanBeConvertedToQuery
-                foreach(var slot in UtilityClass.SpellSlots)
+                foreach (var slot in UtilityClass.SpellSlots)
                 {
-                    if (MenuClass.PreserveMana[slot.ToString().ToLower()].As<MenuBool>().Enabled)
+                    var spellSlot = spellBook.GetSpell(slot);
+                    if ((spellSlot.State == SpellState.Ready || spellSlot.CooldownEnd <= 5) &&
+                        MenuClass.PreserveMana[slot.ToString().ToLower()].As<MenuBool>().Enabled)
                     {
-                        manaToPreserve += UtilityClass.Player.SpellBook.GetSpell(slot).Cost;
+                        manaToPreserve += spellSlot.Cost;
                     }
                 }
 
-                if (UtilityClass.Player.Mana - UtilityClass.Player.SpellBook.GetSpell(args.Slot).Cost < manaToPreserve)
+                if (UtilityClass.Player.Mana - spellBook.GetSpell(args.Slot).Cost < manaToPreserve)
                 {
                     args.Process = false;
                 }

@@ -145,7 +145,9 @@ namespace AIO.Champions
                                 if (SpellClass.W.Ready &&
                                     MenuClass.Spells["w"]["triplecombo"].As<MenuBool>().Enabled)
                                 {
-                                    var bestTarget = GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.E.Range)).OrderBy(o => o.Distance(args.End)).First();
+                                    var bestTarget = GameObjects.EnemyHeroes
+                                        .Where(t => t.IsValidTarget(SpellClass.E.Range))
+                                        .MinBy(o => o.Distance(args.End));
                                     if (bestTarget != null)
                                     {
                                         SpellClass.W.Cast(bestTarget.ServerPosition);

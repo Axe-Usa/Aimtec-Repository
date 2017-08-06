@@ -135,6 +135,17 @@ namespace AIO.Champions
             {
                 Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 30, Color.Red);
             }
+
+            /// <summary>
+            ///     Loads the Soulbound drawing.
+            /// </summary>
+            if (MenuClass.Drawings["soulbound"].As<MenuSliderBool>().Enabled)
+            {
+                for (var i = 0; i < MenuClass.Drawings["soulbound"].As<MenuSliderBool>().Value; i++)
+                {
+                    Render.Circle(this.SoulBound.Position, (uint)(60 + i * 5), 30, Color.Black);
+                }
+            }
         }
 
         #endregion

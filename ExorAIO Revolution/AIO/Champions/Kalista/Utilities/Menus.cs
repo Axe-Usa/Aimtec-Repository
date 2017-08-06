@@ -112,7 +112,15 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuBool("lifesaver", "Soulbound Lifesaver"));
+                    if (GameObjects.AllyHeroes.Any(a => a.ChampionName == "Blitzcrank"))
+                    {
+                        MenuClass.R.Add(new MenuBool("balista", "Use Balista"));
+                    }
+                    else
+                    {
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Ally Blitacrank not found, no need for a Balista option."));
+                    }
+                    MenuClass.R.Add(new MenuSliderBool("lifesaver", "Soulbound Lifesaver / If Soulbound Health <= X%", true, 15, 10, 90));
                 }
                 MenuClass.Spells.Add(MenuClass.R);
             }
@@ -138,6 +146,7 @@ namespace AIO.Champions
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("edmg", "E Damage"));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));
+                MenuClass.Drawings.Add(new MenuSliderBool("soulbound", "Soulbound / Draw X circles", true, 2, 1, 5));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

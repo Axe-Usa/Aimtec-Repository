@@ -43,13 +43,11 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled)
             {
                 var bestTarget = GameObjects.EnemyHeroes
-                    .Where(
-                        t =>
-                            t.IsValidTarget(SpellClass.R.Range) &&
-                            !Invulnerable.Check(t) &&
-                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .OrderBy(o => o.Health)
-                    .FirstOrDefault();
+                    .Where(t =>
+                        t.IsValidTarget(SpellClass.R.Range) &&
+                        !Invulnerable.Check(t) &&
+                        MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    .MinBy(o => o.Health);
                 if (bestTarget != null)
                 {
                     if (!UtilityClass.Player.HasBuff("LucianR") &&

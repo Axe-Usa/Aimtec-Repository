@@ -97,8 +97,7 @@ namespace AIO.Champions
                     {
                         var bestMinion = Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.R.Range)
                             .Where(m => m.Distance(bestEnemy) < SpellClass.Q.Range)
-                            .OrderBy(m => m.Distance(heroTarget))
-                            .FirstOrDefault();
+                            .MinBy(m => m.Distance(heroTarget));
 
                         if (bestMinion != null)
                         {

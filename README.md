@@ -390,3 +390,14 @@ ExorAIO: Revolution Changelog:
 7.15.2.10:
   AIO: Clarified "Preserve Spell if target in AA range an Killable within X number of AAs" Menu Option's description.
   MissFortune: Now the Passive Switch Option has a slider component which lets the character ignore the option itself if the target is killable within X number of AAs.
+
+7.15.2.11:
+  AIO: Fixed a little General menu bug and clarified options once again.
+  AIO: Improved Mana Preservation logic.
+  AIO: Some code Improvements.
+  Xayah: Now wont Automatically Q->R anymore if manually used.
+  Xayah: Added Semi-Automatic R Mode selection (Q / Q->R)
+  Olaf: Fixed Q Harass.
+  Kalista: Added Balista.
+  Kalista: Added Soulbound Circle Drawing option (Draws X number of circles on the Soulbound character).
+  Kalista: "Modified Soulbound Lifesaver" option into "SoulBound Lifesaver / If SoulBound Health <= x%". (Fixes Soulbound lifesaving and gives the user more customization)

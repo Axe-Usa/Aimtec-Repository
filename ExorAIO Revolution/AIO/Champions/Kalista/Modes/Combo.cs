@@ -29,8 +29,7 @@ namespace AIO.Champions
             /// </summary>
             var minion = Extensions.GetAllGenericMinionsTargetsInRange(UtilityClass.Player.AttackRange)
                 .Where(m => m.IsValidSpellTarget(UtilityClass.Player.GetFullAttackRange(m)))
-                .OrderBy(o => o.Health)
-                .FirstOrDefault();
+                .MinBy(o => o.Health);
             if (minion != null &&
                 !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
                 MenuClass.Miscellaneous["minionsorbwalk"].As<MenuBool>().Enabled)

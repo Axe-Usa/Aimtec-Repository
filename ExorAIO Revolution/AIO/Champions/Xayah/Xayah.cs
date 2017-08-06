@@ -61,15 +61,6 @@ namespace AIO.Champions
             {
                 switch (args.Slot)
                 {
-                    case SpellSlot.R:
-                        if (SpellClass.Q.Ready)
-                        {
-                            SpellClass.Q.Cast(args.End);
-                            this.Interrupt = false;
-                        }
-                        this.Interrupt = true;
-                        break;
-
                     case SpellSlot.Q:
                     case SpellSlot.W:
                         if ((args.Slot != SpellSlot.Q || !this.Interrupt) &&

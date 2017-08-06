@@ -85,8 +85,7 @@ namespace AIO.Champions
                         !Invulnerable.Check(t) &&
                         t.IsValidTarget(SpellClass.R.Range) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .OrderBy(o => o.Health)
-                    .FirstOrDefault();
+                    .MinBy(o => o.Health);
                 if (bestTarget != null)
                 {
                     SpellClass.R.Cast(bestTarget);

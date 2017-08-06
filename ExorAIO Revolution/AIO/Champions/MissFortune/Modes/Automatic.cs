@@ -28,8 +28,7 @@ namespace AIO.Champions
             {
                 var passiveUnit = ObjectManager.Get<AttackableUnit>()
                     .Where(m => m.IsValidTarget())
-                    .OrderBy(o => o.Distance(passiveObject))
-                    .FirstOrDefault();
+                    .MinBy(o => o.Distance(passiveObject));
 
                 this.LoveTapTargetNetworkId = passiveUnit?.NetworkId ?? 0;
             }
@@ -54,8 +53,7 @@ namespace AIO.Champions
                         !Invulnerable.Check(t) &&
                         t.IsValidTarget(SpellClass.R.Range) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .OrderBy(o => o.CountEnemyHeroesInRange(300f))
-                    .FirstOrDefault();
+                    .MinBy(o => o.CountEnemyHeroesInRange(300f));
                 if (bestTarget != null)
                 {
                     if (!this.IsUltimateShooting() &&

@@ -55,8 +55,7 @@ namespace AIO.Champions
                         t.IsValidTarget(2000f) &&
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .OrderBy(o => o.Health)
-                    .FirstOrDefault();
+                    .MinBy(o => o.Health);
                 if (bestTarget != null)
                 {
                     SpellClass.R.Cast(bestTarget);

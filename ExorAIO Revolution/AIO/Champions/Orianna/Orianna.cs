@@ -111,8 +111,7 @@ namespace AIO.Champions
                         .Where(a =>
                             a.IsValidTarget(SpellClass.E.Range, true) &&
                             args.EndPos.Distance(a.ServerPosition) <= 200)
-                        .OrderBy(o => o.Distance(args.EndPos))
-                        .FirstOrDefault();
+                        .MinBy(o => o.Distance(args.EndPos));
                     if (bestAlly != null)
                     {
                         SpellClass.E.CastOnUnit(bestAlly);

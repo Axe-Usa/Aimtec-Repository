@@ -37,7 +37,7 @@ namespace AIO.Champions
                 {
                     if (MenuClass.Spells["r"]["customization"]["nearmouse"].As<MenuBool>().Value)
                     {
-                        SpellClass.R.Cast(objAiHeroes.OrderBy(o => o.Distance(Game.CursorPos)).FirstOrDefault());
+                        SpellClass.R.Cast(objAiHeroes.MinBy(o => o.Distance(Game.CursorPos)));
                         return;
                     }
 

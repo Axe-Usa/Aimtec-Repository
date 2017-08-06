@@ -88,13 +88,11 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
                 var bestTarget = GameObjects.EnemyHeroes
-                    .Where(
-                        t =>
-                            !Invulnerable.Check(t) &&
-                            t.IsValidTarget(SpellClass.R.Range) &&
-                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .OrderBy(o => o.Health)
-                    .FirstOrDefault();
+                    .Where(t =>
+                        !Invulnerable.Check(t) &&
+                        t.IsValidTarget(SpellClass.R.Range) &&
+                        MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    .MinBy(o => o.Health);
                 if (bestTarget != null)
                 {
                     SpellClass.R.CastOnUnit(bestTarget);

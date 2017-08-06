@@ -47,7 +47,10 @@ namespace AIO.Champions
             if (MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
-                DelayAction.Queue(100 + Game.Ping, () => { UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos); });
+                DelayAction.Queue(100 + Game.Ping, () =>
+                    {
+                        UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
+                    });
             }
 
             /// <summary>
@@ -58,15 +61,18 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
                 var bestTarget = GameObjects.EnemyHeroes
-                    .Where(
-                        t =>
-                            !Invulnerable.Check(t) &&
-                            t.IsValidTarget(SpellClass.R.Range) &&
-                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .OrderBy(o => o.Health)
-                    .FirstOrDefault();
+                    .Where(t =>
+                        !Invulnerable.Check(t) &&
+                        t.IsValidTarget(SpellClass.R.Range) &&
+                        MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                    .MinBy(o => o.Health);
                 if (bestTarget != null)
                 {
+                    if (MenuClass.Spells["r"]["mode"].As<MenuList>().Value == 1)
+                    {
+                        SpellClass.Q.Cast(bestTarget);
+                    }
+
                     SpellClass.R.Cast(bestTarget);
                 }
             }
