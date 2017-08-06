@@ -386,3 +386,7 @@ ExorAIO: Revolution Changelog:
   AIO: Added Preserve Spell if target in AA range an Killable within X number of AAs. (https://f.put.tf/PleasingLivelyDobermanpinscher)
   Orianna: Improved R Killsteal.
   Vayne: Removed Don't E if killable in X AAs, since now the option is on the General Menu.
+
+7.15.2.10:
+  AIO: Clarified "Preserve Spell if target in AA range an Killable within X number of AAs" Menu Option's description.
+  MissFortune: Now the Passive Switch Option has a slider component which lets the character ignore the option itself if the target is killable within X number of AAs.

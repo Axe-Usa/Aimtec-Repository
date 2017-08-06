@@ -68,8 +68,9 @@ namespace AIO
                     {
                         foreach (var slot in UtilityClass.SpellSlots)
                         {
-                            MenuClass.PreserveSpells.Add(new MenuSeperator("separator", "Only works for out-of-aa-range targets"));
-                            MenuClass.PreserveSpells.Add(new MenuSlider(slot.ToString().ToLower(), $"Don't cast {slot} if target killable in X AAs", 2, 1, 10));
+                            MenuClass.PreserveSpells.Add(new MenuSeperator("separator", "Only works for in-of-aa-range targets"));
+                            MenuClass.PreserveSpells.Add(new MenuSeperator("separator2", "0 = Don't limit."));
+                            MenuClass.PreserveSpells.Add(new MenuSlider(slot.ToString().ToLower(), $"Don't cast {slot} if target killable in X AAs", 2, 0, 10));
                         }
                     }
                     MenuClass.General.Add(MenuClass.PreserveSpells);

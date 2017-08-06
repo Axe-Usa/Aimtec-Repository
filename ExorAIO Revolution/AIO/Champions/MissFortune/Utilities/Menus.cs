@@ -154,7 +154,7 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
-                MenuClass.Miscellaneous.Add(new MenuBool("focusp", "Switch enemies focus to proc Passive mark"));
+                MenuClass.Miscellaneous.Add(new MenuSliderBool("focusp", "Switch target for Passive / unless killable in x AAs", true, 3, 1, 10));
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);
 

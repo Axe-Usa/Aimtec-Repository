@@ -6,6 +6,7 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
@@ -130,12 +131,17 @@ namespace AIO.Champions
             /// <summary>
             ///     The Target Forcing Logic.
             /// </summary>
-            if (MenuClass.Miscellaneous["focusp"].As<MenuBool>().Enabled)
+            if (MenuClass.Miscellaneous["focusp"].As<MenuSliderBool>().Enabled)
             {
+                var orbTarget = args.Target as Obj_AI_Hero;
                 var forceTarget = Extensions.GetBestEnemyHeroesTargets().FirstOrDefault(t =>
                         t.NetworkId != this.LoveTapTargetNetworkId &&
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
-                if (forceTarget != null)
+                if (forceTarget != null &&
+                    orbTarget != null &&
+                    orbTarget.GetRealHealth() >
+                        UtilityClass.Player.GetAutoAttackDamage(orbTarget) *
+                        MenuClass.Miscellaneous["focusp"].As<MenuSliderBool>().Value)
                 {
                     //ImplementationClass.IOrbwalker.ForceTarget(differentTarget);
                     args.Target = forceTarget;
