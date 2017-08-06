@@ -65,15 +65,6 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("bool", "Semi-Automatic E"));
                     MenuClass.E.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
-                    /// <summary>
-                    ///     Sets the customization menu for the E spell.
-                    /// </summary>
-                    MenuClass.E2 = new Menu("customization", "E Customization:");
-                    {
-                        MenuClass.E2.Add(new MenuSlider("eaacheck", "Combo: Don't condemn if target can die in x AAs", 3, 1, 5));
-                    }
-                    MenuClass.E.Add(MenuClass.E2);
-
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>

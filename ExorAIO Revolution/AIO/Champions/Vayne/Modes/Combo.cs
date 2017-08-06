@@ -6,7 +6,6 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
-    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Events;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
@@ -61,9 +60,6 @@ namespace AIO.Champions
                         t.IsValidTarget(SpellClass.E.Range) &&
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
                         !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
-                        t.GetRealHealth() >
-                            UtilityClass.Player.GetAutoAttackDamage(t) *
-                            MenuClass.Spells["e"]["customization"]["eaacheck"].As<MenuSlider>().Value &&
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
                     for (var i = 1; i < 10; i++)

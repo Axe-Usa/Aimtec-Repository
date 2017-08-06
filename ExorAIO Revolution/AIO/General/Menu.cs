@@ -36,10 +36,12 @@ namespace AIO
                 {
                     MenuClass.General.Add(new MenuBool("supportmode", "Support Mode", false));
                     MenuClass.General.Add(new MenuBool("disableaa", "Disable AutoAttacks in Combo", false));
+
                     if (UtilityClass.Player.MaxMana >= 200)
                     {
                         MenuClass.General.Add(new MenuBool("nomanagerifblue", "Ignore ManaManagers if has Blue Buff", false));
                     }
+
                     if (UtilityClass.Player.IsMelee)
                     {
                         MenuClass.Hydra = new Menu("hydramenu", "Hydras Menu");
@@ -51,6 +53,26 @@ namespace AIO
                         }
                         MenuClass.General.Add(MenuClass.Hydra);
                     }
+
+                    MenuClass.PreserveMana = new Menu("preservemanamenu", "Preserve Mana Menu");
+                    {
+                        MenuClass.PreserveMana.Add(new MenuSeperator("separator", "Preserve Mana for:"));
+                        foreach (var slot in UtilityClass.SpellSlots)
+                        {
+                            MenuClass.PreserveMana.Add(new MenuBool(slot.ToString().ToLower(), slot.ToString(), false));
+                        }
+                    }
+                    MenuClass.General.Add(MenuClass.PreserveMana);
+
+                    MenuClass.PreserveSpells = new Menu("preservespellsmenu", "Preserve Spells Menu");
+                    {
+                        foreach (var slot in UtilityClass.SpellSlots)
+                        {
+                            MenuClass.PreserveSpells.Add(new MenuSeperator("separator", "Only works for out-of-aa-range targets"));
+                            MenuClass.PreserveSpells.Add(new MenuSlider(slot.ToString().ToLower(), $"Don't cast {slot} if target killable in X AAs", 2, 1, 10));
+                        }
+                    }
+                    MenuClass.General.Add(MenuClass.PreserveSpells);
                 }
                 MenuClass.Root.Add(MenuClass.General);
             }

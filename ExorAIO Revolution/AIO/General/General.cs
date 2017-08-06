@@ -105,6 +105,50 @@ namespace AIO
             }
         }
 
+        /// <summary>
+        ///     Fired on spell cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
+        public static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                /// <summary>
+                ///     The 'Preserve Mana' Logic.
+                /// </summary>
+                float manaToPreserve = 0;
+                // ReSharper disable once LoopCanBeConvertedToQuery
+                foreach(var slot in UtilityClass.SpellSlots)
+                {
+                    if (MenuClass.PreserveMana[slot.ToString().ToLower()].As<MenuBool>().Enabled)
+                    {
+                        manaToPreserve += UtilityClass.Player.SpellBook.GetSpell(slot).Cost;
+                    }
+                }
+
+                if (UtilityClass.Player.Mana - UtilityClass.Player.SpellBook.GetSpell(args.Slot).Cost < manaToPreserve)
+                {
+                    args.Process = false;
+                }
+
+                /// <summary>
+                ///     The 'Preserve Spells' Logic.
+                /// </summary>
+                if (ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo)
+                {
+                    var target = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.GetSpell(args.Slot).SpellData.CastRange);
+                    if (target.IsValidTarget(UtilityClass.Player.GetFullAttackRange(target)) &&
+                        target.GetRealHealth() <=
+                            UtilityClass.Player.GetAutoAttackDamage(target) *
+                            MenuClass.PreserveSpells[args.Slot.ToString().ToLower()].As<MenuSlider>().Value)
+                    {
+                        args.Process = false;
+                    }
+                }
+            }
+        }
+
         #endregion
     }
 }

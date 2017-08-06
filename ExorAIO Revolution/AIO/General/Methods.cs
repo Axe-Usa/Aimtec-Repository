@@ -2,6 +2,8 @@
 #pragma warning disable 1587
 namespace AIO
 {
+    using Aimtec;
+
     using AIO.Utilities;
 
     /// <summary>
@@ -18,6 +20,7 @@ namespace AIO
         {
             ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
+            SpellBook.OnCastSpell += OnCastSpell;
         }
 
         #endregion

@@ -114,6 +114,16 @@
         /// </summary>
         public static Menu Hydra { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the PreserveMana menu.
+        /// </summary>
+        public static Menu PreserveMana { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the PreserveSpells menu.
+        /// </summary>
+        public static Menu PreserveSpells { get; set; }
+
         #endregion
     }
 }

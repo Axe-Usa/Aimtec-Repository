@@ -20,6 +20,26 @@ namespace AIO.Utilities
         #region Static Fields
 
         /// <summary>
+        ///     Gets the spellslots.
+        /// </summary>
+        public static SpellSlot[] SpellSlots =
+            {
+                SpellSlot.Q,
+                SpellSlot.W,
+                SpellSlot.E,
+                SpellSlot.R
+            };
+
+        /// <summary>
+        ///     Gets the summoner spellslots.
+        /// </summary>
+        public static SpellSlot[] SummonerSpellSlots =
+            {
+                SpellSlot.Summoner1,
+                SpellSlot.Summoner2
+            };
+
+        /// <summary>
         ///     The last tick.
         /// </summary>
         public static int LastTick = 0;
@@ -140,7 +160,8 @@ namespace AIO.Utilities
             var hero = unit as Obj_AI_Hero;
             if (hero != null)
             {
-                if (hero.ChampionName.Equals("Blitzcrank") && !hero.HasBuff("BlitzcrankManaBarrierCD"))
+                if (hero.ChampionName.Equals("Blitzcrank") &&
+                    !hero.HasBuff("BlitzcrankManaBarrierCD"))
                 {
                     debuffer += hero.Mana / 2;
                 }

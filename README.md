@@ -380,3 +380,9 @@ ExorAIO: Revolution Changelog:
 
 7.15.2.8:
   Kalista: Fixed Orbwalking to plants and code cleaning.
+
+7.15.2.9:
+  AIO: Added Preserve Mana for X Spells Menu on the General Menu (https://f.put.tf/WelldocumentedAdmirableKoalabear)
+  AIO: Added Preserve Spell if target in AA range an Killable within X number of AAs. (https://f.put.tf/PleasingLivelyDobermanpinscher)
+  Orianna: Improved R Killsteal.
+  Vayne: Removed Don't E if killable in X AAs, since now the option is on the General Menu.

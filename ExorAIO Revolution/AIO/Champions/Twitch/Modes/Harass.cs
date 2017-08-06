@@ -29,9 +29,7 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
-                if (bestTarget.IsValidTarget() &&
-                    bestTarget.CountEnemyHeroesInRange(SpellClass.W.Width)
-                        >= MenuClass.Spells["w"]["combo"].As<MenuSliderBool>().Value &&
+                if (bestTarget != null &&
                     MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
                     SpellClass.W.Cast(bestTarget);
