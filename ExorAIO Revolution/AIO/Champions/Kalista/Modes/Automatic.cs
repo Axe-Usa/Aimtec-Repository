@@ -29,31 +29,34 @@ namespace AIO.Champions
                 return;
             }
 
-            /// <summary>
-            ///     The Balista Logic.
-            /// </summary>
             if (SpellClass.R.Ready &&
-                this.SoulBound.ChampionName == "Blitzcrank" &&
-                GameObjects.EnemyHeroes.Any(t =>
-                    t.HasBuff("rocketgrab2") &&
-                    t.Distance(UtilityClass.Player.ServerPosition) >
-                        UtilityClass.Player.GetFullAttackRange(t) &&
-                MenuClass.Spells["r"]["balista"].As<MenuBool>().Enabled))
+                this.SoulBound != null)
             {
-                SpellClass.R.Cast();
-            }
+                /// <summary>
+                ///     The Balista Logic.
+                /// </summary>
+                var soulbound = this.SoulBound;
+                if (soulbound.ChampionName == "Blitzcrank" &&
+                    GameObjects.EnemyHeroes.Any(t =>
+                        t.HasBuff("rocketgrab2") &&
+                        t.Distance(UtilityClass.Player.ServerPosition) >
+                            UtilityClass.Player.GetFullAttackRange(t) &&
+                        MenuClass.Spells["r"]["balista"].As<MenuBool>().Enabled))
+                {
+                    SpellClass.R.Cast();
+                }
 
-            /// <summary>
-            ///     The Lifesaver R Logic.
-            /// </summary>
-            if (SpellClass.R.Ready &&
-                this.SoulBound.IsValidTarget(SpellClass.R.Range) &&
-                this.SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
-                this.SoulBound.GetRealHealth() <=
-                    MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Value &&
-                MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Enabled)
-            {
-                SpellClass.R.Cast();
+                /// <summary>
+                ///     The Lifesaver R Logic.
+                /// </summary>
+                if (soulbound.IsValidTarget(SpellClass.R.Range) &&
+                    soulbound.CountEnemyHeroesInRange(800f) > 0 &&
+                    soulbound.GetRealHealth() <=
+                        MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Value &&
+                    MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Enabled)
+                {
+                    SpellClass.R.Cast();
+                }
             }
 
             /// <summary>

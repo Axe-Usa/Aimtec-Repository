@@ -115,6 +115,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 (!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled) &&
+                !MenuClass.Spells["e"]["customization"]["onlywready"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 if (bestETarget != null &&

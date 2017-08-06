@@ -13,7 +13,7 @@ namespace AIO.Champions
         #region Fields
 
         /// <summary>
-        ///     Gets or sets the SoulBound.
+        ///     Gets or sets the Minimum AP for the AP mode to trigger.
         /// </summary>
         public int GetMinimumApForApMode()
         {

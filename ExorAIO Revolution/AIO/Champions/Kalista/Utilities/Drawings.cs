@@ -139,7 +139,8 @@ namespace AIO.Champions
             /// <summary>
             ///     Loads the Soulbound drawing.
             /// </summary>
-            if (MenuClass.Drawings["soulbound"].As<MenuSliderBool>().Enabled)
+            if (this.SoulBound != null &&
+                MenuClass.Drawings["soulbound"].As<MenuSliderBool>().Enabled)
             {
                 for (var i = 0; i < MenuClass.Drawings["soulbound"].As<MenuSliderBool>().Value; i++)
                 {

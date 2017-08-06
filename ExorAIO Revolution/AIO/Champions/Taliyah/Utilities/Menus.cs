@@ -151,6 +151,7 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "E Customization:");
                     {
+                        MenuClass.E2.Add(new MenuBool("onlywready", "Combo: Don't Cast E if W on cooldown"));
                         //MenuClass.E2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }

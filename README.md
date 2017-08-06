@@ -404,3 +404,7 @@ ExorAIO: Revolution Changelog:
 
 7.15.2.12:
   AIO: Fixed spells not being used sometimes.
+
+7.15.2.13:
+  Kalista: Soulbound logic fix.
+  Taliyah: Added No E if W on CD option.
