@@ -8,6 +8,7 @@ namespace AIO.Utilities
 {
     using Aimtec.SDK.Orbwalking;
     using Aimtec.SDK.Prediction.Health;
+    using Aimtec.SDK.Prediction.Skillshots;
     using Aimtec.SDK.TargetSelector;
 
     /// <summary>
@@ -20,22 +21,22 @@ namespace AIO.Utilities
         /// <summary>
         ///     Gets the HealthPrediction implementation.
         /// </summary>
-        public static IHealthPrediction IHealthPrediction = HealthPrediction.Implementation;
+        public static IHealthPrediction IHealthPrediction => HealthPrediction.Implementation;
 
         /// <summary>
         ///     Gets the Orbwalker implementation.
         /// </summary>
-        public static IOrbwalker IOrbwalker = Orbwalker.Implementation;
+        public static IOrbwalker IOrbwalker => Orbwalker.Implementation;
 
         /// <summary>
         ///     Gets the Prediction implementation.
         /// </summary>
-        //public static IPrediction IPrediction = Prediction.Implementation;
+        public static Prediction Prediction => Prediction.Instance;
 
         /// <summary>
         ///     Gets the TargetSelector implementation.
         /// </summary>
-        public static ITargetSelector ITargetSelector = TargetSelector.Implementation;
+        public static ITargetSelector ITargetSelector => TargetSelector.Implementation;
 
         #endregion
     }

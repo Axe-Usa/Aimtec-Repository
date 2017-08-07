@@ -10,7 +10,6 @@ namespace AIO.Champions
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Prediction.Skillshots;
 
     using AIO.Utilities;
 
@@ -49,7 +48,7 @@ namespace AIO.Champions
                         if (polygon.IsInside((Vector2)hero.ServerPosition) &&
                             MenuClass.Spells["extendedq"]["whitelist"][hero.ChampionName.ToLower()].Enabled &&
                             (this.LoveTapTargetNetworkId == hero.NetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
-                            polygon.IsInside((Vector2)Prediction.GetPrediction(hero, UtilityClass.Player.Distance(hero) / SpellClass.Q2.Speed + SpellClass.Q2.Delay).UnitPosition))
+                            polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(hero).UnitPosition))
                         {
                             SpellClass.Q.CastOnUnit(minion);
                         }

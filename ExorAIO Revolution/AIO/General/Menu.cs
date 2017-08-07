@@ -70,7 +70,7 @@ namespace AIO
                         MenuClass.PreserveSpells.Add(new MenuSeperator("separator2", "0 = Don't limit."));
                         foreach (var slot in UtilityClass.SpellSlots)
                         {
-                            MenuClass.PreserveSpells.Add(new MenuSlider(slot.ToString().ToLower(), $"Don't cast {slot} if target killable in X AAs", 2, 0, 10));
+                            MenuClass.PreserveSpells.Add(new MenuSlider(slot.ToString().ToLower(), $"Don't cast {slot} if target killable in X AAs", 0, 0, 10));
                         }
                     }
                     MenuClass.General.Add(MenuClass.PreserveSpells);

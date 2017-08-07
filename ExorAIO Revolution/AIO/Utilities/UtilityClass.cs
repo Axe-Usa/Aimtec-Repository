@@ -142,6 +142,20 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Gets the remaining cooldown time of the 'spell' spell.
+        /// </summary>
+        /// <param name="spell">
+        ///     The spell.
+        /// </param>
+        /// <returns>
+        ///     The remaining cooldown time.
+        /// </returns>
+        public static double GetRemainingCooldownTime(this Spell spell)
+        {
+            return spell.CooldownEnd - Game.ClockTime;
+        }
+
+        /// <summary>
         ///     Gets the health with Blitzcrank's Shield support.
         /// </summary>
         /// <param name="unit">

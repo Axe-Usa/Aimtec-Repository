@@ -9,7 +9,6 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Prediction.Skillshots;
 
     using AIO.Utilities;
 
@@ -54,7 +53,7 @@ namespace AIO.Champions
                             polygon.Draw(
                                 polygon.IsInside((Vector2)target.ServerPosition) &&
                                 (target.NetworkId == this.LoveTapTargetNetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
-                                polygon.IsInside((Vector2)Prediction.GetPrediction(target, UtilityClass.Player.Distance(target) / SpellClass.Q2.Speed + SpellClass.Q2.Delay).UnitPosition)
+                                polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(target).UnitPosition)
                                     ? Color.Green
                                     : Color.Red);
                         }

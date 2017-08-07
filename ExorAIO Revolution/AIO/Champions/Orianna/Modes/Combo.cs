@@ -31,7 +31,7 @@ namespace AIO.Champions
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.W.Width, false, false, this.BallPosition)))
+                        t.IsValidTarget(SpellClass.W.Width - SpellClass.W.Delay * t.BoundingRadius, false, false, this.BallPosition)))
                 {
                     SpellClass.W.Cast();
                 }
@@ -77,15 +77,17 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
                     if (SpellClass.E.Ready &&
-                        (!MenuClass.E2["gaine"].As<MenuBool>().Enabled ||
-                        bestTarget.Distance(this.BallPosition) >= bestTarget.Distance(UtilityClass.Player) + 100f))
+                        bestTarget.Distance(this.BallPosition) >=
+                            bestTarget.Distance(UtilityClass.Player) + 100f &&
+                        MenuClass.E2["gaine"].As<MenuBool>().Enabled)
                     {
                         SpellClass.E.CastOnUnit(UtilityClass.Player);
                         return;
                     }
 
-                    if (!MenuClass.Q2["limitq"].As<MenuBool>().Enabled ||
-                        bestTarget.Distance(this.BallPosition) < bestTarget.Distance(UtilityClass.Player) + 100f)
+                    if (bestTarget.Distance(this.BallPosition) <
+                            bestTarget.Distance(UtilityClass.Player) + 100f ||
+                        !MenuClass.Q2["limitq"].As<MenuBool>().Enabled)
                     {
                         SpellClass.Q.GetPredictionInput(bestTarget).From = this.BallPosition;
                         SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);

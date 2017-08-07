@@ -408,3 +408,13 @@ ExorAIO: Revolution Changelog:
 7.15.2.13:
   Kalista: Soulbound logic fix.
   Taliyah: Added No E if W on CD option.
+
+7.15.2.14:
+  AIO: Fixed CompilingError with latest SDK Build.
+  AIO: Set ImplementationClass properties as getters.
+  AIO: Set "Prevent SpellCasting if target killable in x AAs" to 0 by default on every spell.
+  Orianna: New precise prediction values!
+  Orianna: Fixed E Gain usage.
+  Orianna: Fixed W missing sometimes.
+  Orianna: Improved R Logic.
+  MissFortune: A LOT FASTER Q Bounce logic.
