@@ -424,3 +424,8 @@ ExorAIO: Revolution Changelog:
   Orianna: Fixes to new R Logic.
   Kalista: Fixed SoulBound declaration.
   Kalista: Fixed SoulBound Lifesaver.
+
+7.15.2.16:
+  Vayne: Removed KS Q.
+  Vayne: Fixed Strange AA Magneting.
+  Twitch: Now won't break out of stealth anymore to cast anti-gapcloser W.

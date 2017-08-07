@@ -120,7 +120,8 @@ namespace AIO.Champions
             var gapSender = (Obj_AI_Hero)args.Unit;
             if (gapSender == null ||
                 !gapSender.IsEnemy ||
-                Invulnerable.Check(gapSender, DamageType.Magical, false))
+                Invulnerable.Check(gapSender, DamageType.Magical, false) ||
+                UtilityClass.Player.HasBuff("TwitchHideInShadows"))
             {
                 return;
             }

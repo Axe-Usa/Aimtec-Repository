@@ -34,7 +34,6 @@ namespace AIO.Champions
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("engage", "Engager", false));
-                    MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal", false));
                     MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Farmhelper / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));

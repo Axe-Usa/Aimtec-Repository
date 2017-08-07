@@ -23,26 +23,6 @@ namespace AIO.Champions
         public void Killsteal()
         {
             /// <summary>
-            ///     The Q KillSteal Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
-            {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null)
-                {
-                    var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
-                    if (!bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                        UtilityClass.Player.GetAutoAttackDamage(bestTarget) +
-                        UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) +
-                        (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
-                    {
-                        SpellClass.Q.Cast(bestTarget.ServerPosition);
-                    }
-                }
-            }
-
-            /// <summary>
             ///     The E KillSteal Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
