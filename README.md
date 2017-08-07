@@ -418,3 +418,9 @@ ExorAIO: Revolution Changelog:
   Orianna: Fixed W missing sometimes.
   Orianna: Improved R Logic.
   MissFortune: A LOT FASTER Q Bounce logic.
+
+7.15.2.15:
+  Orianna: Fixes to R Lock logic.
+  Orianna: Fixes to new R Logic.
+  Kalista: Fixed SoulBound declaration.
+  Kalista: Fixed SoulBound Lifesaver.

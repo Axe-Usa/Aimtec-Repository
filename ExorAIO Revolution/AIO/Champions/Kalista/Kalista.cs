@@ -100,27 +100,6 @@ namespace AIO.Champions
             this.Drawings();
         }
 
-        /// <summary>
-        ///     Called on process spell cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
-        {
-            var target = args.Target;
-            if (target == null)
-            {
-                return;
-            }
-
-            if (sender.IsMe &&
-                target is Obj_AI_Hero &&
-                args.SpellData.Name.Equals("KalistaPInvocation"))
-            {
-                this.SoulBound = (Obj_AI_Hero)target;
-            }
-        }
-
         #endregion
 
         #region Methods

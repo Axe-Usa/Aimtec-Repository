@@ -55,10 +55,10 @@ namespace AIO.Champions
             if (sender.IsMe &&
                 args.Slot == SpellSlot.R)
             {
-                if (!GameObjects.EnemyHeroes.Any(t =>
+                var validTargets = GameObjects.EnemyHeroes.Where(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.R.Width, false, false, this.BallPosition)) &&
-                    MenuClass.Miscellaneous["blockr"].As<MenuBool>().Enabled)
+                        t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, this.BallPosition));
+                if (!validTargets.Any())
                 {
                     args.Process = false;
                 }

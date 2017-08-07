@@ -24,11 +24,21 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            var passiveObject = ObjectManager.Get<GameObject>().FirstOrDefault(o => o.IsValid && o.Name == "Kalista_Base_P_LinkIcon.troy");
+            if (passiveObject != null)
+            {
+                var soulBound = GameObjects.AllyHeroes.MinBy(o => o.Distance(passiveObject));
+                this.SoulBound = soulBound;
+            }
+
             if (UtilityClass.Player.IsRecalling())
             {
                 return;
             }
 
+            /// <summary>
+            ///     The R Logics.
+            /// </summary>
             if (SpellClass.R.Ready &&
                 this.SoulBound != null)
             {
@@ -49,9 +59,8 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The Lifesaver R Logic.
                 /// </summary>
-                if (soulbound.IsValidTarget(SpellClass.R.Range) &&
-                    soulbound.CountEnemyHeroesInRange(800f) > 0 &&
-                    soulbound.GetRealHealth() <=
+                if (soulbound.CountEnemyHeroesInRange(800f) > 0 &&
+                    soulbound.HealthPercent() <=
                         MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Value &&
                     MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Enabled)
                 {
