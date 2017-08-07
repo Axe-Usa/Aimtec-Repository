@@ -23,6 +23,11 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            if (this.BallPosition == null)
+            {
+                return;
+            }
+
             /// <summary>
             ///     The Automatic R Logic.
             /// </summary>
@@ -32,8 +37,8 @@ namespace AIO.Champions
             {
                 var countValidTargets = GameObjects.EnemyHeroes.Count(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, this.BallPosition) &&
-                        SpellClass.R.GetPrediction(t).UnitPosition.Distance(this.BallPosition) < SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius);
+                        t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition) &&
+                        SpellClass.R.GetPrediction(t).UnitPosition.Distance((Vector3)this.BallPosition) < SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius);
 
                 if (countValidTargets >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value)
                 {

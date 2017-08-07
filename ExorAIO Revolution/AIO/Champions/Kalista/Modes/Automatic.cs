@@ -27,8 +27,7 @@ namespace AIO.Champions
             var passiveObject = ObjectManager.Get<GameObject>().FirstOrDefault(o => o.IsValid && o.Name == "Kalista_Base_P_LinkIcon.troy");
             if (passiveObject != null)
             {
-                var soulBound = GameObjects.AllyHeroes.MinBy(o => o.Distance(passiveObject));
-                this.SoulBound = soulBound;
+                this.SoulBound = GameObjects.AllyHeroes.MinBy(o => o.Distance(passiveObject));
             }
 
             if (UtilityClass.Player.IsRecalling())

@@ -24,6 +24,11 @@ namespace AIO.Champions
         /// </summary>
         public void Laneclear()
         {
+            if (this.BallPosition == null)
+            {
+                return;
+            }
+
             /// <summary>
             ///     The Laneclear W Logic.
             /// </summary>
@@ -32,7 +37,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["laneclear"]) &&
                 MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                if (Extensions.GetEnemyLaneMinionsTargets().Count(m => m.IsValidTarget(SpellClass.W.Width, false, true, this.BallPosition))
+                if (Extensions.GetEnemyLaneMinionsTargets().Count(m => m.IsValidTarget(SpellClass.W.Width, false, true, (Vector3)this.BallPosition))
                     >= MenuClass.Spells["w"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.W.Cast();
@@ -49,7 +54,7 @@ namespace AIO.Champions
             {
                 var polygon = new Geometry.Rectangle(
                     (Vector2)UtilityClass.Player.ServerPosition,
-                    (Vector2)UtilityClass.Player.ServerPosition.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition)),
+                    (Vector2)UtilityClass.Player.ServerPosition.Extend((Vector3)this.BallPosition, UtilityClass.Player.Distance((Vector3)this.BallPosition)),
                     SpellClass.E.Width);
 
                 if (Extensions.GetEnemyLaneMinionsTargets().Count(t => t.IsValidTarget() && !polygon.IsOutside((Vector2)t.ServerPosition))
@@ -71,7 +76,7 @@ namespace AIO.Champions
                 {
                     if (minion.Health < UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
                     {
-                        SpellClass.Q.GetPredictionInput(minion).From = this.BallPosition;
+                        SpellClass.Q.GetPredictionInput(minion).From = (Vector3)this.BallPosition;
                         SpellClass.Q.Cast(SpellClass.Q.GetPrediction(minion).CastPosition);
                     }
                 }

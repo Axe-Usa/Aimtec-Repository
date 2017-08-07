@@ -24,6 +24,11 @@ namespace AIO.Champions
         /// </summary>
         public void Killsteal()
         {
+            if (this.BallPosition == null)
+            {
+                return;
+            }
+
             /// <summary>
             ///     The KillSteal Q Logic.
             /// </summary>
@@ -34,7 +39,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.Q.GetPredictionInput(bestTarget).From = this.BallPosition;
+                    SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)this.BallPosition;
                     SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
@@ -46,7 +51,7 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
-                        t.IsValidTarget(SpellClass.W.Width, false, false, this.BallPosition) &&
+                        t.IsValidTarget(SpellClass.W.Width, false, false, (Vector3)this.BallPosition) &&
                         UtilityClass.Player.GetSpellDamage(t, SpellSlot.W) >= t.GetRealHealth()))
                 {
                     SpellClass.W.Cast();
@@ -60,7 +65,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.R.Width - 50f, false, false, this.BallPosition)))
+                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.R.Width - 50f, false, false, (Vector3)this.BallPosition)))
                 {
                     var dmg = UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.R);
                     if (SpellClass.Q.Ready)

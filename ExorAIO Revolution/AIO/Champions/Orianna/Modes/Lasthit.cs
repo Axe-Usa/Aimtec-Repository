@@ -22,6 +22,11 @@ namespace AIO.Champions
         /// </summary>
         public void Lasthit()
         {
+            if (this.BallPosition == null)
+            {
+                return;
+            }
+
             /// <summary>
             ///     The Q Farmhelper Logic.
             /// </summary>
@@ -34,7 +39,7 @@ namespace AIO.Champions
                 {
                     if (minion.Health < UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
                     {
-                        SpellClass.Q.GetPredictionInput(minion).From = this.BallPosition;
+                        SpellClass.Q.GetPredictionInput(minion).From = (Vector3)this.BallPosition;
                         SpellClass.Q.Cast(SpellClass.Q.GetPrediction(minion).CastPosition);
                     }
                 }

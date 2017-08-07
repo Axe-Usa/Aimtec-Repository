@@ -53,11 +53,12 @@ namespace AIO.Champions
         public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
             if (sender.IsMe &&
+                this.BallPosition != null &&
                 args.Slot == SpellSlot.R)
             {
                 var validTargets = GameObjects.EnemyHeroes.Where(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, this.BallPosition));
+                        t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition));
                 if (!validTargets.Any())
                 {
                     args.Process = false;

@@ -7,6 +7,7 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Extensions;
 
     using AIO.Utilities;
 
@@ -20,7 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     The default position of the ball.
         /// </summary>
-        public Vector3 BallPosition = UtilityClass.Player.ServerPosition;
+        public Vector3? BallPosition;
 
         #endregion
 
@@ -29,7 +30,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the position of the ball.
         /// </summary>
-        public Vector3 GetBallPosition()
+        public Vector3? GetBallPosition()
         {
             var possiblePosition1 = GameObjects.AllyMinions.FirstOrDefault(m =>
                     Math.Abs(m.Health) > 0 &&
@@ -50,7 +51,12 @@ namespace AIO.Champions
                 return possiblePosition2.ServerPosition;
             }
 
-            return UtilityClass.Player.ServerPosition;
+            if (UtilityClass.Player.HasBuff("orianaghostself"))
+            {
+                return UtilityClass.Player.ServerPosition;
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -58,7 +64,9 @@ namespace AIO.Champions
         /// </summary>
         public void UpdateBallPosition()
         {
-            this.BallPosition = this.GetBallPosition();
+            this.BallPosition = this.GetBallPosition() != null
+                ? this.GetBallPosition()
+                : null;
         }
 
         #endregion

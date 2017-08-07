@@ -24,6 +24,11 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
+            if (this.BallPosition == null)
+            {
+                return;
+            }
+
             var jungleTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
             if (!jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
@@ -40,7 +45,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (Extensions.GetGenericJungleMinionsTargets().Any(m => m.IsValidTarget(SpellClass.W.Width, false, true, this.BallPosition)))
+                if (Extensions.GetGenericJungleMinionsTargets().Any(m => m.IsValidTarget(SpellClass.W.Width, false, true, (Vector3)this.BallPosition)))
                 {
                     SpellClass.W.Cast();
                 }
@@ -56,7 +61,7 @@ namespace AIO.Champions
             {
                 var polygon = new Geometry.Rectangle(
                     (Vector2)UtilityClass.Player.ServerPosition,
-                    (Vector2)UtilityClass.Player.ServerPosition.Extend(this.BallPosition, UtilityClass.Player.Distance(this.BallPosition)),
+                    (Vector2)UtilityClass.Player.ServerPosition.Extend((Vector3)this.BallPosition, UtilityClass.Player.Distance((Vector3)this.BallPosition)),
                     SpellClass.E.Width);
 
                 if (jungleTarget != null &&
@@ -74,7 +79,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.GetPredictionInput(jungleTarget).From = this.BallPosition;
+                SpellClass.Q.GetPredictionInput(jungleTarget).From = (Vector3)this.BallPosition;
                 SpellClass.Q.Cast(SpellClass.Q.GetPrediction(jungleTarget).CastPosition);
             }
         }

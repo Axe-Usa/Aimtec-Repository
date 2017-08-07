@@ -34,8 +34,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["farmhelper"].As<MenuSliderBool>().Enabled)
             {
                 var posAfterQ = UtilityClass.Player.Position.Extend(Game.CursorPos, 300f);
-                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any(
-                    m =>
+                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any(m =>
                         m.Distance(posAfterQ) < UtilityClass.Player.AttackRange &&
                         m != ImplementationClass.IOrbwalker.GetOrbwalkingTarget() &&
                         posAfterQ.CountEnemyHeroesInRange(UtilityClass.Player.GetFullAttackRange(m)) <= 2 &&
