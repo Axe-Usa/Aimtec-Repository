@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Trackers\AttackRangeTracker.cs" />
     <Compile Include="Trackers\SpellTracker.cs" />
     <Compile Include="Trackers\ExpTracker.cs" />
     <Compile Include="Trackers\TowerRangeTracker.cs" />
