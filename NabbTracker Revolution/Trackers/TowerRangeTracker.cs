@@ -15,16 +15,16 @@
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Initializes the Experience Tracker.
+        ///     Initializes the TowerRange Tracker.
         /// </summary>
         public static void Initialize()
         {
             var player = ObjectManager.GetLocalPlayer();
-            foreach (var tower in
-                ObjectManager.Get<Obj_AI_Turret>().Where(
-                    e => !e.IsDead && e.IsVisible &&
-                         (e.IsEnemy && MenuClass.TowerRangeTracker["enemies"].As<MenuBool>().Value ||
-                          e.IsAlly && MenuClass.TowerRangeTracker["allies"].As<MenuBool>().Value)))
+            foreach (var tower in ObjectManager.Get<Obj_AI_Turret>().Where(e =>
+                !e.IsDead &&
+                e.IsVisible &&
+                    (e.IsEnemy && MenuClass.TowerRangeTracker["enemies"].As<MenuBool>().Enabled ||
+                    e.IsAlly && MenuClass.TowerRangeTracker["allies"].As<MenuBool>().Enabled)))
             {
                 var towerAutoAttackRange = 775f + tower.BoundingRadius + player.BoundingRadius - 10f;
                 Render.Circle(tower.ServerPosition, towerAutoAttackRange, 30, tower.IsEnemy && player.Distance(tower) <= towerAutoAttackRange

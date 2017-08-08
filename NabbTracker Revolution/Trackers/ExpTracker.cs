@@ -20,12 +20,13 @@ namespace NabbTracker
         /// </summary>
         public static void Initialize()
         {
-            foreach (var unit in
-                ObjectManager.Get<Obj_AI_Hero>().Where(
-                    e => Math.Abs(e.FloatingHealthBarPosition.X) > 0 && !e.IsDead && e.IsVisible &&
-                         (e.IsMe && MenuClass.ExpTracker["me"].As<MenuBool>().Value ||
-                          e.IsEnemy && MenuClass.ExpTracker["enemies"].As<MenuBool>().Value ||
-                          e.IsAlly && !e.IsMe && MenuClass.ExpTracker["allies"].As<MenuBool>().Value))
+            foreach (var unit in ObjectManager.Get<Obj_AI_Hero>().Where(e =>
+                Math.Abs(e.FloatingHealthBarPosition.X) > 0 &&
+                !e.IsDead &&
+                e.IsVisible &&
+                    (e.IsMe && MenuClass.ExpTracker["me"].As<MenuBool>().Enabled ||
+                    e.IsEnemy && MenuClass.ExpTracker["enemies"].As<MenuBool>().Enabled ||
+                    e.IsAlly && !e.IsMe && MenuClass.ExpTracker["allies"].As<MenuBool>().Enabled))
             )
             {
                 if (unit.Name.Equals("Target Dummy"))

@@ -28,6 +28,7 @@
             SpellTracker.Initialize();
             ExpTracker.Initialize();
             TowerRangeTracker.Initialize();
+            AttackRangeTracker.Initialize();
         }
 
         /// <summary>
