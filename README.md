@@ -429,3 +429,15 @@ ExorAIO: Revolution Changelog:
   Vayne: Removed KS Q.
   Vayne: Fixed Strange AA Magneting.
   Twitch: Now won't break out of stealth anymore to cast anti-gapcloser W.
+
+7.15.2.17:
+  Orianna: Fixed E not being used anymore in Combo.
+  Orianna: Perfected BallPosition Checks.
+  Orianna: More precise Drawings.
+  Orianna: Final Q Prediction Fix, this time should be perfect.
+
+7.15.2.18:
+  Akali: Fixed R stacks counting.
+  Vayne: Fixed Only Q to proc 2W Stacks.
+  Twitch: Fixed Jungleclear W usage.
+  Kog'Maw: Fixed Combo And Killsteal R Stacks counting.

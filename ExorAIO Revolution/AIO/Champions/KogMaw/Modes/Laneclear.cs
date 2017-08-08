@@ -44,10 +44,10 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.R.Ready &&
                 UtilityClass.Player.Mana >
-                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") + 1) &&
+                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Cost + 50 * (UtilityClass.Player.GetRealBuffCount("kogmawlivingartillerycost") + 1) &&
                 MenuClass.Spells["r"]["laneclear"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["r"]["laneclear"].As<MenuSliderBool>().Value >
-                UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost"))
+                UtilityClass.Player.GetRealBuffCount("kogmawlivingartillerycost"))
             {
                 /*
                 var farmLocation = SpellClass.R.GetCircularFarmLocation(minions, SpellClass.R.Width);

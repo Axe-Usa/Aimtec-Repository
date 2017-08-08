@@ -37,7 +37,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 if (MenuClass.Spells["q"]["customization"]["wstacks"].As<MenuBool>().Enabled
-                    && heroTarget.GetBuffCount("vaynesilvereddebuff") != 1)
+                    && heroTarget.GetRealBuffCount("vaynesilvereddebuff") != 1)
                 {
                     return;
                 }

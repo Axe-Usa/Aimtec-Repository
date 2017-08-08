@@ -31,7 +31,7 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var farmLocation = SpellClass.W.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets().Where(m => m.GetBuffCount("twitchdeadlyvenom") <= 4).ToList(), SpellClass.W.Width);
+                var farmLocation = SpellClass.W.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets().Where(m => m.GetRealBuffCount("twitchdeadlyvenom") <= 4).ToList(), SpellClass.W.Width);
                 if (farmLocation.MinionsHit >= Spells["w"]["customization"]["laneclear"].As<MenuSlider>().Value))
                 {
                     SpellClass.W.Cast(farmLocation.Position);

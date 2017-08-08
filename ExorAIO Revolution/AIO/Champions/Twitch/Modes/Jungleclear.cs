@@ -41,7 +41,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (jungleTarget.GetBuffCount("TwitchDeadlyVenom") <= 3)
+                if (jungleTarget.GetRealBuffCount("TwitchDeadlyVenom") <= 3)
                 {
                     SpellClass.W.Cast(jungleTarget.Position);
                     return;

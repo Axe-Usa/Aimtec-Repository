@@ -51,7 +51,7 @@ namespace AIO.Champions
                         t =>
                             !Invulnerable.Check(t) &&
                             t.IsValidTarget(SpellClass.E.Range) &&
-                            t.GetBuffCount("twitchdeadlyvenom") >= MenuClass.Spells["e"]["logical"].As<MenuSliderBool>().Value))
+                            t.GetRealBuffCount("twitchdeadlyvenom") >= MenuClass.Spells["e"]["logical"].As<MenuSliderBool>().Value))
                     {
                         SpellClass.E.Cast();
                     }

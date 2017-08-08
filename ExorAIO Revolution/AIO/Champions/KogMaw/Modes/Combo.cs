@@ -38,7 +38,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value
-                    >= UtilityClass.Player.GetBuffCount("kogmawlivingartillerycost") &&
+                    >= UtilityClass.Player.GetRealBuffCount("kogmawlivingartillerycost") &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled)
             {
                 foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range))

@@ -71,7 +71,7 @@ namespace AIO.Champions
                 if (heroTarget.IsValidTarget(SpellClass.R.Range) &&
                     MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
                 {
-                    if (UtilityClass.Player.GetBuffCount("AkaliShadowDance")
+                    if (UtilityClass.Player.GetRealBuffCount("AkaliShadowDance")
                             <= MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSlider>().Value)
                     {
                         return;
@@ -84,7 +84,7 @@ namespace AIO.Champions
                 }
                 else
                 {
-                    if (UtilityClass.Player.GetBuffCount("AkaliShadowDance")
+                    if (UtilityClass.Player.GetRealBuffCount("AkaliShadowDance")
                             <= MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Value ||
                         !MenuClass.Spells["r"]["customization"]["gapclose"].As<MenuSliderBool>().Enabled)
                     {
