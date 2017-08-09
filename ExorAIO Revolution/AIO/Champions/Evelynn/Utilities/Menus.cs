@@ -116,7 +116,6 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuBool("combo", "Combo"));
                     MenuClass.R.Add(new MenuBool("killsteal", "KillSteal"));
                     if (GameObjects.EnemyHeroes.Count() >= 2)
                     {

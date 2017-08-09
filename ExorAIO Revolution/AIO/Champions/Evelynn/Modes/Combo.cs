@@ -22,16 +22,17 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
-            ///     The R Combo Logic.
+            ///     The R AoE Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
+                MenuClass.Spells["r"]["aoe"] != null &&
+                MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    SpellClass.R.Cast(bestTarget);
+                    SpellClass.R.CastIfWillHit(bestTarget, MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value - 1);
                 }
             }
 
