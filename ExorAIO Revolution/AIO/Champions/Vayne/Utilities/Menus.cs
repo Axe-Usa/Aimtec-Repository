@@ -55,7 +55,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuBool("logical", "To stun"));
+                    MenuClass.E.Add(new MenuList("emode", "Condemn Mode", new []{ "Exory", "Perfect BETA", "Don't Condemn to stun"}, 0));
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));

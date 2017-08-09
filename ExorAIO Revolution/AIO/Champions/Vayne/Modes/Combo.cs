@@ -49,9 +49,22 @@ namespace AIO.Champions
             ///     The E Stun Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                !UtilityClass.Player.IsDashing() &&
-                MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
+                !UtilityClass.Player.IsDashing())
             {
+                switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
+                {
+                    case 0:
+                        SpellClass.E.Delay = 0.5f;
+                        SpellClass.E.Speed = 1200f;
+                        break;
+                    case 1:
+                        SpellClass.E.Delay = 0.4f;
+                        SpellClass.E.Speed = 1000f;
+                        break;
+                    default:
+                        return;
+                }
+
                 var playerPos = UtilityClass.Player.ServerPosition;
                 const int CondemnPushDistance = 410 / 10;
 
@@ -64,7 +77,7 @@ namespace AIO.Champions
                 {
                     for (var i = 1; i < 10; i++)
                     {
-                        var predictedPos = SpellClass.E.GetPrediction(target).UnitPosition;
+                        var predictedPos = SpellClass.E.GetPrediction(target).CastPosition;
 
                         var targetPosition = target.ServerPosition.Extend(playerPos, -CondemnPushDistance * i);
                         var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-CondemnPushDistance + 1) * i);

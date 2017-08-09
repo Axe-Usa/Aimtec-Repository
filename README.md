@@ -441,3 +441,8 @@ ExorAIO: Revolution Changelog:
   Vayne: Fixed Only Q to proc 2W Stacks.
   Twitch: Fixed Jungleclear W usage.
   Kog'Maw: Fixed Combo And Killsteal R Stacks counting.
+
+7.16.1.0:
+  Vayne: Now the Condemn Logic has 2 Modes.
+  Ahri: New Q and E Prediction values.
+  Evelynn: Added.
