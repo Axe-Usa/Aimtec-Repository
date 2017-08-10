@@ -459,3 +459,11 @@ ExorAIO: Revolution Changelog:
   Xayah: Will now cast Spells before Attack instead of after, to not lose feathers.
   Xayah: Now throws her Q out of AA Range too.
   Xayah: Added Q->W Animation cancel (Q-> W-> AA) instead of (AA Q AA W AA).
+
+7.16.2.2:
+  Taliyah: Now every single mode supports an option to switch between Full Q or Full+ Partial Q.
+  Lucian: Moved E Mode to E customization Menu.
+  Xayah: Now both Combo and Harass support an option to switch between Q Modes.
+  Darius: Cleaned useless options.
+  Taliyah: Cleaned useless options.
+  Lucian: Cleaned useless options.
