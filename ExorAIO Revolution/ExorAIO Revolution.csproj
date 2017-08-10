@@ -64,7 +64,21 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AIO\Champions\Akali\Modes\Buildingclear.cs" />
+    <Compile Include="AIO\Champions\Darius\Darius.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Automatic.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Buildingclear.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Combo.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Harass.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Jungleclear.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Killsteal.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Laneclear.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Lasthit.cs" />
+    <Compile Include="AIO\Champions\Darius\Modes\Weaving.cs" />
+    <Compile Include="AIO\Champions\Darius\Utilities\Definitions.cs" />
+    <Compile Include="AIO\Champions\Darius\Utilities\Drawings.cs" />
+    <Compile Include="AIO\Champions\Darius\Utilities\Menus.cs" />
+    <Compile Include="AIO\Champions\Darius\Utilities\Methods.cs" />
+    <Compile Include="AIO\Champions\Darius\Utilities\Spells.cs" />
     <Compile Include="AIO\Champions\Akali\Modes\Jungleclear.cs" />
     <Compile Include="AIO\Champions\Akali\Utilities\Drawings.cs" />
     <Compile Include="AIO\Champions\Ashe\Ashe.cs" />

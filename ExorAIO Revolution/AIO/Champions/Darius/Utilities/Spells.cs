@@ -10,21 +10,21 @@ namespace AIO.Champions
     /// <summary>
     ///     The spell class.
     /// </summary>
-    internal partial class Evelynn
+    internal partial class Darius
     {
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Sets the spells.
+        ///     Initializes the spells.
         /// </summary>
         public void Spells()
         {
-            SpellClass.Q = new Spell(SpellSlot.Q, 500f);
+            SpellClass.Q = new Spell(SpellSlot.Q, 425f);
             SpellClass.W = new Spell(SpellSlot.W);
-            SpellClass.E = new Spell(SpellSlot.E, 225f);
-            SpellClass.R = new Spell(SpellSlot.R, 650f);
+            SpellClass.E = new Spell(SpellSlot.E, 550f);
+            SpellClass.R = new Spell(SpellSlot.R, 460f);
 
-            SpellClass.R.SetSkillshot(0.25f, 350f, 1000f, true, SkillshotType.Circle);
+            SpellClass.E.SetSkillshot(0.25f, UtilityClass.GetAngleByDegrees(50f), 1000f, false, SkillshotType.Cone);
         }
 
         #endregion

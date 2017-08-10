@@ -31,11 +31,28 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (heroTarget.IsValidTarget() &&
+                if (heroTarget != null &&
                     !Invulnerable.Check(heroTarget, DamageType.Magical) &&
                     MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
                     SpellClass.Q.CastOnUnit(heroTarget);
+                }
+            }
+
+            /// <summary>
+            ///     The W Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
+                MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled)
+            {
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.AttackRange + SpellClass.W.Range);
+                if (heroTarget != null &&
+                    !Invulnerable.Check(heroTarget) &&
+                    MenuClass.Spells["w"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(heroTarget.ServerPosition, SpellClass.W.Range));
                 }
             }
         }
@@ -57,7 +74,7 @@ namespace AIO.Champions
             ///     The E Harass Weaving Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled &&
+                MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["e"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast();

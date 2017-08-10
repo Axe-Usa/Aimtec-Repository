@@ -31,7 +31,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (heroTarget.IsValidTarget() &&
+                if (heroTarget != null &&
                     !heroTarget.HasBuff("AkaliMota") &&
                     !Invulnerable.Check(heroTarget, DamageType.Magical))
                 {
@@ -40,20 +40,38 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The W Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            {
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.AttackRange + SpellClass.W.Range);
+                if (heroTarget != null &&
+                    !Invulnerable.Check(heroTarget))
+                {
+                    SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(heroTarget.ServerPosition, SpellClass.W.Range));
+                }
+            }
+
+            /// <summary>
             ///     The R Combo Logic.
             /// </summary>
             if (SpellClass.R.Ready)
             {
-                Obj_AI_Hero heroTarget;
-                if (Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range * 2).Any(t => t.HasBuff("AkaliMota")))
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range);
+                if ((!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled) &&
+                    Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range * 2).Any(t => t.HasBuff("AkaliMota")))
                 {
                     heroTarget = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range).FirstOrDefault(t => t.HasBuff("AkaliMota"));
                 }
-                else
+                else if (!heroTarget.IsValidTarget(UtilityClass.Player.AttackRange + SpellClass.W.Range))
                 {
                     heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range * 2);
                 }
-
+                else
+                {
+                    heroTarget = null;
+                }
 
                 if (heroTarget == null ||
                     !heroTarget.IsValidTarget() ||
@@ -71,6 +89,12 @@ namespace AIO.Champions
                 if (heroTarget.IsValidTarget(SpellClass.R.Range) &&
                     MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
                 {
+                    if (!heroTarget.HasBuff("AkaliMota") &&
+                        MenuClass.Spells["r"]["customization"]["onlymarked"].As<MenuBool>().Enabled)
+                    {
+                        return;
+                    }
+
                     if (UtilityClass.Player.GetRealBuffCount("AkaliShadowDance")
                             <= MenuClass.Spells["r"]["customization"]["keepstacks"].As<MenuSlider>().Value)
                     {

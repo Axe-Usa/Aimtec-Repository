@@ -1,4 +1,4 @@
-
+﻿
 #pragma warning disable 1587
 
 namespace AIO.Champions
@@ -13,7 +13,7 @@ namespace AIO.Champions
     /// <summary>
     ///     The champion class.
     /// </summary>
-    internal partial class Vayne
+    internal partial class Darius
     {
         #region Public Methods and Operators
 
@@ -31,14 +31,14 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Q BuildingClear Logic.
+            ///     The W BuildingClear Logic.
             /// </summary>
-            if (SpellClass.Q.Ready &&
+            if (SpellClass.W.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["buildings"]) &&
-                MenuClass.Spells["q"]["buildings"].As<MenuSliderBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["buildings"]) &&
+                MenuClass.Spells["w"]["buildings"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast(Game.CursorPos);
+                SpellClass.W.Cast();
             }
         }
 

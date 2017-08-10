@@ -166,10 +166,10 @@ namespace AIO.Champions
                 {
                     if (SpellClass.Q.Ready)
                     {
-                        SpellClass.Q.Cast(gapSender.ServerPosition);
+                        SpellClass.Q.Cast(args.StartPos);
                     }
 
-                    SpellClass.R.Cast(gapSender.ServerPosition);
+                    SpellClass.R.Cast(args.StartPos);
                 }
             }
         }

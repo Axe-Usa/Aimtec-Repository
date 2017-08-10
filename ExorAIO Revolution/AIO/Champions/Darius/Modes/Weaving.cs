@@ -4,7 +4,6 @@
 namespace AIO.Champions
 {
     using Aimtec;
-    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
@@ -13,32 +12,30 @@ namespace AIO.Champions
     /// <summary>
     ///     The champion class.
     /// </summary>
-    internal partial class Vayne
+    internal partial class Darius
     {
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on do-cast.
+        ///     Called OnPostAttack.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void Buildingclear(object sender, PostAttackEventArgs args)
+        public void Weaving(object sender, PostAttackEventArgs args)
         {
-            var target = args.Target;
-            if (!target.IsBuilding())
+            var heroTarget = args.Target as Obj_AI_Hero;
+            if (heroTarget == null || Invulnerable.Check(heroTarget))
             {
                 return;
             }
 
             /// <summary>
-            ///     The Q BuildingClear Logic.
+            ///     The W Combo Weaving Logic.
             /// </summary>
-            if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["buildings"]) &&
-                MenuClass.Spells["q"]["buildings"].As<MenuSliderBool>().Enabled)
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.Cast(Game.CursorPos);
+                SpellClass.W.Cast();
             }
         }
 

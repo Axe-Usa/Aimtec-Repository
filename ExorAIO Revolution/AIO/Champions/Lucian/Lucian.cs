@@ -70,7 +70,7 @@ namespace AIO.Champions
                 var playerPos = UtilityClass.Player.ServerPosition;
                 if (args.EndPos.Distance(playerPos) <= 200)
                 {
-                    SpellClass.E.Cast(playerPos.Extend(args.EndPos, -SpellClass.E.Range));
+                    SpellClass.E.Cast(playerPos.Extend(args.StartPos, -SpellClass.E.Range));
                 }
             }
         }

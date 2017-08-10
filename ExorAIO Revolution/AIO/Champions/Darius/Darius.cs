@@ -3,10 +3,6 @@
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
@@ -14,14 +10,14 @@ namespace AIO.Champions
     /// <summary>
     ///     The champion class.
     /// </summary>
-    internal partial class Akali
+    internal partial class Darius
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Loads Akali.
+        ///     Loads Darius.
         /// </summary>
-        public Akali()
+        public Darius()
         {
             /// <summary>
             ///     Initializes the menus.
@@ -62,68 +58,8 @@ namespace AIO.Champions
 
                 case OrbwalkingMode.Laneclear:
                     this.Jungleclear(sender, args);
+                    this.Buildingclear(sender, args);
                     break;
-            }
-        }
-
-        /// <summary>
-        ///     Called on pre attack.
-        /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public void OnPreAttack(object sender, PreAttackEventArgs args)
-        {
-            if (UtilityClass.Player.HasBuff("akaliwstealth") &&
-                MenuClass.Miscellaneous["staystealthaa"].As<MenuBool>().Enabled)
-            {
-                args.Cancel = true;
-            }
-        }
-
-        /// <summary>
-        ///     Fired on spell cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
-        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
-        {
-            if (sender.IsMe &&
-                UtilityClass.Player.HasBuff("akaliwstealth") &&
-                MenuClass.Miscellaneous["staystealthsp"].As<MenuBool>().Enabled)
-            {
-                args.Process = false;
-            }
-        }
-
-        /// <summary>
-        ///     Fired on an incoming gapcloser.
-        /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
-        {
-            if (UtilityClass.Player.IsDead)
-            {
-                return;
-            }
-
-            var gapSender = (Obj_AI_Hero)args.Unit;
-            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
-            {
-                return;
-            }
-
-            /// <summary>
-            ///     The Anti-Gapcloser W Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                MenuClass.Spells["W"]["gapcloser"].As<MenuBool>().Enabled)
-            {
-                var playerPos = UtilityClass.Player.ServerPosition;
-                if (args.EndPos.Distance(playerPos) <= 200)
-                {
-                    SpellClass.W.Cast(playerPos.Extend(args.EndPos, -SpellClass.W.Range));
-                }
             }
         }
 

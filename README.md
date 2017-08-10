@@ -446,3 +446,9 @@ ExorAIO: Revolution Changelog:
   Vayne: Now the Condemn Logic has 2 Modes.
   Ahri: New Q and E Prediction values.
   Evelynn: Added.
+  
+7.16.2.0:
+  AIO: Generic Anti-Gapcloser Fixes.
+  Akali: Added W Combo/Harass (with Energy Manager) and Anti-Gapcloser.
+  Evelynn: Fixed spellcasting and AoE R.
+  Darius: Added.

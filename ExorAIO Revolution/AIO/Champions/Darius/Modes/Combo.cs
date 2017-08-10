@@ -1,0 +1,66 @@
+
+// ReSharper disable ConvertIfStatementToConditionalTernaryExpression
+#pragma warning disable 1587
+
+namespace AIO.Champions
+{
+    using Aimtec;
+    using Aimtec.SDK.Menu.Components;
+
+    using AIO.Utilities;
+
+    /// <summary>
+    ///     The champion class.
+    /// </summary>
+    internal partial class Darius
+    {
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Fired when the game is updated.
+        /// </summary>
+        public void Combo()
+        {
+            /// <summary>
+            ///     The E Combo Logic.
+            /// </summary>
+            if (SpellClass.E.Ready)
+            {
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
+                if (heroTarget != null &&
+                    !Invulnerable.Check(heroTarget, DamageType.Magical, false) &&
+                    MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Enabled)
+                {
+                    SpellClass.E.Cast(heroTarget);
+                }
+            }
+
+            /// <summary>
+            ///     The Q Combo Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready)
+            {
+                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                if (heroTarget != null &&
+                    !Invulnerable.Check(heroTarget) &&
+                    MenuClass.Spells["q"]["combo"].As<MenuSliderBool>().Enabled)
+                {
+                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
+                    {
+                        case 0:
+                            if (this.IsValidBladeTarget(heroTarget))
+                            {
+                                SpellClass.Q.Cast();
+                            }
+                            break;
+                        case 1:
+                            SpellClass.Q.Cast();
+                            break;
+                    }
+                }
+            }
+        }
+
+        #endregion
+    }
+}

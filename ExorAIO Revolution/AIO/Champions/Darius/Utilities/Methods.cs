@@ -1,14 +1,13 @@
 namespace AIO.Champions
 {
     using Aimtec;
-    using Aimtec.SDK.Events;
 
     using AIO.Utilities;
 
     /// <summary>
     ///     The methods class.
     /// </summary>
-    internal partial class Akali
+    internal partial class Darius
     {
         #region Public Methods and Operators
 
@@ -19,10 +18,7 @@ namespace AIO.Champions
         {
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             Render.OnPresent += this.OnPresent;
-            SpellBook.OnCastSpell += this.OnCastSpell;
-            Dash.HeroDashed += this.OnGapcloser;
         }
 
         #endregion
