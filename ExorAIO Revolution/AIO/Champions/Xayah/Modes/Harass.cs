@@ -29,8 +29,9 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget.IsValidTarget() &&
+                if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget) &&
+                    MenuClass.Spells["q"]["customization"]["qmodes"]["mixed"].As<MenuList>().Value == 0 &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
                     SpellClass.Q.Cast(bestTarget);

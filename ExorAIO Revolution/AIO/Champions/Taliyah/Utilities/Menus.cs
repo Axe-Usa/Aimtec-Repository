@@ -34,7 +34,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
-                    MenuClass.Q.Add(new MenuList("combomode", "Cast Mode", new[] { "Full Q only", "Full + Partial Q", "Don't use Q in Combo" }, 0));
+                    MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
@@ -45,18 +45,16 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
-                        ////MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
-                        //MenuClass.Q2.Add(new MenuBool("qlock", "Automatically Lock Q on Enemy"));
-                        ////MenuClass.Q2.Add(new MenuSeperator("separator2"));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator3", "Harass Settings:"));
-                        MenuClass.Q2.Add(new MenuBool("harassfull", "Harass: Only with full Q.", false));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator4"));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator5", "Laneclear settings:"));
-                        MenuClass.Q2.Add(new MenuBool("laneclearfull", "Laneclear: Only with full Q."));
+                        MenuClass.Q3 = new Menu("qmodes", "Q Modes Menu:");
+                        {
+                            MenuClass.Q3.Add(new MenuList("combo", "Q Combo Mode:", new[] { "Full Q only", "Full + Partial Q" }, 0));
+                            MenuClass.Q3.Add(new MenuList("harass", "Q Harass Mode:", new[] { "Full Q only", "Full + Partial Q" }, 1));
+                            MenuClass.Q3.Add(new MenuList("laneclear", "Q Laneclear Mode:", new[] { "Full Q only", "Full + Partial Q" }, 1));
+                            MenuClass.Q3.Add(new MenuList("jungleclear", "Q Jungleclear Mode:", new[] { "Full Q only", "Full + Partial Q" }, 1));
+                        }
+                        MenuClass.Q2.Add(MenuClass.Q3);
+
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator6"));
-                        //MenuClass.Q2.Add(new MenuSeperator("separator7", "Jungleclear settings:"));
-                        MenuClass.Q2.Add(new MenuBool("jungleclearfull", "Jungleclear: Only with full Q."));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 

@@ -43,6 +43,12 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
+                        MenuClass.Q3 = new Menu("qmodes", "Q Modes Menu:");
+                        {
+                            MenuClass.Q3.Add(new MenuList("combo", "Q Combo Mode:", new[] { "While Attacking", "Always cast Q" }, 0));
+                            MenuClass.Q3.Add(new MenuList("harass", "Q Harass Mode:", new[] { "Always cast Q" }, 0));
+                        }
+                        MenuClass.Q2.Add(MenuClass.Q3);
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }

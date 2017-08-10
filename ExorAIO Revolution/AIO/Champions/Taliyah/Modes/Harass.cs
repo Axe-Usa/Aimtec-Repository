@@ -34,13 +34,18 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    if (this.IsNearWorkedGround() &&
-                        MenuClass.Spells["q"]["customization"]["harassfull"].As<MenuBool>().Enabled)
+                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["harass"].As<MenuList>().Value)
                     {
-                        return;
+                        case 0:
+                            if (!this.IsNearWorkedGround())
+                            {
+                                SpellClass.Q.Cast(bestTarget);
+                            }
+                            break;
+                        case 1:
+                            SpellClass.Q.Cast(bestTarget);
+                            break;
                     }
-
-                    SpellClass.Q.Cast(bestTarget);
                 }
             }
         }

@@ -40,13 +40,18 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (this.IsNearWorkedGround() &&
-                    MenuClass.Spells["q"]["customization"]["jungleclearfull"].As<MenuBool>().Enabled)
+                switch (MenuClass.Spells["q"]["customization"]["qmodes"]["jungleclear"].As<MenuList>().Value)
                 {
-                    return;
+                    case 0:
+                        if (!this.IsNearWorkedGround())
+                        {
+                            SpellClass.Q.Cast(jungleTarget);
+                        }
+                        break;
+                    case 1:
+                        SpellClass.Q.Cast(jungleTarget);
+                        break;
                 }
-
-                SpellClass.Q.Cast(jungleTarget);
             }
 
             var targetPosAfterW = new Vector3();
@@ -108,13 +113,18 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (this.IsNearWorkedGround() &&
-                    MenuClass.Spells["q"]["customization"]["jungleclearfull"].As<MenuBool>().Enabled)
+                switch (MenuClass.Spells["q"]["customization"]["qmodes"]["jungleclear"].As<MenuList>().Value)
                 {
-                    return;
+                    case 0:
+                        if (!this.IsNearWorkedGround())
+                        {
+                            SpellClass.Q.Cast(jungleTarget);
+                        }
+                        break;
+                    case 1:
+                        SpellClass.Q.Cast(jungleTarget);
+                        break;
                 }
-
-                SpellClass.Q.Cast(jungleTarget);
             }
         }
 

@@ -32,21 +32,21 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.HasItem(ItemId.RylaisCrystalScepter))
             {
-                var bestRylaiTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-50f);
-                if (bestRylaiTarget != null &&
-                    !bestRylaiTarget.HasBuffOfType(BuffType.Slow) &&
-                    !Invulnerable.Check(bestRylaiTarget, DamageType.Magical))
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-50f);
+                if (bestTarget != null &&
+                    !bestTarget.HasBuffOfType(BuffType.Slow) &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
                             if (!this.IsNearWorkedGround())
                             {
-                                SpellClass.Q.Cast(bestRylaiTarget);
+                                SpellClass.Q.Cast(bestTarget);
                             }
                             break;
                         case 1:
-                            SpellClass.Q.Cast(bestRylaiTarget);
+                            SpellClass.Q.Cast(bestTarget);
                             break;
                     }
                 }
@@ -129,14 +129,14 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combomode"].As<MenuList>().Value < 2 &&
-                (!SpellClass.E.Ready || !MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled || bestETarget == null))
+                (!SpellClass.E.Ready || !MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled || bestETarget == null) &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 150f);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
                             if (!this.IsNearWorkedGround())

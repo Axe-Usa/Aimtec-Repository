@@ -115,18 +115,23 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    //MenuClass.E.Add(new MenuSeperator("esep1", "[THE DASH WILL ALWAYS BE DIRECTED TOWARDS YOUR MOUSE]"));
-                    //MenuClass.E.Add(new MenuSeperator("esep2", "Exory: Smart dynamic Short & Long dash."));
-                    //MenuClass.E.Add(new MenuSeperator("esep3", "Always Long: Always dash at the maximum distance."));
-                    //MenuClass.E.Add(new MenuSeperator("esep4", "Always Short: This Logic will make you always dash at the minimum distance."));
-                    //MenuClass.E.Add(new MenuSeperator("esep5", "None: It will not use E in Combo."));
-
-                    MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Exory", "Always Long", "Always Short", "Don't use E in Combo" }, 0));
+                    MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuBool("engage", "Engage"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Dynamic distance", "Always Long", "Always Short" }, 0));
+                        //MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 

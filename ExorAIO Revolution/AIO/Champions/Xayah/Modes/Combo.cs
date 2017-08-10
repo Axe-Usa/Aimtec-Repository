@@ -30,10 +30,20 @@ namespace AIO.Champions
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 100f);
                 if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget) &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                    !Invulnerable.Check(bestTarget))
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["mixed"].As<MenuList>().Value)
+                    {
+                        case 0:
+                            if (bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                            {
+                                SpellClass.Q.Cast(bestTarget);
+                            }
+                            break;
+                        case 1:
+                            SpellClass.Q.Cast(bestTarget);
+                            break;
+                    }
                 }
             }
 

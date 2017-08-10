@@ -37,7 +37,8 @@ namespace AIO.Champions
                     /// <summary>
                     ///     The E Combo Logic.
                     /// </summary>
-                    if (SpellClass.E.Ready)
+                    if (SpellClass.E.Ready &&
+                        MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                     {
                         switch (MenuClass.Spells["e"]["mode"].As<MenuList>().Value)
                         {
@@ -114,7 +115,8 @@ namespace AIO.Champions
                     /// <summary>
                     ///     The E Combo Logic.
                     /// </summary>
-                    if (SpellClass.E.Ready)
+                    if (SpellClass.E.Ready &&
+                        MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                     {
                         switch (MenuClass.Spells["e"]["mode"].As<MenuList>().Value)
                         {

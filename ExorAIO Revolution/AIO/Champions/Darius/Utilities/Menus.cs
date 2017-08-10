@@ -53,8 +53,8 @@ namespace AIO.Champions
                     {
                         MenuClass.Q3 = new Menu("qmodes", "Q Modes Menu:");
                         {
-                            MenuClass.Q3.Add(new MenuList("combo", "Q Combo Mode:", new [] { "Only Blade", "Always cast Q", "Don't cast Q" }, 0));
-                            MenuClass.Q3.Add(new MenuList("harass", "Q Harass Mode:", new[] { "Only Blade", "Always cast Q", "Don't cast Q" }, 1));
+                            MenuClass.Q3.Add(new MenuList("combo", "Q Combo Mode:", new [] { "Only Blade", "Always cast Q" }, 0));
+                            MenuClass.Q3.Add(new MenuList("harass", "Q Harass Mode:", new[] { "Only Blade",  "Always cast Q" }, 1));
                         }
                         MenuClass.Q2.Add(MenuClass.Q3);
 

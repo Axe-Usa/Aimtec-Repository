@@ -63,16 +63,18 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                if (this.IsNearWorkedGround() &&
-                    MenuClass.Spells["q"]["customization"]["laneclearfull"].As<MenuBool>().Enabled)
-                {
-                    return;
-                }
-
                 var farmLocation = SpellClass.Q.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width*2);
-                if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value))
+                switch (MenuClass.Spells["q"]["customization"]["qmodes"]["laneclear"].As<MenuList>().Value)
                 {
-                    SpellClass.Q.Cast(farmLocation.Position);
+                    case 0:
+                        if (!this.IsNearWorkedGround())
+                        {
+                            SpellClass.Q.Cast(farmLocation.Position);
+                        }
+                        break;
+                    case 1:
+                        SpellClass.Q.Cast(farmLocation.Position);
+                        break;
                 }
                 */
             }
