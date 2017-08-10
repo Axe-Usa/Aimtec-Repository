@@ -5,6 +5,7 @@ namespace AIO.Champions
 {
     using System.Linq;
 
+    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
     using AIO.Utilities;
@@ -21,6 +22,21 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
+            /// <summary>
+            ///     The Q Combo Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            {
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 100f);
+                if (bestTarget != null &&
+                    !Invulnerable.Check(bestTarget) &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                {
+                    SpellClass.Q.Cast(bestTarget);
+                }
+            }
+
             /// <summary>
             ///     The E Combo Logic.
             /// </summary>

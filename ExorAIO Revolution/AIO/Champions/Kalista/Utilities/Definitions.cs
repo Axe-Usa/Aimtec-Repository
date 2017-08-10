@@ -5,6 +5,7 @@
 
 namespace AIO.Champions
 {
+    using System;
     using System.Collections.Generic;
 
     using Aimtec;
@@ -25,6 +26,17 @@ namespace AIO.Champions
         ///     Gets or sets the SoulBound.
         /// </summary>
         public Obj_AI_Hero SoulBound;
+
+        /// <summary>
+        ///     Gets all the Offensive R Logics.
+        /// </summary>
+        public Dictionary<string, Tuple<string, string>> RLogics = new Dictionary<string, Tuple<string, string>>
+        {
+            { "Blitzcrank", new Tuple<string, string>("rocketgrab2", "Balista")  },
+            { "Skarner",    new Tuple<string, string>("TODO",        "Skalista") },
+            { "TahmKench",  new Tuple<string, string>("TODO",        "Talista")  }
+        };
+        
 
         /// <summary>
         ///     Gets all the important jungle locations.

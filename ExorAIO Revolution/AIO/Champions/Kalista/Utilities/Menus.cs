@@ -112,14 +112,18 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    if (GameObjects.AllyHeroes.Any(a => a.ChampionName == "Blitzcrank"))
+                    foreach (var element in this.RLogics)
                     {
-                        MenuClass.R.Add(new MenuBool("balista", "Use Balista"));
+                        if (GameObjects.AllyHeroes.Any(a => a.ChampionName == element.Key))
+                        {
+                            MenuClass.R.Add(new MenuBool(element.Value.Item2, $"Use {element.Value.Item2}"));
+                        }
+                        else
+                        {
+                            MenuClass.R.Add(new MenuSeperator(element.Value.Item2, $"Ally {element.Key} not found, no need for a {element.Value.Item2} option."));
+                        }
                     }
-                    else
-                    {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "Ally Blitacrank not found, no need for a Balista option."));
-                    }
+
                     MenuClass.R.Add(new MenuSliderBool("lifesaver", "Soulbound Lifesaver / If Soulbound Health <= X%", true, 15, 10, 90));
                 }
                 MenuClass.Spells.Add(MenuClass.R);

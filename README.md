@@ -452,3 +452,10 @@ ExorAIO: Revolution Changelog:
   Akali: Added W Combo/Harass (with Energy Manager) and Anti-Gapcloser.
   Evelynn: Fixed spellcasting and AoE R.
   Darius: Added.
+
+7.16.2.1:
+  Kalista: Dynamic Balista, Skalista and Talista Logics and Menus.
+  Xayah: Code polishment.
+  Xayah: Will now cast Spells before Attack instead of after, to not lose feathers.
+  Xayah: Now throws her Q out of AA Range too.
+  Xayah: Added Q->W Animation cancel (Q-> W-> AA) instead of (AA Q AA W AA).

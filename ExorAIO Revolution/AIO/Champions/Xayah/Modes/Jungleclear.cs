@@ -24,8 +24,8 @@ namespace AIO.Champions
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
-        public void Jungleclear(object sender, PostAttackEventArgs args)
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void Jungleclear(object sender, PreAttackEventArgs args)
         {
             var jungleTarget = args.Target as Obj_AI_Minion;
             if (jungleTarget == null ||
@@ -61,7 +61,6 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast(jungleTarget);
-                return;
             }
 
             /// <summary>

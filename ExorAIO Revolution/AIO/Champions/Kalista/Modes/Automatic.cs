@@ -27,7 +27,9 @@ namespace AIO.Champions
             var passiveObject = ObjectManager.Get<GameObject>().FirstOrDefault(o => o.IsValid && o.Name == "Kalista_Base_P_LinkIcon.troy");
             if (passiveObject != null)
             {
-                this.SoulBound = GameObjects.AllyHeroes.MinBy(o => o.Distance(passiveObject));
+                this.SoulBound = GameObjects.AllyHeroes
+                    .Where(a => !a.IsMe)
+                    .MinBy(o => o.Distance(passiveObject));
             }
 
             if (UtilityClass.Player.IsRecalling())
@@ -41,18 +43,26 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 this.SoulBound != null)
             {
-                /// <summary>
-                ///     The Balista Logic.
-                /// </summary>
                 var soulbound = this.SoulBound;
-                if (soulbound.ChampionName == "Blitzcrank" &&
-                    GameObjects.EnemyHeroes.Any(t =>
-                        t.HasBuff("rocketgrab2") &&
-                        t.Distance(UtilityClass.Player.ServerPosition) >
-                            UtilityClass.Player.GetFullAttackRange(t) &&
-                        MenuClass.Spells["r"]["balista"].As<MenuBool>().Enabled))
+
+                /// <summary>
+                ///     The Offensive R Logics.
+                /// </summary>
+                foreach (var target in GameObjects.EnemyHeroes
+                    .Where(t => t.Distance(UtilityClass.Player.ServerPosition) > UtilityClass.Player.GetFullAttackRange(t)))
                 {
-                    SpellClass.R.Cast();
+                    if (this.RLogics.ContainsKey(soulbound.ChampionName))
+                    {
+                        var option = this.RLogics.FirstOrDefault(k => k.Key == soulbound.ChampionName);
+                        var buffName = option.Value.Item1;
+                        var menuOption = option.Value.Item2;
+
+                        if (target.HasBuff(buffName) &&
+                            MenuClass.Spells["r"][menuOption].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.R.Cast();
+                        }
+                    }
                 }
 
                 /// <summary>
