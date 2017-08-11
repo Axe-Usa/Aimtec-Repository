@@ -70,7 +70,7 @@ namespace AIO.Champions
                             > ManaManager.GetNeededMana(SpellClass.R.Slot, MenuClass.Spells["r"]["lasthitunk"]) &&
                         MenuClass.Spells["r"]["lasthitunk"].As<MenuSliderBool>().Enabled)
                     {
-                        if (minion.Health <= this.GetMissileDamage(minion))
+                        if (minion.GetRealHealth() <= this.GetMissileDamage(minion))
                         {
                             SpellClass.R.Cast(minion);
                         }
@@ -157,7 +157,7 @@ namespace AIO.Champions
                 var playerPos = UtilityClass.Player.ServerPosition;
                 if (args.EndPos.Distance(playerPos) <= 200)
                 {
-                    SpellClass.W.Cast(playerPos.Extend(args.EndPos, -SpellClass.W.Range));
+                    SpellClass.W.Cast(playerPos.Extend(args.StartPos, -SpellClass.W.Range));
                 }
             }
         }

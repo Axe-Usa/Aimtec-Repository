@@ -47,7 +47,7 @@ namespace AIO.Champions
                         t.IsValidTarget(SpellClass.R.Range) &&
                         !Invulnerable.Check(t) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .MinBy(o => o.Health);
+                    .MinBy(o => o.GetRealHealth());
                 if (bestTarget != null)
                 {
                     if (!UtilityClass.Player.HasBuff("LucianR") &&

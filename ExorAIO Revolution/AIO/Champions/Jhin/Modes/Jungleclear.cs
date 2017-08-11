@@ -43,7 +43,7 @@ namespace AIO.Champions
                 SpellClass.Q.CastOnUnit(jungleTarget);
             }
 
-            if (jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+            if (jungleTarget?.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }
@@ -86,7 +86,7 @@ namespace AIO.Champions
                 SpellClass.Q.CastOnUnit(jungleTarget);
             }
 
-            if (jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+            if (jungleTarget?.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }
@@ -127,7 +127,7 @@ namespace AIO.Champions
                 SpellClass.Q.CastOnUnit(jungleTarget);
             }
 
-            if (jungleTarget?.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+            if (jungleTarget?.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }

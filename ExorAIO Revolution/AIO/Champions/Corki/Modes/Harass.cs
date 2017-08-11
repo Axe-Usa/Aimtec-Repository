@@ -30,7 +30,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget.IsValidTarget() &&
+                if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
@@ -47,7 +47,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
-                if (bestTarget.IsValidTarget() &&
+                if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
@@ -64,7 +64,7 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range);
-                if (bestTarget.IsValidTarget() &&
+                if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["r"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {

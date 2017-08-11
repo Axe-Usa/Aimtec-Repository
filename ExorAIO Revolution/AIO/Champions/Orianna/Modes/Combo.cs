@@ -52,7 +52,7 @@ namespace AIO.Champions
                     .Where(a =>
                         a.IsValidTarget(SpellClass.E.Range, true) &&
                         MenuClass.Spells["e"]["combowhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .OrderBy(o => o.Health);
+                    .OrderBy(o => o.GetRealHealth());
                 foreach (var ally in bestAllies)
                 {
                     var allyToBallRectangle = new Geometry.Rectangle(

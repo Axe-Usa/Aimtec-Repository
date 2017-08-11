@@ -467,3 +467,10 @@ ExorAIO: Revolution Changelog:
   Darius: Cleaned useless options.
   Taliyah: Cleaned useless options.
   Lucian: Cleaned useless options.
+
+7.16.3.0:
+  AIO: Health tracking Improvements.
+  AIO: Damage Improvements.
+  Anivia: Added.
+  Corki: Fixed Anti-Gapcloser W.
+  Tristana: Fixed Nullref while attacking enemy Inhibitors.

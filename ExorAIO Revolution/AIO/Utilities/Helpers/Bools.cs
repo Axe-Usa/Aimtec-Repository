@@ -119,6 +119,11 @@ namespace AIO.Utilities
                 return true;
             }
 
+            if (!target.ActionState.HasFlag(ActionState.CanMove))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -139,6 +144,27 @@ namespace AIO.Utilities
                 GameObjects.EnemyHeroes.Contains(sender) ||
                 GameObjects.EnemyTurrets.Contains(sender) ||
                 Extensions.GetGenericJungleMinionsTargets().Contains(sender);
+        }
+
+        /// <summary>
+        ///     Returns whether the hero is in fountain range.
+        /// </summary>
+        /// <param name="hero">The Hero</param>
+        /// <returns>Is Hero in fountain range</returns>
+        public static bool InFountain(this Obj_AI_Hero hero)
+        {
+            if (!hero.IsVisible)
+            {
+                return false;
+            }
+
+            float fountainRange = 562500; // 750 * 750
+            if (Game.MapId == GameMapId.SummonersRift)
+            {
+                fountainRange = 1102500; // 1050 * 1050
+            }
+
+            return GameObjects.AllySpawnPoints.Any(point => ((Vector2)hero.ServerPosition).DistanceSquared(point.Position) < fountainRange);
         }
 
         #endregion

@@ -37,7 +37,7 @@ namespace AIO.Champions
             {
                 foreach (var minion in Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Where(m => !m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m))))
                 {
-                    if (minion.Health < UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
+                    if (minion.GetRealHealth() < UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
                     {
                         SpellClass.Q.GetPredictionInput(minion).From = (Vector3)this.BallPosition;
                         SpellClass.Q.Cast(SpellClass.Q.GetPrediction(minion).CastPosition);

@@ -31,7 +31,7 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Q Harass Logic.
+            ///     The Q BuildingClear Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["buildings"].As<MenuBool>().Enabled)
@@ -40,14 +40,14 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The E Harass Logic.
+            ///     The E BuildingClear Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
                 MenuClass.Spells["e"]["buildings"].As<MenuSliderBool>().Enabled)
             {
-                var turretTarget = (Obj_AI_Turret)target;
+                var turretTarget = target as Obj_AI_Turret;
                 if (turretTarget != null)
                 {
                     SpellClass.E.CastOnUnit(turretTarget);

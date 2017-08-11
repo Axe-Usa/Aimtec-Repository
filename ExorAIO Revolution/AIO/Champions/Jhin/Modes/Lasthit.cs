@@ -36,7 +36,7 @@ namespace AIO.Champions
 
                 foreach (var minion in Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range))
                 {
-                    if (minion.Health <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
+                    if (minion.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
                     {
                         SpellClass.Q.CastOnUnit(minion);
                     }

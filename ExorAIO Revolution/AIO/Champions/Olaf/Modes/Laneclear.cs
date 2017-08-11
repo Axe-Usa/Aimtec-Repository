@@ -52,7 +52,7 @@ namespace AIO.Champions
             {
                 foreach (var minion in Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Where(m =>
                     (m.UnitSkinName.Contains("Siege") || m.UnitSkinName.Contains("Super")) &&
-                    m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.E)))
+                    m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.E)))
                 {
                     SpellClass.E.CastOnUnit(minion);
                 }

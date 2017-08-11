@@ -40,11 +40,11 @@ namespace AIO.Champions
                             m =>
                                 m.IsValidTarget(SpellClass.Q2.Range) &&
                                 !m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m)) &&
-                                m.Health < UtilityClass.Player.GetAutoAttackDamage(m) + UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)) &&
+                                m.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(m) + UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)) &&
                         GameObjects.EnemyMinions.Any(
                             m =>
                                 m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m)) &&
-                                m.Health < UtilityClass.Player.GetAutoAttackDamage(m)))
+                                m.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(m)))
                     {
                         SpellClass.Q.Cast();
                     }
@@ -55,11 +55,11 @@ namespace AIO.Champions
                             m =>
                                 m.IsValidTarget(SpellClass.Q2.Range) &&
                                 !m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m)) &&
-                                m.Health < UtilityClass.Player.GetAutoAttackDamage(m) + UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)) &&
+                                m.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(m) + UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)) &&
                         !GameObjects.EnemyMinions.Any(
                             m =>
                                 m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m)) &&
-                                m.Health < UtilityClass.Player.GetAutoAttackDamage(m)))
+                                m.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(m)))
                     {
                         SpellClass.Q.Cast();
                     }

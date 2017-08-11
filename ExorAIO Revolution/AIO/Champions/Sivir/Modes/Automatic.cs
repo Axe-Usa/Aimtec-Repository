@@ -94,7 +94,7 @@ namespace AIO.Champions
                             if (Bools.IsAutoAttack(args.SpellData.Name) || args.SpellData.Name.Equals("GangplankQProceed"))
                             {
                                 var target = (Obj_AI_Minion)args.Target;
-                                if ((int)target.Health == 1 &&
+                                if ((int)target.GetRealHealth() == 1 &&
                                     target.Distance(UtilityClass.Player) < 450 &&
                                     target.UnitSkinName.Equals("gangplankbarrel"))
                                 {

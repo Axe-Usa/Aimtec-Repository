@@ -114,7 +114,7 @@ namespace AIO.Champions
                 ///     The E Minion Harass Logic.
                 /// </summary>
                 if (GameObjects.EnemyHeroes.Any(this.IsPerfectRendTarget) &&
-                    Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Any(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m)) &&
+                    Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Any(m => this.IsPerfectRendTarget(m) && m.GetRealHealth() <= this.GetTotalRendDamage(m)) &&
                     MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast();
@@ -128,7 +128,7 @@ namespace AIO.Champions
                     foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m => UtilityClass.JungleList.Contains(m.UnitSkinName)))
                     {
                         if (this.IsPerfectRendTarget(minion) &&
-                            minion.Health <= this.GetTotalRendDamage(minion) &&
+                            minion.GetRealHealth() <= this.GetTotalRendDamage(minion) &&
                             MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();

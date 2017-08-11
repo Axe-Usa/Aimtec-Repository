@@ -28,7 +28,7 @@ namespace AIO.Champions
             var jungleTarget = args.Target as Obj_AI_Minion;
             if (jungleTarget == null ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
-                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+                jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }
@@ -52,7 +52,7 @@ namespace AIO.Champions
             {
                 if (UtilityClass.Player.HealthPercent()
                         >= MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Value ||
-                    UtilityClass.Player.GetSpellDamage(jungleTarget, SpellSlot.E) >= jungleTarget.Health)
+                    UtilityClass.Player.GetSpellDamage(jungleTarget, SpellSlot.E) >= jungleTarget.GetRealHealth())
                 {
                     SpellClass.E.CastOnUnit(jungleTarget);
                 }

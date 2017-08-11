@@ -29,7 +29,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.R.Slot, MenuClass.Spells["r"]["lasthitaa"]) &&
                 MenuClass.Spells["r"]["lasthitaa"].As<MenuSliderBool>().Enabled)
             {
-                var bestMinionTarget = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(m => m.Health < this.GetMissileDamage(m));
+                var bestMinionTarget = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(m => m.GetRealHealth() < this.GetMissileDamage(m));
                 if (bestMinionTarget != null &&
                     bestMinionTarget.IsValidTarget(SpellClass.R.Range) &&
                     !bestMinionTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestMinionTarget)))

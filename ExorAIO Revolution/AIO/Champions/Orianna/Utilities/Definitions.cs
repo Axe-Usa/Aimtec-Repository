@@ -33,7 +33,7 @@ namespace AIO.Champions
         public Vector3? GetBallPosition()
         {
             var possiblePosition1 = GameObjects.AllyMinions.FirstOrDefault(m =>
-                    Math.Abs(m.Health) > 0 &&
+                    Math.Abs(m.GetRealHealth()) > 0 &&
                     m.UnitSkinName.Equals("OriannaBall"));
             if (possiblePosition1 != null)
             {

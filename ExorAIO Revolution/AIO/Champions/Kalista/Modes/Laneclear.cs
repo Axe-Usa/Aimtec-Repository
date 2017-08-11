@@ -31,7 +31,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
-                var farmLocation = Extensions.GetAllGenericMinionsTargets().Where(m => m.Health < (float)UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList();
+                var farmLocation = Extensions.GetAllGenericMinionsTargets().Where(m => m.GetRealHealth() < (float)UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList();
                 if (SpellClass.Q.GetLineFarmLocation(farmLocation, SpellClass.Q.Width).MinionsHit >= 3)
                 {
                     SpellClass.Q.Cast(SpellClass.Q.GetLineFarmLocation(farmLocation, SpellClass.Q.Width).Position);
@@ -46,7 +46,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range)
-                        .Count(m => this.IsPerfectRendTarget(m) && m.Health <= this.GetTotalRendDamage(m)) >= MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Value)
+                        .Count(m => this.IsPerfectRendTarget(m) && m.GetRealHealth() <= this.GetTotalRendDamage(m)) >= MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Value)
                 {
                     SpellClass.E.Cast();
                 }

@@ -25,6 +25,11 @@
         public static Menu E2 { get; set; }
 
         /// <summary>
+        ///     Gets or sets the E3 Spell menu.
+        /// </summary>
+        public static Menu E3 { get; set; }
+
+        /// <summary>
         ///     Gets or sets the General menu.
         /// </summary>
         public static Menu General { get; set; }

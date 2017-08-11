@@ -30,7 +30,7 @@ namespace AIO.Champions
             var jungleTarget = args.Target as Obj_AI_Minion;
             if (jungleTarget == null ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
-                jungleTarget.Health < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+                jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }
@@ -45,7 +45,7 @@ namespace AIO.Champions
             {
                 if (Extensions.GetGenericJungleMinionsTargets().Any(
                     h => this.IsPerfectFeatherTarget(h) &&
-                         h.Health < this.GetPerfectFeatherDamage(h, this.CountFeathersHitOnUnit(h))))
+                         h.GetRealHealth() < this.GetPerfectFeatherDamage(h, this.CountFeathersHitOnUnit(h))))
                 {
                     SpellClass.E.Cast();
                     return;

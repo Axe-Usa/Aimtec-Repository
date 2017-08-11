@@ -70,7 +70,7 @@ namespace AIO.Champions
                             > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["lasthitunk"]) &&
                         MenuClass.Spells["q"]["lasthitunk"].As<MenuSliderBool>().Enabled)
                     {
-                        if (minion.Health <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
+                        if (minion.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
                         {
                             SpellClass.Q.CastOnUnit(minion);
                         }

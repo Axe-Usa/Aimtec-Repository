@@ -65,7 +65,7 @@ namespace AIO.Champions
                         !Invulnerable.Check(t) &&
                         t.IsValidTarget(SpellClass.R.Range) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .MinBy(o => o.Health);
+                    .MinBy(o => o.GetRealHealth());
                 if (bestTarget != null)
                 {
                     if (MenuClass.Spells["r"]["mode"].As<MenuList>().Value == 1)

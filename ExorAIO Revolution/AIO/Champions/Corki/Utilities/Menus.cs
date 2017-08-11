@@ -101,7 +101,7 @@ namespace AIO.Champions
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
-                        ///     Sets the menu for the Q Harass Whitelist.
+                        ///     Sets the menu for the E Harass Whitelist.
                         /// </summary>
                         MenuClass.WhiteList2 = new Menu("whitelist", "Harass: Whitelist");
                         {

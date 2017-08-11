@@ -35,8 +35,8 @@ namespace AIO.Champions
             {
                 var unitsInQRange = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
                 var unitsToIterate =
-                    unitsInQRange.Any(m => m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q))
-                        ? unitsInQRange.Where(m => m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q))
+                    unitsInQRange.Any(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q))
+                        ? unitsInQRange.Where(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q))
                         : unitsInQRange;
 
                 var objAiBases = unitsToIterate as IList<Obj_AI_Base> ?? unitsToIterate.ToList();

@@ -34,8 +34,8 @@ namespace AIO.Champions
             {
                 var unitsInQRange = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
                 var unitsToIterateIfPlayerNormallyKillable =
-                    unitsInQRange.Any(m => m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q))
-                        ? unitsInQRange.Where(m => m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
+                    unitsInQRange.Any(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q))
+                        ? unitsInQRange.Where(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
                         : unitsInQRange.ToList();
                 var unitsToIterateIfPlayerEmpoweredKillable =
                         unitsToIterateIfPlayerNormallyKillable.Where(u => u.GetRealHealth() < UtilityClass.Player.GetSpellDamage(u, SpellSlot.Q)).ToList();

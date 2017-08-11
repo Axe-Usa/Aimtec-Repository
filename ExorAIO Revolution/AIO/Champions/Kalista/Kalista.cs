@@ -59,7 +59,7 @@ namespace AIO.Champions
 
             if (SpellClass.E.Ready &&
                 this.IsPerfectRendTarget(minion) &&
-                minion.Health <= this.GetTotalRendDamage(minion) &&
+                minion.GetRealHealth() <= this.GetTotalRendDamage(minion) &&
                 MenuClass.Spells["e"]["farmhelper"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast();

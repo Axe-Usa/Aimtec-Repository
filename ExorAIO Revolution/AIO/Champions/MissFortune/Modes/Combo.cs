@@ -31,7 +31,7 @@ namespace AIO.Champions
                 MenuClass.Spells["extendedq"]["combo"].As<MenuBool>().Enabled)
             {
                 var unitsInQRange = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
-                var unitsToIterate = unitsInQRange.Where(m => m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q));
+                var unitsToIterate = unitsInQRange.Where(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q));
 
                 var objAiBases = unitsToIterate as IList<Obj_AI_Base> ?? unitsToIterate.ToList();
                 foreach (var hero in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range))

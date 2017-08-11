@@ -166,21 +166,20 @@ namespace AIO.Utilities
         /// </returns>
         public static float GetRealHealth(this Obj_AI_Base unit)
         {
-            var debuffer = 0f;
-
-            /// <summary>
-            ///     Gets the predicted reduction from Blitzcrank Shield.
-            /// </summary>
             var hero = unit as Obj_AI_Hero;
-            if (hero != null)
+            if (hero == null)
             {
-                if (hero.ChampionName.Equals("Blitzcrank") &&
-                    !hero.HasBuff("BlitzcrankManaBarrierCD"))
-                {
-                    debuffer += hero.Mana / 2;
-                }
+                return unit.Health;
             }
-            return unit.Health + unit.PhysicalShield + unit.HPRegenRate + debuffer;
+
+            var debuffer = 0f;
+            if (hero.ChampionName.Equals("Blitzcrank") &&
+                !hero.HasBuff("BlitzcrankManaBarrierCD"))
+            {
+                debuffer += hero.Mana / 2;
+            }
+
+            return unit.Health + unit.PhysicalShield + debuffer;
         }
 
         #endregion
