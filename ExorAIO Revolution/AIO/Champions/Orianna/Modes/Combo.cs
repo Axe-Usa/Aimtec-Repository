@@ -56,6 +56,7 @@ namespace AIO.Champions
                 {
                     var bestAllies = GameObjects.AllyHeroes
                         .Where(a =>
+                            !a.IsMe &&
                             a.IsValidTarget(SpellClass.E.Range, true) &&
                             MenuClass.Spells["e"]["engagerswhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled);
 
@@ -109,8 +110,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget, DamageType.Magical))
+                if (bestTarget != null)
                 {
                     if (SpellClass.E.Ready &&
                         bestTarget.Distance((Vector3)this.BallPosition) >=
@@ -121,13 +121,8 @@ namespace AIO.Champions
                         return;
                     }
 
-                    if (bestTarget.Distance((Vector3)this.BallPosition) <
-                            bestTarget.Distance(UtilityClass.Player) + 100f ||
-                        !MenuClass.Q2["limitq"].As<MenuBool>().Enabled)
-                    {
-                        SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)this.BallPosition;
-                        SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
-                    }
+                    SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)this.BallPosition;
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
 

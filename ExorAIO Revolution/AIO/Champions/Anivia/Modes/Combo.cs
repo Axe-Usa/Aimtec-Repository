@@ -27,7 +27,7 @@ namespace AIO.Champions
             ///     The R Combo Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled)
+                MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
             {
                 switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState)
                 {
@@ -76,7 +76,7 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combo"].As<MenuSliderBool>().Enabled)
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
                 {
@@ -104,7 +104,7 @@ namespace AIO.Champions
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Enabled)
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
                 if (bestTarget != null &&

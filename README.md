@@ -489,3 +489,9 @@ ExorAIO: Revolution Changelog:
   AIO: Code cleanup.
   AIO: Fixed Jungleclear on many champions.
   Evelynn: Fixed Default Menu options.
+
+7.16.3.3:
+  MissFortune: Removed useless MenuOption.
+  Orianna: Fixed Q not casting sometimes.
+  Darius: Fixed E and Q not casting in combo.
+  Anivia: Fixed Q E and R not casting in combo.

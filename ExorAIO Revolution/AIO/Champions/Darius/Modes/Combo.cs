@@ -29,7 +29,7 @@ namespace AIO.Champions
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
                 if (heroTarget != null &&
                     !Invulnerable.Check(heroTarget, DamageType.Magical, false) &&
-                    MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Enabled)
+                    MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast(heroTarget);
                 }
@@ -43,7 +43,7 @@ namespace AIO.Champions
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
                 if (heroTarget != null &&
                     !Invulnerable.Check(heroTarget) &&
-                    MenuClass.Spells["q"]["combo"].As<MenuSliderBool>().Enabled)
+                    MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                 {
                     switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
                     {

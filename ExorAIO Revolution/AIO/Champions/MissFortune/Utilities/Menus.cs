@@ -37,16 +37,6 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-
-                    /// <summary>
-                    ///     Sets the customization menu for the Q spell.
-                    /// </summary>
-                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
-                    {
-                        //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
-                    }
-                    MenuClass.Q.Add(MenuClass.Q2);
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
 
