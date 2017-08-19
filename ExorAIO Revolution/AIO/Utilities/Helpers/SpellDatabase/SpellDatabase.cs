@@ -16,6 +16,9 @@ namespace AIO.Utilities
         #region Static Fields
 
         [ResourceImport("SpellDatabase.json")]
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once CollectionNeverUpdated.Local
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private static List<SpellDatabaseEntry> SpellsList = new List<SpellDatabaseEntry>();
 
         #endregion

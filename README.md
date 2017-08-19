@@ -484,3 +484,8 @@ ExorAIO: Revolution Changelog:
   Caitlyn: Deleted useless Menu Option.
   Caitlyn: Fixed Random E on minions/nowhere.
   Vayne: Added Double Condemn Method (Both by me).
+
+7.16.3.2:
+  AIO: Code cleanup.
+  AIO: Fixed Jungleclear on many champions.
+  Evelynn: Fixed Default Menu options.

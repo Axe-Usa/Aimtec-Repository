@@ -25,12 +25,7 @@
         /// <exception cref="ArgumentNullException"></exception>
         public ResourceImportAttribute(string file)
         {
-            if (file == null)
-            {
-                throw new ArgumentNullException(nameof(file));
-            }
-
-            this.File = file;
+            this.File = file ?? throw new ArgumentNullException(nameof(file));
         }
 
         #endregion

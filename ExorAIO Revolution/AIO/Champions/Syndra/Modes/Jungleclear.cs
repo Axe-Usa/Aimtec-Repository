@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -22,9 +24,8 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
-            if (!Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
-                jungleTarget?.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
+            var jungleTarget = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m => Extensions.GetGenericJungleMinionsTargets().Contains(m));
+            if (jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
             {
                 return;
             }
@@ -33,6 +34,7 @@ namespace AIO.Champions
             ///     The Jungleclear W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.W.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
@@ -52,7 +54,8 @@ namespace AIO.Champions
                 }
             }
 
-            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State == SpellState.Ready)
+            if (jungleTarget == null ||
+                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State == SpellState.Ready)
             {
                 return;
             }
@@ -66,10 +69,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (jungleTarget != null)
-                {
-                    SpellClass.Q.Cast(jungleTarget.ServerPosition);
-                }
+                SpellClass.Q.Cast(jungleTarget.ServerPosition);
             }
 
             /// <summary>

@@ -4,6 +4,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -23,10 +25,9 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
-            if (!jungleTarget.IsValidTarget() ||
-                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
-                jungleTarget?.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
+            var jungleTarget = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m => Extensions.GetGenericJungleMinionsTargets().Contains(m));
+            if (jungleTarget == null ||
+                jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
             {
                 return;
             }
@@ -35,6 +36,7 @@ namespace AIO.Champions
             ///     The Jungleclear Rylai Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.Q.Range) &&
                 UtilityClass.Player.HasItem(ItemId.RylaisCrystalScepter) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
@@ -60,6 +62,7 @@ namespace AIO.Champions
             ///     The Jungleclear W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.W.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
@@ -93,22 +96,21 @@ namespace AIO.Champions
             ///     The Jungleclear E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.E.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (jungleTarget != null)
-                {
-                    SpellClass.E.Cast(SpellClass.W.Ready
-                        ? targetPosAfterW
-                        : jungleTarget.Position);
-                }
+                SpellClass.E.Cast(SpellClass.W.Ready
+                    ? targetPosAfterW
+                    : jungleTarget.Position);
             }
 
             /// <summary>
             ///     The Jungleclear Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.Q.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)

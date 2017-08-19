@@ -42,8 +42,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget, DamageType.Magical))
+                if (bestTarget != null)
                 {
                     SpellClass.Q.CastOnUnit(bestTarget);
                 }

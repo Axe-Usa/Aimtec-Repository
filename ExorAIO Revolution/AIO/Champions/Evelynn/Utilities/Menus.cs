@@ -116,10 +116,10 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuBool("killsteal", "KillSteal"));
+                    MenuClass.R.Add(new MenuBool("killsteal", "KillSteal", false));
                     if (GameObjects.EnemyHeroes.Any())
                     {
-                        MenuClass.R.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", false, 2, 1, GameObjects.EnemyHeroes.Count()));
+                        MenuClass.R.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", true, 2, 1, GameObjects.EnemyHeroes.Count()));
                     }
                     else
                     {

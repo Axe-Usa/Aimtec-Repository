@@ -3,6 +3,8 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
@@ -108,10 +110,8 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
-            if (!this.IsReloading() ||
-                !jungleTarget.IsValidTarget() ||
-                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
+            var jungleTarget = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m => Extensions.GetGenericJungleMinionsTargets().Contains(m));
+            if (jungleTarget == null)
             {
                 return;
             }
@@ -120,6 +120,7 @@ namespace AIO.Champions
             ///     The Jungleclear Q Logics.
             /// </summary>
             if (SpellClass.Q.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.Q.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
@@ -127,7 +128,7 @@ namespace AIO.Champions
                 SpellClass.Q.CastOnUnit(jungleTarget);
             }
 
-            if (jungleTarget?.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
+            if (jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 4)
             {
                 return;
             }
@@ -136,6 +137,7 @@ namespace AIO.Champions
             ///     The Jungleclear E Logics.
             /// </summary>
             if (SpellClass.E.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.E.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
