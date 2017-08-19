@@ -48,7 +48,7 @@ namespace AIO.Champions
                         if (polygon.IsInside((Vector2)hero.ServerPosition) &&
                             MenuClass.Spells["extendedq"]["whitelist"][hero.ChampionName.ToLower()].Enabled &&
                             (this.LoveTapTargetNetworkId == hero.NetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
-                            polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(hero).UnitPosition))
+                            polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(hero).CastPosition))
                         {
                             SpellClass.Q.CastOnUnit(minion);
                         }

@@ -58,7 +58,7 @@ namespace AIO.Champions
                                            where
                                                 target != null &&
                                                 target != minion &&
-                                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).UnitPosition) &&
+                                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition) &&
                                                 UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) >= target.GetRealHealth()
                         select minion)
                     {

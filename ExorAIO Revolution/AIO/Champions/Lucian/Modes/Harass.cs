@@ -41,7 +41,7 @@ namespace AIO.Champions
                                        where
                                            target != null &&
                                            target != minion &&
-                                           polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).UnitPosition) &&
+                                           polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition) &&
                                            MenuClass.Spells["extendedq"]["whitelist"][target.ChampionName.ToLower()].Enabled
                                        select minion)
                 {

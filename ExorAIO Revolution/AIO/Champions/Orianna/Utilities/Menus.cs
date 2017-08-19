@@ -122,7 +122,8 @@ namespace AIO.Champions
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
-                    MenuClass.E.Add(new MenuBool("protect", "Protect"));
+                    MenuClass.E.Add(new MenuBool("protect", "Shield (Protect Allies)"));
+                    MenuClass.E.Add(new MenuBool("engager", "Shield (Engagers)"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
@@ -136,7 +137,7 @@ namespace AIO.Champions
                         {
                             foreach (var ally in GameObjects.AllyHeroes)
                             {
-                                MenuClass.WhiteList3.Add(new MenuBool(ally.ChampionName.ToLower(), "Use for: " + ally.ChampionName));
+                                MenuClass.WhiteList3.Add(new MenuBool(ally.ChampionName.ToLower(), "Use for: " + ally.ChampionName, ally.IsMe));
                             }
                         }
                         MenuClass.E.Add(MenuClass.WhiteList3);
@@ -151,7 +152,7 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the whitelist menu for the Protect E.
                         /// </summary>
-                        MenuClass.WhiteList4 = new Menu("protectwhitelist", "Shield: Whitelist");
+                        MenuClass.WhiteList4 = new Menu("protectwhitelist", "Shield (Protect Allies): Whitelist");
                         {
                             foreach (var ally in GameObjects.AllyHeroes)
                             {
@@ -159,6 +160,25 @@ namespace AIO.Champions
                             }
                         }
                         MenuClass.E.Add(MenuClass.WhiteList4);
+                    }
+                    else
+                    {
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "No ally champions found, no need for a Whitelist Menu."));
+                    }
+
+                    if (GameObjects.AllyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the whitelist menu for the Engagers E.
+                        /// </summary>
+                        MenuClass.WhiteList5 = new Menu("engagerswhitelist", "Shield (Engagers): Whitelist");
+                        {
+                            foreach (var ally in GameObjects.AllyHeroes.Where(a => !a.IsMe))
+                            {
+                                MenuClass.WhiteList5.Add(new MenuBool(ally.ChampionName.ToLower(), "Use for: " + ally.ChampionName));
+                            }
+                        }
+                        MenuClass.E.Add(MenuClass.WhiteList5);
                     }
                     else
                     {

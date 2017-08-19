@@ -474,3 +474,13 @@ ExorAIO: Revolution Changelog:
   Anivia: Added.
   Corki: Fixed Anti-Gapcloser W.
   Tristana: Fixed Nullref while attacking enemy Inhibitors.
+
+7.16.3.1:
+  AIO: Changes some prediction casts from UnitPosition to CastPosition.
+  Orianna: Fixed R KIllsteal Calculations.
+  Orianna: Better E usage.
+  Orianna: Added E on Engagers. (With whitelist.)
+  Orianna: Many Logic fixes.
+  Caitlyn: Deleted useless Menu Option.
+  Caitlyn: Fixed Random E on minions/nowhere.
+  Vayne: Added Double Condemn Method (Both by me).

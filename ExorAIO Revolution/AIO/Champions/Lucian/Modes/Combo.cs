@@ -39,7 +39,7 @@ namespace AIO.Champions
                                        where
                                             target != null &&
                                             target != minion &&
-                                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).UnitPosition)
+                                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition)
                                        select minion)
                 {
                     SpellClass.Q.CastOnUnit(minion);

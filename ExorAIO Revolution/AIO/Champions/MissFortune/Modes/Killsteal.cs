@@ -9,7 +9,6 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Damage;
     using Aimtec.SDK.Damage.JSON;
-    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
     using AIO.Utilities;
@@ -60,7 +59,7 @@ namespace AIO.Champions
                             var polygon = this.QCone(minion);
                             if (polygon.IsInside((Vector2)hero.ServerPosition) &&
                                 (this.LoveTapTargetNetworkId == hero.NetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
-                                polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(hero).UnitPosition))
+                                polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(hero).CastPosition))
                             {
                                 if (UtilityClass.Player.GetSpellDamage(hero, SpellSlot.Q, DamageStage.Empowered) >= hero.GetRealHealth())
                                 {

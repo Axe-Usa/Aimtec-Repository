@@ -51,11 +51,13 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 !UtilityClass.Player.IsDashing())
             {
+                var playerPos = UtilityClass.Player.ServerPosition;
                 switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
                 {
                     case 0:
                         SpellClass.E.Delay = 0.5f;
                         SpellClass.E.Speed = 1200f;
+
                         break;
                     case 1:
                         SpellClass.E.Delay = 0.4f;
@@ -65,9 +67,7 @@ namespace AIO.Champions
                         return;
                 }
 
-                var playerPos = UtilityClass.Player.ServerPosition;
                 const int CondemnPushDistance = 410 / 10;
-
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
                         t.IsValidTarget(SpellClass.E.Range) &&
@@ -77,7 +77,17 @@ namespace AIO.Champions
                 {
                     for (var i = 1; i < 10; i++)
                     {
-                        var predictedPos = SpellClass.E.GetPrediction(target).CastPosition;
+                        Vector3 predictedPos = new Vector3();
+                        var prediction = SpellClass.E.GetPrediction(target);
+                        switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
+                        {
+                            case 0:
+                                predictedPos = prediction.UnitPosition;
+                                break;
+                            case 1:
+                                predictedPos = prediction.CastPosition;
+                                break;
+                        }
 
                         var targetPosition = target.ServerPosition.Extend(playerPos, -CondemnPushDistance * i);
                         var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-CondemnPushDistance + 1) * i);

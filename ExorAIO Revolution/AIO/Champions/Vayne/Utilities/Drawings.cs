@@ -62,7 +62,7 @@ namespace AIO.Champions
                         var posImpact = (Vector2)target.Position.Extend(playerPos, -CondemnDistancePush);
                         var posRectangle = new Geometry.Rectangle(targetPos, posImpact, targetRadius);
 
-                        var predImpact = (Vector2)SpellClass.E.GetPrediction(target).UnitPosition.Extend(playerPos, -CondemnDistancePush);
+                        var predImpact = (Vector2)SpellClass.E.GetPrediction(target).CastPosition.Extend(playerPos, -CondemnDistancePush);
                         var predRectangle = new Geometry.Rectangle(targetPos, predImpact, targetRadius);
 
                         posRectangle.Draw(Bools.AnyWallInBetween(targetPos, posImpact) ? Color.Blue : Color.OrangeRed);

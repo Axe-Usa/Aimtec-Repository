@@ -43,30 +43,61 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The E Combo Logics.
+            ///     The E Logics.
             /// </summary>
-            if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+            if (SpellClass.E.Ready)
             {
-                var bestAllies = GameObjects.AllyHeroes
-                    .Where(a =>
-                        a.IsValidTarget(SpellClass.E.Range, true) &&
-                        MenuClass.Spells["e"]["combowhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    .OrderBy(o => o.GetRealHealth());
-                foreach (var ally in bestAllies)
+                /// <summary>
+                ///     The E Engager Logic.
+                /// </summary>
+                if (MenuClass.Spells["r"]["aoe"] != null &&
+                    MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled &&
+                    MenuClass.Spells["e"]["engager"].As<MenuBool>().Enabled)
                 {
-                    var allyToBallRectangle = new Geometry.Rectangle(
-                        (Vector2)ally.ServerPosition,
-                        (Vector2)ally.ServerPosition.Extend((Vector3)this.BallPosition, ally.Distance((Vector3)this.BallPosition) + 30f),
-                        SpellClass.E.Width);
+                    var bestAllies = GameObjects.AllyHeroes
+                        .Where(a =>
+                            a.IsValidTarget(SpellClass.E.Range, true) &&
+                            MenuClass.Spells["e"]["engagerswhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled);
 
-                    if (GameObjects.EnemyHeroes.Any(t =>
-                            t.IsValidTarget() &&
-                            !Invulnerable.Check(t, DamageType.Magical) &&
-                            allyToBallRectangle.IsInside((Vector2)t.ServerPosition)))
+                    var bestAlly = bestAllies
+                        .FirstOrDefault(a =>
+                            GameObjects.EnemyHeroes.Count(t =>
+                                !Invulnerable.Check(t, DamageType.Magical, false) &&
+                                t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, a.ServerPosition)) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value);
+
+                    if (bestAlly != null)
                     {
-                        SpellClass.E.CastOnUnit(ally);
-                        return;
+                        SpellClass.E.CastOnUnit(bestAlly);
+                    }
+                }
+
+                /// <summary>
+                ///     The E Combo Logic.
+                /// </summary>
+                if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                {
+                    var bestAllies = GameObjects.AllyHeroes
+                        .Where(a =>
+                            a.IsValidTarget(SpellClass.E.Range, true) &&
+                            MenuClass.Spells["e"]["combowhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                        .OrderBy(o => o.GetRealHealth());
+
+                    foreach (var ally in bestAllies)
+                    {
+                        var allyToBallRectangle = new Geometry.Rectangle(
+                            (Vector2)ally.ServerPosition,
+                            (Vector2)ally.ServerPosition.Extend((Vector3)this.BallPosition, ally.Distance((Vector3)this.BallPosition) + 30f),
+                            SpellClass.E.Width);
+
+                        if (GameObjects.EnemyHeroes.Any(
+                            t =>
+                                t.IsValidTarget() &&
+                                !Invulnerable.Check(t, DamageType.Magical) &&
+                                allyToBallRectangle.IsInside((Vector2)t.ServerPosition)))
+                        {
+                            SpellClass.E.CastOnUnit(ally);
+                            return;
+                        }
                     }
                 }
             }

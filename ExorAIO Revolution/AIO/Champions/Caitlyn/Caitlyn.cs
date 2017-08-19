@@ -182,6 +182,7 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser E.
             /// </summary>
             if (SpellClass.E.Ready &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
                 MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;

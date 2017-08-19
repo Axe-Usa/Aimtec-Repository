@@ -60,7 +60,7 @@ namespace AIO.Champions
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
                 if (bestTarget != null)
                 {
-                    var targetPos = SpellClass.W.GetPrediction(bestTarget).UnitPosition;
+                    var targetPos = SpellClass.W.GetPrediction(bestTarget).CastPosition;
                     var castPosition =
                         UtilityClass.Player.ServerPosition.Extend(
                             targetPos,

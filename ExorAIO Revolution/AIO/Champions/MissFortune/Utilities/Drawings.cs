@@ -53,7 +53,7 @@ namespace AIO.Champions
                             polygon.Draw(
                                 polygon.IsInside((Vector2)target.ServerPosition) &&
                                 (target.NetworkId == this.LoveTapTargetNetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
-                                polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(target).UnitPosition)
+                                polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(target).CastPosition)
                                     ? Color.Green
                                     : Color.Red);
                         }

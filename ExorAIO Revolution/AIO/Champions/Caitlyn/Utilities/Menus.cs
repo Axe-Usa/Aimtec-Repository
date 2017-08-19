@@ -99,7 +99,6 @@ namespace AIO.Champions
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
-                    MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'd Enemies"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Channelling Targets"));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                 }

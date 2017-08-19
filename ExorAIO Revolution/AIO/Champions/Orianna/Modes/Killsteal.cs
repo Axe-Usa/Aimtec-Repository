@@ -65,16 +65,22 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.R.Width - 50f, false, false, (Vector3)this.BallPosition)))
+                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition)))
                 {
                     var dmg = UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.R);
-                    if (SpellClass.Q.Ready)
+                    if (SpellClass.Q.Ready &&
+                        enemy.IsValidTarget(SpellClass.Q.Range))
                     {
                         dmg += UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.Q);
                     }
-                    if (SpellClass.W.Ready)
+                    if (SpellClass.W.Ready &&
+                       enemy.IsValidTarget(SpellClass.W.Width - SpellClass.W.Delay * enemy.BoundingRadius, false, false, (Vector3)this.BallPosition))
                     {
                         dmg += UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.W);
+                    }
+                    if (UtilityClass.Player.ServerPosition.Distance((Vector3)this.BallPosition) < UtilityClass.Player.AttackRange)
+                    {
+                        dmg += UtilityClass.Player.GetAutoAttackDamage(enemy);
                     }
 
                     if (dmg >= enemy.GetRealHealth())
