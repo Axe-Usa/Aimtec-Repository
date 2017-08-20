@@ -6,7 +6,6 @@ namespace AIO.Champions
     using System.Linq;
 
     using Aimtec;
-    using Aimtec.SDK.Damage;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
@@ -25,8 +24,7 @@ namespace AIO.Champions
         public void Jungleclear()
         {
             var jungleTarget = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m => Extensions.GetGenericJungleMinionsTargets().Contains(m));
-            if (jungleTarget == null ||
-                jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
+            if (jungleTarget == null)
             {
                 return;
             }

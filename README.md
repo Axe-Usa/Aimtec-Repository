@@ -500,3 +500,8 @@ ExorAIO: Revolution Changelog:
   Twitch: Changed Combo W option to support a Venom stack manager: (Combo / If Venom stacks <= X)
   Orianna: R shouldn't now miss anymore.
   Anivia: Should now properly disable R if target dead or out of circle.
+
+7.15.3.5:
+  Orianna: More W and R Hitrate Improvements.
+  Evelynn: Will not stop casting Q in jungle anymore.
+  Xayah: Fixed Q not being used in Harass mode.

@@ -65,7 +65,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition)))
+                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition)))
                 {
                     var dmg = UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.R);
                     if (SpellClass.Q.Ready &&

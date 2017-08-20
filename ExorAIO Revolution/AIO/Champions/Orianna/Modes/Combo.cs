@@ -32,11 +32,12 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
+                !UtilityClass.Player.GetSpell(SpellSlot.W).State.HasFlag(SpellState.Surpressed) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.W.Width - SpellClass.W.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition)))
+                        t.IsValidTarget(SpellClass.W.Width - t.BoundingRadius - SpellClass.W.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition)))
                 {
                     SpellClass.W.Cast();
                 }
@@ -64,7 +65,7 @@ namespace AIO.Champions
                         .FirstOrDefault(a =>
                             GameObjects.EnemyHeroes.Count(t =>
                                 !Invulnerable.Check(t, DamageType.Magical, false) &&
-                                t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, a.ServerPosition)) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value);
+                                t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, a.ServerPosition)) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value);
 
                     if (bestAlly != null)
                     {
