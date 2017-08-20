@@ -511,3 +511,9 @@ ExorAIO: Revolution Changelog:
   Anivia: Fixed W trying to anti-gapclose over the map.
   Twitch: Won't W in stealth anymore.
   Twitch: Combo changed to W Q AA from W AA Q AA, for maximum efficiency.
+
+7.15.3.7:
+  Anivia: Fixed Q Exploding on target.
+  Anivia: Fixed R not deactivating properly if no enemy in range.
+  Anivia: Fixed On-CC W.
+  Anivia: Fixed R Tear stacking on fountain.
