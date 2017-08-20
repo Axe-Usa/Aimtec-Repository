@@ -53,7 +53,7 @@ namespace AIO.Champions
                     var castPosition =
                         UtilityClass.Player.ServerPosition.Extend(
                             targetPos,
-                            UtilityClass.Player.Distance(targetPos) + bestTarget.BoundingRadius / 2);
+                            UtilityClass.Player.Distance(targetPos) + bestTarget.BoundingRadius*2);
                     if (UtilityClass.Player.Distance(castPosition) <= SpellClass.W.Range)
                     {
                         SpellClass.W.Cast(castPosition);

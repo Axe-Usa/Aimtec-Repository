@@ -505,3 +505,9 @@ ExorAIO: Revolution Changelog:
   Orianna: More W and R Hitrate Improvements.
   Evelynn: Will not stop casting Q in jungle anymore.
   Xayah: Fixed Q not being used in Harass mode.
+
+7.15.3.6:
+  Anivia: Shouldnt now save enemies anymore using W.
+  Anivia: Fixed W trying to anti-gapclose over the map.
+  Twitch: Won't W in stealth anymore.
+  Twitch: Combo changed to W Q AA from W AA Q AA, for maximum efficiency.
