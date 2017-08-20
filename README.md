@@ -495,3 +495,8 @@ ExorAIO: Revolution Changelog:
   Orianna: Fixed Q not casting sometimes.
   Darius: Fixed E and Q not casting in combo.
   Anivia: Fixed Q E and R not casting in combo.
+
+7.16.3.4:
+  Twitch: Changed Combo W option to support a Venom stack manager: (Combo / If Venom stacks <= X)
+  Orianna: R shouldn't now miss anymore.
+  Anivia: Should now properly disable R if target dead or out of circle.

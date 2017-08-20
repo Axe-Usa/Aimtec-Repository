@@ -29,6 +29,47 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The Q Combo Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready)
+            {
+                switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
+                {
+                    case 2:
+                        if (this.FlashFrost != null &&
+                            !GameObjects.EnemyHeroes.Any(t =>
+                                !Invulnerable.Check(t, DamageType.Magical) &&
+                                t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position)) ||
+                            !MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.Q.Cast();
+                        }
+                        break;
+                }
+            }
+
+
+            /// <summary>
+            ///     The R Combo Logic.
+            /// </summary>
+            if (SpellClass.R.Ready)
+            {
+                switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState)
+                {
+                    case 2:
+                        if (this.GlacialStorm != null &&
+                            !GameObjects.EnemyHeroes.Any(t =>
+                                !Invulnerable.Check(t, DamageType.Magical) &&
+                                t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position)) ||
+                            !MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.R.Cast();
+                        }
+                        break;
+                }
+            }
+
+            /// <summary>
             ///     The R Stacking Manager.
             /// </summary>
             if (UtilityClass.Player.InFountain() &&
@@ -37,34 +78,6 @@ namespace AIO.Champions
                 MenuClass.Miscellaneous["tear"].As<MenuBool>().Value)
             {
                 SpellClass.R.Cast(Game.CursorPos);
-            }
-
-            /// <summary>
-            ///     The Automatic Q Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["logical"].As<MenuBool>().Value)
-            {
-                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                    t.IsImmobile() &&
-                    !Invulnerable.Check(t, DamageType.Magical, false)))
-                {
-                    switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
-                    {
-                        case 1:
-                            if (target.IsValidTarget(SpellClass.Q.Range))
-                            {
-                                SpellClass.Q.Cast(target);
-                            }
-                            break;
-                        case 2:
-                            if (target.IsValidTarget(SpellClass.Q.Width, false, false, this.FlashFrost.Position))
-                            {
-                                SpellClass.Q.Cast(target);
-                            }
-                            break;
-                    }
-                }
             }
 
             /// <summary>

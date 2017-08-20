@@ -43,7 +43,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.W.Add(new MenuSliderBool("combo", "Combo / If Venom stacks <= X", true, 2, 0, 6));
                     if (GameObjects.EnemyHeroes.Count() >= 2)
                     {
                         MenuClass.W.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", false, 3, 2, GameObjects.EnemyHeroes.Count()));

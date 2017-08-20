@@ -4,6 +4,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
@@ -33,7 +34,9 @@ namespace AIO.Champions
             ///     The W Weaving Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+                heroTarget.GetRealBuffCount("TwitchDeadlyVenom") <=
+                    MenuClass.Spells["w"]["combo"].As<MenuSliderBool>().Value &&
+                MenuClass.Spells["w"]["combo"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast(heroTarget);
                 return;

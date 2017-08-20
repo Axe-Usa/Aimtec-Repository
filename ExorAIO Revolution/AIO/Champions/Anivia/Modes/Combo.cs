@@ -3,8 +3,6 @@
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
@@ -37,15 +35,6 @@ namespace AIO.Champions
                             !Invulnerable.Check(bestTarget, DamageType.Magical))
                         {
                             SpellClass.R.Cast(bestTarget);
-                        }
-                        break;
-                    case 2:
-                        if (this.GlacialStorm != null &&
-                            !GameObjects.EnemyHeroes.Any(t =>
-                                !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position)))
-                        {
-                            SpellClass.R.Cast();
                         }
                         break;
                 }
@@ -86,15 +75,6 @@ namespace AIO.Champions
                             !Invulnerable.Check(bestTarget, DamageType.Magical))
                         {
                             SpellClass.Q.Cast(bestTarget);
-                        }
-                        break;
-                    case 2:
-                        if (this.FlashFrost != null &&
-                            !GameObjects.EnemyHeroes.Any(t =>
-                                !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position)))
-                        {
-                            SpellClass.Q.Cast();
                         }
                         break;
                 }
