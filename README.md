@@ -524,3 +524,9 @@ ExorAIO: Revolution Changelog:
 7.16.3.9:
   Darius: Will now try to cancel W animation with Q.
   Darius: Added option to only Q after W in combo.
+
+7.16.3.10:
+  Vayne: Removed option "Always Q after AA", and replaced with:
+	"Don't Q out of AA range from target (ON/OFF)",
+	"Only Q if mouse out of AA Range (ON/OFF)" and
+	"Don't Q if pos has >= X enemies in range(ON/OFF) (Default: 3, Min: 1, Max: Number of enemies in game)"

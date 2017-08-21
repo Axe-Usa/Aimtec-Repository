@@ -43,7 +43,16 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.Q2 = new Menu("customization", "Q Customization:");
                     {
-                        MenuClass.Q2.Add(new MenuBool("alwaysq", "Always Q after AA"));
+                        MenuClass.Q2.Add(new MenuBool("noqoutaarange", "Don't Q out of AA range from target", false));
+                        MenuClass.Q2.Add(new MenuBool("onlyqifmouseoutaarange", "Only Q if mouse out of AA Range", false));
+                        if (GameObjects.EnemyHeroes.Any())
+                        {
+                            MenuClass.Q2.Add(new MenuSliderBool("qrangecheck", "Don't Q if pos has >= X enemies in range", false, 3, 1, GameObjects.EnemyHeroes.Count()));
+                        }
+                        else
+                        {
+                            MenuClass.Q2.Add(new MenuSeperator("exseparator", "Don't Q if pos has >= / No enemies found, no need for a position range check."));
+                        }
                         MenuClass.Q2.Add(new MenuBool("wstacks", "Use Q only to proc 3rd W Ring", false));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
