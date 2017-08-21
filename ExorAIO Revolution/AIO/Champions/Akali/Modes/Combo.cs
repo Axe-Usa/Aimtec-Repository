@@ -89,6 +89,12 @@ namespace AIO.Champions
                 if (heroTarget.IsValidTarget(SpellClass.R.Range) &&
                     MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
                 {
+                    if (heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) &&
+                        MenuClass.Spells["r"]["customization"]["noraarange"].As<MenuBool>().Enabled)
+                    {
+                        return;
+                    }
+
                     if (!heroTarget.HasBuff("AkaliMota") &&
                         MenuClass.Spells["r"]["customization"]["onlymarked"].As<MenuBool>().Enabled)
                     {

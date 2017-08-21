@@ -517,3 +517,6 @@ ExorAIO: Revolution Changelog:
   Anivia: Fixed R not deactivating properly if no enemy in range.
   Anivia: Fixed On-CC W.
   Anivia: Fixed R Tear stacking on fountain.
+  
+7.15.3.8:
+  Akali: Added Option to not R if enemy in AA Range (doesn't affect KillSteal).

@@ -144,8 +144,8 @@ namespace AIO.Champions
                     MenuClass.R2 = new Menu("customization", "R Customization:");
                     {
                         //MenuClass.R2.Add(new MenuSeperator("separator1", "General settings:"));
-
                         MenuClass.R2.Add(new MenuBool("safe", "Don't R into Enemy Turret"));
+                        MenuClass.R2.Add(new MenuBool("noraarange", "Don't R if enemy in AA Range"));
                         MenuClass.R2.Add(new MenuBool("onlymarked", "Only R enemies marked by Q"));
                         MenuClass.R2.Add(new MenuSlider("keepstacks", "Number of stacks to keep", 1, 0, 2));
                         MenuClass.R2.Add(new MenuSliderBool("gapclose", "Gapclose with minions / if stacks >= x", true, 2, 2, 3));
