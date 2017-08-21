@@ -42,25 +42,9 @@ namespace AIO.Champions
                     return;
                 }
 
-                if (UtilityClass.Player.Distance(Game.CursorPos) <= UtilityClass.Player.AttackRange &&
-                    MenuClass.Spells["q"]["customization"]["onlyqifmouseoutaarange"].As<MenuBool>().Enabled)
-                {
-                    return;
-                }
-
                 var posAfterQ = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 300f);
-                var qRangeCheck = MenuClass.Spells["q"]["customization"]["qrangecheck"];
-                if (qRangeCheck != null)
-                {
-                    if (qRangeCheck.As<MenuBool>().Enabled &&
-                        qRangeCheck.As<MenuSliderBool>().Value <
-                            posAfterQ.CountEnemyHeroesInRange(UtilityClass.Player.AttackRange))
-                    {
-                        return;
-                    }
-                }
-
-                if (posAfterQ.Distance(heroTarget) > UtilityClass.Player.AttackRange &&
+                if (posAfterQ.Distance(heroTarget) >
+                        UtilityClass.Player.GetFullAttackRange(heroTarget) &&
                     MenuClass.Spells["q"]["customization"]["noqoutaarange"].As<MenuBool>().Enabled)
                 {
                     return;

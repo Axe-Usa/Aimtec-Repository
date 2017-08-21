@@ -49,13 +49,28 @@ namespace AIO.Champions
         ///     Called perform cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public void OnPerformCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
+        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
             if (sender.IsMe &&
-                args.SpellSlot == SpellSlot.E)
+                args.Slot == SpellSlot.Q)
             {
-                ImplementationClass.IOrbwalker.ResetAutoAttackTimer();
+                if (UtilityClass.Player.Distance(Game.CursorPos) <= UtilityClass.Player.AttackRange &&
+                    MenuClass.Spells["q"]["customization"]["onlyqifmouseoutaarange"].As<MenuBool>().Enabled)
+                {
+                    args.Process = false;
+                }
+
+                var qRangeCheck = MenuClass.Spells["q"]["customization"]["qrangecheck"];
+                if (qRangeCheck != null)
+                {
+                    var posAfterQ = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 300f);
+                    if (qRangeCheck.As<MenuSliderBool>().Enabled &&
+                        posAfterQ.CountEnemyHeroesInRange(UtilityClass.Player.AttackRange + UtilityClass.Player.BoundingRadius) >= qRangeCheck.As<MenuSliderBool>().Value)
+                    {
+                        args.Process = false;
+                    }
+                }
             }
         }
 

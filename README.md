@@ -530,3 +530,6 @@ ExorAIO: Revolution Changelog:
 	"Don't Q out of AA range from target (ON/OFF)",
 	"Only Q if mouse out of AA Range (ON/OFF)" and
 	"Don't Q if pos has >= X enemies in range(ON/OFF) (Default: 3, Min: 1, Max: Number of enemies in game)"
+	
+7.16.3.11:
+  Vayne: Logic change fixes.
