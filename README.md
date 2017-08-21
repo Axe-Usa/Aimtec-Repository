@@ -501,22 +501,26 @@ ExorAIO: Revolution Changelog:
   Orianna: R shouldn't now miss anymore.
   Anivia: Should now properly disable R if target dead or out of circle.
 
-7.15.3.5:
+7.16.3.5:
   Orianna: More W and R Hitrate Improvements.
   Evelynn: Will not stop casting Q in jungle anymore.
   Xayah: Fixed Q not being used in Harass mode.
 
-7.15.3.6:
+7.16.3.6:
   Anivia: Shouldnt now save enemies anymore using W.
   Anivia: Fixed W trying to anti-gapclose over the map.
   Twitch: Won't W in stealth anymore.
   Twitch: Combo changed to W Q AA from W AA Q AA, for maximum efficiency.
 
-7.15.3.7:
+7.16.3.7:
   Anivia: Fixed Q Exploding on target.
   Anivia: Fixed R not deactivating properly if no enemy in range.
   Anivia: Fixed On-CC W.
   Anivia: Fixed R Tear stacking on fountain.
   
-7.15.3.8:
+7.16.3.8:
   Akali: Added Option to not R if enemy in AA Range (doesn't affect KillSteal).
+  
+7.16.3.9:
+  Darius: Will now try to cancel W animation with Q.
+  Darius: Added option to only Q after W in combo.

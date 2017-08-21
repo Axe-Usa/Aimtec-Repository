@@ -5,6 +5,7 @@
 namespace AIO.Champions
 {
     using Aimtec;
+    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
     using AIO.Utilities;
@@ -45,6 +46,12 @@ namespace AIO.Champions
                     !Invulnerable.Check(heroTarget) &&
                     MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                 {
+                    if ((SpellClass.W.Ready || UtilityClass.Player.HasBuff("dariusnoxiantacticsonh")) &&
+                        MenuClass.Spells["q"]["customization"]["onlyqafterw"].As<MenuBool>().Enabled)
+                    {
+                        return;
+                    }
+
                     switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:

@@ -37,6 +37,15 @@ namespace AIO.Champions
             {
                 SpellClass.W.Cast();
             }
+
+            /// <summary>
+            ///     The Q Combo Weaving Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            {
+                SpellClass.Q.Cast();
+            }
         }
 
         #endregion

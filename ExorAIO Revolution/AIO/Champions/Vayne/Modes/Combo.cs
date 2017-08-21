@@ -77,7 +77,7 @@ namespace AIO.Champions
                 {
                     for (var i = 1; i < 10; i++)
                     {
-                        Vector3 predictedPos = new Vector3();
+                        var predictedPos = new Vector3();
                         var prediction = SpellClass.E.GetPrediction(target);
                         switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
                         {

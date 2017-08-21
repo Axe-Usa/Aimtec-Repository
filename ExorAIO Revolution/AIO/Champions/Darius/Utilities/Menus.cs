@@ -58,6 +58,7 @@ namespace AIO.Champions
                         }
                         MenuClass.Q2.Add(MenuClass.Q3);
 
+                        MenuClass.Q2.Add(new MenuBool("onlyqafterw", "Only Q after W in Combo"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
