@@ -536,3 +536,10 @@ ExorAIO: Revolution Changelog:
 	
 7.16.3.12:
   Vayne: Fixed Semi-Automatic Condemn.
+
+7.16.3.13:
+  AIO: Won't use Hydra/Tiamat anymore while attacking structures.
+  Vayne: Removed useless event,
+  Vayne: Won't condemn to anti-gapclose anymore if the target is SpellShielded.
+  Vayne: Less laggy condemn logic.
+  Vayne: Added Anti-Gapcloser Q.

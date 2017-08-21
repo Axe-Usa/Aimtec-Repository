@@ -46,35 +46,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called perform cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
-        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
-        {
-            if (sender.IsMe &&
-                args.Slot == SpellSlot.Q)
-            {
-                if (UtilityClass.Player.Distance(Game.CursorPos) <= UtilityClass.Player.AttackRange &&
-                    MenuClass.Spells["q"]["customization"]["onlyqifmouseoutaarange"].As<MenuBool>().Enabled)
-                {
-                    args.Process = false;
-                }
-
-                var qRangeCheck = MenuClass.Spells["q"]["customization"]["qrangecheck"];
-                if (qRangeCheck != null)
-                {
-                    var posAfterQ = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, 300f);
-                    if (qRangeCheck.As<MenuSliderBool>().Enabled &&
-                        posAfterQ.CountEnemyHeroesInRange(UtilityClass.Player.AttackRange + UtilityClass.Player.BoundingRadius) >= qRangeCheck.As<MenuSliderBool>().Value)
-                    {
-                        args.Process = false;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         ///     Called on post attack.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -172,14 +143,25 @@ namespace AIO.Champions
                 return;
             }
 
-            /// <summary>
-            ///     The Anti-Gapcloser E.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            var playerPos = UtilityClass.Player.ServerPosition;
+            if (args.EndPos.Distance(playerPos) <= 200)
             {
-                var playerPos = UtilityClass.Player.ServerPosition;
-                if (args.EndPos.Distance(playerPos) <= 200)
+                /// <summary>
+                ///     The Anti-Gapcloser Q.
+                /// </summary>
+                if (SpellClass.Q.Ready &&
+                    MenuClass.Spells["q"]["gapcloser"].As<MenuBool>().Enabled)
+                {
+                    SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPos, -300f));
+                    return;
+                }
+
+                /// <summary>
+                ///     The Anti-Gapcloser E.
+                /// </summary>
+                if (SpellClass.E.Ready &&
+                    !Invulnerable.Check(gapSender, DamageType.Magical, false) &&
+                    MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.CastOnUnit(gapSender);
                 }

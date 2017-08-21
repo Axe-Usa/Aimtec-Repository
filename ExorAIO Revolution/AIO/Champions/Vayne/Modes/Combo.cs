@@ -67,7 +67,10 @@ namespace AIO.Champions
                         return;
                 }
 
+                const int Threshold = 20;
+                var predictedPos = new Vector3();
                 const int CondemnPushDistance = 410 / 10;
+
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
                         t.IsValidTarget(SpellClass.E.Range) &&
@@ -75,25 +78,24 @@ namespace AIO.Champions
                         !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
+                    var prediction = SpellClass.E.GetPrediction(target);
+                    switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
+                    {
+                        case 0:
+                            predictedPos = prediction.UnitPosition;
+                            break;
+                        case 1:
+                            predictedPos = prediction.CastPosition;
+                            break;
+                    }
+
                     for (var i = 1; i < 10; i++)
                     {
-                        var predictedPos = new Vector3();
-                        var prediction = SpellClass.E.GetPrediction(target);
-                        switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
-                        {
-                            case 0:
-                                predictedPos = prediction.UnitPosition;
-                                break;
-                            case 1:
-                                predictedPos = prediction.CastPosition;
-                                break;
-                        }
-
                         var targetPosition = target.ServerPosition.Extend(playerPos, -CondemnPushDistance * i);
-                        var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-CondemnPushDistance + 1) * i);
+                        var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-CondemnPushDistance + Threshold / 10) * i);
 
                         var predPosition = predictedPos.Extend(playerPos, -CondemnPushDistance * i);
-                        var predPositionExtended = predictedPos.Extend(playerPos, (-CondemnPushDistance + 1) * i);
+                        var predPositionExtended = predictedPos.Extend(playerPos, (-CondemnPushDistance + Threshold / 10) * i);
 
                         if (targetPosition.IsWall(true) && targetPositionExtended.IsWall(true) &&
                             predPosition.IsWall(true) && predPositionExtended.IsWall(true))

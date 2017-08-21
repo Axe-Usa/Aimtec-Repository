@@ -26,6 +26,11 @@ namespace AIO
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public static void OnPostAttack(object sender, PostAttackEventArgs args)
         {
+            if (args.Target.IsBuilding())
+            {
+                return;
+            }
+
             if (MenuClass.Hydra != null)
             {
                 switch (ImplementationClass.IOrbwalker.Mode)

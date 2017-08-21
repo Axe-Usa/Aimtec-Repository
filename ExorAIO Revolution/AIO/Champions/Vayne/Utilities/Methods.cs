@@ -20,7 +20,6 @@ namespace AIO.Champions
             Game.OnUpdate += this.OnUpdate;
             ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            SpellBook.OnCastSpell += this.OnCastSpell;
             Render.OnPresent += this.OnPresent;
             Dash.HeroDashed += this.OnGapcloser;
         }
