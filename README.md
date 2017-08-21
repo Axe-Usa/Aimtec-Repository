@@ -533,3 +533,6 @@ ExorAIO: Revolution Changelog:
 	
 7.16.3.11:
   Vayne: Logic change fixes.
+	
+7.16.3.12:
+  Vayne: Fixed Semi-Automatic Condemn.

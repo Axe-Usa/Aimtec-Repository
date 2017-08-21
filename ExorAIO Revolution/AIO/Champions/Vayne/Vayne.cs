@@ -223,6 +223,11 @@ namespace AIO.Champions
             this.Killsteal();
 
             /// <summary>
+            ///     Initializes the Automatic actions.
+            /// </summary>
+            this.Automatic();
+
+            /// <summary>
             ///     Initializes the orbwalkingmodes.
             /// </summary>
             switch (ImplementationClass.IOrbwalker.Mode)
