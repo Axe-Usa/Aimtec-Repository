@@ -547,3 +547,6 @@ ExorAIO: Revolution Changelog:
 7.16.3.14:
   Anivia: Fixed Q Exploding.
   Anivia: Better R cancelling check.
+
+7.16.3.15:
+  Caitlyn: Won't W Trapped enemies repeatedly anymore (A trapped enemy cant be trapped again for 4 seconds).

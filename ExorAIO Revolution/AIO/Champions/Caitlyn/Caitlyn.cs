@@ -173,7 +173,7 @@ namespace AIO.Champions
             }
 
             var gapSender = (Obj_AI_Hero)args.Unit;
-            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee || Invulnerable.Check(gapSender, DamageType.Magical, false))
+            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
             {
                 return;
             }
@@ -200,6 +200,7 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser W.
             /// </summary>
             if (SpellClass.W.Ready &&
+                !Invulnerable.Check(gapSender, DamageType.Magical, false) &&
                 args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
                 MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
             {
