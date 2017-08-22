@@ -40,7 +40,7 @@ namespace AIO.Champions
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         t.IsImmobile() &&
-                        t.HasBuff("caitlynyordletrapdebuff") &&
+                        !t.HasBuff("caitlynyordletrapsight") &&
                         t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
                     SpellClass.W.Cast(target.ServerPosition);
