@@ -3,11 +3,7 @@
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
     using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
 
     using AIO.Utilities;
 
@@ -25,37 +21,6 @@ namespace AIO.Champions
         {
             SpellClass.E.Width = UtilityClass.GetAngleByDegrees(UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Level < 5 ? 40 : 60);
             SpellClass.R.Range = UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 3 ? 675f : 750f;
-
-            if (UtilityClass.Player.IsRecalling())
-            {
-                return;
-            }
-
-            /// <summary>
-            ///     The Automatic E Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
-            {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
-                        !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.E.Range+SpellClass.Q.Range)))
-                {
-                    if (target.IsValidTarget(SpellClass.Q.Range))
-                    {
-                        SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(target.ServerPosition, SpellClass.Q.Range));
-                        SpellClass.E.Cast(target.ServerPosition);
-                    }
-                    else
-                    {
-                        SpellClass.E.Cast(target.ServerPosition);
-                        SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(target.ServerPosition, SpellClass.Q.Range));
-                    }
-                }
-            }
         }
 
         #endregion

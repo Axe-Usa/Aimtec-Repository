@@ -70,7 +70,8 @@ namespace AIO.Champions
             /// <summary>
             ///     The E Logics.
             /// </summary>
-            if (SpellClass.E.Ready)
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t => MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                 {
@@ -79,7 +80,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     The Normal E Combo Logic.
                     /// </summary>
-                    if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
+                    if (target.IsValidTarget(SpellClass.E.Range))
                     {
                         foreach (var sphere in this.DarkSpheres)
                         {
@@ -91,27 +92,29 @@ namespace AIO.Champions
                             }
                         }
                     }
-
-                    /// <summary>
-                    ///     The E Out of range catch Logic.
-                    /// </summary>
-                    if (SpellClass.Q.Ready &&
-                        !target.IsValidTarget(SpellClass.Q.Range) &&
-                        target.IsValidTarget(1100f+SpellClass.Q.Width-150f))
+                    else
                     {
-                        if (!SpellClass.W.Ready ||!target.IsValidTarget(SpellClass.W.Range) || this.IsHoldingForceOfWillObject())
+                        /// <summary>
+                        ///     The E Out of range catch Logic.
+                        /// </summary>
+                        if (SpellClass.Q.Ready &&
+                            !target.IsValidTarget(SpellClass.Q.Range) &&
+                            target.IsValidTarget(1100f + SpellClass.Q.Width - 150f))
                         {
-                            var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPos, SpellClass.Q.Range - 125f);
-                            switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
+                            if (!SpellClass.W.Ready || !target.IsValidTarget(SpellClass.W.Range) || this.IsHoldingForceOfWillObject())
                             {
-                                case 0:
-                                    SpellClass.E.Cast(targetPos);
-                                    SpellClass.Q.Cast(qPosition);
-                                    break;
-                                case 1:
-                                    SpellClass.Q.Cast(qPosition);
-                                    SpellClass.E.Cast(targetPos);
-                                    break;
+                                var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPos, SpellClass.Q.Range - 125f);
+                                switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
+                                {
+                                    case 0:
+                                        SpellClass.E.Cast(targetPos);
+                                        SpellClass.Q.Cast(qPosition);
+                                        break;
+                                    case 1:
+                                        SpellClass.Q.Cast(qPosition);
+                                        SpellClass.E.Cast(targetPos);
+                                        break;
+                                }
                             }
                         }
                     }

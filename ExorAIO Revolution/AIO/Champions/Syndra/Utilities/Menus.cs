@@ -118,7 +118,6 @@ namespace AIO.Champions
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Q -> E / E Spheres to enemy"));
                     MenuClass.E.Add(new MenuList("catchmode", "Catch out of Q range people with", new[] { "E->Q", "Q->E" }, 0));
-                    MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'ed Enemies"));
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", false, 50, 0, 99));

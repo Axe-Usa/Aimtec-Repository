@@ -152,7 +152,7 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser Q->E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < 1100f + SpellClass.Q.Width - 150f &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
                 MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (SpellClass.Q.Ready)
@@ -160,13 +160,9 @@ namespace AIO.Champions
                     SpellClass.Q.Cast(args.EndPos);
                 }
 
-                if (args.EndPos.Distance(UtilityClass.Player.ServerPosition) >= 200)
+                if (args.EndPos.Distance(UtilityClass.Player.ServerPosition) < 200)
                 {
-                    SpellClass.E.Cast(args.EndPos);
-                }
-                else
-                {
-                    SpellClass.E.Cast(gapSender.ServerPosition);
+                    SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPos, SpellClass.E.Range));
                 }
             }
         }

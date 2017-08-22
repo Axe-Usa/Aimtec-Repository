@@ -571,3 +571,6 @@ ExorAIO: Revolution Changelog:
 
 7.16.3.19:
   Xayah: Fixed Q Combo out of AA Range.
+
+7.16.3.20:
+  Syndra: Many Fixes to the generic Logic, should feel better overall, please give feedback.
