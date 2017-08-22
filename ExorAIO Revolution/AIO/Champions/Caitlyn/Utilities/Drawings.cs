@@ -4,8 +4,11 @@
 namespace AIO.Champions
 {
     using System.Drawing;
+    using System.Linq;
 
     using Aimtec;
+    using Aimtec.SDK.Damage;
+    using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
     using AIO.Utilities;
@@ -63,6 +66,38 @@ namespace AIO.Champions
                 {
                     Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, SpellClass.R.Range, Color.White);
                 }
+            }
+
+            /// <summary>
+            ///     Loads the R damage to healthbar.
+            /// </summary>
+            if (MenuClass.Drawings["rdmg"].As<MenuBool>().Enabled)
+            {
+                GameObjects.EnemyHeroes
+                    .Where(h => h.IsValidSpellTarget(SpellClass.R.Range))
+                    .ToList()
+                    .ForEach(
+                        hero =>
+                            {
+                                var width = DrawingClass.SWidth;
+                                var height = DrawingClass.SHeight;
+
+                                var xOffset = DrawingClass.SxOffset(hero);
+                                var yOffset = DrawingClass.SyOffset(hero);
+
+                                var barPos = hero.FloatingHealthBarPosition;
+                                barPos.X += xOffset;
+                                barPos.Y += yOffset;
+
+                                var drawEndXPos = barPos.X + width * (hero.HealthPercent() / 100);
+                                var damage = UtilityClass.Player.GetSpellDamage(hero, SpellSlot.R);
+                                var drawStartXPos = (float)(barPos.X + (hero.GetRealHealth() > damage
+                                                                            ? width * ((hero.GetRealHealth() - damage) / hero.MaxHealth * 100 / 100)
+                                                                            : 0));
+
+                                Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, hero.GetRealHealth() < damage ? Color.Blue : Color.Orange);
+                                Render.Line(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
+                            });
             }
         }
 

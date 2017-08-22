@@ -1,6 +1,4 @@
-﻿// ReSharper disable MergeConditionalExpression
-
-
+﻿
 #pragma warning disable 1587
 
 namespace AIO.Champions
@@ -53,7 +51,7 @@ namespace AIO.Champions
                                 int width;
                                 if (jungleList.Contains(unit.UnitSkinName))
                                 {
-                                    width = mobOffset != null ? mobOffset.Width : DrawingClass.SWidth;
+                                    width = mobOffset?.Width ?? DrawingClass.SWidth;
                                 }
                                 else
                                 {
@@ -63,7 +61,7 @@ namespace AIO.Champions
                                 int height;
                                 if (jungleList.Contains(unit.UnitSkinName))
                                 {
-                                    height = mobOffset != null ? mobOffset.Height : DrawingClass.SHeight;
+                                    height = mobOffset?.Height ?? DrawingClass.SHeight;
                                 }
                                 else
                                 {
@@ -73,7 +71,7 @@ namespace AIO.Champions
                                 int xOffset;
                                 if (jungleList.Contains(unit.UnitSkinName))
                                 {
-                                    xOffset = mobOffset != null ? mobOffset.XOffset : DrawingClass.SxOffset(heroUnit);
+                                    xOffset = mobOffset?.XOffset ?? DrawingClass.SxOffset(heroUnit);
                                 }
                                 else
                                 {
@@ -83,7 +81,7 @@ namespace AIO.Champions
                                 int yOffset;
                                 if (jungleList.Contains(unit.UnitSkinName))
                                 {
-                                    yOffset = mobOffset != null ? mobOffset.YOffset : DrawingClass.SyOffset(heroUnit);
+                                    yOffset = mobOffset?.YOffset ?? DrawingClass.SyOffset(heroUnit);
                                 }
                                 else
                                 {

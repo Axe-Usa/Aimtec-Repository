@@ -153,18 +153,14 @@ namespace AIO.Utilities
         /// <returns>Is Hero in fountain range</returns>
         public static bool InFountain(this Obj_AI_Hero hero)
         {
-            if (!hero.IsVisible)
+            var heroTeam = hero.Team == GameObjectTeam.Order ? "Order" : "Chaos";
+            var fountainTurret = ObjectManager.Get<GameObject>().FirstOrDefault(o => o.IsValid && o.Name == "Turret_" + heroTeam + "TurretShrine");
+            if (fountainTurret == null)
             {
                 return false;
             }
 
-            float fountainRange = 562500; // 750 * 750
-            if (Game.MapId == GameMapId.SummonersRift)
-            {
-                fountainRange = 1102500; // 1050 * 1050
-            }
-
-            return GameObjects.AllySpawnPoints.Any(point => ((Vector2)hero.ServerPosition).DistanceSquared(point.Position) < fountainRange);
+            return hero.Distance(fountainTurret) < 1300f;
         }
 
         #endregion

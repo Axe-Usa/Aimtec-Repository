@@ -51,7 +51,8 @@ namespace AIO.Champions
             /// <summary>
             ///     The R Combo Logic.
             /// </summary>
-            if (SpellClass.R.Ready)
+            if (SpellClass.R.Ready &&
+                !UtilityClass.Player.InFountain())
             {
                 switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState)
                 {

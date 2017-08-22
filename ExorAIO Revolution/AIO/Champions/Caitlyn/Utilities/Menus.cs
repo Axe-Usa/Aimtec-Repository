@@ -172,6 +172,7 @@ namespace AIO.Champions
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));
                 MenuClass.Drawings.Add(new MenuBool("rmm", "R Minimap Range", false));
+                MenuClass.Drawings.Add(new MenuBool("rdmg", "R Damage"));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

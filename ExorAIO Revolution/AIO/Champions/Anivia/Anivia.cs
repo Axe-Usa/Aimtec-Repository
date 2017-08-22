@@ -88,10 +88,10 @@ namespace AIO.Champions
             {
                 switch (obj.Name)
                 {
-                    case "cryo_FlashFrost_Player_mis.troy":
+                    case "Anivia_Base_Q_AOE_Mis.troy":
                         this.FlashFrost = obj;
                         break;
-                    case "cryo_storm":
+                    case "Anivia_Base_R_indicator_ring.troy":
                         this.GlacialStorm = obj;
                         break;
                 }
@@ -107,10 +107,10 @@ namespace AIO.Champions
             {
                 switch (obj.Name)
                 {
-                    case "cryo_FlashFrost_Player_mis.troy":
+                    case "Anivia_Base_Q_AOE_Mis.troy":
                         this.FlashFrost = null;
                         break;
-                    case "cryo_storm":
+                    case "Anivia_Base_R_indicator_ring.troy":
                         this.GlacialStorm = null;
                         break;
                 }
