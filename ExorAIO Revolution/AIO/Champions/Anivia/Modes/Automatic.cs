@@ -37,10 +37,9 @@ namespace AIO.Champions
                 {
                     case 2:
                         if (this.FlashFrost != null &&
-                            !GameObjects.EnemyHeroes.Any(t =>
+                            GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position)) ||
-                            !MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                                t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position)))
                         {
                             SpellClass.Q.Cast();
                         }
@@ -60,8 +59,7 @@ namespace AIO.Champions
                         if (this.GlacialStorm != null &&
                             !GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position)) ||
-                            !MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
+                                t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position)))
                         {
                             SpellClass.R.Cast();
                         }

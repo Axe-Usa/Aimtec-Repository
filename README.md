@@ -543,3 +543,7 @@ ExorAIO: Revolution Changelog:
   Vayne: Won't condemn to anti-gapclose anymore if the target is SpellShielded.
   Vayne: Less laggy condemn logic.
   Vayne: Added Anti-Gapcloser Q.
+
+7.16.3.14:
+  Anivia: Fixed Q Exploding.
+  Anivia: Better R cancelling check.
