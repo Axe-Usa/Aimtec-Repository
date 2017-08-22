@@ -101,6 +101,22 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Channelling Targets"));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    {
+                        if (GameObjects.EnemyHeroes.Any())
+                        {
+                            MenuClass.E2.Add(new MenuSlider("safee", "Combo: Only E if enemies in Dash Position <= x", 1, 0, GameObjects.EnemyHeroes.Count()));
+                        }
+                        else
+                        {
+                            MenuClass.E2.Add(new MenuSeperator("exseparator", "Combo: Only E if enemies / No enemies found"));
+                        }
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 

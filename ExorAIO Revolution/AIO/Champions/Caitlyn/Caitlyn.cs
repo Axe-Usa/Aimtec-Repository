@@ -57,30 +57,40 @@ namespace AIO.Champions
                 switch (args.Slot)
                 {
                     case SpellSlot.Q:
-                        if (MenuClass.Spells["q"]["customization"]["safeq"] != null &&
-                            UtilityClass.Player.CountEnemyHeroesInRange(UtilityClass.Player.AttackRange)
-                                > MenuClass.Spells["q"]["customization"]["safeq"].As<MenuSlider>().Value)
+                        var safeQ = MenuClass.Spells["q"]["customization"]["safeq"];
+                        if (safeQ != null &&
+                            UtilityClass.Player.CountEnemyHeroesInRange(UtilityClass.Player.AttackRange) > safeQ.As<MenuSlider>().Value)
                         {
                             args.Process = false;
                         }
                         break;
 
                     case SpellSlot.W:
-                        if (ObjectManager.Get<GameObject>().Any(m =>
-                                m.Distance(args.End) <= 150 &&
-                                m.Name.Equals("caitlyn_Base_yordleTrap_idle_green.troy")))
+                        if (ObjectManager.Get<GameObject>().Any(m => m.Distance(args.End) <= SpellClass.W.Width && m.Name.Equals("caitlyn_Base_yordleTrap_idle_green.troy")))
+                        {
+                            args.Process = false;
+                        }
+
+                        // Logic to not cast Trap if enemy has been afflicted by it less than 4 seconds ago and he's still in the area.
+                        // Note: The time the minion takes to actually be cancelled by the ObjectManager is exactly 4 seconds, that's why i check for its presence.
+                        //       maybe a tiny bit more, but the check is solid.
+                        var nearestEnemy = GameObjects.EnemyHeroes.MinBy(t => t.Distance(args.End));
+                        if (ObjectManager.Get<Obj_AI_Minion>().Any(m => m.IsAlly && m.UnitSkinName == "CaitlynTrap" && m.Distance(nearestEnemy) <= SpellClass.W.Width && nearestEnemy.HasBuff("caitlynyordletrapsight")))
                         {
                             args.Process = false;
                         }
                         break;
 
                     case SpellSlot.E:
-                        if (Game.TickCount - UtilityClass.LastTick < 1000)
+                        var safeE = MenuClass.Spells["e"]["customization"]["safee"];
+                        if (safeE != null &&
+                            UtilityClass.Player.ServerPosition.Extend(args.End, -400f).CountEnemyHeroesInRange(UtilityClass.Player.AttackRange) > safeE.As<MenuSlider>().Value)
                         {
-                            return;
+                            args.Process = false;
                         }
 
-                        if (ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
+                        if (Game.TickCount - UtilityClass.LastTick >= 1000 &&
+                            ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                             MenuClass.Miscellaneous["reversede"].As<MenuBool>().Enabled)
                         {
                             UtilityClass.LastTick = Game.TickCount;

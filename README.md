@@ -557,3 +557,7 @@ ExorAIO: Revolution Changelog:
   Caitlyn: Code cleanup.
   Orianna: Fixes to R Block method.
   Orianna: Ball tracking improved.
+
+7.16.3.17:
+  Caitlyn: Perfected Trap limitation check. 
+  Caitlyn: Added Option to not use E if the position Caitlyn will have after the dash would put her in range of >= X number of enemies.
