@@ -550,3 +550,10 @@ ExorAIO: Revolution Changelog:
 
 7.16.3.15:
   Caitlyn: Won't W Trapped enemies repeatedly anymore (A trapped enemy cant be trapped again for 4 seconds).
+
+7.16.3.16:
+  AIO: Fixed Invulnerability check. (And thus, fixed Champions not using spells randomly sometimes after a target which was invulnerable returns targettable).
+  Anivia: Code cleanup.
+  Caitlyn: Code cleanup.
+  Orianna: Fixes to R Block method.
+  Orianna: Ball tracking improved.

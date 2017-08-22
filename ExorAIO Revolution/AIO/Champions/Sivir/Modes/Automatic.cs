@@ -132,13 +132,12 @@ namespace AIO.Champions
                                 /// <summary>
                                 ///     Check for Melee AutoAttack Resets.
                                 /// </summary>
-                                var getReset = hero.Buffs.FirstOrDefault(b => ImplementationClass.IOrbwalker.IsReset(b.Name));
+                                var getReset = hero.ValidActiveBuffs().FirstOrDefault(b => ImplementationClass.IOrbwalker.IsReset(b.Name));
                                 var resetMenu = getReset != null
                                                     ? MenuClass.Spells["e"]["whitelist"][$"{hero.ChampionName.ToLower()}.{getReset.Name.ToLower()}"]
                                                     : null;
                                 if (resetMenu != null &&
-                                    resetMenu.As<MenuBool>().Value &&
-                                    hero.Buffs.Any(b => ImplementationClass.IOrbwalker.IsReset(b.Name)))
+                                    resetMenu.As<MenuBool>().Value)
                                 {
                                     SpellClass.E.Cast();
                                     return;

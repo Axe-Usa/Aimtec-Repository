@@ -72,7 +72,7 @@ namespace AIO.Champions
                     m =>
                         m.IsEnemy &&
                         m.Distance(UtilityClass.Player) <= SpellClass.E.Range &&
-                        m.Buffs.Any(b => b.IsValid && b.IsActive && b.Name.Equals("teleport_target"))))
+                        m.ValidActiveBuffs().Any(b => b.Name.Equals("teleport_target"))))
                 {
                     SpellClass.E.Cast(minion.ServerPosition);
                 }

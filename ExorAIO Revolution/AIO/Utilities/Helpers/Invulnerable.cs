@@ -137,10 +137,18 @@ namespace AIO.Utilities
             bool ignoreShields = true,
             float damage = -1f)
         {
-            if (hero.Buffs.Any(b => b.Type == BuffType.Invulnerability) || hero.IsInvulnerable)
+            if (hero.ValidActiveBuffs().Any(b => b.Type == BuffType.Invulnerability) || hero.IsInvulnerable)
             {
                 return true;
             }
+
+            /*
+            if (!ignoreShields && hero.HasSpellShield())
+            {
+                return true;
+            }
+            */
+
             foreach (var entry in Entries)
             {
                 if (entry.ChampionName == null || entry.ChampionName == hero.ChampionName)

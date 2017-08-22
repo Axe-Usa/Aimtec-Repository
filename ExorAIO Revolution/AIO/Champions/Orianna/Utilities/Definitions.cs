@@ -42,10 +42,7 @@ namespace AIO.Champions
 
             var possiblePosition2 = GameObjects.AllyHeroes.FirstOrDefault(a =>
                     !a.IsMe &&
-                    a.Buffs.Any(b =>
-                        b.IsValid && b.IsActive &&
-                        b.Caster != null && b.Caster.IsMe &&
-                        b.Name.Equals("orianaghost")));
+                    a.ValidActiveBuffs().Any(b => b.Caster.IsMe && b.Name.Equals("orianaghost")));
             if (possiblePosition2 != null)
             {
                 return possiblePosition2.ServerPosition;
