@@ -561,3 +561,13 @@ ExorAIO: Revolution Changelog:
 7.16.3.17:
   Caitlyn: Perfected Trap limitation check. 
   Caitlyn: Added Option to not use E if the position Caitlyn will have after the dash would put her in range of >= X number of enemies.
+
+7.16.3.18:
+  AIO: Fixed InFountain Check.
+  Anivia: Fixed Q Exploding, Ty @Lola for the account.
+  Anivia: Fixed R Tracking, Ty @Lola for the account.
+  Anivia: Fixed R disabling in the fountain.
+  Caitlyn: Added R Damage Drawings.
+
+7.16.3.19:
+  Xayah: Fixed Q Combo out of AA Range.
