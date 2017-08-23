@@ -22,12 +22,12 @@ namespace AIO.Champions
         {
             SpellClass.Q = new Spell(SpellSlot.Q, 800f);
             SpellClass.W = new Spell(SpellSlot.W, 950f);
-            SpellClass.E = new Spell(SpellSlot.E, 700f);
-            SpellClass.R = new Spell(SpellSlot.R, UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 5 ? 675f : 750f + UtilityClass.Player.BoundingRadius);
+            SpellClass.E = new Spell(SpellSlot.E, 950f);
+            SpellClass.R = new Spell(SpellSlot.R, 675f + UtilityClass.Player.BoundingRadius);
 
-            SpellClass.Q.SetSkillshot(0.6f, 125f, float.MaxValue, false, SkillshotType.Circle, false, HitChance.None);
-            SpellClass.W.SetSkillshot(0.25f, 140f, 1600f, false, SkillshotType.Circle, false, HitChance.None);
-            SpellClass.E.SetSkillshot(0.25f, UtilityClass.GetAngleByDegrees(UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Level < 5 ? 40 : 60), 2500f, false, SkillshotType.Cone, false, HitChance.None);
+            SpellClass.Q.SetSkillshot(0.6f, 150f, 1000f, false, SkillshotType.Circle, false, HitChance.None);
+            SpellClass.W.SetSkillshot(0.25f, 210f, 1450f, false, SkillshotType.Circle, false, HitChance.None);
+            SpellClass.E.SetSkillshot(0f, UtilityClass.GetAngleByDegrees(40), 2000f, false, SkillshotType.Cone, false, HitChance.None);
         }
 
         #endregion

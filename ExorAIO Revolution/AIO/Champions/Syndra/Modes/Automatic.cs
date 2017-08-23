@@ -20,7 +20,7 @@ namespace AIO.Champions
         public void Automatic()
         {
             SpellClass.E.Width = UtilityClass.GetAngleByDegrees(UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Level < 5 ? 40 : 60);
-            SpellClass.R.Range = UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 3 ? 675f : 750f;
+            SpellClass.R.Range = UtilityClass.Player.BoundingRadius + UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 3 ? 675f : 750f;
         }
 
         #endregion

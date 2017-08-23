@@ -574,3 +574,8 @@ ExorAIO: Revolution Changelog:
 
 7.16.3.20:
   Syndra: Many Fixes to the generic Logic, should feel better overall, please give feedback.
+  
+7.17.0.0:
+  Ezreal: Improved Q casting.
+  Syndra: Spell definition improvements.
+  Taliyah: Slightly better Q pred.
