@@ -85,6 +85,10 @@ namespace AIO.Champions
             }
 
             var unitTarget = args.Target as Obj_AI_Base;
+            if (unitTarget == null)
+            {
+                return;
+            }
 
             /// <summary>
             ///     The Ally W Logic.
