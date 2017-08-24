@@ -8,6 +8,7 @@ namespace AIO.Champions
     using Aimtec;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Orbwalking;
 
     using AIO.Utilities;
 
@@ -26,46 +27,6 @@ namespace AIO.Champions
             if (UtilityClass.Player.IsRecalling())
             {
                 return;
-            }
-
-            /// <summary>
-            ///     The Q Combo Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready)
-            {
-                switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
-                {
-                    case 2:
-                        if (this.FlashFrost != null &&
-                            GameObjects.EnemyHeroes.Any(t =>
-                                !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position)))
-                        {
-                            SpellClass.Q.Cast();
-                        }
-                        break;
-                }
-            }
-
-
-            /// <summary>
-            ///     The R Combo Logic.
-            /// </summary>
-            if (SpellClass.R.Ready &&
-                !UtilityClass.Player.InFountain())
-            {
-                switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState)
-                {
-                    case 2:
-                        if (this.GlacialStorm != null &&
-                            !GameObjects.EnemyHeroes.Any(t =>
-                                !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position)))
-                        {
-                            SpellClass.R.Cast();
-                        }
-                        break;
-                }
             }
 
             /// <summary>

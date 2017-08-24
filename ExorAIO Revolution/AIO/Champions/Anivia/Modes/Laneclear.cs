@@ -3,7 +3,11 @@
 
 namespace AIO.Champions
 {
+    using System.Linq;
+
     using Aimtec;
+    using Aimtec.SDK.Damage;
+    using Aimtec.SDK.Damage.JSON;
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
@@ -31,13 +35,27 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                /*
-                var farmLocation = SpellClass.Q.GetCircularFarmLocation(minions, SpellClass.Q.Width);
-                if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
+                var qMinions = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range);
+                //var farmLocation = SpellClass.Q.GetLinearFarmLocation(minions, MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value);
+                switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
                 {
-                    SpellClass.Q.Cast(farmLocation.Position);
+                    case 1:
+                        /*
+                        if (farmLocation != null)
+                        {
+                            SpellClass.Q.Cast(farmLocation);
+                        }
+                        */
+                        break;
+                    case 2:
+                        if (this.FlashFrost != null &&
+                            MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value <=
+                                qMinions.Count(t => t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position)))
+                        {
+                            SpellClass.Q.Cast();
+                        }
+                        break;
                 }
-                */
             }
 
             /// <summary>
@@ -51,7 +69,8 @@ namespace AIO.Champions
                 var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
                 if (target != null &&
                     this.IsChilled(target) &&
-                    minions.Contains(target))
+                    minions.Contains(target) &&
+                    UtilityClass.Player.GetSpellDamage(target, SpellSlot.E, DamageStage.Empowered) >= target.Health)
                 {
                     SpellClass.E.CastOnUnit(target);
                 }
@@ -65,13 +84,32 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.R.Slot, MenuClass.Spells["r"]["laneclear"]) &&
                 MenuClass.Spells["r"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                /*
-                var farmLocation = SpellClass.R.GetCircularFarmLocation(minions, this.HasBigOne() ? SpellClass.R2.Width : SpellClass.R.Width);
-                if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
+                var rMinions = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.R.Range);
+                //var farmLocation = SpellClass.R.GetCircularFarmLocation(minions, MenuClass.Spells["r"]["customization"]["laneclear"].As<MenuSlider>().Value);
+                switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
                 {
-                    SpellClass.Q.Cast(farmLocation.Position);
+                    case 1:
+                        /*
+                        if (farmLocation != null)
+                        {
+                            SpellClass.R.Cast(farmLocation);
+                        }
+                        */
+                        break;
+                    case 2:
+                        if (UtilityClass.Player.InFountain())
+                        {
+                            return;
+                        }
+
+                        if (this.GlacialStorm != null &&
+                            MenuClass.Spells["r"]["customization"]["laneclear"].As<MenuSlider>().Value >
+                                rMinions.Count(t => t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position)))
+                        {
+                            SpellClass.R.Cast();
+                        }
+                        break;
                 }
-                */
             }
         }
 
