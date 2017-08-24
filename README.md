@@ -579,3 +579,11 @@ ExorAIO: Revolution Changelog:
   Ezreal: Improved Q casting.
   Syndra: Spell definition improvements.
   Taliyah: Slightly better Q pred.
+
+7.17.0.1:
+  Ezreal: Fixed Nullref.
+  
+7.17.0.2:
+  Anivia: Better Q and R Management.
+  Anivia: Improvements related to the Farming.
+  MissFortune: Fixed Nullref.
