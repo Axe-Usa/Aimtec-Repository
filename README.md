@@ -587,3 +587,7 @@ ExorAIO: Revolution Changelog:
   Anivia: Better Q and R Management.
   Anivia: Improvements related to the Farming.
   MissFortune: Fixed Nullref.
+
+7.17.0.3:
+  Ashe: Won't use R as Anti-Gapcloser globally anymore.
+  Ezreal: Improved Q usage.

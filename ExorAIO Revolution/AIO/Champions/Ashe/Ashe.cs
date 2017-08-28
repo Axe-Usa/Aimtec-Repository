@@ -121,7 +121,7 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser R.
             /// </summary>
             if (SpellClass.R.Ready &&
-                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.R.Range &&
+                args.EndPos.Distance(UtilityClass.Player.ServerPosition) <= 1000 &&
                 MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (args.EndPos.Distance(UtilityClass.Player.ServerPosition) >= 200)
