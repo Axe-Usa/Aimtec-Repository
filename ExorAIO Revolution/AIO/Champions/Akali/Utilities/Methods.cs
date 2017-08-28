@@ -1,10 +1,9 @@
+using Aimtec;
+using Aimtec.SDK.Events;
+using AIO.Utilities;
+
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Events;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The methods class.
     /// </summary>
@@ -17,12 +16,12 @@ namespace AIO.Champions
         /// </summary>
         public void Methods()
         {
-            Game.OnUpdate += this.OnUpdate;
-            ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
-            Render.OnPresent += this.OnPresent;
-            SpellBook.OnCastSpell += this.OnCastSpell;
-            Dash.HeroDashed += this.OnGapcloser;
+            Game.OnUpdate += OnUpdate;
+            ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
+            ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
+            Render.OnPresent += OnPresent;
+            SpellBook.OnCastSpell += OnCastSpell;
+            Dash.HeroDashed += OnGapcloser;
         }
 
         #endregion

@@ -1,7 +1,7 @@
-﻿namespace AIO.Utilities
-{
-    using System;
+﻿using System;
 
+namespace AIO.Utilities
+{
     /// <summary>
     ///     Collision-able Objects Flags
     /// </summary>

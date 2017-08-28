@@ -1,17 +1,15 @@
 
+using System.Drawing;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -59,12 +57,12 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Loads the R cone drawing.
                 /// </summary>
-                if (this.IsUltimateShooting() &&
+                if (IsUltimateShooting() &&
                     MenuClass.Drawings["rcone"].As<MenuBool>().Enabled)
                 {
-                    if (this.End != Vector3.Zero)
+                    if (End != Vector3.Zero)
                     {
-                        var cone = this.UltimateCone();
+                        var cone = UltimateCone();
                         cone.Draw(GameObjects.EnemyHeroes.Any(t => t.IsValidTarget() && cone.IsInside((Vector2)t.ServerPosition))
                             ? Color.Green
                             : Color.Red);
@@ -73,7 +71,7 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Loads the R range drawing.
                 /// </summary>
-                else if (!this.IsUltimateShooting() &&
+                else if (!IsUltimateShooting() &&
                          MenuClass.Drawings["r"].As<MenuBool>().Enabled)
                 {
                     Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 30, Color.Red);

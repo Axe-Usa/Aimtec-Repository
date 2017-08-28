@@ -1,16 +1,15 @@
 ﻿// ReSharper disable ArrangeAccessorOwnerBody
 // ReSharper disable ArrangeConstructorOrDestructorBody
 
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+
 namespace AIO.Utilities
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-
     /// <summary>
     ///     Invulnerable utility class
     /// </summary>
@@ -245,7 +244,7 @@ namespace AIO.Utilities
         /// <param name="buffName">Name of the buff.</param>
         public InvulnerableEntry(string buffName)
         {
-            this.BuffName = buffName;
+            BuffName = buffName;
         }
 
         #endregion

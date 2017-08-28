@@ -1,7 +1,7 @@
-﻿namespace AIO.Utilities
-{
-    using Aimtec.SDK.Menu;
+﻿using Aimtec.SDK.Menu;
 
+namespace AIO.Utilities
+{
     /// <summary>
     ///     The Menu class.
     /// </summary>

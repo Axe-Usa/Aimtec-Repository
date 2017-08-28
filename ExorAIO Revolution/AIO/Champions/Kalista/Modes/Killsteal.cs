@@ -1,17 +1,15 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -56,7 +54,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                if (GameObjects.EnemyHeroes.Any(t => this.IsPerfectRendTarget(t) && t.GetRealHealth() < this.GetTotalRendDamage(t)))
+                if (GameObjects.EnemyHeroes.Any(t => IsPerfectRendTarget(t) && t.GetRealHealth() < GetTotalRendDamage(t)))
                 {
                     SpellClass.E.Cast();
                 }

@@ -1,15 +1,14 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
 
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The definitions class.
     /// </summary>
@@ -54,7 +53,7 @@ namespace AIO.Champions
         /// </returns>
         public float GetHeroLoveTapDamageMultiplier()
         {
-            return (float)this.GetMinionLoveTapDamageMultiplier() * 2;
+            return (float)GetMinionLoveTapDamageMultiplier() * 2;
         }
 
         /// <returns>

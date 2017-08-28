@@ -1,17 +1,15 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -27,7 +25,7 @@ namespace AIO.Champions
             var passiveObject = ObjectManager.Get<GameObject>().FirstOrDefault(o => o.IsValid && o.Name == "Kalista_Base_P_LinkIcon.troy");
             if (passiveObject != null)
             {
-                this.SoulBound = GameObjects.AllyHeroes
+                SoulBound = GameObjects.AllyHeroes
                     .Where(a => !a.IsMe)
                     .MinBy(o => o.Distance(passiveObject));
             }
@@ -41,9 +39,9 @@ namespace AIO.Champions
             ///     The R Logics.
             /// </summary>
             if (SpellClass.R.Ready &&
-                this.SoulBound != null)
+                SoulBound != null)
             {
-                var soulbound = this.SoulBound;
+                var soulbound = SoulBound;
 
                 /// <summary>
                 ///     The Offensive R Logics.
@@ -51,9 +49,9 @@ namespace AIO.Champions
                 foreach (var target in GameObjects.EnemyHeroes
                     .Where(t => t.Distance(UtilityClass.Player.ServerPosition) > UtilityClass.Player.GetFullAttackRange(t)))
                 {
-                    if (this.RLogics.ContainsKey(soulbound.ChampionName))
+                    if (RLogics.ContainsKey(soulbound.ChampionName))
                     {
-                        var option = this.RLogics.FirstOrDefault(k => k.Key == soulbound.ChampionName);
+                        var option = RLogics.FirstOrDefault(k => k.Key == soulbound.ChampionName);
                         var buffName = option.Value.Item1;
                         var menuOption = option.Value.Item2;
 
@@ -88,7 +86,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
                 MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
             {
-                foreach (var loc in this.Locations.Where(l =>
+                foreach (var loc in Locations.Where(l =>
                     UtilityClass.Player.Distance(l) <= SpellClass.W.Range &&
                     !ObjectManager.Get<Obj_AI_Minion>().Any(m => m.Distance(l) <= 1000f && m.UnitSkinName.Equals("KalistaSpawn"))))
                 {
@@ -113,8 +111,8 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The E Minion Harass Logic.
                 /// </summary>
-                if (GameObjects.EnemyHeroes.Any(this.IsPerfectRendTarget) &&
-                    Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Any(m => this.IsPerfectRendTarget(m) && m.GetRealHealth() <= this.GetTotalRendDamage(m)) &&
+                if (GameObjects.EnemyHeroes.Any(IsPerfectRendTarget) &&
+                    Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Any(m => IsPerfectRendTarget(m) && m.GetRealHealth() <= GetTotalRendDamage(m)) &&
                     MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast();
@@ -127,8 +125,8 @@ namespace AIO.Champions
                 {
                     foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m => UtilityClass.JungleList.Contains(m.UnitSkinName)))
                     {
-                        if (this.IsPerfectRendTarget(minion) &&
-                            minion.GetRealHealth() <= this.GetTotalRendDamage(minion) &&
+                        if (IsPerfectRendTarget(minion) &&
+                            minion.GetRealHealth() <= GetTotalRendDamage(minion) &&
                             MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();

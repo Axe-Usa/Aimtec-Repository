@@ -2,19 +2,18 @@
 
 
 // ReSharper disable LoopCanBeConvertedToQuery
+
+using System.Collections.Generic;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-
-    using Utilities;
-
     /// <summary>
     ///     The definitions class.
     /// </summary>
@@ -76,8 +75,8 @@ namespace AIO.Champions
 
             var possibleTarget3 = ObjectManager.Get<GameObject>().FirstOrDefault(o =>
                     o.IsValid &&
-                    this.IsDarkSphere(o) &&
-                    o.NetworkId != this.SelectedDarkSphereNetworkId &&
+                    IsDarkSphere(o) &&
+                    o.NetworkId != SelectedDarkSphereNetworkId &&
                     o.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range);
             if (possibleTarget3 != null)
             {
@@ -92,10 +91,10 @@ namespace AIO.Champions
         /// </summary>
         public bool CanSpheresHitUnit(Obj_AI_Base unit)
         {
-            foreach (var sphere in this.DarkSpheres)
+            foreach (var sphere in DarkSpheres)
             {
                 var targetPos = (Vector2)unit.ServerPosition;
-                if (this.DarkSphereScatterRectangle(sphere).IsInside(targetPos) &&
+                if (DarkSphereScatterRectangle(sphere).IsInside(targetPos) &&
                     UtilityClass.Player.Distance(sphere.Value) < SpellClass.E.Range)
                 {
                     switch (unit.Type)
@@ -117,7 +116,7 @@ namespace AIO.Champions
         public bool CanSphereHitUnit(Obj_AI_Base unit, KeyValuePair<int, Vector3> sphere)
         {
             var targetPos = (Vector2)unit.ServerPosition;
-            if (this.DarkSphereScatterRectangle(sphere).IsInside(targetPos) &&
+            if (DarkSphereScatterRectangle(sphere).IsInside(targetPos) &&
                 UtilityClass.Player.Distance(sphere.Value) < SpellClass.E.Range)
             {
                 switch (unit.Type)
@@ -148,7 +147,7 @@ namespace AIO.Champions
         public bool IsPerfectSphereTarget(Obj_AI_Base unit)
         {
             if (unit.IsValidTarget() &&
-                this.CanSpheresHitUnit(unit))
+                CanSpheresHitUnit(unit))
             {
                 switch (unit.Type)
                 {
@@ -195,9 +194,9 @@ namespace AIO.Champions
             {
                 if (sphere.IsValid)
                 {
-                    if (this.DarkSpheres.Any(o => o.Key == sphere.NetworkId))
+                    if (DarkSpheres.Any(o => o.Key == sphere.NetworkId))
                     {
-                        this.DarkSpheres.Remove(sphere.NetworkId);
+                        DarkSpheres.Remove(sphere.NetworkId);
                     }
                 }
 
@@ -205,7 +204,7 @@ namespace AIO.Champions
                 {
                     case "Syndra_Base_Q_idle.troy":
                     case "Syndra_Base_Q_Lv5_idle.troy":
-                        this.DarkSpheres.Add(sphere.NetworkId, sphere.Position);
+                        DarkSpheres.Add(sphere.NetworkId, sphere.Position);
                         break;
                 }
             }

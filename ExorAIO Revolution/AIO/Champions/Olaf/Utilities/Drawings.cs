@@ -1,17 +1,13 @@
 ﻿
+using System.Drawing;
+using Aimtec;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-
-    using Aimtec;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
-    using Geometry = Utilities.Geometry;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -38,7 +34,7 @@ namespace AIO.Champions
             /// </summary>
             if (MenuClass.Drawings["qpath"].As<MenuBool>().Enabled)
             {
-                foreach (var axe in this.Axes)
+                foreach (var axe in Axes)
                 {
                     var axeRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)axe.Value, 1);
                     Render.Circle(axe.Value, 30f, 30, Color.Yellow);

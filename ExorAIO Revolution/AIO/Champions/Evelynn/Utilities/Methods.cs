@@ -1,9 +1,8 @@
+using Aimtec;
+using AIO.Utilities;
+
 namespace AIO.Champions
 {
-    using Aimtec;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The methods class.
     /// </summary>
@@ -16,9 +15,9 @@ namespace AIO.Champions
         /// </summary>
         public void Methods()
         {
-            Game.OnUpdate += this.OnUpdate;
-            Render.OnPresent += this.OnPresent;
-            ImplementationClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
+            Game.OnUpdate += OnUpdate;
+            Render.OnPresent += OnPresent;
+            ImplementationClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
         }
 
         #endregion

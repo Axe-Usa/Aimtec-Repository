@@ -1,17 +1,16 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
 
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
+using Aimtec.SDK.Extensions;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Damage.JSON;
-    using Aimtec.SDK.Extensions;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The definitions class.
     /// </summary>
@@ -25,7 +24,7 @@ namespace AIO.Champions
         public double GetMissileDamage(Obj_AI_Base unit)
         {
             var player = UtilityClass.Player;
-            return this.HasBigOne()
+            return HasBigOne()
                        ? player.GetSpellDamage(unit, SpellSlot.R, DamageStage.SecondForm)
                        : player.GetSpellDamage(unit, SpellSlot.R);
         }

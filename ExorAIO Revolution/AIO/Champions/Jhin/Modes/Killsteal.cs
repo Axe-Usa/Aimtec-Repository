@@ -1,18 +1,16 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Damage.JSON;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -29,14 +27,14 @@ namespace AIO.Champions
             ///     The KillSteal R Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                this.IsUltimateShooting() &&
+                IsUltimateShooting() &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Value)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(
                     t =>
                         !Invulnerable.Check(t) &&
-                        t.IsValidTarget(SpellClass.R.Range) && this.UltimateCone().IsInside((Vector2)t.ServerPosition) &&
-                        UtilityClass.Player.GetSpellDamage(t, SpellSlot.R, this.HasUltimateFourthShot() ? DamageStage.SecondForm : DamageStage.Default) >= t.GetRealHealth()))
+                        t.IsValidTarget(SpellClass.R.Range) && UltimateCone().IsInside((Vector2)t.ServerPosition) &&
+                        UtilityClass.Player.GetSpellDamage(t, SpellSlot.R, HasUltimateFourthShot() ? DamageStage.SecondForm : DamageStage.Default) >= t.GetRealHealth()))
                 {
                     SpellClass.R.Cast(target);
                     return;

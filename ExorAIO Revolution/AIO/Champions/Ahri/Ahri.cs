@@ -1,17 +1,16 @@
 
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using Aimtec.SDK.Util;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-    using Aimtec.SDK.Util;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -27,17 +26,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
 
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            this.Spells();
+            Spells();
         }
 
         #endregion
@@ -52,7 +51,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -209,12 +208,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -222,14 +221,14 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
-                    this.Jungleclear();
+                    Laneclear();
+                    Jungleclear();
                     break;
             }
         }

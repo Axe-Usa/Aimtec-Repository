@@ -1,16 +1,14 @@
 ﻿
+using System;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -61,8 +59,8 @@ namespace AIO.Champions
         /// </summary>
         public void UpdateBallPosition()
         {
-            this.BallPosition = this.GetBallPosition() != null
-                ? this.GetBallPosition()
+            BallPosition = GetBallPosition() != null
+                ? GetBallPosition()
                 : null;
         }
 

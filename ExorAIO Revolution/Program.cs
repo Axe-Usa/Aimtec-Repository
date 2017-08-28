@@ -1,13 +1,11 @@
 ﻿
+using System;
+using Aimtec.SDK.Events;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 namespace AIO
 {
-    using System;
-
-    using Aimtec.SDK.Events;
-
-    using AIO.Utilities;
-
     internal class Program
     {
         #region Methods

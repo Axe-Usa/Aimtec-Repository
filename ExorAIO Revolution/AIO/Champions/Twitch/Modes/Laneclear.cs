@@ -1,15 +1,13 @@
 
+using System.Linq;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -47,7 +45,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var perfectlyKillableMinions = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count(m => this.IsPerfectExpungeTarget(m) && this.GetTotalExpungeDamage(m) > m.GetRealHealth());
+                var perfectlyKillableMinions = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Count(m => IsPerfectExpungeTarget(m) && GetTotalExpungeDamage(m) > m.GetRealHealth());
                 if (perfectlyKillableMinions >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.E.Cast();

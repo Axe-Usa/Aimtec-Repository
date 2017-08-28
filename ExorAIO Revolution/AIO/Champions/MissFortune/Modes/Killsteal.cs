@@ -1,18 +1,16 @@
 
+using System.Collections.Generic;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Damage.JSON;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -40,7 +38,7 @@ namespace AIO.Champions
                         unitsToIterateIfPlayerNormallyKillable.Where(u => u.GetRealHealth() < UtilityClass.Player.GetSpellDamage(u, SpellSlot.Q)).ToList();
 
                 List<Obj_AI_Base> unitsToIterate = null;
-                var heroMultiplier = this.GetHeroLoveTapDamageMultiplier();
+                var heroMultiplier = GetHeroLoveTapDamageMultiplier();
                 foreach (var hero in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range))
                 {
                     if (UtilityClass.Player.GetSpellDamage(hero, SpellSlot.Q) + heroMultiplier >= hero.GetRealHealth())
@@ -56,9 +54,9 @@ namespace AIO.Champions
                     {
                         foreach (var minion in unitsToIterate)
                         {
-                            var polygon = this.QCone(minion);
+                            var polygon = QCone(minion);
                             if (polygon.IsInside((Vector2)hero.ServerPosition) &&
-                                (this.LoveTapTargetNetworkId == hero.NetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
+                                (LoveTapTargetNetworkId == hero.NetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
                                 polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(hero).CastPosition))
                             {
                                 if (UtilityClass.Player.GetSpellDamage(hero, SpellSlot.Q, DamageStage.Empowered) >= hero.GetRealHealth())

@@ -1,15 +1,14 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
 
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The definitions class.
     /// </summary>
@@ -44,7 +43,7 @@ namespace AIO.Champions
         /// </returns>
         public bool HasUltimateFourthShot()
         {
-            return this.UltimateShotsCount == 3;
+            return UltimateShotsCount == 3;
         }
 
         /// <returns>
@@ -69,8 +68,8 @@ namespace AIO.Champions
         public Geometry.Sector UltimateCone()
         {
             return new Geometry.Sector(
-                (Vector2)UtilityClass.Player.Position.Extend(this.End, -UtilityClass.Player.BoundingRadius * 3),
-                (Vector2)this.End,
+                (Vector2)UtilityClass.Player.Position.Extend(End, -UtilityClass.Player.BoundingRadius * 3),
+                (Vector2)End,
                 UtilityClass.GetAngleByDegrees(55f),
                 SpellClass.R.Range);
         }

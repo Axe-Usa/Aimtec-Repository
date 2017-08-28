@@ -1,15 +1,13 @@
 ﻿
+using System.Drawing;
+using Aimtec;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-
-    using Aimtec;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The prediction drawings class.
     /// </summary>
@@ -40,7 +38,7 @@ namespace AIO.Champions
                 Render.Circle(UtilityClass.Player.Position, SpellClass.E.Range, 30, Color.Cyan);
             }
 
-            if (this.BallPosition == null)
+            if (BallPosition == null)
             {
                 return;
             }
@@ -52,7 +50,7 @@ namespace AIO.Champions
             {
                 for (var i = 0; i < MenuClass.Drawings["ball"].As<MenuSliderBool>().Value; i++)
                 {
-                    Render.Circle((Vector3)this.BallPosition, (uint)(60 + i * 5), 30, Color.Black);
+                    Render.Circle((Vector3)BallPosition, (uint)(60 + i * 5), 30, Color.Black);
                 }
             }
 
@@ -62,7 +60,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["ballw"].As<MenuBool>().Enabled)
             {
-                Render.Circle((Vector3)this.BallPosition, SpellClass.W.Width, 30, Color.Purple);
+                Render.Circle((Vector3)BallPosition, SpellClass.W.Width, 30, Color.Purple);
             }
 
             /// <summary>
@@ -71,7 +69,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Drawings["ballr"].As<MenuBool>().Enabled)
             {
-                Render.Circle((Vector3)this.BallPosition, SpellClass.R.Width, 30, Color.Red);
+                Render.Circle((Vector3)BallPosition, SpellClass.R.Width, 30, Color.Red);
             }
         }
 

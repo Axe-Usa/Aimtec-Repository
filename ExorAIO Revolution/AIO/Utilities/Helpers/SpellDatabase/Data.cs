@@ -1,9 +1,9 @@
-﻿namespace AIO.Utilities
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Security.Permissions;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Permissions;
 
+namespace AIO.Utilities
+{
     public class Data
     {
         #region Static Fields

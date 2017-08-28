@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -45,10 +43,10 @@ namespace AIO.Champions
                             return;
                         }
 
-                        if (this.GlacialStorm != null &&
+                        if (GlacialStorm != null &&
                             !GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position)))
+                                t.IsValidTarget(SpellClass.R.Width, false, true, GlacialStorm.Position)))
                         {
                             SpellClass.R.Cast();
                         }
@@ -94,10 +92,10 @@ namespace AIO.Champions
                         }
                         break;
                     case 2:
-                        if (this.FlashFrost != null &&
+                        if (FlashFrost != null &&
                             GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position)))
+                                t.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position)))
                         {
                             SpellClass.Q.Cast();
                         }
@@ -118,7 +116,7 @@ namespace AIO.Champions
                     switch (MenuClass.Spells["e"]["customization"]["emodes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
-                            if (this.IsChilled(bestTarget))
+                            if (IsChilled(bestTarget))
                             {
                                 SpellClass.E.CastOnUnit(bestTarget);
                             }

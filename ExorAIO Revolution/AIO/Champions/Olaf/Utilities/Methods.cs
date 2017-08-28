@@ -1,9 +1,8 @@
+using Aimtec;
+using AIO.Utilities;
+
 namespace AIO.Champions
 {
-    using Aimtec;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The methods class.
     /// </summary>
@@ -16,11 +15,11 @@ namespace AIO.Champions
         /// </summary>
         public void Methods()
         {
-            Game.OnUpdate += this.OnUpdate;
-            GameObject.OnCreate += this.OnCreate;
-            GameObject.OnDestroy += this.OnDestroy;
-            ImplementationClass.IOrbwalker.PreAttack += this.OnPreAttack;
-            Render.OnPresent += this.OnPresent;
+            Game.OnUpdate += OnUpdate;
+            GameObject.OnCreate += OnCreate;
+            GameObject.OnDestroy += OnDestroy;
+            ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
+            Render.OnPresent += OnPresent;
         }
 
         #endregion

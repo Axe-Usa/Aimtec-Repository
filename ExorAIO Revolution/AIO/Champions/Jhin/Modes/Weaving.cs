@@ -1,14 +1,13 @@
 
+using Aimtec;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -33,7 +32,7 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                !this.HasFourthShot() &&
+                !HasFourthShot() &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.CastOnUnit(heroTarget);
@@ -44,7 +43,7 @@ namespace AIO.Champions
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                this.HasFourthShot() &&
+                HasFourthShot() &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.E.Cast(heroTarget);
@@ -68,7 +67,7 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                this.HasFourthShot() &&
+                HasFourthShot() &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.Q.CastOnUnit(heroTarget);

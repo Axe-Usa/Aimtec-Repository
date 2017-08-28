@@ -1,15 +1,13 @@
 
+using System.Linq;
+using Aimtec.SDK.Menu;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec.SDK.Menu;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The menu class.
     /// </summary>
@@ -112,7 +110,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    foreach (var element in this.RLogics)
+                    foreach (var element in RLogics)
                     {
                         if (GameObjects.AllyHeroes.Any(a => a.ChampionName == element.Key))
                         {

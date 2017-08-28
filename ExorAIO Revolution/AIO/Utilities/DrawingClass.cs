@@ -1,14 +1,13 @@
 // ReSharper disable ArrangeMethodOrOperatorBody
 
 
+using System.Collections.Generic;
+using Aimtec;
+
 #pragma warning disable 1587
 
 namespace AIO.Utilities
 {
-    using System.Collections.Generic;
-
-    using Aimtec;
-
     /// <summary>
     ///     The Drawing class.
     /// </summary>

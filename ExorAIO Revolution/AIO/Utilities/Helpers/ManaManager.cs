@@ -1,10 +1,10 @@
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu;
+using Aimtec.SDK.Menu.Components;
+
 namespace AIO.Utilities
 {
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu;
-    using Aimtec.SDK.Menu.Components;
-
     /// <summary>
     ///     The Mana manager class.
     /// </summary>

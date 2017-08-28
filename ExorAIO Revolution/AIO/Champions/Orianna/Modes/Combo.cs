@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -23,7 +21,7 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
-            if (this.BallPosition == null)
+            if (BallPosition == null)
             {
                 return;
             }
@@ -37,7 +35,7 @@ namespace AIO.Champions
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.W.Width - t.BoundingRadius - SpellClass.W.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition)))
+                        t.IsValidTarget(SpellClass.W.Width - t.BoundingRadius - SpellClass.W.Delay * t.BoundingRadius, false, false, (Vector3)BallPosition)))
                 {
                     SpellClass.W.Cast();
                 }
@@ -88,7 +86,7 @@ namespace AIO.Champions
                     {
                         var allyToBallRectangle = new Geometry.Rectangle(
                             (Vector2)ally.ServerPosition,
-                            (Vector2)ally.ServerPosition.Extend((Vector3)this.BallPosition, ally.Distance((Vector3)this.BallPosition) + 30f),
+                            (Vector2)ally.ServerPosition.Extend((Vector3)BallPosition, ally.Distance((Vector3)BallPosition) + 30f),
                             SpellClass.E.Width);
 
                         if (GameObjects.EnemyHeroes.Any(
@@ -114,7 +112,7 @@ namespace AIO.Champions
                 if (bestTarget != null)
                 {
                     if (SpellClass.E.Ready &&
-                        bestTarget.Distance((Vector3)this.BallPosition) >=
+                        bestTarget.Distance((Vector3)BallPosition) >=
                             bestTarget.Distance(UtilityClass.Player) + 100f &&
                         MenuClass.E2["gaine"].As<MenuBool>().Enabled)
                     {
@@ -122,7 +120,7 @@ namespace AIO.Champions
                         return;
                     }
 
-                    SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)this.BallPosition;
+                    SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)BallPosition;
                     SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
@@ -138,7 +136,7 @@ namespace AIO.Champions
                 if (bestTarget.IsValidTarget(SpellClass.Q.Range) &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    if (UtilityClass.Player.Distance((Vector3)this.BallPosition) < SpellClass.W.Width)
+                    if (UtilityClass.Player.Distance((Vector3)BallPosition) < SpellClass.W.Width)
                     {
                         SpellClass.W.Cast();
                     }

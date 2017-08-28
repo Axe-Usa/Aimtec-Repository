@@ -1,11 +1,10 @@
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using Aimtec.SDK.Menu.Components;
+
 namespace NabbTracker
 {
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Linq;
-
-    using Aimtec.SDK.Menu.Components;
-
     /// <summary>
     ///     The Color convert class.
     /// </summary>

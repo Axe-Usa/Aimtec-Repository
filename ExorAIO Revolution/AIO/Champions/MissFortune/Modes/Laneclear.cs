@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -33,7 +31,7 @@ namespace AIO.Champions
             {
                 var bestMinion = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range)
                     .FirstOrDefault(m => Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q2.Range)
-                        .Any(m2 => m2 != m && this.QCone(m).IsInside((Vector2)m2.ServerPosition)));
+                        .Any(m2 => m2 != m && QCone(m).IsInside((Vector2)m2.ServerPosition)));
                 if (bestMinion != null)
                 {
                     SpellClass.Q.CastOnUnit(bestMinion);

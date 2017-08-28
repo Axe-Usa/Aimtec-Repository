@@ -1,12 +1,11 @@
-﻿namespace AIO.Champions
+﻿using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
+using Aimtec.SDK.Extensions;
+using AIO.Utilities;
+
+namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Damage.JSON;
-    using Aimtec.SDK.Extensions;
-
-    using Utilities;
-
     /// <summary>
     ///     The definitions class.
     /// </summary>

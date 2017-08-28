@@ -1,12 +1,11 @@
 ﻿
+using Aimtec.SDK.Menu;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 namespace AIO
 {
-    using Aimtec.SDK.Menu;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The general class.
     /// </summary>

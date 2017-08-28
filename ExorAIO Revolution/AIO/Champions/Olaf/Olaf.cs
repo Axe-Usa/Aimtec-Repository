@@ -1,15 +1,13 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -25,22 +23,22 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
 
             /// <summary>
             ///     Reloads the Axes.
             /// </summary>
-            this.ReloadAxes();
+            ReloadAxes();
         }
 
         #endregion
@@ -57,7 +55,7 @@ namespace AIO.Champions
                 switch (obj.Name)
                 {
                     case "Olaf_Base_Q_Axe_Ally.troy":
-                        this.Axes.Add(obj.NetworkId, obj.Position);
+                        Axes.Add(obj.NetworkId, obj.Position);
                         break;
                 }
             }
@@ -70,9 +68,9 @@ namespace AIO.Champions
         {
             if (obj != null && obj.IsValid)
             {
-                if (this.Axes.Any(o => o.Key == obj.NetworkId))
+                if (Axes.Any(o => o.Key == obj.NetworkId))
                 {
-                    this.Axes.Remove(obj.NetworkId);
+                    Axes.Remove(obj.NetworkId);
                 }
             }
         }
@@ -90,15 +88,15 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
+                    Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass(sender, args);
+                    Harass(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear(sender, args);
-                    this.Jungleclear(sender, args);
-                    this.Buildingclear(sender, args);
+                    Laneclear(sender, args);
+                    Jungleclear(sender, args);
+                    Buildingclear(sender, args);
                     break;
             }
         }
@@ -111,7 +109,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -127,7 +125,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
@@ -137,7 +135,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -145,10 +143,10 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
             }
         }

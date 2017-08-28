@@ -1,10 +1,9 @@
+using Aimtec;
+using Aimtec.SDK.Events;
+using AIO.Utilities;
+
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Events;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The methods class.
     /// </summary>
@@ -17,13 +16,13 @@ namespace AIO.Champions
         /// </summary>
         public void Methods()
         {
-            Game.OnUpdate += this.OnUpdate;
-            ImplementationClass.IOrbwalker.PostAttack += this.OnPostAttack;
-            BuffManager.OnAddBuff += this.OnAddBuff;
-            ImplementationClass.IOrbwalker.OnNonKillableMinion += this.OnNonKillableMinion;
-            Render.OnPresent += this.OnPresent;
-            Obj_AI_Base.OnProcessAutoAttack += this.OnProcessAutoAttack;
-            Dash.HeroDashed += this.OnGapcloser;
+            Game.OnUpdate += OnUpdate;
+            ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
+            BuffManager.OnAddBuff += OnAddBuff;
+            ImplementationClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
+            Render.OnPresent += OnPresent;
+            Obj_AI_Base.OnProcessAutoAttack += OnProcessAutoAttack;
+            Dash.HeroDashed += OnGapcloser;
 
             //Events.OnGapCloser += OnGapCloser;
         }

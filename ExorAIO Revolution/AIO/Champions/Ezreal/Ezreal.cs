@@ -1,19 +1,17 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -29,17 +27,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
         }
 
         #endregion
@@ -78,7 +76,7 @@ namespace AIO.Champions
                 return;
             }
 
-            if (UtilityClass.Player.TotalAbilityDamage >= this.GetMinimumApForApMode() &&
+            if (UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode() &&
                 GameObjects.EnemyHeroes.Any(t => t.Distance(UtilityClass.Player) < SpellClass.Q.Range))
             {
                 return;
@@ -171,10 +169,10 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
+                    Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Jungleclear(sender, args);
+                    Jungleclear(sender, args);
                     break;
             }
         }
@@ -187,7 +185,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -235,7 +233,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
@@ -245,7 +243,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -253,16 +251,16 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
                 case OrbwalkingMode.Lasthit:
-                    this.Lasthit();
+                    Lasthit();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
+                    Laneclear();
                     break;
             }
         }

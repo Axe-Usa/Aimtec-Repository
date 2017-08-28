@@ -1,17 +1,15 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -36,7 +34,7 @@ namespace AIO.Champions
             ///     The Fishbones to PowPow Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                this.IsUsingFishBones())
+                IsUsingFishBones())
             {
                 var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
                 if (heroTarget.IsValidTarget(SpellClass.Q.Range) &&
@@ -57,7 +55,7 @@ namespace AIO.Champions
             ///     The PowPow to Fishbones Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                !this.IsUsingFishBones() &&
+                !IsUsingFishBones() &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();

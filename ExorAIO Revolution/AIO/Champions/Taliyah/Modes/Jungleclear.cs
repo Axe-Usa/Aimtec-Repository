@@ -1,18 +1,17 @@
 ﻿
 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
+
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -45,7 +44,7 @@ namespace AIO.Champions
                 switch (MenuClass.Spells["q"]["customization"]["qmodes"]["jungleclear"].As<MenuList>().Value)
                 {
                     case 0:
-                        if (!this.IsNearWorkedGround())
+                        if (!IsNearWorkedGround())
                         {
                             SpellClass.Q.Cast(jungleTarget);
                         }
@@ -67,19 +66,19 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                var bestBoulderHitPos = this.GetBestBouldersHitPosition(jungleTarget);
-                var bestBoulderHitPosHitBoulders = this.GetBestBouldersHitPositionHitBoulders(jungleTarget);
+                var bestBoulderHitPos = GetBestBouldersHitPosition(jungleTarget);
+                var bestBoulderHitPosHitBoulders = GetBestBouldersHitPositionHitBoulders(jungleTarget);
                 var jungleTargetPredPos = SpellClass.W.GetPrediction(jungleTarget).CastPosition;
 
                 if (SpellClass.E.Ready)
                 {
-                    if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(jungleTarget)) >= 200f)
+                    if (UtilityClass.Player.Distance(GetUnitPositionAfterPull(jungleTarget)) >= 200f)
                     {
-                        targetPosAfterW = this.GetUnitPositionAfterPull(jungleTarget);
+                        targetPosAfterW = GetUnitPositionAfterPull(jungleTarget);
                     }
                     else
                     {
-                        targetPosAfterW = this.GetUnitPositionAfterPush(jungleTarget);
+                        targetPosAfterW = GetUnitPositionAfterPush(jungleTarget);
                     }
 
                     //SpellClass.W.Cast(jungleTargetPredPos, targetPosAfterW);
@@ -118,7 +117,7 @@ namespace AIO.Champions
                 switch (MenuClass.Spells["q"]["customization"]["qmodes"]["jungleclear"].As<MenuList>().Value)
                 {
                     case 0:
-                        if (!this.IsNearWorkedGround())
+                        if (!IsNearWorkedGround())
                         {
                             SpellClass.Q.Cast(jungleTarget);
                         }

@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -23,7 +21,7 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-            if (this.BallPosition == null)
+            if (BallPosition == null)
             {
                 return;
             }
@@ -37,8 +35,8 @@ namespace AIO.Champions
             {
                 var countValidTargets = GameObjects.EnemyHeroes.Count(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition) &&
-                        SpellClass.R.GetPrediction(t).CastPosition.Distance((Vector3)this.BallPosition) < SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius);
+                        t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)BallPosition) &&
+                        SpellClass.R.GetPrediction(t).CastPosition.Distance((Vector3)BallPosition) < SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius);
             
                 if (countValidTargets >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value)
                 {

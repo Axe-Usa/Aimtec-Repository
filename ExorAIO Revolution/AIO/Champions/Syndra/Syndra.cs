@@ -1,18 +1,16 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -28,17 +26,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
 
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            this.Spells();
+            Spells();
         }
 
         #endregion
@@ -54,12 +52,12 @@ namespace AIO.Champions
         {
             if (sender.IsMe &&
                 args.Slot == SpellSlot.W &&
-                !this.IsHoldingForceOfWillObject())
+                !IsHoldingForceOfWillObject())
             {
                 if (Game.TickCount - UtilityClass.LastTick >= 300)
                 {
                     UtilityClass.LastTick = Game.TickCount;
-                    this.HoldedSphere = args.Target;
+                    HoldedSphere = args.Target;
                 }
                 else
                 {
@@ -79,7 +77,7 @@ namespace AIO.Champions
                 {
                     case "Syndra_Base_Q_idle.troy":
                     case "Syndra_Base_Q_Lv5_idle.troy":
-                        this.DarkSpheres.Add(obj.NetworkId, obj.Position);
+                        DarkSpheres.Add(obj.NetworkId, obj.Position);
                         break;
                 }
             }
@@ -92,9 +90,9 @@ namespace AIO.Champions
         {
             if (obj != null && obj.IsValid)
             {
-                if (this.DarkSpheres.Any(o => o.Key == obj.NetworkId))
+                if (DarkSpheres.Any(o => o.Key == obj.NetworkId))
                 {
-                    this.DarkSpheres.Remove(obj.NetworkId);
+                    DarkSpheres.Remove(obj.NetworkId);
                 }
             }
         }
@@ -107,7 +105,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -180,17 +178,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Reloads the DarkSpheres.
             /// </summary>
-            this.ReloadDarkSpheres();
+            ReloadDarkSpheres();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -198,14 +196,14 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
-                    this.Jungleclear();
+                    Laneclear();
+                    Jungleclear();
                     break;
             }
         }

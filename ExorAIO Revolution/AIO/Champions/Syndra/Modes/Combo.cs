@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -48,9 +46,9 @@ namespace AIO.Champions
                     MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
                     if (!SpellClass.E.Ready &&
-                        !this.IsHoldingForceOfWillObject())
+                        !IsHoldingForceOfWillObject())
                     {
-                        var obj = this.ForceOfWillObject();
+                        var obj = ForceOfWillObject();
                         if (obj != null &&
                             obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
                         {
@@ -82,13 +80,13 @@ namespace AIO.Champions
                     /// </summary>
                     if (target.IsValidTarget(SpellClass.E.Range))
                     {
-                        foreach (var sphere in this.DarkSpheres)
+                        foreach (var sphere in DarkSpheres)
                         {
-                            if (sphere.Key != this.HoldedSphere?.NetworkId &&
-                                this.CanSphereHitUnit(target, sphere))
+                            if (sphere.Key != HoldedSphere?.NetworkId &&
+                                CanSphereHitUnit(target, sphere))
                             {
                                 SpellClass.E.Cast(targetPos);
-                                this.SelectedDarkSphereNetworkId = sphere.Key;
+                                SelectedDarkSphereNetworkId = sphere.Key;
                             }
                         }
                     }
@@ -101,7 +99,7 @@ namespace AIO.Champions
                             !target.IsValidTarget(SpellClass.Q.Range) &&
                             target.IsValidTarget(1100f + SpellClass.Q.Width - 150f))
                         {
-                            if (!SpellClass.W.Ready || !target.IsValidTarget(SpellClass.W.Range) || this.IsHoldingForceOfWillObject())
+                            if (!SpellClass.W.Ready || !target.IsValidTarget(SpellClass.W.Range) || IsHoldingForceOfWillObject())
                             {
                                 var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPos, SpellClass.Q.Range - 125f);
                                 switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)

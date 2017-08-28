@@ -2,16 +2,15 @@
 // ReSharper disable InconsistentNaming
 
 
+using System;
+using System.Collections.Generic;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+
 #pragma warning disable 1587
 
 namespace AIO.Utilities
 {
-    using System;
-    using System.Collections.Generic;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-
     /// <summary>
     ///     The Utility class.
     /// </summary>

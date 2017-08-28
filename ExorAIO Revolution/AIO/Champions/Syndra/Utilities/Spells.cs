@@ -1,13 +1,10 @@
+using Aimtec;
+using Aimtec.SDK.Prediction.Skillshots;
+using AIO.Utilities;
+using Spell = Aimtec.SDK.Spell;
+
 namespace AIO.Champions
 {
-    using Aimtec;
-
-    using Aimtec.SDK.Prediction.Skillshots;
-
-    using AIO.Utilities;
-
-    using Spell = Aimtec.SDK.Spell;
-
     /// <summary>
     ///     The spells class.
     /// </summary>

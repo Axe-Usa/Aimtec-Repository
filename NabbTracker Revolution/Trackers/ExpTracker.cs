@@ -1,13 +1,12 @@
+using System;
+using System.Drawing;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+
 namespace NabbTracker
 {
-    using System;
-    using System.Drawing;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>

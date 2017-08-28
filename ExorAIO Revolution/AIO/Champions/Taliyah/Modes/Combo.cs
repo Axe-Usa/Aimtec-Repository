@@ -1,19 +1,17 @@
 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
 
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -40,7 +38,7 @@ namespace AIO.Champions
                     switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
-                            if (!this.IsNearWorkedGround())
+                            if (!IsNearWorkedGround())
                             {
                                 SpellClass.Q.Cast(bestTarget);
                             }
@@ -64,8 +62,8 @@ namespace AIO.Champions
                 var objAiHeroes = bestTargets as Obj_AI_Hero[] ?? bestTargets.ToArray();
                 foreach (var target in objAiHeroes)
                 {
-                    var bestBoulderHitPos = this.GetBestBouldersHitPosition(target);
-                    var bestBoulderHitPosHitBoulders = this.GetBestBouldersHitPositionHitBoulders(target);
+                    var bestBoulderHitPos = GetBestBouldersHitPosition(target);
+                    var bestBoulderHitPosHitBoulders = GetBestBouldersHitPositionHitBoulders(target);
                     if (bestBoulderHitPos != Vector3.Zero && bestBoulderHitPosHitBoulders > 0)
                     {
                         SpellClass.W.Cast(bestBoulderHitPos, SpellClass.W.GetPrediction(target).CastPosition);
@@ -89,19 +87,19 @@ namespace AIO.Champions
                     {
                         case 0:
                             var targetPred = SpellClass.W.GetPrediction(bestTarget).CastPosition;
-                            SpellClass.W.Cast(this.GetTargetPositionAfterW(bestTarget), targetPred);
+                            SpellClass.W.Cast(GetTargetPositionAfterW(bestTarget), targetPred);
 
                             if (SpellClass.E.Ready &&
                                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                             {
-                                SpellClass.E.Cast(this.GetTargetPositionAfterW(bestTarget));
+                                SpellClass.E.Cast(GetTargetPositionAfterW(bestTarget));
                             }
                             break;
                         case 1:
                             if (SpellClass.E.Ready &&
                                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
                             {
-                                SpellClass.E.Cast(this.GetTargetPositionAfterW(bestTarget));
+                                SpellClass.E.Cast(GetTargetPositionAfterW(bestTarget));
                             }
                             break;
                     }
@@ -139,7 +137,7 @@ namespace AIO.Champions
                     switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
-                            if (!this.IsNearWorkedGround())
+                            if (!IsNearWorkedGround())
                             {
                                 SpellClass.Q.Cast(bestTarget);
                             }

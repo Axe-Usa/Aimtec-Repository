@@ -1,7 +1,7 @@
-﻿namespace AIO.Utilities
-{
-    using Aimtec.SDK;
+﻿using Aimtec.SDK;
 
+namespace AIO.Utilities
+{
     /// <summary>
     ///     The Spell class.
     /// </summary>

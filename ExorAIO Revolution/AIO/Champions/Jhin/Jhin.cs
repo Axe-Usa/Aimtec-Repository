@@ -1,16 +1,15 @@
 
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -26,17 +25,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
 
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            this.Spells();
+            Spells();
         }
 
         #endregion
@@ -52,7 +51,7 @@ namespace AIO.Champions
         {
             if (sender.IsMe)
             {
-                if (this.IsUltimateShooting() &&
+                if (IsUltimateShooting() &&
                     args.Slot != SpellSlot.R)
                 {
                     args.Process = false;
@@ -85,10 +84,10 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
+                    Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Jungleclear(sender, args);
+                    Jungleclear(sender, args);
                     break;
             }
         }
@@ -106,10 +105,10 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
+                    Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Jungleclear(sender, args);
+                    Jungleclear(sender, args);
                     break;
             }
         }
@@ -122,7 +121,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -169,12 +168,12 @@ namespace AIO.Champions
                 var spellName = args.SpellData.Name;
                 if (spellName.Equals("JhinR"))
                 {
-                    this.UltimateShotsCount = 0;
-                    this.End = args.End;
+                    UltimateShotsCount = 0;
+                    End = args.End;
                 }
                 else if (spellName.Equals("JhinRShot"))
                 {
-                    this.UltimateShotsCount++;
+                    UltimateShotsCount++;
                 }
             }
         }
@@ -217,7 +216,7 @@ namespace AIO.Champions
         public void OnIssueOrder(Obj_AI_Base sender, Obj_AI_BaseIssueOrderEventArgs args)
         {
             if (sender.IsMe &&
-                this.IsUltimateShooting() &&
+                IsUltimateShooting() &&
                 args.OrderType == OrderType.MoveTo)
             {
                 args.ProcessEvent = false;
@@ -237,7 +236,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
@@ -247,7 +246,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -255,20 +254,20 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
 
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
-                    this.Jungleclear();
+                    Laneclear();
+                    Jungleclear();
                     break;
 
                 case OrbwalkingMode.Lasthit:
-                    this.Lasthit();
+                    Lasthit();
                     break;
             }
         }

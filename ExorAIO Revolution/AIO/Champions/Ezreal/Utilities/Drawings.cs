@@ -1,15 +1,13 @@
 ﻿
+using System.Drawing;
+using Aimtec;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-
-    using Aimtec;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>

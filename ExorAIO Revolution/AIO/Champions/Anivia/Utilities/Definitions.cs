@@ -1,17 +1,16 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
 
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
+using Aimtec.SDK.Extensions;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Damage.JSON;
-    using Aimtec.SDK.Extensions;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The definitions class.
     /// </summary>
@@ -35,7 +34,7 @@ namespace AIO.Champions
         public double GetFrostBiteDamage(Obj_AI_Base unit)
         {
             var player = UtilityClass.Player;
-            return this.IsChilled(unit)
+            return IsChilled(unit)
                        ? player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Empowered)
                        : player.GetSpellDamage(unit, SpellSlot.E);
         }

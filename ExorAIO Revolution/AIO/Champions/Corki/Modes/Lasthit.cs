@@ -1,14 +1,12 @@
 
+using System.Linq;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -29,7 +27,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.R.Slot, MenuClass.Spells["r"]["lasthitaa"]) &&
                 MenuClass.Spells["r"]["lasthitaa"].As<MenuSliderBool>().Enabled)
             {
-                var bestMinionTarget = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(m => m.GetRealHealth() < this.GetMissileDamage(m));
+                var bestMinionTarget = Extensions.GetEnemyLaneMinionsTargets().FirstOrDefault(m => m.GetRealHealth() < GetMissileDamage(m));
                 if (bestMinionTarget != null &&
                     bestMinionTarget.IsValidTarget(SpellClass.R.Range) &&
                     !bestMinionTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestMinionTarget)))

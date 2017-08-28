@@ -1,18 +1,16 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -28,17 +26,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
         }
 
         #endregion
@@ -53,12 +51,12 @@ namespace AIO.Champions
         public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
             if (sender.IsMe &&
-                this.BallPosition != null &&
+                BallPosition != null &&
                 args.Slot == SpellSlot.R)
             {
                 var validTargets = GameObjects.EnemyHeroes.Where(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition));
+                        t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)BallPosition));
                 if (!validTargets.Any())
                 {
                     args.Process = false;
@@ -74,7 +72,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -209,17 +207,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Updates the position of the ball.
             /// </summary>
-            this.UpdateBallPosition();
+            UpdateBallPosition();
 
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -227,17 +225,17 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
-                    this.Jungleclear();
+                    Laneclear();
+                    Jungleclear();
                     break;
                 case OrbwalkingMode.Lasthit:
-                    this.Lasthit();
+                    Lasthit();
                     break;
             }
         }

@@ -1,12 +1,11 @@
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+
 namespace AIO.Utilities
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-
     /// <summary>
     ///     The Bools class.
     /// </summary>

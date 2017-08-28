@@ -1,16 +1,15 @@
 
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -26,17 +25,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
         }
 
         #endregion
@@ -108,13 +107,13 @@ namespace AIO.Champions
                 switch (ImplementationClass.IOrbwalker.Mode)
                 {
                     case OrbwalkingMode.Combo:
-                        this.Weaving(sender, args);
+                        Weaving(sender, args);
                         break;
 
                     case OrbwalkingMode.Laneclear:
-                        this.Laneclear(sender, args);
-                        this.Jungleclear(sender, args);
-                        this.Buildingclear(sender, args);
+                        Laneclear(sender, args);
+                        Jungleclear(sender, args);
+                        Buildingclear(sender, args);
                         break;
                 }
             }
@@ -141,7 +140,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -157,7 +156,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
@@ -167,7 +166,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             if (UtilityClass.Player.HasBuff("LucianR"))
             {
@@ -180,15 +179,15 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
+                    Laneclear();
                     break;
 
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
             }
         }

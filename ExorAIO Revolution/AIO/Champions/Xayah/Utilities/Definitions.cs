@@ -1,20 +1,18 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-
-    using Utilities;
-
     /// <summary>
     ///     The definitions class.
     /// </summary>
@@ -49,7 +47,7 @@ namespace AIO.Champions
         /// </summary>
         public bool CanFeathersHitUnit(Obj_AI_Base unit)
         {
-            return this.CountFeathersHitOnUnit(unit) > 0;
+            return CountFeathersHitOnUnit(unit) > 0;
         }
 
         /// <summary>
@@ -58,7 +56,7 @@ namespace AIO.Champions
         public int CountFeathersHitOnUnit(Obj_AI_Base unit)
         {
             var hit = 0;
-            foreach (var feather in this.Feathers)
+            foreach (var feather in Feathers)
             {
                 var playerToFeatherRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.ServerPosition, (Vector2)feather.Value, SpellClass.Q.Width);
                 if (playerToFeatherRectangle.IsInside((Vector2)unit.ServerPosition))
@@ -75,7 +73,7 @@ namespace AIO.Champions
         /// </summary>
         public int CountFeathersKillableMinions()
         {
-            return Extensions.GetAllGenericMinionsTargets().Count(m => this.GetPerfectFeatherDamage(m, this.CountFeathersHitOnUnit(m)) >= m.GetRealHealth());
+            return Extensions.GetAllGenericMinionsTargets().Count(m => GetPerfectFeatherDamage(m, CountFeathersHitOnUnit(m)) >= m.GetRealHealth());
         }
 
         /// <summary>
@@ -100,7 +98,7 @@ namespace AIO.Champions
         public bool IsPerfectFeatherTarget(Obj_AI_Base unit)
         {
             if (unit.IsValidTarget() &&
-                this.CanFeathersHitUnit(unit))
+                CanFeathersHitUnit(unit))
             {
                 switch (unit.Type)
                 {
@@ -125,7 +123,7 @@ namespace AIO.Champions
                 switch (feather.Name)
                 {
                     case "Xayah_Base_Passive_Dagger_Mark8s.troy":
-                        this.Feathers.Add(feather.NetworkId, feather.Position);
+                        Feathers.Add(feather.NetworkId, feather.Position);
                         break;
                 }
             }

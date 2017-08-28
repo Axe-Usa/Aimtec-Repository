@@ -1,16 +1,15 @@
 
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -26,17 +25,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
         }
 
         #endregion
@@ -70,7 +69,7 @@ namespace AIO.Champions
                             > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["lasthitunk"]) &&
                         MenuClass.Spells["e"]["lasthitunk"].As<MenuSliderBool>().Enabled)
                     {
-                        if (minion.GetRealHealth() <= this.GetFrostBiteDamage(minion))
+                        if (minion.GetRealHealth() <= GetFrostBiteDamage(minion))
                         {
                             SpellClass.E.CastOnUnit(minion);
                         }
@@ -89,10 +88,10 @@ namespace AIO.Champions
                 switch (obj.Name)
                 {
                     case "Anivia_Base_Q_AOE_Mis.troy":
-                        this.FlashFrost = obj;
+                        FlashFrost = obj;
                         break;
                     case "Anivia_Base_R_indicator_ring.troy":
-                        this.GlacialStorm = obj;
+                        GlacialStorm = obj;
                         break;
                 }
             }
@@ -108,10 +107,10 @@ namespace AIO.Champions
                 switch (obj.Name)
                 {
                     case "Anivia_Base_Q_AOE_Mis.troy":
-                        this.FlashFrost = null;
+                        FlashFrost = null;
                         break;
                     case "Anivia_Base_R_indicator_ring.troy":
-                        this.GlacialStorm = null;
+                        GlacialStorm = null;
                         break;
                 }
             }
@@ -125,7 +124,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -179,12 +178,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -192,16 +191,16 @@ namespace AIO.Champions
             switch (Orbwalker.Implementation.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
+                    Laneclear();
                     break;
                 case OrbwalkingMode.Lasthit:
-                    this.Lasthit();
+                    Lasthit();
                     break;
             }
         }

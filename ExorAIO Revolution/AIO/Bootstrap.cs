@@ -1,12 +1,11 @@
 
+using System;
+using System.Reflection;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 namespace AIO
 {
-    using System;
-    using System.Reflection;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The bootstrap class.
     /// </summary>

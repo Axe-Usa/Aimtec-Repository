@@ -1,12 +1,12 @@
-﻿namespace AIO.Utilities
-{
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Security.Permissions;
-    using System.Text;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Security.Permissions;
+using System.Text;
 
+namespace AIO.Utilities
+{
     /// <summary>
     ///     Obtrieves resources.
     /// </summary>

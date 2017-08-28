@@ -1,7 +1,7 @@
+using Aimtec.SDK.Orbwalking;
+
 namespace AIO.Champions
 {
-    using Aimtec.SDK.Orbwalking;
-
     /// <summary>
     ///     The champion class.
     /// </summary>

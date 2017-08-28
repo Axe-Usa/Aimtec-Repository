@@ -1,17 +1,16 @@
 
 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
+
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -45,13 +44,13 @@ namespace AIO.Champions
                 {
                     Vector3 targetPosAfterW;
                     var targetPred = SpellClass.W.GetPrediction(target).CastPosition;
-                    if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
+                    if (UtilityClass.Player.Distance(GetUnitPositionAfterPull(target)) >= 200f)
                     {
-                        targetPosAfterW = this.GetUnitPositionAfterPull(target);
+                        targetPosAfterW = GetUnitPositionAfterPull(target);
                     }
                     else
                     {
-                        targetPosAfterW = this.GetUnitPositionAfterPush(target);
+                        targetPosAfterW = GetUnitPositionAfterPush(target);
                     }
 
                     //SpellClass.W.Cast(targetPred, targetPosAfterW);

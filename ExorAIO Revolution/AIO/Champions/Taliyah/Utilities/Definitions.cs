@@ -1,20 +1,19 @@
 ﻿
 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
 // ReSharper disable LoopCanBeConvertedToQuery
+
+using System.Collections.Generic;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The definitions class.
     /// </summary>
@@ -61,7 +60,7 @@ namespace AIO.Champions
         /// </summary>
         public bool AnyTerrainInRange(float range)
         {
-            return this.CountTerrainsInRange(range) > 0;
+            return CountTerrainsInRange(range) > 0;
         }
 
         /// <summary>
@@ -69,7 +68,7 @@ namespace AIO.Champions
         /// </summary>
         public int CountTerrainsInRange(float range)
         {
-            return this.WorkedGrounds.Count(o => o.Value.Distance(UtilityClass.Player.Position) <= range);
+            return WorkedGrounds.Count(o => o.Value.Distance(UtilityClass.Player.Position) <= range);
         }
 
         /// <summary>
@@ -80,10 +79,10 @@ namespace AIO.Champions
         {
             var mostBouldersHit = 0;
             var mostBouldersHitPos = Vector3.Zero;
-            foreach (var mine in this.MineField)
+            foreach (var mine in MineField)
             {
                 var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, WPushDistance), unit.BoundingRadius);
-                var bouldersHit = this.MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
+                var bouldersHit = MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
                 if (bouldersHit > mostBouldersHit)
                 {
                     mostBouldersHit = bouldersHit;
@@ -106,10 +105,10 @@ namespace AIO.Champions
         public int GetBestBouldersHitPositionHitBoulders(Obj_AI_Base unit)
         {
             var mostBouldersHit = 0;
-            foreach (var mine in this.MineField)
+            foreach (var mine in MineField)
             {
                 var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, WPushDistance), unit.BoundingRadius);
-                var bouldersHit = this.MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
+                var bouldersHit = MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
                 if (bouldersHit > mostBouldersHit)
                 {
                     mostBouldersHit = bouldersHit;
@@ -146,26 +145,26 @@ namespace AIO.Champions
             switch (MenuClass.Spells["w"]["selection"][target.ChampionName.ToLower()].As<MenuList>().Value)
             {
                 case 0:
-                    position = this.GetUnitPositionAfterPull(target);
+                    position = GetUnitPositionAfterPull(target);
                     break;
                 case 1:
-                    position = this.GetUnitPositionAfterPush(target);
+                    position = GetUnitPositionAfterPush(target);
                     break;
 
                 /// <summary>
                 ///     Pull if killable else Push.
                 /// </summary>
                 case 2:
-                    var isKillable = target.GetRealHealth() < UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) * (this.IsNearWorkedGround() ? 1 : 3) +
+                    var isKillable = target.GetRealHealth() < UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) * (IsNearWorkedGround() ? 1 : 3) +
                                      UtilityClass.Player.GetSpellDamage(target, SpellSlot.W) +
                                      UtilityClass.Player.GetSpellDamage(target, SpellSlot.E);
                     if (isKillable)
                     {
-                        position = this.GetUnitPositionAfterPull(target);
+                        position = GetUnitPositionAfterPull(target);
                     }
                     else
                     {
-                        position = this.GetUnitPositionAfterPush(target);
+                        position = GetUnitPositionAfterPush(target);
                     }
                     break;
 
@@ -173,13 +172,13 @@ namespace AIO.Champions
                 ///     Pull if not near else Push.
                 /// </summary>
                 case 3:
-                    if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
+                    if (UtilityClass.Player.Distance(GetUnitPositionAfterPull(target)) >= 200f)
                     {
-                        position = this.GetUnitPositionAfterPull(target);
+                        position = GetUnitPositionAfterPull(target);
                     }
                     else
                     {
-                        position = this.GetUnitPositionAfterPush(target);
+                        position = GetUnitPositionAfterPush(target);
                     }
                     break;
 
@@ -192,13 +191,13 @@ namespace AIO.Champions
                                 t.IsValidTarget(SpellClass.W.Range) &&
                                 MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
                     {
-                        if (UtilityClass.Player.Distance(this.GetUnitPositionAfterPull(target)) >= 200f)
+                        if (UtilityClass.Player.Distance(GetUnitPositionAfterPull(target)) >= 200f)
                         {
-                            position = this.GetUnitPositionAfterPull(target);
+                            position = GetUnitPositionAfterPull(target);
                         }
                         else
                         {
-                            position = this.GetUnitPositionAfterPush(target);
+                            position = GetUnitPositionAfterPush(target);
                         }
                     }
                     break;
@@ -212,7 +211,7 @@ namespace AIO.Champions
         /// </summary>
         public bool IsNearWorkedGround()
         {
-            return this.AnyTerrainInRange(WorkedGroundWidth);
+            return AnyTerrainInRange(WorkedGroundWidth);
         }
 
         /// <summary>
@@ -225,7 +224,7 @@ namespace AIO.Champions
                 switch (mine.Name)
                 {
                     case "Taliyah_Base_E_Mines.troy":
-                        this.MineField.Add(mine.NetworkId, mine.Position);
+                        MineField.Add(mine.NetworkId, mine.Position);
                         break;
                 }
             }
@@ -242,7 +241,7 @@ namespace AIO.Champions
                 {
                     case "Taliyah_Base_Q_aoe.troy":
                     case "Taliyah_Base_Q_aoe_river.troy":
-                        this.WorkedGrounds.Add(ground.NetworkId, ground.Position);
+                        WorkedGrounds.Add(ground.NetworkId, ground.Position);
                         break;
                 }
             }

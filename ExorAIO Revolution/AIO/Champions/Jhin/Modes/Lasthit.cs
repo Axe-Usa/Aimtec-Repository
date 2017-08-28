@@ -1,13 +1,12 @@
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -28,7 +27,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["lasthit"]) &&
                 MenuClass.Spells["q"]["lasthit"].As<MenuSliderBool>().Enabled)
             {
-                if (!this.IsReloading() &&
+                if (!IsReloading() &&
                     MenuClass.Spells["q"]["customization"]["lasthitonreload"].As<MenuBool>().Enabled)
                 {
                     return;

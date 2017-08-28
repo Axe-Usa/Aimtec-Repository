@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -48,10 +46,10 @@ namespace AIO.Champions
                         break;
                     case 2:
                         if (!manaCheck ||
-                            this.GlacialStorm != null &&
+                            GlacialStorm != null &&
                             !GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position) &&
+                                t.IsValidTarget(SpellClass.R.Width, false, true, GlacialStorm.Position) &&
                                 MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                         {
                             SpellClass.R.Cast();
@@ -85,10 +83,10 @@ namespace AIO.Champions
                         break;
                     case 2:
                         if (!manaCheck ||
-                            this.FlashFrost != null &&
+                            FlashFrost != null &&
                             !GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position) &&
+                                t.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position) &&
                                 MenuClass.Spells["q"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                         {
                             SpellClass.Q.Cast();
@@ -113,7 +111,7 @@ namespace AIO.Champions
                     switch (MenuClass.Spells["e"]["customization"]["emodes"]["harass"].As<MenuList>().Value)
                     {
                         case 0:
-                            if (this.IsChilled(bestTarget))
+                            if (IsChilled(bestTarget))
                             {
                                 SpellClass.E.CastOnUnit(bestTarget);
                             }

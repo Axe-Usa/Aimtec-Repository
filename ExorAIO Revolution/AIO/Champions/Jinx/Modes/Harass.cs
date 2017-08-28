@@ -1,17 +1,15 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -36,7 +34,7 @@ namespace AIO.Champions
             ///     The Fishbones to PowPow Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                this.IsUsingFishBones())
+                IsUsingFishBones())
             {
                 if (UtilityClass.Player.ManaPercent() <= MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value)
                 {
@@ -63,7 +61,7 @@ namespace AIO.Champions
             ///     The PowPow to Fishbones Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                !this.IsUsingFishBones() &&
+                !IsUsingFishBones() &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 if (UtilityClass.Player.ManaPercent() <= MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value)

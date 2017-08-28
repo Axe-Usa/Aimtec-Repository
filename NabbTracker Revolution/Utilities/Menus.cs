@@ -1,11 +1,11 @@
 ﻿
+using Aimtec.SDK.Menu;
+using Aimtec.SDK.Menu.Components;
+
 #pragma warning disable 1587
 
 namespace NabbTracker
 {
-    using Aimtec.SDK.Menu;
-    using Aimtec.SDK.Menu.Components;
-
     /// <summary>
     ///     The menu class.
     /// </summary>

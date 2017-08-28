@@ -1,11 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Aimtec;
+
 namespace AIO.Utilities
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Aimtec;
-
     /// <summary>
     ///     Gets data on spells.
     /// </summary>
@@ -178,20 +177,20 @@ namespace AIO.Utilities
             int angle = 360,
             int defaultDangerValue = 1)
         {
-            this.ChampionName = championName;
-            this.SpellName = spellName;
-            this.Slot = slot;
-            this.SpellType = spellType;
-            this.CastType = castType;
-            this.SpellTags = spellTags;
-            this.ResetsAutoAttackTimer = resetsAutoAttackTimer;
-            this.Delay = delay;
-            this.Range = range;
-            this.Radius = radius;
-            this.Width = width;
-            this.MissileSpeed = missileSpeed;
-            this.Angle = angle;
-            this.DangerValue = defaultDangerValue;
+            ChampionName = championName;
+            SpellName = spellName;
+            Slot = slot;
+            SpellType = spellType;
+            CastType = castType;
+            SpellTags = spellTags;
+            ResetsAutoAttackTimer = resetsAutoAttackTimer;
+            Delay = delay;
+            Range = range;
+            Radius = radius;
+            Width = width;
+            MissileSpeed = missileSpeed;
+            Angle = angle;
+            DangerValue = defaultDangerValue;
         }
 
         #endregion

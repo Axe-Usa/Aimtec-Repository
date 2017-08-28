@@ -1,17 +1,15 @@
 ﻿
+using System.Drawing;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -61,7 +59,7 @@ namespace AIO.Champions
                 if (MenuClass.Drawings["edmg"].As<MenuBool>().Enabled)
                 {
                     ObjectManager.Get<Obj_AI_Base>()
-                        .Where(h => this.IsPerfectRendTarget(h) && (h is Obj_AI_Hero || UtilityClass.JungleList.Contains(h.UnitSkinName)))
+                        .Where(h => IsPerfectRendTarget(h) && (h is Obj_AI_Hero || UtilityClass.JungleList.Contains(h.UnitSkinName)))
                         .ToList()
                         .ForEach(
                             unit =>
@@ -115,11 +113,11 @@ namespace AIO.Champions
                                     barPos.Y += yOffset;
 
                                     var drawEndXPos = barPos.X + width * (unit.HealthPercent() / 100);
-                                    var drawStartXPos = (float)(barPos.X + (unit.GetRealHealth() > this.GetTotalRendDamage(unit)
-                                                                                ? width * ((unit.GetRealHealth() - this.GetTotalRendDamage(unit)) / unit.MaxHealth * 100 / 100)
+                                    var drawStartXPos = (float)(barPos.X + (unit.GetRealHealth() > GetTotalRendDamage(unit)
+                                                                                ? width * ((unit.GetRealHealth() - GetTotalRendDamage(unit)) / unit.MaxHealth * 100 / 100)
                                                                                 : 0));
 
-                                    Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, unit.GetRealHealth() < this.GetTotalRendDamage(unit) ? Color.Blue : Color.Orange);
+                                    Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, unit.GetRealHealth() < GetTotalRendDamage(unit) ? Color.Blue : Color.Orange);
                                     Render.Line(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
                                 });
                 }
@@ -137,12 +135,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Loads the Soulbound drawing.
             /// </summary>
-            if (this.SoulBound != null &&
+            if (SoulBound != null &&
                 MenuClass.Drawings["soulbound"].As<MenuSliderBool>().Enabled)
             {
                 for (var i = 0; i < MenuClass.Drawings["soulbound"].As<MenuSliderBool>().Value; i++)
                 {
-                    Render.Circle(this.SoulBound.Position, (uint)(60 + i * 5), 30, Color.Black);
+                    Render.Circle(SoulBound.Position, (uint)(60 + i * 5), 30, Color.Black);
                 }
             }
         }

@@ -1,17 +1,15 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -24,7 +22,7 @@ namespace AIO.Champions
         /// </summary>
         public void Killsteal()
         {
-            if (this.BallPosition == null)
+            if (BallPosition == null)
             {
                 return;
             }
@@ -39,7 +37,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)this.BallPosition;
+                    SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)BallPosition;
                     SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
@@ -51,7 +49,7 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
-                        t.IsValidTarget(SpellClass.W.Width, false, false, (Vector3)this.BallPosition) &&
+                        t.IsValidTarget(SpellClass.W.Width, false, false, (Vector3)BallPosition) &&
                         UtilityClass.Player.GetSpellDamage(t, SpellSlot.W) >= t.GetRealHealth()))
                 {
                     SpellClass.W.Cast();
@@ -65,7 +63,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)this.BallPosition)))
+                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)BallPosition)))
                 {
                     var dmg = UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.R);
                     if (SpellClass.Q.Ready &&
@@ -74,11 +72,11 @@ namespace AIO.Champions
                         dmg += UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.Q);
                     }
                     if (SpellClass.W.Ready &&
-                       enemy.IsValidTarget(SpellClass.W.Width - SpellClass.W.Delay * enemy.BoundingRadius, false, false, (Vector3)this.BallPosition))
+                       enemy.IsValidTarget(SpellClass.W.Width - SpellClass.W.Delay * enemy.BoundingRadius, false, false, (Vector3)BallPosition))
                     {
                         dmg += UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.W);
                     }
-                    if (UtilityClass.Player.ServerPosition.Distance((Vector3)this.BallPosition) < UtilityClass.Player.AttackRange)
+                    if (UtilityClass.Player.ServerPosition.Distance((Vector3)BallPosition) < UtilityClass.Player.AttackRange)
                     {
                         dmg += UtilityClass.Player.GetAutoAttackDamage(enemy);
                     }

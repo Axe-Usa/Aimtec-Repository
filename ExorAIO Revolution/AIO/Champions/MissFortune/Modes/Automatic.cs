@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -30,11 +28,11 @@ namespace AIO.Champions
                     .Where(m => m.IsValidTarget())
                     .MinBy(o => o.Distance(passiveObject));
 
-                this.LoveTapTargetNetworkId = passiveUnit?.NetworkId ?? 0;
+                LoveTapTargetNetworkId = passiveUnit?.NetworkId ?? 0;
             }
             else
             {
-                this.LoveTapTargetNetworkId = 0;
+                LoveTapTargetNetworkId = 0;
             }
 
             if (UtilityClass.Player.IsRecalling())
@@ -56,7 +54,7 @@ namespace AIO.Champions
                     .MinBy(o => o.CountEnemyHeroesInRange(300f));
                 if (bestTarget != null)
                 {
-                    if (!this.IsUltimateShooting() &&
+                    if (!IsUltimateShooting() &&
                         MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
                     {
                         if (SpellClass.E.Ready)
@@ -66,7 +64,7 @@ namespace AIO.Champions
 
                         SpellClass.R.Cast(bestTarget.ServerPosition);
                     }
-                    else if (this.IsUltimateShooting() &&
+                    else if (IsUltimateShooting() &&
                          !MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
                     {
                         UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);

@@ -1,15 +1,13 @@
 ﻿
+using System.Drawing;
+using Aimtec;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-
-    using Aimtec;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -37,7 +35,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["w"].As<MenuBool>().Enabled)
             {
-                Render.Circle(UtilityClass.Player.Position, this.HasPackage() ? SpellClass.W2.Range : SpellClass.W.Range, 30, Color.Yellow);
+                Render.Circle(UtilityClass.Player.Position, HasPackage() ? SpellClass.W2.Range : SpellClass.W.Range, 30, Color.Yellow);
             }
 
             /// <summary>

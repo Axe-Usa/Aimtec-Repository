@@ -1,13 +1,12 @@
-﻿namespace AIO.Utilities
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Security.Permissions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace AIO.Utilities
 {
-    using System;
-    using System.IO;
-    using System.Reflection;
-    using System.Security.Permissions;
-
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-
     /// <summary>
     ///     Creates JSON data from resources.
     /// </summary>

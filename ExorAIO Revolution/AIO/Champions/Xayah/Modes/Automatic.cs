@@ -1,17 +1,15 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Util;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Util;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -24,7 +22,7 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-            ImplementationClass.IOrbwalker.AttackingEnabled = !this.IsFlying();
+            ImplementationClass.IOrbwalker.AttackingEnabled = !IsFlying();
 
             if (UtilityClass.Player.IsRecalling())
             {

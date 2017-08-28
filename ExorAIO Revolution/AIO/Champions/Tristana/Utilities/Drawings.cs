@@ -1,17 +1,15 @@
 ﻿
+using System.Drawing;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -39,7 +37,7 @@ namespace AIO.Champions
             if (MenuClass.Drawings["edmg"].As<MenuBool>().Enabled)
             {
                 ObjectManager.Get<Obj_AI_Base>()
-                    .Where(h => this.IsCharged(h) && (h is Obj_AI_Hero && !Invulnerable.Check((Obj_AI_Hero)h) || UtilityClass.JungleList.Contains(h.UnitSkinName)))
+                    .Where(h => IsCharged(h) && (h is Obj_AI_Hero && !Invulnerable.Check((Obj_AI_Hero)h) || UtilityClass.JungleList.Contains(h.UnitSkinName)))
                     .ToList()
                     .ForEach(
                         unit =>
@@ -93,11 +91,11 @@ namespace AIO.Champions
                                 barPos.Y += yOffset;
 
                                 var drawEndXPos = barPos.X + width * (unit.HealthPercent() / 100);
-                                var drawStartXPos = (float)(barPos.X + (unit.GetRealHealth() > this.GetTotalExplosionDamage(unit)
-                                                                            ? width * ((unit.GetRealHealth() - this.GetTotalExplosionDamage(unit)) / unit.MaxHealth * 100 / 100)
+                                var drawStartXPos = (float)(barPos.X + (unit.GetRealHealth() > GetTotalExplosionDamage(unit)
+                                                                            ? width * ((unit.GetRealHealth() - GetTotalExplosionDamage(unit)) / unit.MaxHealth * 100 / 100)
                                                                             : 0));
 
-                                Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, unit.GetRealHealth() < this.GetTotalExplosionDamage(unit) ? Color.Blue : Color.Orange);
+                                Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, unit.GetRealHealth() < GetTotalExplosionDamage(unit) ? Color.Blue : Color.Orange);
                                 Render.Line(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
                             });
             }

@@ -1,15 +1,13 @@
 
+using System.Linq;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -30,7 +28,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Count(this.IsValidBladeTarget)
+                if (Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Count(IsValidBladeTarget)
                         >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
                     SpellClass.Q.Cast();

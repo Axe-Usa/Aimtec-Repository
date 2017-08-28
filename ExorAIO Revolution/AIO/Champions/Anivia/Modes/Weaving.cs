@@ -1,9 +1,9 @@
 
+using Aimtec.SDK.Orbwalking;
+
 #pragma warning disable 1587
 namespace AIO.Champions
 {
-    using Aimtec.SDK.Orbwalking;
-
     /// <summary>
     ///     The champion class.
     /// </summary>

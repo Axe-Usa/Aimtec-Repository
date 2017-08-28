@@ -1,14 +1,13 @@
 
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -53,7 +52,7 @@ namespace AIO.Champions
                         SpellClass.W.CastOnUnit(obj);
                     }*/
 
-                    if (this.IsHoldingForceOfWillObject())
+                    if (IsHoldingForceOfWillObject())
                     {
                         SpellClass.W.Cast(bestTarget.ServerPosition);
                     }
@@ -68,7 +67,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    this.GetPerfectUnleashedPowerDamage(bestTarget) >= bestTarget.GetRealHealth())
+                    GetPerfectUnleashedPowerDamage(bestTarget) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.R.CastOnUnit(bestTarget);
                 }

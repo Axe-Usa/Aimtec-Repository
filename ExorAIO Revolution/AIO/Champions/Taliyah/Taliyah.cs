@@ -1,19 +1,17 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using Aimtec.SDK.Util;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-    using Aimtec.SDK.Util;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -29,27 +27,27 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Reloads the MineField.
             /// </summary>
-            this.ReloadMineField();
+            ReloadMineField();
 
             /// <summary>
             ///     Reloads the WorkedGrounds.
             /// </summary>
-            this.ReloadWorkedGrounds();
+            ReloadWorkedGrounds();
         }
 
         #endregion
@@ -74,7 +72,7 @@ namespace AIO.Champions
                                 switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
                                 {
                                     case 0:
-                                        if (this.IsNearWorkedGround())
+                                        if (IsNearWorkedGround())
                                         {
                                             args.Process = false;
                                         }
@@ -109,11 +107,11 @@ namespace AIO.Champions
                 {
                     case "Taliyah_Base_Q_aoe.troy":
                     case "Taliyah_Base_Q_aoe_river.troy":
-                        this.WorkedGrounds.Add(obj.NetworkId, obj.Position);
+                        WorkedGrounds.Add(obj.NetworkId, obj.Position);
                         break;
 
                     case "Taliyah_Base_E_Mines.troy":
-                        this.MineField.Add(obj.NetworkId, obj.Position);
+                        MineField.Add(obj.NetworkId, obj.Position);
                         break;
                 }
             }
@@ -126,14 +124,14 @@ namespace AIO.Champions
         {
             if (obj != null && obj.IsValid)
             {
-                if (this.WorkedGrounds.Any(o => o.Key == obj.NetworkId))
+                if (WorkedGrounds.Any(o => o.Key == obj.NetworkId))
                 {
-                    this.WorkedGrounds.Remove(obj.NetworkId);
+                    WorkedGrounds.Remove(obj.NetworkId);
                 }
 
-                if (this.MineField.Any(o => o.Key == obj.NetworkId))
+                if (MineField.Any(o => o.Key == obj.NetworkId))
                 {
-                    this.MineField.Remove(obj.NetworkId);
+                    MineField.Remove(obj.NetworkId);
                 }
             }
         }
@@ -146,7 +144,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -309,7 +307,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
@@ -319,7 +317,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -327,14 +325,14 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
-                    this.Jungleclear();
+                    Laneclear();
+                    Jungleclear();
                     break;
             }
         }

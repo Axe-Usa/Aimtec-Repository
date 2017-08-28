@@ -1,7 +1,7 @@
-﻿namespace NabbTracker
-{
-    using Aimtec.SDK.Menu;
+﻿using Aimtec.SDK.Menu;
 
+namespace NabbTracker
+{
     /// <summary>
     ///     The Utility class.
     /// </summary>

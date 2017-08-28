@@ -1,7 +1,7 @@
-﻿namespace AIO.Utilities
-{
-    using System;
+﻿using System;
 
+namespace AIO.Utilities
+{
     /// <summary>
     ///     Marks a field/class that needs it's data from a JSON resource. Populated at runtime.
     /// </summary>
@@ -25,7 +25,7 @@
         /// <exception cref="ArgumentNullException"></exception>
         public ResourceImportAttribute(string file)
         {
-            this.File = file ?? throw new ArgumentNullException(nameof(file));
+            File = file ?? throw new ArgumentNullException(nameof(file));
         }
 
         #endregion

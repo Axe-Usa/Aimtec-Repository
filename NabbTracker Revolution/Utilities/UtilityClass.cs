@@ -1,10 +1,9 @@
+using System.Collections.Generic;
+using System.Drawing;
+using Aimtec;
+
 namespace NabbTracker
 {
-    using System.Collections.Generic;
-    using System.Drawing;
-
-    using Aimtec;
-
     /// <summary>
     ///     The Utility class.
     /// </summary>

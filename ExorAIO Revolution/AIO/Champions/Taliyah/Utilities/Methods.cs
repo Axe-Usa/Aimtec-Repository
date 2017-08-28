@@ -1,8 +1,8 @@
+using Aimtec;
+using Aimtec.SDK.Events;
+
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Events;
-
     /// <summary>
     ///     The methods class.
     /// </summary>
@@ -15,14 +15,14 @@ namespace AIO.Champions
         /// </summary>
         public void Methods()
         {
-            Game.OnUpdate += this.OnUpdate;
-            GameObject.OnCreate += this.OnCreate;
-            GameObject.OnDestroy += this.OnDestroy;
-            SpellBook.OnCastSpell += this.OnCastSpell;
-            Obj_AI_Base.OnProcessSpellCast += this.OnProcessSpellCast;
-            Obj_AI_Base.OnPerformCast += this.OnPerformCast;
-            Render.OnPresent += this.OnPresent;
-            Dash.HeroDashed += this.OnGapcloser;
+            Game.OnUpdate += OnUpdate;
+            GameObject.OnCreate += OnCreate;
+            GameObject.OnDestroy += OnDestroy;
+            SpellBook.OnCastSpell += OnCastSpell;
+            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
+            Obj_AI_Base.OnPerformCast += OnPerformCast;
+            Render.OnPresent += OnPresent;
+            Dash.HeroDashed += OnGapcloser;
 
             //Events.OnInterruptableTarget += Taliyah.OnInterruptableTarget;
         }

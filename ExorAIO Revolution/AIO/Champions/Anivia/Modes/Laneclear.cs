@@ -1,18 +1,16 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Damage.JSON;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -48,9 +46,9 @@ namespace AIO.Champions
                         */
                         break;
                     case 2:
-                        if (this.FlashFrost != null &&
+                        if (FlashFrost != null &&
                             MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value <=
-                                qMinions.Count(t => t.IsValidTarget(SpellClass.Q.Width, false, true, this.FlashFrost.Position)))
+                                qMinions.Count(t => t.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position)))
                         {
                             SpellClass.Q.Cast();
                         }
@@ -68,7 +66,7 @@ namespace AIO.Champions
             {
                 var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
                 if (target != null &&
-                    this.IsChilled(target) &&
+                    IsChilled(target) &&
                     minions.Contains(target) &&
                     UtilityClass.Player.GetSpellDamage(target, SpellSlot.E, DamageStage.Empowered) >= target.Health)
                 {
@@ -102,9 +100,9 @@ namespace AIO.Champions
                             return;
                         }
 
-                        if (this.GlacialStorm != null &&
+                        if (GlacialStorm != null &&
                             MenuClass.Spells["r"]["customization"]["laneclear"].As<MenuSlider>().Value >
-                                rMinions.Count(t => t.IsValidTarget(SpellClass.R.Width, false, true, this.GlacialStorm.Position)))
+                                rMinions.Count(t => t.IsValidTarget(SpellClass.R.Width, false, true, GlacialStorm.Position)))
                         {
                             SpellClass.R.Cast();
                         }

@@ -1,14 +1,13 @@
 
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -37,7 +36,7 @@ namespace AIO.Champions
                     switch (MenuClass.Spells["q"]["customization"]["qmodes"]["harass"].As<MenuList>().Value)
                     {
                         case 0:
-                            if (!this.IsNearWorkedGround())
+                            if (!IsNearWorkedGround())
                             {
                                 SpellClass.Q.Cast(bestTarget);
                             }

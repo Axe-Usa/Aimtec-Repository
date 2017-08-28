@@ -1,15 +1,13 @@
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -22,7 +20,7 @@ namespace AIO.Champions
         /// </summary>
         public void Lasthit()
         {
-            if (this.BallPosition == null)
+            if (BallPosition == null)
             {
                 return;
             }
@@ -39,7 +37,7 @@ namespace AIO.Champions
                 {
                     if (minion.GetRealHealth() < UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
                     {
-                        SpellClass.Q.GetPredictionInput(minion).From = (Vector3)this.BallPosition;
+                        SpellClass.Q.GetPredictionInput(minion).From = (Vector3)BallPosition;
                         SpellClass.Q.Cast(SpellClass.Q.GetPrediction(minion).CastPosition);
                     }
                 }

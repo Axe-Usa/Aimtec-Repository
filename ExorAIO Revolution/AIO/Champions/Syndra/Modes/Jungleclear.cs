@@ -1,17 +1,15 @@
 ﻿
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -39,9 +37,9 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (!this.IsHoldingForceOfWillObject())
+                if (!IsHoldingForceOfWillObject())
                 {
-                    var obj = this.ForceOfWillObject();
+                    var obj = ForceOfWillObject();
                     if (obj != null &&
                         obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
                     {
@@ -76,7 +74,7 @@ namespace AIO.Champions
             ///     The Jungleclear E Logics.
             /// </summary>
             if (SpellClass.E.Ready &&
-                this.IsPerfectSphereTarget(jungleTarget) &&
+                IsPerfectSphereTarget(jungleTarget) &&
                 jungleTarget.IsValidTarget(SpellClass.E.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&

@@ -1,16 +1,15 @@
-﻿namespace AIO.Utilities
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Util.ThirdParty;
+
+namespace AIO.Utilities
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Util.ThirdParty;
-
-    using Path = System.Collections.Generic.List<Aimtec.SDK.Util.ThirdParty.IntPoint>;
-    using Paths = System.Collections.Generic.List<System.Collections.Generic.List<Aimtec.SDK.Util.ThirdParty.IntPoint>>;
+    using Path = List<IntPoint>;
+    using Paths = List<List<IntPoint>>;
 
     /// <summary>
     ///     Class that contains the geometry related methods.
@@ -185,8 +184,8 @@
 
             public Circle(Vector2 center, float radius)
             {
-                this.Center = center;
-                this.Radius = radius;
+                Center = center;
+                Radius = radius;
             }
 
             #endregion
@@ -198,13 +197,13 @@
                 var result = new Polygon();
                 var outRadius = overrideWidth > 0
                                     ? overrideWidth
-                                    : (offset + this.Radius) / (float)Math.Cos(2 * Math.PI / CircleLineSegmentN);
+                                    : (offset + Radius) / (float)Math.Cos(2 * Math.PI / CircleLineSegmentN);
                 for (var i = 1; i <= CircleLineSegmentN; i++)
                 {
                     var angle = i * 2 * Math.PI / CircleLineSegmentN;
                     var point = new Vector2(
-                        this.Center.X + outRadius * (float)Math.Cos(angle),
-                        this.Center.Y + outRadius * (float)Math.Sin(angle));
+                        Center.X + outRadius * (float)Math.Cos(angle),
+                        Center.Y + outRadius * (float)Math.Sin(angle));
                     result.Add(point);
                 }
 
@@ -226,33 +225,33 @@
 
             public void Add(Vector2 point)
             {
-                this.Points.Add(point);
+                Points.Add(point);
             }
 
             public void Draw(Color color, int width = 1)
             {
-                for (var i = 0; i <= this.Points.Count - 1; i++)
+                for (var i = 0; i <= Points.Count - 1; i++)
                 {
-                    var nextIndex = this.Points.Count - 1 == i ? 0 : i + 1;
-                    Util.DrawLineInWorld((Vector3)this.Points[i], (Vector3)this.Points[nextIndex], width, color);
+                    var nextIndex = Points.Count - 1 == i ? 0 : i + 1;
+                    Util.DrawLineInWorld((Vector3)Points[i], (Vector3)Points[nextIndex], width, color);
                 }
             }
 
             public bool IsInside(Vector2 point)
             {
-                return !this.IsOutside(point);
+                return !IsOutside(point);
             }
 
             public bool IsOutside(Vector2 point)
             {
                 var p = new IntPoint(point.X, point.Y);
-                return Clipper.PointInPolygon(p, this.ToClipperPath()) != 1;
+                return Clipper.PointInPolygon(p, ToClipperPath()) != 1;
             }
 
             public List<IntPoint> ToClipperPath()
             {
-                var result = new List<IntPoint>(this.Points.Count);
-                result.AddRange(this.Points.Select(point => new IntPoint(point.X, point.Y)));
+                var result = new List<IntPoint>(Points.Count);
+                result.AddRange(Points.Select(point => new IntPoint(point.X, point.Y)));
 
                 return result;
             }
@@ -294,10 +293,10 @@
             /// <param name="width">The width.</param>
             public Rectangle(Vector2 start, Vector2 end, float width)
             {
-                this.Start = start;
-                this.End = end;
-                this.Width = width;
-                this.UpdatePolygon();
+                Start = start;
+                End = end;
+                Width = width;
+                UpdatePolygon();
             }
 
             #endregion
@@ -312,7 +311,7 @@
             /// </value>
             public Vector2 Direction()
             {
-                return (this.End - this.Start).Normalized();
+                return (End - Start).Normalized();
             }
 
             /// <summary>
@@ -323,7 +322,7 @@
             /// </value>
             public Vector2 Perpendicular()
             {
-                return this.Direction().Perpendicular();
+                return Direction().Perpendicular();
             }
 
             /// <summary>
@@ -333,19 +332,19 @@
             /// <param name="overrideWidth">Width of the override.</param>
             public void UpdatePolygon(int offset = 0, float overrideWidth = -1)
             {
-                this.Points.Clear();
-                this.Points.Add(
-                    this.Start + (overrideWidth > 0 ? overrideWidth : this.Width + offset) * this.Perpendicular()
-                    - offset * this.Direction());
-                this.Points.Add(
-                    this.Start - (overrideWidth > 0 ? overrideWidth : this.Width + offset) * this.Perpendicular()
-                    - offset * this.Direction());
-                this.Points.Add(
-                    this.End - (overrideWidth > 0 ? overrideWidth : this.Width + offset) * this.Perpendicular()
-                    + offset * this.Direction());
-                this.Points.Add(
-                    this.End + (overrideWidth > 0 ? overrideWidth : this.Width + offset) * this.Perpendicular()
-                    + offset * this.Direction());
+                Points.Clear();
+                Points.Add(
+                    Start + (overrideWidth > 0 ? overrideWidth : Width + offset) * Perpendicular()
+                    - offset * Direction());
+                Points.Add(
+                    Start - (overrideWidth > 0 ? overrideWidth : Width + offset) * Perpendicular()
+                    - offset * Direction());
+                Points.Add(
+                    End - (overrideWidth > 0 ? overrideWidth : Width + offset) * Perpendicular()
+                    + offset * Direction());
+                Points.Add(
+                    End + (overrideWidth > 0 ? overrideWidth : Width + offset) * Perpendicular()
+                    + offset * Direction());
             }
 
             #endregion
@@ -367,9 +366,9 @@
 
             public Ring(Vector2 center, float radius, float ringRadius)
             {
-                this.Center = center;
-                this.Radius = radius;
-                this.RingRadius = ringRadius;
+                Center = center;
+                Radius = radius;
+                RingRadius = ringRadius;
             }
 
             #endregion
@@ -379,23 +378,23 @@
             public Polygon ToPolygon(int offset = 0)
             {
                 var result = new Polygon();
-                var outRadius = (offset + this.Radius + this.RingRadius)
+                var outRadius = (offset + Radius + RingRadius)
                                 / (float)Math.Cos(2 * Math.PI / CircleLineSegmentN);
-                var innerRadius = this.Radius - this.RingRadius - offset;
+                var innerRadius = Radius - RingRadius - offset;
                 for (var i = 0; i <= CircleLineSegmentN; i++)
                 {
                     var angle = i * 2 * Math.PI / CircleLineSegmentN;
                     var point = new Vector2(
-                        this.Center.X - outRadius * (float)Math.Cos(angle),
-                        this.Center.Y - outRadius * (float)Math.Sin(angle));
+                        Center.X - outRadius * (float)Math.Cos(angle),
+                        Center.Y - outRadius * (float)Math.Sin(angle));
                     result.Add(point);
                 }
                 for (var i = 0; i <= CircleLineSegmentN; i++)
                 {
                     var angle = i * 2 * Math.PI / CircleLineSegmentN;
                     var point = new Vector2(
-                        this.Center.X + innerRadius * (float)Math.Cos(angle),
-                        this.Center.Y - innerRadius * (float)Math.Sin(angle));
+                        Center.X + innerRadius * (float)Math.Cos(angle),
+                        Center.Y - innerRadius * (float)Math.Sin(angle));
                     result.Add(point);
                 }
 
@@ -451,12 +450,12 @@
             /// <param name="quality">The quality.</param>
             public Sector(Vector2 center, Vector2 direction, float angle, float radius, int quality = 20)
             {
-                this.Center = center;
-                this.Direction = (direction - center).Normalized();
-                this.Angle = angle;
-                this.Radius = radius;
+                Center = center;
+                Direction = (direction - center).Normalized();
+                Angle = angle;
+                Radius = radius;
                 this.quality = quality;
-                this.UpdatePolygon();
+                UpdatePolygon();
             }
 
             #endregion
@@ -489,15 +488,15 @@
             /// <param name="offset">The offset.</param>
             public void UpdatePolygon(int offset = 0)
             {
-                this.Points.Clear();
-                var outRadius = (this.Radius + offset) / (float)Math.Cos(2 * Math.PI / this.quality);
-                this.Points.Add(this.Center);
-                var side1 = this.Direction.Rotated(-this.Angle * 0.5f);
-                for (var i = 0; i <= this.quality; i++)
+                Points.Clear();
+                var outRadius = (Radius + offset) / (float)Math.Cos(2 * Math.PI / quality);
+                Points.Add(Center);
+                var side1 = Direction.Rotated(-Angle * 0.5f);
+                for (var i = 0; i <= quality; i++)
                 {
-                    var cDirection = side1.Rotated(i * this.Angle / this.quality).Normalized();
-                    this.Points.Add(
-                        new Vector2(this.Center.X + outRadius * cDirection.X, this.Center.Y + outRadius * cDirection.Y));
+                    var cDirection = side1.Rotated(i * Angle / quality).Normalized();
+                    Points.Add(
+                        new Vector2(Center.X + outRadius * cDirection.X, Center.Y + outRadius * cDirection.Y));
                 }
             }
 

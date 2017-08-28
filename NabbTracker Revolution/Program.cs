@@ -1,10 +1,9 @@
-﻿namespace NabbTracker
+﻿using System;
+using Aimtec;
+using Aimtec.SDK.Events;
+
+namespace NabbTracker
 {
-    using System;
-
-    using Aimtec;
-    using Aimtec.SDK.Events;
-
     /// <summary>
     ///     The application class.
     /// </summary>

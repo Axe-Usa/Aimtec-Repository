@@ -1,13 +1,11 @@
-﻿namespace AIO.Utilities
+﻿using System.Collections.Generic;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Spell = Aimtec.SDK.Spell;
+
+namespace AIO.Utilities
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-
-    using Spell = Aimtec.SDK.Spell;
-
     /// <summary>
     ///     The UtilityData class.
     /// </summary>

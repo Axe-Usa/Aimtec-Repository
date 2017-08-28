@@ -1,15 +1,14 @@
 
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -45,7 +44,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    this.GetFrostBiteDamage(bestTarget) >= bestTarget.GetRealHealth())
+                    GetFrostBiteDamage(bestTarget) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.E.CastOnUnit(bestTarget);
                 }

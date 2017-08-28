@@ -1,15 +1,15 @@
 
 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
+
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -55,7 +55,7 @@ namespace AIO.Champions
                     switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
-                            if (this.IsValidBladeTarget(heroTarget))
+                            if (IsValidBladeTarget(heroTarget))
                             {
                                 SpellClass.Q.Cast();
                             }

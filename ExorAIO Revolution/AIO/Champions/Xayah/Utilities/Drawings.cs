@@ -1,16 +1,14 @@
 
+using System.Drawing;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -38,7 +36,7 @@ namespace AIO.Champions
             if (!UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).State.HasFlag(SpellState.Cooldown) &&
                 MenuClass.Drawings["feathers"].As<MenuBool>().Enabled)
             {
-                foreach (var feather in this.Feathers)
+                foreach (var feather in Feathers)
                 {
                     var hitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.Q.Width);
                     hitbox.Draw(

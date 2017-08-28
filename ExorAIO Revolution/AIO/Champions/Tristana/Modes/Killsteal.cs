@@ -1,14 +1,13 @@
 
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -31,7 +30,7 @@ namespace AIO.Champions
                 if (bestTarget != null)
                 {
                     if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) +
-                        (this.IsCharged(bestTarget) ? this.GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
+                        (IsCharged(bestTarget) ? GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
                     {
                         SpellClass.R.CastOnUnit(bestTarget);
                     }

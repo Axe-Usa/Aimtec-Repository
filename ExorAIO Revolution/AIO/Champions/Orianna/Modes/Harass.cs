@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The logics class.
     /// </summary>
@@ -23,7 +21,7 @@ namespace AIO.Champions
         /// </summary>
         public void Harass()
         {
-            if (this.BallPosition == null)
+            if (BallPosition == null)
             {
                 return;
             }
@@ -41,7 +39,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)this.BallPosition;
+                    SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)BallPosition;
                     SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
@@ -56,7 +54,7 @@ namespace AIO.Champions
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.W.Width, false, true, (Vector3)this.BallPosition) &&
+                        t.IsValidTarget(SpellClass.W.Width, false, true, (Vector3)BallPosition) &&
                         MenuClass.Spells["w"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                 {
                     SpellClass.W.Cast();

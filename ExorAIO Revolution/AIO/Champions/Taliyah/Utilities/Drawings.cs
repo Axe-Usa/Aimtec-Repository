@@ -1,15 +1,13 @@
 ﻿
+using System.Drawing;
+using Aimtec;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-
-    using Aimtec;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -76,7 +74,7 @@ namespace AIO.Champions
             /// </summary>
             if (MenuClass.Drawings["grounds"].As<MenuBool>().Enabled)
             {
-                foreach (var ground in this.WorkedGrounds)
+                foreach (var ground in WorkedGrounds)
                 {
                     Render.Circle(ground.Value, WorkedGroundWidth, 30, Color.Brown);
                 }
@@ -87,7 +85,7 @@ namespace AIO.Champions
             /// </summary>
             if (MenuClass.Drawings["boulders"].As<MenuBool>().Enabled)
             {
-                foreach (var boulder in this.MineField)
+                foreach (var boulder in MineField)
                 {
                     Render.Circle(boulder.Value, BouldersWidth, 30, Color.Brown);
                 }

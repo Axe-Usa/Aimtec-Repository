@@ -1,18 +1,16 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -28,17 +26,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
 
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            this.Spells();
+            Spells();
         }
 
         #endregion
@@ -77,7 +75,7 @@ namespace AIO.Champions
             if (MenuClass.Miscellaneous["focuse"].As<MenuBool>().Enabled)
             {
                 var forceTarget = Extensions.GetAllGenericUnitTargets().FirstOrDefault(t =>
-                        this.IsCharged(t) &&
+                        IsCharged(t) &&
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
                 if (forceTarget != null)
                 {
@@ -89,15 +87,15 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo(sender, args);
+                    Combo(sender, args);
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass(sender, args);
+                    Harass(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear(sender, args);
-                    this.Jungleclear(sender, args);
-                    this.Buildingclear(sender, args);
+                    Laneclear(sender, args);
+                    Jungleclear(sender, args);
+                    Buildingclear(sender, args);
                     break;
             }
         }
@@ -110,7 +108,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -193,12 +191,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             /// <summary>
             ///     Initializes the Automatic events.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
@@ -208,7 +206,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
         }
 
         #endregion

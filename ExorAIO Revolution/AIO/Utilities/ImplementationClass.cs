@@ -2,15 +2,15 @@
 // ReSharper disable InconsistentNaming
 
 
+using Aimtec.SDK.Orbwalking;
+using Aimtec.SDK.Prediction.Health;
+using Aimtec.SDK.Prediction.Skillshots;
+using Aimtec.SDK.TargetSelector;
+
 #pragma warning disable 1587
 
 namespace AIO.Utilities
 {
-    using Aimtec.SDK.Orbwalking;
-    using Aimtec.SDK.Prediction.Health;
-    using Aimtec.SDK.Prediction.Skillshots;
-    using Aimtec.SDK.TargetSelector;
-
     /// <summary>
     ///     The Implementation class.
     /// </summary>

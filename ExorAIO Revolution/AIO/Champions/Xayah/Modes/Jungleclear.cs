@@ -1,18 +1,16 @@
 ﻿
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Damage;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -44,8 +42,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 if (Extensions.GetGenericJungleMinionsTargets().Any(
-                    h => this.IsPerfectFeatherTarget(h) &&
-                         h.GetRealHealth() < this.GetPerfectFeatherDamage(h, this.CountFeathersHitOnUnit(h))))
+                    h => IsPerfectFeatherTarget(h) &&
+                         h.GetRealHealth() < GetPerfectFeatherDamage(h, CountFeathersHitOnUnit(h))))
                 {
                     SpellClass.E.Cast();
                     return;

@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -64,8 +62,8 @@ namespace AIO.Champions
                 {
                     foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m => UtilityClass.JungleList.Contains(m.UnitSkinName)))
                     {
-                        if (this.IsPerfectExpungeTarget(minion) &&
-                            minion.GetRealHealth() <= this.GetTotalExpungeDamage(minion) &&
+                        if (IsPerfectExpungeTarget(minion) &&
+                            minion.GetRealHealth() <= GetTotalExpungeDamage(minion) &&
                             MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
                         {
                             SpellClass.E.Cast();

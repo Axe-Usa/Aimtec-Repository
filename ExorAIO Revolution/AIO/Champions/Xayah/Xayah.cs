@@ -1,18 +1,16 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Events;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -28,22 +26,22 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
 
             /// <summary>
             ///     Updates the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Reloads the WorkedGrounds.
             /// </summary>
-            this.ReloadFeathers();
+            ReloadFeathers();
         }
 
         #endregion
@@ -62,7 +60,7 @@ namespace AIO.Champions
                 switch (args.Slot)
                 {
                     case SpellSlot.Q:
-                        if (!this.Interrupt &&
+                        if (!Interrupt &&
                             UtilityClass.Player.GetBuffCount("XayahPassiveActive") >= 3 &&
                             MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
                         {
@@ -91,7 +89,7 @@ namespace AIO.Champions
                 switch (obj.Name)
                 {
                     case "Xayah_Base_Passive_Dagger_Mark8s.troy":
-                        this.Feathers.Add(obj.NetworkId, obj.Position);
+                        Feathers.Add(obj.NetworkId, obj.Position);
                         break;
                 }
             }
@@ -104,9 +102,9 @@ namespace AIO.Champions
         {
             if (obj != null && obj.IsValid)
             {
-                if (this.Feathers.Any(o => o.Key == obj.NetworkId))
+                if (Feathers.Any(o => o.Key == obj.NetworkId))
                 {
-                    this.Feathers.Remove(obj.NetworkId);
+                    Feathers.Remove(obj.NetworkId);
                 }
             }
         }
@@ -124,11 +122,11 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
+                    Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Buildingclear(sender, args);
-                    this.Jungleclear(sender, args);
+                    Buildingclear(sender, args);
+                    Jungleclear(sender, args);
                     break;
             }
         }
@@ -141,7 +139,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -194,7 +192,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
@@ -204,7 +202,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -212,15 +210,15 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
 
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
+                    Laneclear();
                     break;
             }
         }

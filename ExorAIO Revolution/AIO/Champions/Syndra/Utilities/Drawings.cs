@@ -1,17 +1,15 @@
 ﻿
+using System.Drawing;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Drawing;
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The drawings class.
     /// </summary>
@@ -82,19 +80,19 @@ namespace AIO.Champions
                                     barPos.Y += yOffset;
 
                                     var drawEndXPos = barPos.X + width * (target.HealthPercent() / 100);
-                                    var drawStartXPos = (float)(barPos.X + (target.GetRealHealth() > this.GetPerfectUnleashedPowerDamage(target)
-                                                                                ? width * ((target.GetRealHealth() - this.GetPerfectUnleashedPowerDamage(target)) / target.MaxHealth * 100 / 100)
+                                    var drawStartXPos = (float)(barPos.X + (target.GetRealHealth() > GetPerfectUnleashedPowerDamage(target)
+                                                                                ? width * ((target.GetRealHealth() - GetPerfectUnleashedPowerDamage(target)) / target.MaxHealth * 100 / 100)
                                                                                 : 0));
 
-                                    Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, target.GetRealHealth() < this.GetPerfectUnleashedPowerDamage(target) ? Color.Blue : Color.Orange);
+                                    Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, target.GetRealHealth() < GetPerfectUnleashedPowerDamage(target) ? Color.Blue : Color.Orange);
                                     Render.Line(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
                                 });
                 }
             }
 
-            if (this.DarkSpheres.Any())
+            if (DarkSpheres.Any())
             {
-                foreach (var sphere in this.DarkSpheres)
+                foreach (var sphere in DarkSpheres)
                 {
                     /// <summary>
                     ///     Loads the DarkSpheres drawing.
@@ -111,7 +109,7 @@ namespace AIO.Champions
                         MenuClass.Drawings["scatter"].As<MenuBool>().Enabled &&
                         !UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).State.HasFlag(SpellState.Cooldown))
                     {
-                        var hitbox = this.DarkSphereScatterRectangle(sphere);
+                        var hitbox = DarkSphereScatterRectangle(sphere);
                         hitbox.Draw(
                             GameObjects.EnemyHeroes.Any(h => h.IsValidTarget() && hitbox.IsInside((Vector2)h.ServerPosition))
                                 ? Color.Blue

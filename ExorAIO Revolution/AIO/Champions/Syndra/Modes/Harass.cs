@@ -1,14 +1,13 @@
 
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -33,9 +32,9 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    if (!this.IsHoldingForceOfWillObject())
+                    if (!IsHoldingForceOfWillObject())
                     {
-                        var obj = this.ForceOfWillObject();
+                        var obj = ForceOfWillObject();
                         if (obj != null &&
                             obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
                         {

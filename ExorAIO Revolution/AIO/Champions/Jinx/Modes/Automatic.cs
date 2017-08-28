@@ -1,17 +1,15 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -35,7 +33,7 @@ namespace AIO.Champions
             ///     The Force Pow Pow Logic. 
             /// </summary>
             if (SpellClass.Q.Ready &&
-                this.IsUsingFishBones() &&
+                IsUsingFishBones() &&
                 ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 MenuClass.Miscellaneous["forcepowpow"].As<MenuBool>().Enabled)
             {

@@ -1,16 +1,14 @@
 
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System.Linq;
-
-    using Aimtec;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-
-    using AIO.Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -27,11 +25,11 @@ namespace AIO.Champions
             ///     The R Shooting Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                this.IsUltimateShooting() &&
+                IsUltimateShooting() &&
                 MenuClass.Spells["r"]["combo"].As<MenuBool>().Value)
             {
                 var validEnemiesInsideCone = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.R.Range)
-                    .Where(t => t.IsValidTarget() && !Invulnerable.Check(t) && this.UltimateCone().IsInside((Vector2)t.ServerPosition));
+                    .Where(t => t.IsValidTarget() && !Invulnerable.Check(t) && UltimateCone().IsInside((Vector2)t.ServerPosition));
                 var objAiHeroes = validEnemiesInsideCone as Obj_AI_Hero[] ?? validEnemiesInsideCone.ToArray();
                 if (objAiHeroes.Any())
                 {
@@ -56,7 +54,7 @@ namespace AIO.Champions
                 !UtilityClass.Player.IsUnderEnemyTurret() &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
             {
-                if (!this.IsReloading() &&
+                if (!IsReloading() &&
                     GameObjects.EnemyHeroes.Any(t => t.Distance(UtilityClass.Player) < UtilityClass.Player.AttackRange) &&
                     MenuClass.Spells["w"]["customization"]["noenemiesaa"].As<MenuBool>().Value)
                 {
@@ -88,7 +86,7 @@ namespace AIO.Champions
             ///     The Q Combo on Reload Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                this.IsReloading() &&
+                IsReloading() &&
                 MenuClass.Spells["q"]["customization"]["comboonreload"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
@@ -111,7 +109,7 @@ namespace AIO.Champions
                 {
                     if (MenuClass.Spells["e"]["customization"]["comboonreload"].As<MenuBool>().Enabled)
                     {
-                        if (this.IsReloading())
+                        if (IsReloading())
                         {
                             SpellClass.E.Cast(bestTarget);
                         }
