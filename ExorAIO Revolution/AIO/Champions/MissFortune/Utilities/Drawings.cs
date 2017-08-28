@@ -10,7 +10,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Extensions;
     using Aimtec.SDK.Menu.Components;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The drawings class.
@@ -45,14 +45,14 @@ namespace AIO.Champions
                     var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
                     foreach (var obj in unitsToIterate)
                     {
-                        var polygon = this.QCone(obj);
+                        var polygon = QCone(obj);
                         foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range).Where(t =>
                                !Invulnerable.Check(t) &&
                                t.IsValidTarget(SpellClass.Q2.Range)))
                         {
                             polygon.Draw(
                                 polygon.IsInside((Vector2)target.ServerPosition) &&
-                                (target.NetworkId == this.LoveTapTargetNetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
+                                (target.NetworkId == LoveTapTargetNetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
                                 polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(target).CastPosition)
                                     ? Color.Green
                                     : Color.Red);
@@ -84,7 +84,7 @@ namespace AIO.Champions
             /// </summary>
             if (MenuClass.Drawings["passivetarget"].As<MenuBool>().Enabled)
             {
-                var target = ObjectManager.Get<Obj_AI_Base>().FirstOrDefault(u => u.NetworkId == this.LoveTapTargetNetworkId);
+                var target = ObjectManager.Get<Obj_AI_Base>().FirstOrDefault(u => u.NetworkId == LoveTapTargetNetworkId);
                 if (target != null)
                 {
                     Render.Circle(target.Position, target.BoundingRadius, 30, Color.Black);

@@ -11,7 +11,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -28,17 +28,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
         }
 
         #endregion
@@ -77,11 +77,11 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
+                    Weaving(sender, args);
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Jungleclear(sender, args);
-                    this.Buildingclear(sender, args);
+                    Jungleclear(sender, args);
+                    Buildingclear(sender, args);
                     break;
             }
         }
@@ -94,7 +94,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
@@ -179,7 +179,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -187,13 +187,13 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
+                    Laneclear();
                     break;
             }
         }

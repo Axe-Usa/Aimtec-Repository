@@ -12,7 +12,7 @@ namespace AIO.Champions
     using Aimtec.SDK.Menu.Components;
     using Aimtec.SDK.Orbwalking;
 
-    using AIO.Utilities;
+    using Utilities;
 
     /// <summary>
     ///     The champion class.
@@ -29,17 +29,17 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the menus.
             /// </summary>
-            this.Menus();
+            Menus();
 
             /// <summary>
             ///     Initializes the spells.
             /// </summary>
-            this.Spells();
+            Spells();
 
             /// <summary>
             ///     Initializes the methods.
             /// </summary>
-            this.Methods();
+            Methods();
         }
 
         #endregion
@@ -55,7 +55,7 @@ namespace AIO.Champions
         {
             if (sender.IsMe)
             {
-                if (this.IsUltimateShooting())
+                if (IsUltimateShooting())
                 {
                     args.Process = false;
                 }
@@ -106,12 +106,12 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Weaving(sender, args);
+                    Weaving(sender, args);
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    this.Jungleclear(sender, args);
-                    this.Buildingclear(sender, args);
+                    Jungleclear(sender, args);
+                    Buildingclear(sender, args);
                     break;
             }
         }
@@ -123,7 +123,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
         public void OnPreAttack(object sender, PreAttackEventArgs args)
         {
-            if (this.IsUltimateShooting())
+            if (IsUltimateShooting())
             {
                 args.Cancel = true;
             }
@@ -135,7 +135,7 @@ namespace AIO.Champions
             {
                 var orbTarget = args.Target as Obj_AI_Hero;
                 var forceTarget = Extensions.GetBestEnemyHeroesTargets().FirstOrDefault(t =>
-                        t.NetworkId != this.LoveTapTargetNetworkId &&
+                        t.NetworkId != LoveTapTargetNetworkId &&
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
                 if (forceTarget != null &&
                     orbTarget != null &&
@@ -157,7 +157,7 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the drawings.
             /// </summary>
-            this.Drawings();
+            Drawings();
         }
 
         /// <summary>
@@ -173,12 +173,12 @@ namespace AIO.Champions
             /// <summary>
             ///     Initializes the Killsteal events.
             /// </summary>
-            this.Killsteal();
+            Killsteal();
 
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
-            this.Automatic();
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.
@@ -186,15 +186,15 @@ namespace AIO.Champions
             switch (ImplementationClass.IOrbwalker.Mode)
             {
                 case OrbwalkingMode.Combo:
-                    this.Combo();
+                    Combo();
                     break;
 
                 case OrbwalkingMode.Laneclear:
-                    this.Laneclear();
+                    Laneclear();
                     break;
 
                 case OrbwalkingMode.Mixed:
-                    this.Harass();
+                    Harass();
                     break;
             }
         }
