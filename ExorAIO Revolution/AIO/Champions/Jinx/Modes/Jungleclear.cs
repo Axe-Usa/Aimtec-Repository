@@ -37,6 +37,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 var manaPercent = UtilityClass.Player.ManaPercent();
+                var minionsInRange = Extensions.GetGenericJungleMinionsTargets().Count(m =>
                         m.Distance(jungleTarget) < SplashRange);
                 var jungleClearMinMinions = MenuClass.Spells["q"]["customization"]["jungleclear"].As<MenuSlider>().Value;
                 var jungleClearManaManager = MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Value;

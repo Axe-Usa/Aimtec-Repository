@@ -37,6 +37,7 @@ namespace AIO.Champions
             {
                 var manaPercent = UtilityClass.Player.ManaPercent();
                 var minionsInRange = Extensions.GetEnemyLaneMinionsTargets().Count(m =>
+                        m.Distance(minionTarget) < SplashRange);
                 var laneClearMinMinions = MenuClass.Spells["q"]["customization"]["laneclear"].Value;
                 var laneClearManaManager = MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Value;
 
