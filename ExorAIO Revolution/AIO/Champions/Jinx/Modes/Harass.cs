@@ -1,9 +1,6 @@
 
-using System.Linq;
-using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
-using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
 #pragma warning disable 1587
@@ -18,65 +15,65 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on orbwalker action.
-        /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public void Harass(object sender, PreAttackEventArgs args)
-        {
-            var heroTarget = args.Target as Obj_AI_Hero;
-            if (heroTarget == null)
-            {
-                return;
-            }
-
-            /// <summary>
-            ///     The Fishbones to PowPow Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                IsUsingFishBones())
-            {
-                if (UtilityClass.Player.ManaPercent() <= MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value)
-                {
-                    SpellClass.Q.Cast();
-                    return;
-                }
-
-                var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
-                if (heroTarget.IsValidTarget(SpellClass.Q.Range) &&
-                    minEnemies == null || minEnemies?.As<MenuSliderBool>().Value >
-                        heroTarget.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
-                {
-                    SpellClass.Q.Cast();
-                }
-            }
-        }
-
-        /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
         public void Harass()
         {
             /// <summary>
-            ///     The PowPow to Fishbones Logic.
+            ///     The Q Harass Logic.
             /// </summary>
+            var bestTargetQ = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
             if (SpellClass.Q.Ready &&
-                !IsUsingFishBones() &&
+                bestTargetQ != null &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                if (UtilityClass.Player.ManaPercent() <= MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value)
-                {
-                    return;
-                }
-
-                var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+                var manaPercent = UtilityClass.Player.ManaPercent();
                 var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
-                if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
-                    Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range + 200f).Any() ||
-                    minEnemies != null && minEnemies.As<MenuSliderBool>().Value <=
-                        target?.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
+                var bestTargetDistanceToPlayer = UtilityClass.Player.Distance(bestTargetQ);
+                var harassManaManager = MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Value;
+                var enemiesInSplashRange = bestTargetQ.CountEnemyHeroesInRange(SplashRange);
+
+                if (!IsUsingFishBones())
                 {
-                    SpellClass.Q.Cast();
+                    if (manaPercent <= harassManaManager)
+                    {
+                        return;
+                    }
+
+                    if (minEnemies != null &&
+                        enemiesInSplashRange >= minEnemies.As<MenuSlider>().Value)
+                    {
+                        SpellClass.Q.Cast();
+                    }
+
+                    if (bestTargetDistanceToPlayer > SpellClass.Q.Range &&
+                        bestTargetDistanceToPlayer <= SpellClass.Q2.Range + 200)
+                    {
+                        SpellClass.Q.Cast();
+                    }
+                }
+                else
+                {
+                    if (manaPercent <= harassManaManager)
+                    {
+                        SpellClass.Q.Cast();
+                        return;
+                    }
+
+                    if (bestTargetDistanceToPlayer < SpellClass.Q.Range)
+                    {
+                        if (minEnemies != null)
+                        {
+                            if (enemiesInSplashRange < minEnemies.As<MenuSlider>().Value)
+                            {
+                                SpellClass.Q.Cast();
+                            }
+                        }
+                        else
+                        {
+                            SpellClass.Q.Cast();
+                        }
+                    }
                 }
             }
 

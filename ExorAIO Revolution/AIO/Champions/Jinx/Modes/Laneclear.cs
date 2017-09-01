@@ -35,22 +35,23 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var minionsInRange =
-                    Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q2.Range+MenuClass.Spells["q"]["customization"]["splashrange"].Value).Count(m =>
-                        m.Distance(minionTarget) < MenuClass.Spells["q"]["customization"]["splashrange"].Value);
+                var manaPercent = UtilityClass.Player.ManaPercent();
+                var minionsInRange = Extensions.GetEnemyLaneMinionsTargets().Count(m =>
+                var laneClearMinMinions = MenuClass.Spells["q"]["customization"]["laneclear"].Value;
+                var laneClearManaManager = MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Value;
 
-                if (UtilityClass.Player.HasBuff("JinxQ"))
+                if (!IsUsingFishBones())
                 {
-                    if (UtilityClass.Player.ManaPercent()
-                            < MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Value ||
-                        minionsInRange < MenuClass.Spells["q"]["customization"]["laneclear"].Value)
+                    if (manaPercent >= laneClearManaManager &&
+                        minionsInRange >= laneClearMinMinions)
                     {
                         SpellClass.Q.Cast();
                     }
                 }
                 else
                 {
-                    if (minionsInRange >= MenuClass.Spells["q"]["customization"]["laneclear"].Value)
+                    if (manaPercent < laneClearManaManager ||
+                        minionsInRange < laneClearMinMinions)
                     {
                         SpellClass.Q.Cast();
                     }

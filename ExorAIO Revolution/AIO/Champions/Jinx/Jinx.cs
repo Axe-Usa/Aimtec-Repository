@@ -51,18 +51,9 @@ namespace AIO.Champions
         {
             switch (ImplementationClass.IOrbwalker.Mode)
             {
-                case OrbwalkingMode.Combo:
-                    Combo(sender, args);
-                    break;
                 case OrbwalkingMode.Laneclear:
                     Laneclear(sender, args);
                     Jungleclear(sender, args);
-                    break;
-                case OrbwalkingMode.Lasthit:
-                    Lasthit(sender, args);
-                    break;
-                case OrbwalkingMode.Mixed:
-                    Harass(sender, args);
                     break;
             }
         }

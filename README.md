@@ -591,3 +591,6 @@ ExorAIO: Revolution Changelog:
 7.17.0.3:
   Ashe: Won't use R as Anti-Gapcloser globally anymore.
   Ezreal: Improved Q usage.
+
+7.17.0.4:
+  Jinx: Smoothened and Reworked Q Logic.

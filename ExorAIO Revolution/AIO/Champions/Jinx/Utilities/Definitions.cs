@@ -23,6 +23,11 @@ namespace AIO.Champions
             return UtilityClass.Player.HasBuff("jinxq");
         }
 
+        /// <summary>
+        ///     Returns Fishbones' SplashRange.
+        /// </summary>
+        public const float SplashRange = 250f;
+
         #endregion
     }
 }

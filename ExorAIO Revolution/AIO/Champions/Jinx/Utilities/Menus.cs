@@ -36,7 +36,6 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("lasthit", "Lasthit out of PowPow range / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the menu for the Q customization.
@@ -44,13 +43,12 @@ namespace AIO.Champions
                     MenuClass.Q2 = new Menu("customization", "Fishbones Customization:");
                     {
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "General settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("splashrange", "Splash damage radius", 160, 125, 175));
                         //MenuClass.Q2.Add(new MenuSeperator("separator2"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator3", "Combo settings:"));
                         //MenuClass.Q2.Add(new MenuSeperator("separator4", "This option will also be valid for the PowPow range."));
                         if (GameObjects.EnemyHeroes.Count() >= 2)
                         {
-                            MenuClass.Q2.Add(new MenuSliderBool("minenemies", "Use Fishbones / if hittable enemies >= x", true, 3, 2, GameObjects.EnemyHeroes.Count()));
+                            MenuClass.Q2.Add(new MenuSlider("minenemies", "Use Fishbones if hittable enemies >= x", 3, 2, GameObjects.EnemyHeroes.Count()));
                         }
                         else
                         {

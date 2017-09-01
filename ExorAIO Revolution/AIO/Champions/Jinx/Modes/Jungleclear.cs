@@ -36,22 +36,23 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                var minionsInRange = GameObjects.EnemyMinions.Count(
-                    m =>
-                        m.Distance(jungleTarget) < MenuClass.Spells["q"]["customization"]["splashrange"].Value);
+                var manaPercent = UtilityClass.Player.ManaPercent();
+                        m.Distance(jungleTarget) < SplashRange);
+                var jungleClearMinMinions = MenuClass.Spells["q"]["customization"]["jungleclear"].As<MenuSlider>().Value;
+                var jungleClearManaManager = MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Value;
 
-                if (UtilityClass.Player.HasBuff("JinxQ"))
+                if (!IsUsingFishBones())
                 {
-                    if (UtilityClass.Player.ManaPercent()
-                            < MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Value ||
-                        minionsInRange < MenuClass.Spells["q"]["customization"]["jungleclear"].Value)
+                    if (manaPercent >= jungleClearManaManager &&
+                        minionsInRange >= jungleClearMinMinions)
                     {
                         SpellClass.Q.Cast();
                     }
                 }
                 else
                 {
-                    if (minionsInRange >= MenuClass.Spells["q"]["customization"]["jungleclear"].Value)
+                    if (manaPercent < jungleClearManaManager ||
+                        minionsInRange < jungleClearMinMinions)
                     {
                         SpellClass.Q.Cast();
                     }

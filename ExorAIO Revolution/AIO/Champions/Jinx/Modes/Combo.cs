@@ -1,9 +1,8 @@
 
+using System;
 using System.Linq;
-using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
-using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
 #pragma warning disable 1587
@@ -18,54 +17,52 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on orbwalker action.
-        /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public void Combo(object sender, PreAttackEventArgs args)
-        {
-            var heroTarget = args.Target as Obj_AI_Hero;
-            if (heroTarget == null)
-            {
-                return;
-            }
-
-            /// <summary>
-            ///     The Fishbones to PowPow Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                IsUsingFishBones())
-            {
-                var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
-                if (heroTarget.IsValidTarget(SpellClass.Q.Range) &&
-                    minEnemies == null || minEnemies?.As<MenuSliderBool>().Value >
-                        heroTarget.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
-                {
-                    SpellClass.Q.Cast();
-                }
-            }
-        }
-
-        /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
         public void Combo()
         {
             /// <summary>
-            ///     The PowPow to Fishbones Logic.
+            ///     The Q Combo Logic.
             /// </summary>
+            var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
             if (SpellClass.Q.Ready &&
-                !IsUsingFishBones() &&
+                bestTarget != null &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
                 var minEnemies = MenuClass.Spells["q"]["customization"]["minenemies"];
-                if (!Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q.Range).Any() &&
-                    Extensions.GetEnemyHeroesTargetsInRange(SpellClass.Q2.Range+200f).Any() ||
-                    minEnemies != null && minEnemies.As<MenuSliderBool>().Value <=
-                        target?.CountEnemyHeroesInRange(MenuClass.Spells["q"]["customization"]["splashrange"].As<MenuSlider>().Value))
+                var bestTargetDistanceToPlayer = UtilityClass.Player.Distance(bestTarget);
+                var enemiesInSplashRange = bestTarget.CountEnemyHeroesInRange(SplashRange);
+
+                if (!IsUsingFishBones())
                 {
-                    SpellClass.Q.Cast();
+                    if (minEnemies != null &&
+                        enemiesInSplashRange >= minEnemies.As<MenuSlider>().Value)
+                    {
+                        SpellClass.Q.Cast();
+                    }
+
+                    if (bestTargetDistanceToPlayer > SpellClass.Q.Range &&
+                        bestTargetDistanceToPlayer <= SpellClass.Q2.Range+200)
+                    {
+                        SpellClass.Q.Cast();
+                    }
+                }
+                else
+                {
+                    if (bestTargetDistanceToPlayer < SpellClass.Q.Range)
+                    {
+                        if (minEnemies != null)
+                        {
+                            if (enemiesInSplashRange < minEnemies.As<MenuSlider>().Value)
+                            {
+                                SpellClass.Q.Cast();
+                            }
+                        }
+                        else
+                        {
+                            SpellClass.Q.Cast();
+                        }
+                    }
                 }
             }
 
@@ -76,15 +73,14 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["aoe"] != null &&
                 MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(h => h.IsValidTarget(SpellClass.E.Range) && !Invulnerable.Check(h)))
+                foreach (var target in GameObjects.EnemyHeroes.Where(h => !Invulnerable.Check(h) && h.IsValidTarget(SpellClass.E.Range)))
                 {
-                    if (GameObjects.EnemyHeroes.Count(
-                            h2 =>
-                                !Invulnerable.Check(h2) &&
-                                h2.IsValidTarget(SpellClass.E.Range) &&
-                                h2.Distance(target) < SpellClass.E.Width*3) >= MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Value)
+                    if (GameObjects.EnemyHeroes.Count(h2 =>
+                            !Invulnerable.Check(h2) &&
+                            h2.IsValidTarget(SpellClass.E.Range) &&
+                            h2.Distance(target) < SpellClass.E.Width*2) >= MenuClass.Spells["e"]["aoe"].As<MenuSliderBool>().Value)
                     {
-                        SpellClass.E.Cast(target.ServerPosition);
+                        SpellClass.E.Cast(target);
                     }
                 }
             }
@@ -104,19 +100,19 @@ namespace AIO.Champions
 
                 var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
                 if (target != null &&
-                    target.IsValidTarget() &&
                     !Invulnerable.Check(target))
                 {
+                    var targetDistanceToPlayer = target.Distance(UtilityClass.Player);
                     switch (MenuClass.Spells["w"]["mode"].As<MenuList>().Value)
                     {
                         case 0:
-                            if (target.Distance(UtilityClass.Player) >= SpellClass.Q.Range * 1.1)
+                            if (targetDistanceToPlayer >= SpellClass.Q.Range * 1.1)
                             {
                                 SpellClass.W.Cast(target);
                             }
                             break;
                         case 1:
-                            if (target.Distance(UtilityClass.Player) >= SpellClass.Q2.Range * 1.1)
+                            if (targetDistanceToPlayer >= SpellClass.Q2.Range * 1.1)
                             {
                                 SpellClass.W.Cast(target);
                             }
