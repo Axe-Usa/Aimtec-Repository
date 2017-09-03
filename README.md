@@ -598,3 +598,4 @@ ExorAIO: Revolution Changelog:
 7.17.0.5:
   Jinx: Perfected new Q Logic.
   Caitlyn: Better E usage and thus Better E W usage.
+  MissFortune: Won't cancel her R anymore.

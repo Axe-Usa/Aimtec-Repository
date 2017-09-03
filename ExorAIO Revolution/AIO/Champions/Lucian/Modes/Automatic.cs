@@ -46,22 +46,22 @@ namespace AIO.Champions
                         !Invulnerable.Check(t) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .MinBy(o => o.GetRealHealth());
-                if (bestTarget != null)
+
+                if (bestTarget != null &&
+                    !UtilityClass.Player.HasBuff("LucianR") &&
+                    MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
                 {
-                    if (!UtilityClass.Player.HasBuff("LucianR") &&
-                        MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+                    if (SpellClass.W.Ready &&
+                        bestTarget.IsValidTarget(SpellClass.W.Range))
                     {
-                        if (SpellClass.W.Ready)
-                        {
-                            SpellClass.W.Cast(bestTarget.ServerPosition);
-                        }
-                        SpellClass.R.Cast(bestTarget.ServerPosition);
+                        SpellClass.W.Cast(bestTarget.ServerPosition);
                     }
-                    else if (UtilityClass.Player.HasBuff("LucianR") &&
-                             !MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
-                    {
-                        SpellClass.R.Cast();
-                    }
+                    SpellClass.R.Cast(bestTarget.ServerPosition);
+                }
+                else if (UtilityClass.Player.HasBuff("LucianR") &&
+                     !MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+                {
+                    SpellClass.R.Cast();
                 }
             }
         }

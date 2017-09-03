@@ -52,23 +52,23 @@ namespace AIO.Champions
                         t.IsValidTarget(SpellClass.R.Range) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .MinBy(o => o.CountEnemyHeroesInRange(300f));
-                if (bestTarget != null)
-                {
-                    if (!IsUltimateShooting() &&
-                        MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
-                    {
-                        if (SpellClass.E.Ready)
-                        {
-                            SpellClass.E.Cast(bestTarget.ServerPosition);
-                        }
 
-                        SpellClass.R.Cast(bestTarget.ServerPosition);
-                    }
-                    else if (IsUltimateShooting() &&
-                         !MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+                if (bestTarget != null &&
+                    !IsUltimateShooting() &&
+                    MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+                {
+                    if (SpellClass.E.Ready &&
+                        bestTarget.IsValidTarget(SpellClass.E.Range))
                     {
-                        UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
+                        SpellClass.E.Cast(bestTarget.ServerPosition);
                     }
+
+                    SpellClass.R.Cast(bestTarget.ServerPosition);
+                }
+                else if (IsUltimateShooting() &&
+                     !MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+                {
+                    UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
                 }
             }
         }
