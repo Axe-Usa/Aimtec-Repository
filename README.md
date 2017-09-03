@@ -594,3 +594,7 @@ ExorAIO: Revolution Changelog:
 
 7.17.0.4:
   Jinx: Smoothened and Reworked Q Logic.
+
+7.17.0.5:
+  Jinx: Perfected new Q Logic.
+  Caitlyn: Better E usage and thus Better E W usage.

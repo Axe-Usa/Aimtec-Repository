@@ -1,4 +1,5 @@
 
+using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -55,6 +56,13 @@ namespace AIO.Champions
                 else
                 {
                     if (manaPercent <= harassManaManager)
+                    {
+                        SpellClass.Q.Cast();
+                        return;
+                    }
+
+                    var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+                    if (!(target is Obj_AI_Hero))
                     {
                         SpellClass.Q.Cast();
                         return;

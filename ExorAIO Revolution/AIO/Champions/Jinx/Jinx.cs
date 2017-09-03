@@ -136,6 +136,9 @@ namespace AIO.Champions
                 case OrbwalkingMode.Mixed:
                     Harass();
                     break;
+                case OrbwalkingMode.Lasthit:
+                    Lasthit();
+                    break;
             }
         }
 

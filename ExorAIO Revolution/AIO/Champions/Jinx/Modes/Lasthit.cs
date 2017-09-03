@@ -1,4 +1,6 @@
 
+using AIO.Utilities;
+
 #pragma warning disable 1587
 namespace AIO.Champions
 {
@@ -14,7 +16,10 @@ namespace AIO.Champions
         /// </summary>
         public void Lasthit()
         {
-
+            if (IsUsingFishBones())
+            {
+                SpellClass.Q.Cast();
+            }
         }
 
         #endregion
