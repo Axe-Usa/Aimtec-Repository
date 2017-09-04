@@ -36,21 +36,6 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The W Combo Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
-            {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range - 150f);
-                if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
-                    UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode())
-                {
-                    SpellClass.W.Cast(bestTarget);
-                }
-            }
-
-            /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&

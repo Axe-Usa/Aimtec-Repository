@@ -610,3 +610,7 @@ ExorAIO: Revolution Changelog:
 
   Kalista: Better Minion Orbwalking, it won't orbwalk to minions anymore if an ally is on the edge of the AA Range.
   Caitlyn: Slightly Better E->W Logic.
+
+7.17.0.7:
+  Ezreal: Improved Q.
+  Ezreal: Removed useless code.
