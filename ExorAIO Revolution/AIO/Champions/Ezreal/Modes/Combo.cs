@@ -29,8 +29,22 @@ namespace AIO.Champions
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-150f);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
-                    UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode() &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                    UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode())
+                {
+                    SpellClass.W.Cast(bestTarget);
+                }
+            }
+
+            /// <summary>
+            ///     The W Combo Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
+            {
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range - 150f);
+                if (bestTarget != null &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode())
                 {
                     SpellClass.W.Cast(bestTarget);
                 }
@@ -42,7 +56,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 100f);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-100f);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget) &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
@@ -50,7 +64,6 @@ namespace AIO.Champions
                     SpellClass.Q.Cast(bestTarget);
                 }
             }
-
         }
 
         #endregion

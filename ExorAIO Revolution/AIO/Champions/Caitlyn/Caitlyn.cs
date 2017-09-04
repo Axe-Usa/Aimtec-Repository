@@ -73,7 +73,8 @@ namespace AIO.Champions
                         // Note: The time the minion takes to actually be cancelled by the ObjectManager is exactly 4 seconds, that's why i check for its presence.
                         //       maybe a tiny bit more, but the check is solid.
                         var nearestEnemy = GameObjects.EnemyHeroes.MinBy(t => t.Distance(args.End));
-                        if (ObjectManager.Get<Obj_AI_Minion>().Any(m => m.IsAlly && m.UnitSkinName == "CaitlynTrap" && m.Distance(nearestEnemy) <= SpellClass.W.Width && nearestEnemy.HasBuff("caitlynyordletrapsight")))
+                        if (nearestEnemy.HasBuff("caitlynyordletrapsight") &&
+                            ObjectManager.Get<Obj_AI_Minion>().Any(m => m.IsAlly && m.UnitSkinName == "CaitlynTrap" && m.Distance(nearestEnemy) <= SpellClass.W.Width))
                         {
                             args.Process = false;
                         }
@@ -158,7 +159,7 @@ namespace AIO.Champions
                                         .MinBy(o => o.Distance(args.End));
                                     if (bestTarget != null)
                                     {
-                                        SpellClass.W.Cast(bestTarget.ServerPosition);
+                                        SpellClass.W.Cast(bestTarget.ServerPosition.Extend(UtilityClass.Player.ServerPosition, -100f));
                                     }
                                 }
                                 break;

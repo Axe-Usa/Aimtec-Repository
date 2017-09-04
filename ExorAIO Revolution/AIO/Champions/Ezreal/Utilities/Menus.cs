@@ -67,6 +67,8 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
+                    MenuClass.W.Add(new MenuSliderBool("apmode", "Enable AP Mode / if AP >= x", true, 35, 0, 250));
+                    MenuClass.W.Add(new MenuSeperator("separator"));
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
@@ -75,21 +77,56 @@ namespace AIO.Champions
                     //MenuClass.W.Add(new MenuSeperator("separator2", "Sieging Towers, Inhibitors and Nexus"));
                     //MenuClass.W.Add(new MenuSeperator("separator3", "or doing Dragon, Baron or Herald"));
                     //MenuClass.W.Add(new MenuSeperator("separator4", "or during a Teamfight"));
-                    MenuClass.W.Add(new MenuSliderBool("logical", "Logical / if Mana >= x%", true, 50, 0, 99));
+
+                    if (GameObjects.AllyHeroes.Any(a => !a.IsMe))
+                    {
+                        MenuClass.Buff = new Menu("buff", "W Buff Logic Settings");
+                        {
+                            MenuClass.Buff.Add(new MenuSliderBool("logical", "Buff Allies (Not in AP Mode) / if Mana >= x%", true, 50, 0, 99));
+
+                            /// <summary>
+                            ///     Sets the menu for the W Buff Mode Whitelist.
+                            /// </summary>
+                            MenuClass.WhiteList2 = new Menu("orbwhitelist", "W Buff: Orbwalking Mode Whitelist");
+                            {
+                                MenuClass.WhiteList2.Add(new MenuBool("combo", "Use in: Combo (Ally attacking Enemy)"));
+                                MenuClass.WhiteList2.Add(new MenuBool("harass", "Use in: Harass (Ally attacking Enemy)"));
+                                MenuClass.WhiteList2.Add(new MenuBool("laneclear", "Use in: Laneclear (Ally attacking Objectives)"));
+                            }
+                            MenuClass.Buff.Add(MenuClass.WhiteList2);
+
+                            /// <summary>
+                            ///     Sets the menu for the W Buff Ally Whitelist.
+                            /// </summary>
+                            MenuClass.WhiteList3 = new Menu("allywhitelist", "W Buff: Ally Whitelist");
+                            {
+                                foreach (var target in GameObjects.AllyHeroes.Where(a => !a.IsMe))
+                                {
+                                    MenuClass.WhiteList3.Add(new MenuBool(target.ChampionName.ToLower(), "Buff: " + target.ChampionName));
+                                }
+                            }
+                            MenuClass.Buff.Add(MenuClass.WhiteList3);
+                        }
+                        MenuClass.W.Add(MenuClass.Buff);
+                    }
+                    else
+                    {
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "No allies found, no need for a Buff Logic Settings Menu."));
+                    }
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
-                        ///     Sets the menu for the Q Whitelist.
+                        ///     Sets the menu for the W Harass Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList2 = new Menu("whitelist", "W Harass: Whitelist");
+                        MenuClass.WhiteList4 = new Menu("whitelist", "W Harass: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                                MenuClass.WhiteList4.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
                             }
                         }
-                        MenuClass.W.Add(MenuClass.WhiteList2);
+                        MenuClass.W.Add(MenuClass.WhiteList4);
                     }
                     else
                     {
@@ -123,14 +160,14 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the menu for the R Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList3 = new Menu("whitelist", "Ultimate: Whitelist");
+                        MenuClass.WhiteList5 = new Menu("whitelist", "Ultimate: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList3.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
+                                MenuClass.WhiteList5.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
                             }
                         }
-                        MenuClass.R.Add(MenuClass.WhiteList3);
+                        MenuClass.R.Add(MenuClass.WhiteList5);
                     }
                     else
                     {

@@ -29,7 +29,7 @@ namespace AIO.Champions
                 .Where(m => m.IsValidSpellTarget(UtilityClass.Player.GetFullAttackRange(m)))
                 .MinBy(o => o.GetRealHealth());
             if (minion != null &&
-                !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
+                !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)+100f)) &&
                 MenuClass.Miscellaneous["minionsorbwalk"].As<MenuBool>().Enabled)
             {
                 UtilityClass.Player.IssueOrder(OrderType.AttackUnit, minion);

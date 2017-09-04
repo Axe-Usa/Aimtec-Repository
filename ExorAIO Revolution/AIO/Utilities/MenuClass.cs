@@ -134,6 +134,11 @@ namespace AIO.Utilities
         /// </summary>
         public static Menu PreserveSpells { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the Buff menu.
+        /// </summary>
+        public static Menu Buff { get; set; }
+
         #endregion
     }
 }

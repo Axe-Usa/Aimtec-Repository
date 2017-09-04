@@ -45,10 +45,13 @@ namespace AIO.Champions
             ///     The W Weaving Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                !GameObjects.AllyHeroes.Any(a => !a.IsMe && a.SpellBook.IsAutoAttacking && a.IsValidTarget(SpellClass.W.Range, true)) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast(heroTarget);
+                if (UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode() ||
+                    !GameObjects.AllyHeroes.Any(a => !a.IsMe && a.IsValidTarget(SpellClass.W.Range, true)))
+                {
+                    SpellClass.W.Cast(heroTarget);
+                }
             }
         }
 

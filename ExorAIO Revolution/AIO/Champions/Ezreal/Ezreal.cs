@@ -1,4 +1,3 @@
-
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -70,56 +69,67 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
         public void OnProcessAutoAttack(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            var target = args.Target;
-            if (target == null)
+            if (UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode())
             {
                 return;
             }
 
-            if (UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode() &&
-                GameObjects.EnemyHeroes.Any(t => t.Distance(UtilityClass.Player) < SpellClass.Q.Range))
-            {
-                return;
-            }
-
+            var senderAlly = sender as Obj_AI_Hero;
             var unitTarget = args.Target as Obj_AI_Base;
-            if (unitTarget == null)
+            if (unitTarget == null || senderAlly == null || !senderAlly.IsAlly || senderAlly.IsMe)
             {
                 return;
             }
+
+            var buffMenu = MenuClass.Spells["w"]["buff"];
+            if (buffMenu == null ||
+                !buffMenu["allywhitelist"][senderAlly.ChampionName.ToLower()].As<MenuBool>().Enabled)
+            {
+                return;
+            }
+
 
             /// <summary>
             ///     The Ally W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
+                senderAlly.IsValidTarget(SpellClass.W.Range, true) && 
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["logical"]) &&
-                MenuClass.Spells["w"]["logical"].As<MenuSliderBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.W.Slot, buffMenu["logical"]) &&
+                buffMenu["logical"].As<MenuSliderBool>().Enabled)
             {
+                var orbWhiteList = buffMenu["orbwhitelist"];
                 switch (ImplementationClass.IOrbwalker.Mode)
                 {
                     case OrbwalkingMode.Combo:
-                        if (!(unitTarget is Obj_AI_Hero))
+                        if (!(unitTarget is Obj_AI_Hero) ||
+                            !orbWhiteList["combo"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+                        break;
+
+                    case OrbwalkingMode.Mixed:
+                        if (!(unitTarget is Obj_AI_Hero) ||
+                            !orbWhiteList["harass"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+                        break;
+
+                    case OrbwalkingMode.Laneclear:
+                        if (!unitTarget.IsBuilding() &&
+                            !Extensions.GetLegendaryJungleMinionsTargets().Contains(unitTarget) ||
+                            !orbWhiteList["laneclear"].As<MenuBool>().Enabled)
                         {
                             return;
                         }
                         break;
                     default:
-                        if (!unitTarget.IsBuilding() &&
-                            !Extensions.GetLegendaryJungleMinionsTargets().Contains(unitTarget))
-                        {
-                            return;
-                        }
-                        break;
+                        return;
                 }
 
-                foreach (var ally in GameObjects.AllyHeroes.Where(a =>
-                    !a.IsMe &&
-                    a.SpellBook.IsAutoAttacking &&
-                    a.IsValidTarget(SpellClass.W.Range, true)))
-                {
-                    SpellClass.W.Cast(ally);
-                }
+                SpellClass.W.CastOnUnit(senderAlly);
             }
         }
 
