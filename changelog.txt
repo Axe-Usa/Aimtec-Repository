@@ -614,3 +614,6 @@ ExorAIO: Revolution Changelog:
 7.17.0.7:
   Ezreal: Improved Q.
   Ezreal: Removed useless code.
+
+7.17.0.8:
+  Ezreal: Better W Combo Logic.
