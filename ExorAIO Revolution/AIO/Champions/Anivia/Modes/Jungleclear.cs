@@ -41,7 +41,20 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast(jungleTarget);
+                switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
+                {
+                    case 1:
+                        SpellClass.Q.Cast(jungleTarget);
+                        break;
+                    case 2:
+                        if (FlashFrost != null &&
+                            Extensions.GetGenericJungleMinionsTargets().Any(m =>
+                                m.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position)))
+                        {
+                            SpellClass.Q.Cast();
+                        }
+                        break;
+                }
             }
 
             /// <summary>
@@ -68,7 +81,25 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.R.Slot, MenuClass.Spells["r"]["jungleclear"]) &&
                 MenuClass.Spells["r"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.R.Cast(jungleTarget);
+                switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState)
+                {
+                    case 1:
+                        SpellClass.R.Cast(jungleTarget.ServerPosition);
+                        break;
+                    case 2:
+                        if (UtilityClass.Player.InFountain())
+                        {
+                            return;
+                        }
+
+                        if (GlacialStorm != null &&
+                            !Extensions.GetGenericJungleMinionsTargets().Any(m =>
+                                m.IsValidTarget(SpellClass.R.Width, false, true, GlacialStorm.Position)))
+                        {
+                            SpellClass.R.Cast();
+                        }
+                        break;
+                }
             }
         }
 

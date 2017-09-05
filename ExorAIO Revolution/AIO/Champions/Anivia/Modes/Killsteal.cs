@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -28,11 +29,23 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                if (bestTarget != null)
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
+                    {
+                        case 1:
+                            SpellClass.Q.Cast(bestTarget);
+                            break;
+                        case 2:
+                            if (FlashFrost != null &&
+                                GameObjects.EnemyHeroes.Any(t =>
+                                    t.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position) &&
+                                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth()))
+                            {
+                                SpellClass.Q.Cast();
+                            }
+                            break;
+                    }
                 }
             }
 

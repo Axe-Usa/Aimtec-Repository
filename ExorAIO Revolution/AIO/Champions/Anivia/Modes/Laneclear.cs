@@ -66,7 +66,6 @@ namespace AIO.Champions
             {
                 var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
                 if (target != null &&
-                    IsChilled(target) &&
                     minions.Contains(target) &&
                     UtilityClass.Player.GetSpellDamage(target, SpellSlot.E, DamageStage.Empowered) >= target.Health)
                 {

@@ -34,7 +34,7 @@ namespace AIO.Champions
                 UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState == 1 &&
                 MenuClass.Miscellaneous["tear"].As<MenuBool>().Value)
             {
-                SpellClass.R.Cast(Game.CursorPos);
+                SpellClass.R.Cast(UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, SpellClass.R.Range));
             }
 
             /// <summary>

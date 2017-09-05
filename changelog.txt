@@ -617,3 +617,7 @@ ExorAIO: Revolution Changelog:
 
 7.17.0.8:
   Ezreal: Better W Combo Logic.
+
+7.17.0.9:
+  Anivia: Improved Jungleclear and Killsteal logics.
+  Anivia: Fixed a bug where sometimes it would make the Q explode instantly after cast.
