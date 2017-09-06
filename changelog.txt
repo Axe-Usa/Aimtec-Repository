@@ -621,3 +621,8 @@ ExorAIO: Revolution Changelog:
 7.17.0.9:
   Anivia: Improved Jungleclear and Killsteal logics.
   Anivia: Fixed a bug where sometimes it would make the Q explode instantly after cast.
+
+7.17.0.10:
+  AIO: fixed a little Preserve Mana Logic bug.
+  AIO: Added "Cast to small ones too in Jungleclear" option.
+  Jinx: Added 0 to the W Enemy Check slider.

@@ -2,6 +2,7 @@
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
 using Spell = Aimtec.SDK.Spell;
 
 namespace AIO.Utilities
@@ -174,7 +175,7 @@ namespace AIO.Utilities
         /// </summary>
         public static List<Obj_AI_Minion> GetGenericJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.Jungle.Where(m => !GameObjects.JungleSmall.Contains(m) && m.IsValidTarget(range)).ToList();
+            return GameObjects.Jungle.Where(m => (MenuClass.General["junglesmall"].As<MenuBool>().Enabled || !GameObjects.JungleSmall.Contains(m)) && m.IsValidTarget(range)).ToList();
         }
 
         /// <summary>

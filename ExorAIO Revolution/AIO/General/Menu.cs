@@ -35,6 +35,7 @@ namespace AIO
                 {
                     MenuClass.General.Add(new MenuBool("supportmode", "Support Mode", false));
                     MenuClass.General.Add(new MenuBool("disableaa", "Disable AutoAttacks in Combo", false));
+                    MenuClass.General.Add(new MenuBool("junglesmall", "Cast to small ones too in Jungleclear", false));
 
                     if (UtilityClass.Player.MaxMana >= 200)
                     {

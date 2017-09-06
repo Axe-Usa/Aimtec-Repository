@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -86,7 +87,7 @@ namespace AIO
                 ///     The 'No AA in Combo' Logic.
                 /// </summary>
                 case OrbwalkingMode.Combo:
-                    if (MenuClass.General["disableaa"].Enabled &&
+                    if (MenuClass.General["disableaa"].As<MenuBool>().Enabled &&
                         !UtilityClass.Player.HasSheenLikeBuff())
                     {
                         args.Cancel = true;
@@ -100,7 +101,7 @@ namespace AIO
                 case OrbwalkingMode.Lasthit:
                 case OrbwalkingMode.Laneclear:
                     if (Extensions.GetEnemyLaneMinionsTargets().Contains(args.Target) &&
-                        MenuClass.General["supportmode"].Enabled)
+                        MenuClass.General["supportmode"].As<MenuBool>().Enabled)
                     {
                         args.Cancel = GameObjects.AllyHeroes.Any(a => !a.IsMe && a.Distance(UtilityClass.Player) < 2500);
                     }
@@ -121,8 +122,8 @@ namespace AIO
             if (sender.IsMe &&
                 UtilityClass.SpellSlots.Contains(args.Slot))
             {
-                float manaToPreserve = 0;
                 var spellBook = UtilityClass.Player.SpellBook;
+                var data = new Dictionary<SpellSlot, float>();
 
                 // ReSharper disable once LoopCanBeConvertedToQuery
                 foreach (var slot in UtilityClass.SpellSlots)
@@ -132,11 +133,12 @@ namespace AIO
                          spellSlot.State == SpellState.Cooldown && spellSlot.GetRemainingCooldownTime() <= 5) &&
                         MenuClass.PreserveMana[slot.ToString().ToLower()].As<MenuBool>().Enabled)
                     {
-                        manaToPreserve += spellSlot.Cost;
+                        data.Add(slot, spellSlot.Cost);
                     }
                 }
 
-                if (UtilityClass.Player.Mana - spellBook.GetSpell(args.Slot).Cost < manaToPreserve)
+                if (!data.Keys.Contains(args.Slot) &&
+                    UtilityClass.Player.Mana - spellBook.GetSpell(args.Slot).Cost < data.Values.Sum())
                 {
                     args.Process = false;
                 }

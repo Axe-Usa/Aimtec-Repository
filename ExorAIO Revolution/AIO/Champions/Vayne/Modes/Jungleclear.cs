@@ -44,16 +44,16 @@ namespace AIO.Champions
                     !Extensions.GetLegendaryJungleMinionsTargets().Contains(jungleTarget))
                 {
                     var playerPos = UtilityClass.Player.ServerPosition;
-                    const int CondemnPushDistance = 410 / 10;
+                    const int condemnPushDistance = 410 / 10;
                     for (var i = 1; i < 10; i++)
                     {
                         var predictedPos = SpellClass.E.GetPrediction(jungleTarget).UnitPosition;
 
-                        var targetPosition = jungleTarget.ServerPosition.Extend(playerPos, -CondemnPushDistance * i);
-                        var targetPositionExtended = jungleTarget.ServerPosition.Extend(playerPos, (-CondemnPushDistance + 1) * i);
+                        var targetPosition = jungleTarget.ServerPosition.Extend(playerPos, -condemnPushDistance * i);
+                        var targetPositionExtended = jungleTarget.ServerPosition.Extend(playerPos, (-condemnPushDistance + 1) * i);
 
-                        var predPosition = predictedPos.Extend(playerPos, -CondemnPushDistance * i);
-                        var predPositionExtended = predictedPos.Extend(playerPos, (-CondemnPushDistance + 1) * i);
+                        var predPosition = predictedPos.Extend(playerPos, -condemnPushDistance * i);
+                        var predPositionExtended = predictedPos.Extend(playerPos, (-condemnPushDistance + 1) * i);
 
                         if (targetPosition.IsWall(true) && targetPositionExtended.IsWall(true) &&
                             predPosition.IsWall(true) && predPositionExtended.IsWall(true))

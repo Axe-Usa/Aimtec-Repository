@@ -53,8 +53,8 @@ namespace AIO.Champions
                             break;
                         }
 
-                        const float RRadius = 500f;
-                        var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + RRadius);
+                        const float rRadius = 500f;
+                        var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + rRadius);
                         if (heroTarget == null ||
                             Invulnerable.Check(heroTarget, DamageType.Magical) ||
                             !MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
@@ -63,7 +63,7 @@ namespace AIO.Champions
                         }
 
                         var position = UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, SpellClass.R.Range);
-                        if (heroTarget.IsValidTarget(RRadius, false, false, position))
+                        if (heroTarget.IsValidTarget(rRadius, false, false, position))
                         {
                             SpellClass.R.Cast(position);
                         }

@@ -150,7 +150,7 @@ namespace AIO.Utilities
         /// <summary>
         ///     Indicates whether the <see cref="GameObjects" /> stack was initialized and saved required instances.
         /// </summary>
-        private static bool initialized;
+        private static bool _initialized;
 
         #endregion
 
@@ -402,12 +402,12 @@ namespace AIO.Utilities
         /// </summary>
         internal static void Initialize()
         {
-            if (initialized)
+            if (_initialized)
             {
                 return;
             }
 
-            initialized = true;
+            _initialized = true;
 
             Player = UtilityClass.Player;
 

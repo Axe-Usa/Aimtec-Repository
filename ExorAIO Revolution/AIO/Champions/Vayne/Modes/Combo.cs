@@ -65,9 +65,9 @@ namespace AIO.Champions
                         return;
                 }
 
-                const int Threshold = 20;
+                const int threshold = 20;
                 var predictedPos = new Vector3();
-                const int CondemnPushDistance = 410 / 10;
+                const int condemnPushDistance = 410 / 10;
 
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
@@ -89,11 +89,11 @@ namespace AIO.Champions
 
                     for (var i = 1; i < 10; i++)
                     {
-                        var targetPosition = target.ServerPosition.Extend(playerPos, -CondemnPushDistance * i);
-                        var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-CondemnPushDistance + Threshold / 10) * i);
+                        var targetPosition = target.ServerPosition.Extend(playerPos, -condemnPushDistance * i);
+                        var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-condemnPushDistance + threshold / 10) * i);
 
-                        var predPosition = predictedPos.Extend(playerPos, -CondemnPushDistance * i);
-                        var predPositionExtended = predictedPos.Extend(playerPos, (-CondemnPushDistance + Threshold / 10) * i);
+                        var predPosition = predictedPos.Extend(playerPos, -condemnPushDistance * i);
+                        var predPositionExtended = predictedPos.Extend(playerPos, (-condemnPushDistance + threshold / 10) * i);
 
                         if (targetPosition.IsWall(true) && targetPositionExtended.IsWall(true) &&
                             predPosition.IsWall(true) && predPositionExtended.IsWall(true))
