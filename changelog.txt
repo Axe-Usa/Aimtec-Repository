@@ -626,3 +626,6 @@ ExorAIO: Revolution Changelog:
   AIO: fixed a little Preserve Mana Logic bug.
   AIO: Added "Cast to small ones too in Jungleclear" option.
   Jinx: Added 0 to the W Enemy Check slider.
+
+7.17.0.11:
+  Anivia: Fixed Q Spamming.

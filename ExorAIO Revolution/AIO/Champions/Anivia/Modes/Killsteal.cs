@@ -34,7 +34,10 @@ namespace AIO.Champions
                     switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
                     {
                         case 1:
-                            SpellClass.Q.Cast(bestTarget);
+                            if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                            {
+                                SpellClass.Q.Cast(bestTarget);
+                            }
                             break;
                         case 2:
                             if (FlashFrost != null &&
