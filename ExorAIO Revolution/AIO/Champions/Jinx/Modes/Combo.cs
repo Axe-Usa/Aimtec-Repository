@@ -23,7 +23,7 @@ namespace AIO.Champions
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
-            var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
+            var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range+200f);
             if (SpellClass.Q.Ready &&
                 bestTarget != null &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
@@ -41,7 +41,7 @@ namespace AIO.Champions
                     }
 
                     if (bestTargetDistanceToPlayer > SpellClass.Q.Range &&
-                        bestTargetDistanceToPlayer <= SpellClass.Q2.Range+200)
+                        bestTargetDistanceToPlayer <= SpellClass.Q2.Range+200f)
                     {
                         SpellClass.Q.Cast();
                     }

@@ -629,3 +629,7 @@ ExorAIO: Revolution Changelog:
 
 7.17.0.11:
   Anivia: Fixed Q Spamming.
+
+7.17.0.12:
+  Jinx: Now starts FishBones when even before the target gets in range to get it ready,
+  Orianna: Further R Prediction check for Killsteal.
