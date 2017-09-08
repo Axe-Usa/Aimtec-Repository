@@ -1,6 +1,5 @@
 
 using Aimtec;
-using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -130,16 +129,16 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            var gapSender = (Obj_AI_Hero)args.Unit;
+            var gapSender = args.Unit;
             if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
             {
                 return;
@@ -149,18 +148,18 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser W.
             /// </summary>
             if (SpellClass.W.Ready &&
-                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
+                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
                 MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
                 // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                if (args.EndPos.Distance(playerPos) <= 200)
+                if (args.EndPosition.Distance(playerPos) <= 200)
                 {
-                    SpellClass.W.Cast(playerPos.Extend(args.StartPos, UtilityClass.Player.BoundingRadius));
+                    SpellClass.W.Cast(playerPos.Extend(args.StartPosition, UtilityClass.Player.BoundingRadius));
                 }
                 else
                 {
-                    SpellClass.W.Cast(gapSender.ServerPosition.Extend(args.EndPos, UtilityClass.Player.BoundingRadius));
+                    SpellClass.W.Cast(gapSender.ServerPosition.Extend(args.EndPosition, UtilityClass.Player.BoundingRadius));
                 }
             }
         }

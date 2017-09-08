@@ -1,18 +1,15 @@
 
+using System;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Orbwalking;
+using AIO.Utilities;
+
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
-    using System;
-
-    using Aimtec;
-    using Aimtec.SDK.Events;
-    using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Orbwalking;
-
-    using Utilities;
-
     /// <summary>
     ///     The champion class.
     /// </summary>
@@ -100,16 +97,16 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            var gapSender = (Obj_AI_Hero)args.Unit;
+            var gapSender = args.Unit;
             if (gapSender == null ||
                 !gapSender.IsEnemy ||
                 Invulnerable.Check(gapSender, DamageType.Magical, false))
@@ -121,12 +118,13 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser R.
             /// </summary>
             if (SpellClass.R.Ready &&
-                args.EndPos.Distance(UtilityClass.Player.ServerPosition) <= 1000 &&
+                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= 1000 &&
                 MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
             {
-                if (args.EndPos.Distance(UtilityClass.Player.ServerPosition) >= 200)
+                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
+                if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) >= 200)
                 {
-                    SpellClass.R.Cast(args.EndPos);
+                    SpellClass.R.Cast(args.EndPosition);
                 }
                 else
                 {

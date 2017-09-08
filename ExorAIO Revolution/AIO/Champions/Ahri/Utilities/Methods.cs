@@ -1,5 +1,5 @@
 using Aimtec;
-using Aimtec.SDK.Events;
+using AIO.Utilities;
 
 namespace AIO.Champions
 {
@@ -18,7 +18,7 @@ namespace AIO.Champions
             Game.OnUpdate += OnUpdate;
             Render.OnPresent += OnPresent;
             Obj_AI_Base.OnPerformCast += OnPerformCast;
-            Dash.HeroDashed += OnGapcloser;
+            Gapcloser.OnGapcloser += OnGapcloser;
         }
 
         #endregion

@@ -1,5 +1,4 @@
 using Aimtec;
-using Aimtec.SDK.Events;
 using AIO.Utilities;
 
 namespace AIO.Champions
@@ -22,7 +21,7 @@ namespace AIO.Champions
             ImplementationClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
             Render.OnPresent += OnPresent;
             Obj_AI_Base.OnProcessAutoAttack += OnProcessAutoAttack;
-            Dash.HeroDashed += OnGapcloser;
+            Gapcloser.OnGapcloser += OnGapcloser;
 
             //Events.OnGapCloser += OnGapCloser;
         }

@@ -1,5 +1,5 @@
 using Aimtec;
-using Aimtec.SDK.Events;
+using AIO.Utilities;
 
 namespace AIO.Champions
 {
@@ -19,7 +19,7 @@ namespace AIO.Champions
             SpellBook.OnCastSpell += OnCastSpell;
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
             Render.OnPresent += OnPresent;
-            Dash.HeroDashed += OnGapcloser;
+            Gapcloser.OnGapcloser += OnGapcloser;
 
             //Events.OnInterruptableTarget += OnInterruptableTarget;
         }

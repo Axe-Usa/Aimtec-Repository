@@ -1,5 +1,5 @@
 using Aimtec;
-using Aimtec.SDK.Events;
+using AIO.Utilities;
 
 namespace AIO.Champions
 {
@@ -22,7 +22,7 @@ namespace AIO.Champions
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
             Obj_AI_Base.OnPerformCast += OnPerformCast;
             Render.OnPresent += OnPresent;
-            Dash.HeroDashed += OnGapcloser;
+            Gapcloser.OnGapcloser += OnGapcloser;
 
             //Events.OnInterruptableTarget += Taliyah.OnInterruptableTarget;
         }

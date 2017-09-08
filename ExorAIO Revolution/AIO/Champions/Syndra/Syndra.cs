@@ -1,7 +1,6 @@
 
 using System.Linq;
 using Aimtec;
-using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -129,16 +128,16 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            var gapSender = (Obj_AI_Hero)args.Unit;
+            var gapSender = args.Unit;
             if (gapSender == null ||
                 !gapSender.IsEnemy ||
                 Invulnerable.Check(gapSender, DamageType.Magical, false))
@@ -150,17 +149,17 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser Q->E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
+                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
                 MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 if (SpellClass.Q.Ready)
                 {
-                    SpellClass.Q.Cast(args.EndPos);
+                    SpellClass.Q.Cast(args.EndPosition);
                 }
 
-                if (args.EndPos.Distance(UtilityClass.Player.ServerPosition) < 200)
+                if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < 200)
                 {
-                    SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPos, SpellClass.E.Range));
+                    SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, SpellClass.E.Range));
                 }
             }
         }

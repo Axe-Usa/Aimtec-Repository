@@ -1,6 +1,5 @@
 
 using Aimtec;
-using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -107,16 +106,16 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            var gapSender = (Obj_AI_Hero)args.Unit;
+            var gapSender = args.Unit;
             if (gapSender == null ||
                 !gapSender.IsEnemy ||
                 UtilityClass.Player.HasBuff("TwitchHideInShadows") ||
@@ -129,10 +128,10 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser W.
             /// </summary>
             if (SpellClass.W.Ready &&
-                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
+                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
                 MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast(args.EndPos);
+                SpellClass.W.Cast(args.EndPosition);
             }
         }
 

@@ -1,15 +1,14 @@
-﻿namespace AIO.Utilities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Aimtec;
+using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu;
+using Aimtec.SDK.Menu.Components;
+
+namespace AIO.Utilities
 {
     #region
-
-    using Aimtec;
-    using Aimtec.SDK.Menu;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Extensions;
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     #endregion
 
@@ -970,6 +969,8 @@
             Obj_AI_Base.OnNewPath += OnNewPath;
         }
 
+        // ReSharper disable once UnusedMember.Local
+        // ReSharper disable once UnusedParameter.Local
         private static void OnCreate(GameObject sender)
         {
             //special dash (like rengar, khazix, ziggs)

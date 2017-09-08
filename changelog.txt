@@ -633,3 +633,6 @@ ExorAIO: Revolution Changelog:
 7.17.0.12:
   Jinx: Now starts FishBones when even before the target gets in range to get it ready,
   Orianna: Further R Prediction check for Killsteal.
+
+7.17.0.13:
+  AIO: Implemented an actual Anti-Gapcloser.

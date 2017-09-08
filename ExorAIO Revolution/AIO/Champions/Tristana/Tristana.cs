@@ -1,7 +1,6 @@
 
 using System.Linq;
 using Aimtec;
-using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -114,16 +113,16 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            var gapSender = (Obj_AI_Hero)args.Unit;
+            var gapSender = args.Unit;
             if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
             {
                 return;
@@ -136,9 +135,9 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
-                if (args.EndPos.Distance(playerPos) <= 200)
+                if (args.EndPosition.Distance(playerPos) <= 200)
                 {
-                    SpellClass.W.Cast(playerPos.Extend(args.StartPos, -SpellClass.W.Range));
+                    SpellClass.W.Cast(playerPos.Extend(args.StartPosition, -SpellClass.W.Range));
                     return;
                 }
             }
@@ -150,7 +149,7 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
-                if (args.EndPos.Distance(playerPos) <= 200)
+                if (args.EndPosition.Distance(playerPos) <= 200)
                 {
                     SpellClass.R.CastOnUnit(gapSender);
                 }

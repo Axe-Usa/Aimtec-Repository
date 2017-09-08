@@ -1,7 +1,6 @@
 
 using System.Linq;
 using Aimtec;
-using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -78,16 +77,16 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            var gapSender = (Obj_AI_Hero)args.Unit;
+            var gapSender = args.Unit;
             if (gapSender == null)
             {
                 return;
@@ -105,7 +104,7 @@ namespace AIO.Champions
                     MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
                 {
                     var playerPos = UtilityClass.Player.ServerPosition;
-                    if (args.EndPos.Distance(playerPos) <= 200)
+                    if (args.EndPosition.Distance(playerPos) <= 200)
                     {
                         SpellClass.E.CastOnUnit(UtilityClass.Player);
                     }
@@ -115,7 +114,7 @@ namespace AIO.Champions
                             .Where(a =>
                                 !a.IsMe &&
                                 a.IsValidTarget(SpellClass.E.Range, true) &&
-                                args.EndPos.Distance(a.ServerPosition) <= 200)
+                                args.EndPosition.Distance(a.ServerPosition) <= 200)
                             .MinBy(o => o.MaxHealth);
 
                         if (bestAlly != null)
@@ -125,8 +124,8 @@ namespace AIO.Champions
                     }
                 }
 
-                if (MenuClass.Spells["r"]["aoe"] != null &&
-                    MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
+                if (MenuClass.Spells["r"]["aoe"] == null ||
+                    !MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
                 {
                     return;
                 }
@@ -140,7 +139,7 @@ namespace AIO.Champions
                 {
                     if (GameObjects.EnemyHeroes.Count(t =>
                             !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)args.EndPos)) >= MenuClass.Spells["r"]["aoe"]?.As<MenuSliderBool>().Value &&
+                            t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, args.EndPosition)) >= MenuClass.Spells["r"]["aoe"]?.As<MenuSliderBool>().Value &&
                         MenuClass.Spells["e"]["engagerswhitelist"][gapSender.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     {
                         SpellClass.E.CastOnUnit(gapSender);

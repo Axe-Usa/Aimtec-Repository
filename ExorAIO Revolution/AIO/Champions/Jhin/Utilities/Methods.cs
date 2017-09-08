@@ -1,5 +1,4 @@
 using Aimtec;
-using Aimtec.SDK.Events;
 using AIO.Utilities;
 
 namespace AIO.Champions
@@ -22,7 +21,7 @@ namespace AIO.Champions
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
             ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
-            Dash.HeroDashed += OnGapcloser;
+            Gapcloser.OnGapcloser += OnGapcloser;
             //Obj_AI_Base.OnIssueOrder += this.OnIssueOrder;
         }
 

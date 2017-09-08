@@ -1,7 +1,6 @@
 
 using System.Linq;
 using Aimtec;
-using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -126,42 +125,56 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            var gapSender = (Obj_AI_Hero)args.Unit;
+            var gapSender = args.Unit;
             if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
             {
                 return;
             }
 
             var playerPos = UtilityClass.Player.ServerPosition;
-            if (args.EndPos.Distance(playerPos) <= 200)
-            {
-                /// <summary>
-                ///     The Anti-Gapcloser Q.
-                /// </summary>
-                if (SpellClass.Q.Ready &&
-                    MenuClass.Spells["q"]["gapcloser"].As<MenuBool>().Enabled)
-                {
-                    SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPos, -300f));
-                    return;
-                }
 
-                /// <summary>
-                ///     The Anti-Gapcloser E.
-                /// </summary>
-                if (SpellClass.E.Ready &&
-                    !Invulnerable.Check(gapSender, DamageType.Magical, false) &&
-                    MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            /// <summary>
+            ///     The Anti-Gapcloser Q.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                args.EndPosition.Distance(playerPos) <= 300 &&
+                MenuClass.Spells["q"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -300f));
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser E.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                !Invulnerable.Check(gapSender, DamageType.Magical, false) &&
+                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            {
+                if (args.EndPosition.Distance(playerPos) <= 300)
                 {
                     SpellClass.E.CastOnUnit(gapSender);
+                }
+                else
+                {
+                    const int condemnPushDistance = 410 / 10;
+                    for (var i = 1; i < 10; i++)
+                    {
+                        var endPos = args.EndPosition.Extend(playerPos, -condemnPushDistance * i);
+                        if (endPos.IsWall(true))
+                        {
+                            SpellClass.E.CastOnUnit(gapSender);
+                        }
+                    }
                 }
             }
         }

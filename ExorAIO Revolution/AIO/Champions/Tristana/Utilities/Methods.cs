@@ -1,5 +1,4 @@
 using Aimtec;
-using Aimtec.SDK.Events;
 using AIO.Utilities;
 
 namespace AIO.Champions
@@ -20,7 +19,7 @@ namespace AIO.Champions
             BuffManager.OnAddBuff += OnAddBuff;
             ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
             Render.OnPresent += OnPresent;
-            Dash.HeroDashed += OnGapcloser;
+            Gapcloser.OnGapcloser += OnGapcloser;
 
             //Events.OnInterruptableTarget += OnInterruptableTarget;
         }

@@ -1,5 +1,4 @@
 using Aimtec;
-using Aimtec.SDK.Events;
 using AIO.Utilities;
 
 namespace AIO.Champions
@@ -21,7 +20,7 @@ namespace AIO.Champions
             GameObject.OnCreate += OnCreate;
             GameObject.OnDestroy += OnDestroy;
             ImplementationClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
-            Dash.HeroDashed += OnGapcloser;
+            Gapcloser.OnGapcloser += OnGapcloser;
         }
 
         #endregion

@@ -1,7 +1,6 @@
 
 using System.Linq;
 using Aimtec;
-using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -172,16 +171,16 @@ namespace AIO.Champions
         /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(object sender, Dash.DashArgs args)
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
                 return;
             }
 
-            var gapSender = (Obj_AI_Hero)args.Unit;
+            var gapSender = args.Unit;
             if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
             {
                 return;
@@ -191,17 +190,18 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser E.
             /// </summary>
             if (SpellClass.E.Ready &&
-                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
+                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
                 MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
-                if (args.EndPos.Distance(playerPos) >= 200)
+                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
+                if (args.EndPosition.Distance(playerPos) >= 200)
                 {
-                    SpellClass.E.Cast(args.EndPos);
+                    SpellClass.E.Cast(args.EndPosition);
                 }
                 else
                 {
-                    SpellClass.E.Cast(playerPos.Extend(args.StartPos, -SpellClass.E.Range));
+                    SpellClass.E.Cast(playerPos.Extend(args.StartPosition, -SpellClass.E.Range));
                 }
             }
 
@@ -210,10 +210,10 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 !Invulnerable.Check(gapSender, DamageType.Magical, false) &&
-                args.EndPos.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
+                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
                 MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast(args.EndPos);
+                SpellClass.W.Cast(args.EndPosition);
             }
         }
 
