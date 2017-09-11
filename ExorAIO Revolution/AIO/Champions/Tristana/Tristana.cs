@@ -78,7 +78,7 @@ namespace AIO.Champions
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
                 if (forceTarget != null)
                 {
-                    //ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
+                    ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
                     args.Target = forceTarget;
                 }
             }
@@ -121,9 +121,8 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
+            
+            if (sender == null || !sender.IsEnemy || !sender.IsMelee)
             {
                 return;
             }
@@ -131,14 +130,27 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser W.
             /// </summary>
-            if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+            if (SpellClass.W.Ready)
             {
-                var playerPos = UtilityClass.Player.ServerPosition;
-                if (args.EndPosition.Distance(playerPos) <= 200)
+                if (sender.IsMelee)
                 {
-                    SpellClass.W.Cast(playerPos.Extend(args.StartPosition, -SpellClass.W.Range));
-                    return;
+                    switch (args.Type)
+                    {
+                        case GapSpellType.Targeted:
+                            if (args.Target.IsMe)
+                            {
+                                SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.W.Range));
+                                return;
+                            }
+                            break;
+                        default:
+                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                            {
+                                SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.W.Range));
+                                return;
+                            }
+                            break;
+                    }
                 }
             }
 
@@ -146,12 +158,25 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser R.
             /// </summary>
             if (SpellClass.R.Ready &&
-                MenuClass.Spells["r"]["gapcloser"].As<MenuBool>().Enabled)
+                !Invulnerable.Check(sender, DamageType.Magical, false))
             {
-                var playerPos = UtilityClass.Player.ServerPosition;
-                if (args.EndPosition.Distance(playerPos) <= 200)
+                if (sender.IsMelee)
                 {
-                    SpellClass.R.CastOnUnit(gapSender);
+                    switch (args.Type)
+                    {
+                        case GapSpellType.Targeted:
+                            if (args.Target.IsMe)
+                            {
+                                SpellClass.R.CastOnUnit(sender);
+                            }
+                            break;
+                        default:
+                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                            {
+                                SpellClass.R.CastOnUnit(sender);
+                            }
+                            break;
+                    }
                 }
             }
         }

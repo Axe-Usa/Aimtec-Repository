@@ -32,7 +32,9 @@ namespace AIO.Champions
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("engage", "Engager", false));
-                    MenuClass.Q.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.Q.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.Q, "Anti-Gapcloser");
+                    MenuClass.Q.Add(new MenuSeperator("separator2"));
                     MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Farmhelper / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
@@ -46,7 +48,8 @@ namespace AIO.Champions
                         MenuClass.Q2.Add(new MenuBool("onlyqifmouseoutaarange", "Only Q if mouse out of AA Range", false));
                         if (GameObjects.EnemyHeroes.Any())
                         {
-                            MenuClass.Q2.Add(new MenuSliderBool("qrangecheck", "Don't Q if pos has >= X enemies in range", false, 3, 1, GameObjects.EnemyHeroes.Count()));
+                            var count = GameObjects.EnemyHeroes.Count();
+                            MenuClass.Q2.Add(new MenuSliderBool("qrangecheck", "Don't Q if pos has >= X enemies in range", false, count >= 3 ? 3 : count, 1, GameObjects.EnemyHeroes.Count()));
                         }
                         else
                         {
@@ -65,10 +68,12 @@ namespace AIO.Champions
                 {
                     MenuClass.E.Add(new MenuList("emode", "Condemn Mode", new []{ "Exory", "Perfect BETA", "Don't Condemn to stun"}, 0));
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
-                    MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.E.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
+                    MenuClass.E.Add(new MenuSeperator("separator2"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSeperator("separator"));
+                    MenuClass.E.Add(new MenuSeperator("separator3"));
                     MenuClass.E.Add(new MenuBool("bool", "Semi-Automatic E"));
                     MenuClass.E.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
@@ -107,7 +112,8 @@ namespace AIO.Champions
 
                 if (GameObjects.EnemyHeroes.Any())
                 {
-                    MenuClass.Miscellaneous.Add(new MenuSlider("stealthcheck", "Stay Invisible: if >= x enemies in AA Range", 3, 0, GameObjects.EnemyHeroes.Count()));
+                    var count = GameObjects.EnemyHeroes.Count();
+                    MenuClass.Miscellaneous.Add(new MenuSlider("stealthcheck", "Stay Invisible: if >= x enemies in AA Range", count >= 3 ? 3 : count, 0, count));
                 }
                 else
                 {

@@ -85,9 +85,8 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null)
+            
+            if (sender == null)
             {
                 return;
             }
@@ -100,49 +99,60 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The Anti-Gapcloser E.
                 /// </summary>
-                if (gapSender.IsEnemy &&
-                    MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+                if (sender.IsEnemy)
                 {
-                    var playerPos = UtilityClass.Player.ServerPosition;
-                    if (args.EndPosition.Distance(playerPos) <= 200)
+                    switch (args.Type)
                     {
-                        SpellClass.E.CastOnUnit(UtilityClass.Player);
-                    }
-                    else
-                    {
-                        var bestAlly = GameObjects.AllyHeroes
-                            .Where(a =>
-                                !a.IsMe &&
-                                a.IsValidTarget(SpellClass.E.Range, true) &&
-                                args.EndPosition.Distance(a.ServerPosition) <= 200)
-                            .MinBy(o => o.MaxHealth);
+                        case GapSpellType.Targeted:
+                            if (sender.IsMelee &&
+                                args.Target.IsMe)
+                            {
+                                SpellClass.E.CastOnUnit(UtilityClass.Player);
+                            }
+                            break;
+                        default:
+                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                            {
+                                SpellClass.E.CastOnUnit(UtilityClass.Player);
+                            }
+                            else
+                            {
+                                var bestAlly = GameObjects.AllyHeroes
+                                    .Where(a =>
+                                        !a.IsMe &&
+                                        a.IsValidTarget(SpellClass.E.Range, true))
+                                    .MinBy(o => o.MaxHealth);
 
-                        if (bestAlly != null)
+                                if (bestAlly != null)
+                                {
+                                    SpellClass.E.CastOnUnit(bestAlly);
+                                }
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    if (MenuClass.Spells["r"]["aoe"] == null ||
+                        !MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
+                    {
+                        return;
+                    }
+
+                    /// <summary>
+                    ///     The E Engager Logic.
+                    /// </summary>
+                    if (sender.IsAlly &&
+                        sender.IsValidTarget(SpellClass.E.Range, true) &&
+                        MenuClass.Spells["e"]["engager"].As<MenuBool>().Enabled)
+                    {
+                        if (GameObjects.EnemyHeroes.Count(t =>
+                                !Invulnerable.Check(t, DamageType.Magical, false) &&
+                                t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, args.EndPosition)) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value &&
+                            MenuClass.Spells["e"]["engagerswhitelist"][sender.ChampionName.ToLower()].As<MenuBool>().Enabled)
                         {
-                            SpellClass.E.CastOnUnit(bestAlly);
+                            SpellClass.E.CastOnUnit(sender);
                         }
-                    }
-                }
-
-                if (MenuClass.Spells["r"]["aoe"] == null ||
-                    !MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
-                {
-                    return;
-                }
-
-                /// <summary>
-                ///     The E Engager Logic.
-                /// </summary>
-                if (gapSender.IsAlly &&
-                    gapSender.IsValidTarget(SpellClass.E.Range, true) &&
-                    MenuClass.Spells["e"]["engager"].As<MenuBool>().Enabled)
-                {
-                    if (GameObjects.EnemyHeroes.Count(t =>
-                            !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, args.EndPosition)) >= MenuClass.Spells["r"]["aoe"]?.As<MenuSliderBool>().Value &&
-                        MenuClass.Spells["e"]["engagerswhitelist"][gapSender.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    {
-                        SpellClass.E.CastOnUnit(gapSender);
                     }
                 }
             }

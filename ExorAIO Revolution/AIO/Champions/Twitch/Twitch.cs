@@ -114,12 +114,10 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null ||
-                !gapSender.IsEnemy ||
-                UtilityClass.Player.HasBuff("TwitchHideInShadows") ||
-                Invulnerable.Check(gapSender, DamageType.Magical, false))
+            
+            if (sender == null ||
+                !sender.IsEnemy ||
+                UtilityClass.Player.HasBuff("TwitchHideInShadows"))
             {
                 return;
             }
@@ -128,10 +126,23 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser W.
             /// </summary>
             if (SpellClass.W.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
-                MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+                Invulnerable.Check(sender, DamageType.Magical, false))
             {
-                SpellClass.W.Cast(args.EndPosition);
+                switch (args.Type)
+                {
+                    case GapSpellType.Targeted:
+                        if (args.Target.IsMe)
+                        {
+                            SpellClass.W.Cast(args.EndPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range)
+                        {
+                            SpellClass.W.Cast(args.EndPosition);
+                        }
+                        break;
+                }
             }
         }
 

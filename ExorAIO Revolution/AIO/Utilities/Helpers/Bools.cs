@@ -30,7 +30,7 @@ namespace AIO.Utilities
         public static bool IsAutoAttack(string name)
         {
             name = name.ToLower();
-            return (name.Contains("attack") && !UtilityClass.NoAttacks.Contains(name)) || UtilityClass.Attacks.Contains(name);
+            return name.Contains("attack") && !UtilityClass.NoAttacks.Contains(name) || UtilityClass.Attacks.Contains(name);
         }
 
         /// <returns>
@@ -124,14 +124,6 @@ namespace AIO.Utilities
             }
 
             return false;
-        }
-
-        /// <summary>
-        ///     Checks whether the unit should preserve the sheen buff.
-        /// </summary>
-        public static bool ShouldPreserveSheen(this Obj_AI_Hero source)
-        {
-            return source.ActionState.HasFlag(ActionState.CanAttack);
         }
 
         /// <returns>

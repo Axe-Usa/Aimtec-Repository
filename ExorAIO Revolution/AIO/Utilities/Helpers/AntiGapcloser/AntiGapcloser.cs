@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Aimtec;
-using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu;
-using Aimtec.SDK.Menu.Components;
-
-namespace AIO.Utilities
+﻿namespace AIO.Utilities
 {
     #region
+
+    using Aimtec;
+    using Aimtec.SDK.Menu;
+    using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Extensions;
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     #endregion
 
     public delegate void OnGapcloserEvent(Obj_AI_Hero target, GapcloserArgs args);
 
-    public enum AntiGapcloserType
+    public enum GapSpellType
     {
-        Melee = 0,
-        Dash = 1,
-        SkillShot = 2,
-        Targeted = 3
+        Dash = 0,
+        SkillShot = 1,
+        Targeted = 2
     }
 
     internal struct SpellData
@@ -27,21 +27,21 @@ namespace AIO.Utilities
         public string ChampionName { get; set; }
         public string SpellName { get; set; }
         public SpellSlot Slot { get; set; }
-        public AntiGapcloserType SpellType { get; set; }
+        public GapSpellType SpellType { get; set; }
     }
 
     public class GapcloserArgs
     {
         internal Obj_AI_Hero Unit { get; set; }
         public SpellSlot Slot { get; set; }
+        public AttackableUnit Target { get; set; }
         public string SpellName { get; set; }
-        public AntiGapcloserType Type { get; set; }
+        public GapSpellType Type { get; set; }
         public Vector3 StartPosition { get; set; }
         public Vector3 EndPosition { get; set; }
         public int StartTick { get; set; }
         public int EndTick { get; set; }
         public int DurationTick { get; set; }
-        public bool HaveShield { get; set; }
     }
 
     public static class Gapcloser
@@ -68,7 +68,7 @@ namespace AIO.Utilities
                     ChampionName = "Aatrox",
                     Slot = SpellSlot.Q,
                     SpellName = "aatroxq",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -81,7 +81,7 @@ namespace AIO.Utilities
                     ChampionName = "Ahri",
                     Slot = SpellSlot.R,
                     SpellName = "ahritumble",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -94,7 +94,7 @@ namespace AIO.Utilities
                     ChampionName = "Akali",
                     Slot = SpellSlot.R,
                     SpellName = "akalishadowdance",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -107,7 +107,7 @@ namespace AIO.Utilities
                     ChampionName = "Alistar",
                     Slot = SpellSlot.W,
                     SpellName = "headbutt",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -120,7 +120,7 @@ namespace AIO.Utilities
                     ChampionName = "Azir",
                     Slot = SpellSlot.E,
                     SpellName = "azire",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -133,7 +133,7 @@ namespace AIO.Utilities
                     ChampionName = "Caitlyn",
                     Slot = SpellSlot.E,
                     SpellName = "caitlynentrapment",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -146,7 +146,7 @@ namespace AIO.Utilities
                     ChampionName = "Camille",
                     Slot = SpellSlot.E,
                     SpellName = "camillee",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -155,7 +155,7 @@ namespace AIO.Utilities
                     ChampionName = "Camille",
                     Slot = SpellSlot.E,
                     SpellName = "camilleedash2",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -168,7 +168,7 @@ namespace AIO.Utilities
                     ChampionName = "Corki",
                     Slot = SpellSlot.W,
                     SpellName = "carpetbomb",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -181,7 +181,7 @@ namespace AIO.Utilities
                     ChampionName = "Diana",
                     Slot = SpellSlot.R,
                     SpellName = "dianateleport",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -194,7 +194,7 @@ namespace AIO.Utilities
                     ChampionName = "Ekko",
                     Slot = SpellSlot.E,
                     SpellName = "ekkoeattack",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -207,7 +207,7 @@ namespace AIO.Utilities
                     ChampionName = "Elise",
                     Slot = SpellSlot.Q,
                     SpellName = "elisespiderqcast",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -216,7 +216,7 @@ namespace AIO.Utilities
                     ChampionName = "Elise",
                     Slot = SpellSlot.E,
                     SpellName = "elisespideredescent",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -229,7 +229,7 @@ namespace AIO.Utilities
                     ChampionName = "Ezreal",
                     Slot = SpellSlot.E,
                     SpellName = "ezrealarcaneshift",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -242,7 +242,7 @@ namespace AIO.Utilities
                     ChampionName = "Fiora",
                     Slot = SpellSlot.Q,
                     SpellName = "fioraq",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -255,7 +255,7 @@ namespace AIO.Utilities
                     ChampionName = "Fizz",
                     Slot = SpellSlot.Q,
                     SpellName = "fizzpiercingstrike",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -268,7 +268,7 @@ namespace AIO.Utilities
                     ChampionName = "Galio",
                     Slot = SpellSlot.E,
                     SpellName = "galioe",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -281,7 +281,7 @@ namespace AIO.Utilities
                     ChampionName = "Gnar",
                     Slot = SpellSlot.E,
                     SpellName = "gnarbige",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -290,7 +290,7 @@ namespace AIO.Utilities
                     ChampionName = "Gnar",
                     Slot = SpellSlot.E,
                     SpellName = "gnare",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -303,7 +303,7 @@ namespace AIO.Utilities
                     ChampionName = "Gragas",
                     Slot = SpellSlot.E,
                     SpellName = "gragase",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -316,7 +316,7 @@ namespace AIO.Utilities
                     ChampionName = "Graves",
                     Slot = SpellSlot.E,
                     SpellName = "gravesmove",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -329,7 +329,7 @@ namespace AIO.Utilities
                     ChampionName = "Hecarim",
                     Slot = SpellSlot.R,
                     SpellName = "hecarimult",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -342,7 +342,7 @@ namespace AIO.Utilities
                     ChampionName = "Illaoi",
                     Slot = SpellSlot.W,
                     SpellName = "illaoiwattack",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -355,7 +355,7 @@ namespace AIO.Utilities
                     ChampionName = "Irelia",
                     Slot = SpellSlot.Q,
                     SpellName = "ireliagatotsu",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -368,7 +368,7 @@ namespace AIO.Utilities
                     ChampionName = "JarvanIV",
                     Slot = SpellSlot.Q,
                     SpellName = "jarvanivdragonstrike",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -381,7 +381,7 @@ namespace AIO.Utilities
                     ChampionName = "Jax",
                     Slot = SpellSlot.Q,
                     SpellName = "jaxleapstrike",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -394,7 +394,7 @@ namespace AIO.Utilities
                     ChampionName = "Jayce",
                     Slot = SpellSlot.Q,
                     SpellName = "jaycetotheskies",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -407,7 +407,7 @@ namespace AIO.Utilities
                     ChampionName = "Kassadin",
                     Slot = SpellSlot.R,
                     SpellName = "riftwalk",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -420,7 +420,7 @@ namespace AIO.Utilities
                     ChampionName = "Katarina",
                     Slot = SpellSlot.E,
                     SpellName = "katarinae",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -433,7 +433,7 @@ namespace AIO.Utilities
                     ChampionName = "Kayn",
                     Slot = SpellSlot.Q,
                     SpellName = "kaynq",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -446,7 +446,7 @@ namespace AIO.Utilities
                     ChampionName = "Khazix",
                     Slot = SpellSlot.E,
                     SpellName = "khazixe",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -455,7 +455,7 @@ namespace AIO.Utilities
                     ChampionName = "Khazix",
                     Slot = SpellSlot.E,
                     SpellName = "khazixelong",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -468,7 +468,7 @@ namespace AIO.Utilities
                     ChampionName = "Kindred",
                     Slot = SpellSlot.Q,
                     SpellName = "kindredq",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -481,7 +481,7 @@ namespace AIO.Utilities
                     ChampionName = "Leblanc",
                     Slot = SpellSlot.W,
                     SpellName = "leblancslide",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -490,7 +490,7 @@ namespace AIO.Utilities
                     ChampionName = "Leblanc",
                     Slot = SpellSlot.W,
                     SpellName = "leblancslidem",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -503,7 +503,7 @@ namespace AIO.Utilities
                     ChampionName = "LeeSin",
                     Slot = SpellSlot.Q,
                     SpellName = "blindmonkqtwo",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -516,7 +516,7 @@ namespace AIO.Utilities
                     ChampionName = "Leona",
                     Slot = SpellSlot.E,
                     SpellName = "leonazenithblade",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -529,7 +529,7 @@ namespace AIO.Utilities
                     ChampionName = "Lucian",
                     Slot = SpellSlot.E,
                     SpellName = "luciane",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -542,7 +542,7 @@ namespace AIO.Utilities
                     ChampionName = "Malphite",
                     Slot = SpellSlot.R,
                     SpellName = "ufslash",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -555,7 +555,7 @@ namespace AIO.Utilities
                     ChampionName = "MasterYi",
                     Slot = SpellSlot.Q,
                     SpellName = "alphastrike",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -568,7 +568,7 @@ namespace AIO.Utilities
                     ChampionName = "MonkeyKing",
                     Slot = SpellSlot.E,
                     SpellName = "monkeykingnimbus",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -581,7 +581,7 @@ namespace AIO.Utilities
                     ChampionName = "Nautilus",
                     Slot = SpellSlot.Q,
                     SpellName = "nautilusq",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -594,7 +594,7 @@ namespace AIO.Utilities
                     ChampionName = "Nidalee",
                     Slot = SpellSlot.W,
                     SpellName = "pounce",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -607,7 +607,7 @@ namespace AIO.Utilities
                     ChampionName = "Pantheon",
                     Slot = SpellSlot.W,
                     SpellName = "pantheon_leapbash",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -620,7 +620,7 @@ namespace AIO.Utilities
                     ChampionName = "Poppy",
                     Slot = SpellSlot.E,
                     SpellName = "poppyheroiccharge",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -633,7 +633,7 @@ namespace AIO.Utilities
                     ChampionName = "Quinn",
                     Slot = SpellSlot.E,
                     SpellName = "quinne",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -646,7 +646,7 @@ namespace AIO.Utilities
                     ChampionName = "Rakan",
                     Slot = SpellSlot.W,
                     SpellName = "rakanw",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -659,7 +659,7 @@ namespace AIO.Utilities
                     ChampionName = "RekSai",
                     Slot = SpellSlot.E,
                     SpellName = "reksaieburrowed",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -672,7 +672,7 @@ namespace AIO.Utilities
                     ChampionName = "Renekton",
                     Slot = SpellSlot.E,
                     SpellName = "renektonsliceanddice",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -681,7 +681,7 @@ namespace AIO.Utilities
                     ChampionName = "Renekton",
                     Slot = SpellSlot.E,
                     SpellName = "renektonpreexecute",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -690,7 +690,7 @@ namespace AIO.Utilities
                     ChampionName = "Renekton",
                     Slot = SpellSlot.E,
                     SpellName = "renektonsuperexecute",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -703,7 +703,7 @@ namespace AIO.Utilities
                     ChampionName = "Rengar",
                     Slot = SpellSlot.Unknown,
                     SpellName = "rengarpassivebuffdash",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -712,7 +712,7 @@ namespace AIO.Utilities
                     ChampionName = "Rengar",
                     Slot = SpellSlot.Unknown,
                     SpellName = "rengarpassivebuffdashaadummy",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -725,7 +725,7 @@ namespace AIO.Utilities
                     ChampionName = "Riven",
                     Slot = SpellSlot.Q,
                     SpellName = "riventricleave",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             Spells.Add(
@@ -734,7 +734,7 @@ namespace AIO.Utilities
                     ChampionName = "Riven",
                     Slot = SpellSlot.E,
                     SpellName = "rivenfeint",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -747,7 +747,7 @@ namespace AIO.Utilities
                     ChampionName = "Sejuani",
                     Slot = SpellSlot.Q,
                     SpellName = "sejuaniarcticassault",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -760,7 +760,7 @@ namespace AIO.Utilities
                     ChampionName = "Shen",
                     Slot = SpellSlot.E,
                     SpellName = "shene",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -773,7 +773,7 @@ namespace AIO.Utilities
                     ChampionName = "Shyvana",
                     Slot = SpellSlot.R,
                     SpellName = "shyvanatransformcast",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -786,7 +786,7 @@ namespace AIO.Utilities
                     ChampionName = "Talon",
                     Slot = SpellSlot.Q,
                     SpellName = "talonq",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             Spells.Add(
@@ -795,7 +795,7 @@ namespace AIO.Utilities
                     ChampionName = "Talon",
                     Slot = SpellSlot.E,
                     SpellName = "taloncutthroat",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -808,7 +808,7 @@ namespace AIO.Utilities
                     ChampionName = "Tristana",
                     Slot = SpellSlot.W,
                     SpellName = "rocketjump",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -821,7 +821,7 @@ namespace AIO.Utilities
                     ChampionName = "Tryndamere",
                     Slot = SpellSlot.E,
                     SpellName = "slashcast",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -834,7 +834,7 @@ namespace AIO.Utilities
                     ChampionName = "Vi",
                     Slot = SpellSlot.Q,
                     SpellName = "viq",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -847,7 +847,7 @@ namespace AIO.Utilities
                     ChampionName = "Vayne",
                     Slot = SpellSlot.Q,
                     SpellName = "vaynetumble",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -860,7 +860,7 @@ namespace AIO.Utilities
                     ChampionName = "Warwick",
                     Slot = SpellSlot.R,
                     SpellName = "warwickr",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -873,7 +873,7 @@ namespace AIO.Utilities
                     ChampionName = "XinZhao",
                     Slot = SpellSlot.E,
                     SpellName = "xenzhaosweep",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -886,7 +886,7 @@ namespace AIO.Utilities
                     ChampionName = "Yasuo",
                     Slot = SpellSlot.E,
                     SpellName = "yasuodashwrapper",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -899,7 +899,7 @@ namespace AIO.Utilities
                     ChampionName = "Zac",
                     Slot = SpellSlot.E,
                     SpellName = "zace",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -912,7 +912,7 @@ namespace AIO.Utilities
                     ChampionName = "Zed",
                     Slot = SpellSlot.R,
                     SpellName = "zedr",
-                    SpellType = AntiGapcloserType.Targeted
+                    SpellType = GapSpellType.Targeted
                 });
 
             #endregion
@@ -925,7 +925,7 @@ namespace AIO.Utilities
                     ChampionName = "Ziggs",
                     Slot = SpellSlot.W,
                     SpellName = "ziggswtoggle",
-                    SpellType = AntiGapcloserType.SkillShot
+                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -933,52 +933,42 @@ namespace AIO.Utilities
 
         public static void Attach(Menu mainMenu, string menuName)
         {
-            var menu = new Menu("Gapcloser", menuName);
-            if (ObjectManager.Get<Obj_AI_Hero>().All(x => !x.IsEnemy))
+            if (ObjectManager.Get<Obj_AI_Hero>().Any(h => h.IsEnemy))
             {
-                menu.Add(new MenuSeperator("separator", "No enemies found, no need for an Anti-Gapcloser Menu."));
-            }
-            else
-            {
-                menu.Add(new MenuBool("GapcloserEnabled", "Enabled"));
-                menu.Add(new MenuSeperator("GapcloserSeperator1"));
+                Menu = new Menu("Gapcloser", menuName)
+                {
+                    new MenuBool("GapcloserEnabled", "Enabled"),
+                    new MenuSeperator("GapcloserSeperator1")
+                };
+                mainMenu.Add(Menu);
 
                 foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(x => x.IsEnemy))
                 {
-                    var name = "Gapcloser" + enemy.ChampionName.ToLower();
-                    var heroMenu = new Menu(name, enemy.ChampionName)
+                    var heroMenu = new Menu("Gapcloser" + enemy.ChampionName.ToLower(), enemy.ChampionName)
                     {
-                        new MenuBool(name + "Enabled", "Enabled"),
-                        new MenuSlider(name + "Distance", "If Target Distance To Player <= x", 550, 1, 700),
-                        new MenuSlider(name + "HPercent", "When Player HealthPercent <= x%", 100, 1)
+                        new MenuBool("Gapcloser" + enemy.ChampionName.ToLower() + "Enabled", "Enabled"),
                     };
-                    menu.Add(heroMenu);
+                    Menu.Add(heroMenu);
 
                     foreach (var spell in Spells.Where(x => x.ChampionName == enemy.ChampionName))
                     {
-                        heroMenu.Add(new MenuBool(name + "." + spell.SpellName.ToLower(), "Anti Slot: " + spell.Slot + "(" + spell.SpellName + ")"));
+                        heroMenu.Add(new MenuBool("Gapcloser" + enemy.ChampionName.ToLower() + "." + spell.SpellName.ToLower(), "Slot: " + spell.Slot + " (" + spell.SpellName + ")"));
                     }
                 }
+
+                Game.OnUpdate += OnUpdate;
+                Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
+                Obj_AI_Base.OnNewPath += OnNewPath;
             }
-            mainMenu.Add(menu);
-
-            Game.OnUpdate += OnUpdate;
-            //GameObject.OnCreate += OnCreate;
-
-            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-            Obj_AI_Base.OnNewPath += OnNewPath;
-        }
-
-        // ReSharper disable once UnusedMember.Local
-        // ReSharper disable once UnusedParameter.Local
-        private static void OnCreate(GameObject sender)
-        {
-            //special dash (like rengar, khazix, ziggs)
+            else
+            {
+                mainMenu.Add(new MenuSeperator("separator5", "No enemies found, no need for an Anti-Gapcloser Menu"));
+            }
         }
 
         private static void OnNewPath(Obj_AI_Base sender, Obj_AI_BaseNewPathEventArgs args)
         {
-            if (sender == null || !sender.IsEnemy || sender.Type != GameObjectType.obj_AI_Hero)
+            if (sender == null || sender.Type != GameObjectType.obj_AI_Hero || !sender.IsEnemy)
             {
                 return;
             }
@@ -999,9 +989,15 @@ namespace AIO.Utilities
 
             if (args.IsDash)
             {
-                Gapclosers[sender.NetworkId].Unit = (Obj_AI_Hero)sender;
+                var gapSender = sender as Obj_AI_Hero;
+                if (gapSender == null)
+                {
+                    return;
+                }
+
+                Gapclosers[sender.NetworkId].Unit = gapSender;
                 Gapclosers[sender.NetworkId].Slot = SpellSlot.Unknown;
-                Gapclosers[sender.NetworkId].Type = AntiGapcloserType.Dash;
+                Gapclosers[sender.NetworkId].Type = GapSpellType.Dash;
                 Gapclosers[sender.NetworkId].SpellName = sender.UnitSkinName + "_Dash";
                 Gapclosers[sender.NetworkId].StartPosition = sender.ServerPosition;
                 Gapclosers[sender.NetworkId].EndPosition = args.Path.Last();
@@ -1011,62 +1007,60 @@ namespace AIO.Utilities
                     (Gapclosers[sender.NetworkId].EndPosition.DistanceSqr(Gapclosers[sender.NetworkId].StartPosition) /
                      args.Speed * args.Speed * 1000) + Gapclosers[sender.NetworkId].StartTick;
                 Gapclosers[sender.NetworkId].DurationTick = Gapclosers[sender.NetworkId].EndTick - Gapclosers[sender.NetworkId].StartTick;
-                Gapclosers[sender.NetworkId].HaveShield = Invulnerable.Check((Obj_AI_Hero)sender, DamageType.Magical, false);
             }
         }
 
         private static void OnUpdate()
         {
-            if (Gapclosers.Values.Any(x => Game.TickCount - x.StartTick > 900 + Game.Ping))
+            if (Gapclosers.Values.Any(x => Game.TickCount - x.StartTick >= 750))
             {
                 Gapclosers.Clear();
             }
 
-            if (OnGapcloser == null || Menu["GapcloserEnabled"].As<MenuBool>() == null || !Menu["GapcloserEnabled"].As<MenuBool>().Enabled)
+            var option = Menu["GapcloserEnabled"].As<MenuBool>();
+            if (OnGapcloser == null || option == null || !option.Enabled)
             {
                 return;
             }
 
             foreach (var args in Gapclosers.Where(x =>
                 x.Value.Unit.IsValidTarget() &&
-                Menu["Gapcloser" + x.Value.Unit.ChampionName.ToLower()].As<Menu>() != null &&
-                Menu["Gapcloser" + x.Value.Unit.ChampionName.ToLower()].As<Menu>()["Gapcloser" + x.Value.Unit.ChampionName.ToLower() + "Enabled"].As<MenuBool>().Enabled))
+                Menu["Gapcloser" + x.Value.Unit.ChampionName.ToLower()] != null &&
+                Menu["Gapcloser" + x.Value.Unit.ChampionName.ToLower()]["Gapcloser" + x.Value.Unit.ChampionName.ToLower() + "Enabled"].As<MenuBool>().Enabled))
             {
-                var championName = args.Value.Unit.ChampionName.ToLower();
-                var menu = Menu["Gapcloser" + championName].As<Menu>();
-                var distance = menu["Gapcloser" + championName + "Distance"].As<MenuSlider>().Value;
-                var healthPercent = menu["Gapcloser" + championName + "HPercent"].As<MenuSlider>().Value;
-
-                if (ObjectManager.GetLocalPlayer().HealthPercent() <= healthPercent)
+                switch (args.Value.Type)
                 {
-                    switch (args.Value.Type)
-                    {
-                        case AntiGapcloserType.SkillShot:
-                        case AntiGapcloserType.Dash:
-                            if (args.Value.Unit.ServerPosition.DistanceSqr(ObjectManager.GetLocalPlayer().ServerPosition) <= distance * distance)
-                            {
-                                OnGapcloser(args.Value.Unit, args.Value);
-                            }
-                            break;
-                    }
-
-                    OnGapcloser(args.Value.Unit, args.Value);
+                    case GapSpellType.SkillShot:
+                    case GapSpellType.Dash:
+                    case GapSpellType.Targeted:
+                        OnGapcloser(args.Value.Unit, args.Value);
+                        break;
                 }
             }
         }
 
         private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            if (sender == null ||
-                !sender.IsEnemy ||
-                sender.Type != GameObjectType.obj_AI_Hero ||
-                string.IsNullOrEmpty(args.SpellData.Name))
+            if (sender == null || !sender.IsValid || !sender.IsEnemy || string.IsNullOrEmpty(args.SpellData.Name))
             {
                 return;
             }
 
-            if (Spells.All(x => !string.Equals(x.SpellName, args.SpellData.Name, StringComparison.CurrentCultureIgnoreCase)) ||
-                !Menu["Gapcloser" + sender.UnitSkinName.ToLower()].As<Menu>()["Gapcloser" + sender.UnitSkinName.ToLower() + "." + args.SpellData.Name.ToLower()].As<MenuBool>().Enabled)
+            var argsName = args.SpellData.Name.ToLower();
+            if (argsName.Contains("attack") || argsName.Contains("crit"))
+            {
+                return;
+            }
+
+            var gapSender = sender as Obj_AI_Hero;
+            if (gapSender == null)
+            {
+                return;
+            }
+
+            if (Spells.All(x =>
+                    !string.Equals(x.SpellName, args.SpellData.Name, StringComparison.CurrentCultureIgnoreCase)) ||
+                    !Menu["Gapcloser" + sender.UnitSkinName.ToLower()]["Gapcloser" + sender.UnitSkinName.ToLower() + "." + args.SpellData.Name.ToLower()].As<MenuBool>().Enabled)
             {
                 return;
             }
@@ -1076,14 +1070,14 @@ namespace AIO.Utilities
                 Gapclosers.Add(sender.NetworkId, new GapcloserArgs());
             }
 
-            Gapclosers[sender.NetworkId].Unit = (Obj_AI_Hero)sender;
+            Gapclosers[sender.NetworkId].Unit = gapSender;
             Gapclosers[sender.NetworkId].Slot = args.SpellSlot;
-            Gapclosers[sender.NetworkId].Type = args.Target != null ? AntiGapcloserType.Targeted : AntiGapcloserType.SkillShot;
+            Gapclosers[sender.NetworkId].Target = (AttackableUnit)args.Target;
+            Gapclosers[sender.NetworkId].Type = args.Target != null ? GapSpellType.Targeted : GapSpellType.SkillShot;
             Gapclosers[sender.NetworkId].SpellName = args.SpellData.Name;
             Gapclosers[sender.NetworkId].StartPosition = args.Start;
             Gapclosers[sender.NetworkId].EndPosition = args.End;
             Gapclosers[sender.NetworkId].StartTick = Game.TickCount;
-            Gapclosers[sender.NetworkId].HaveShield = Invulnerable.Check((Obj_AI_Hero)sender, DamageType.Magical, false);
         }
     }
 }

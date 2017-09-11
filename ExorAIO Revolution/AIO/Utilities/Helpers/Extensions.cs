@@ -131,6 +131,14 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Gets the best valid killable enemy heroes targets in the game inside a determined range.
+        /// </summary>
+        public static IEnumerable<Obj_AI_Hero> GetBestKillableHeroes(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
+        {
+            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range).Where(t => !Invulnerable.Check(t, damageType, ignoreShields));
+        }
+
+        /// <summary>
         ///     Gets the valid enemy heroes targets in the game.
         /// </summary>
         public static List<Obj_AI_Hero> GetEnemyHeroesTargets()

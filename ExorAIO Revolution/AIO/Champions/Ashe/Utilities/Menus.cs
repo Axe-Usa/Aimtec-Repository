@@ -89,7 +89,7 @@ namespace AIO.Champions
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
                     MenuClass.E.Add(new MenuBool("vision", "Vision"));
-                    MenuClass.E.Add(new MenuBool("logical", "Ult Cover"));
+                    MenuClass.E.Add(new MenuBool("logical", "Cover Ultimate"));
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 
@@ -98,7 +98,9 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.R.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.R, "Anti-Gapcloser");
+                    MenuClass.R.Add(new MenuSeperator("separator2"));
                     MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     //MenuClass.R.Add(new MenuSeperator("separator"));
                     //MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));

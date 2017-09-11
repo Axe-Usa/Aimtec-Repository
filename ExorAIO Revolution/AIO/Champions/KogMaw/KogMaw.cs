@@ -1,7 +1,6 @@
 
 using Aimtec;
 using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -84,48 +83,33 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null ||
-                !gapSender.IsEnemy ||
-                Invulnerable.Check(gapSender, DamageType.Magical, false))
+            
+            if (sender == null || !sender.IsEnemy)
             {
                 return;
-            }
-
-            /// <summary>
-            ///     The Anti-Gapcloser Q.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.Q.Range &&
-                MenuClass.Spells["q"]["gapcloser"].As<MenuBool>().Enabled)
-            {
-                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) >= 200)
-                {
-                    SpellClass.Q.Cast(args.EndPosition);
-                }
-                else
-                {
-                    SpellClass.Q.Cast(gapSender.ServerPosition);
-                }
             }
 
             /// <summary>
             ///     The Anti-Gapcloser E.
             /// </summary>
             if (SpellClass.E.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+                !Invulnerable.Check(sender, DamageType.Magical, false))
             {
-                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) >= 200)
+                switch (args.Type)
                 {
-                    SpellClass.E.Cast(args.EndPosition);
-                }
-                else
-                {
-                    SpellClass.E.Cast(gapSender.ServerPosition);
+                    case GapSpellType.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            SpellClass.E.Cast(args.StartPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range)
+                        {
+                            SpellClass.R.Cast(args.EndPosition);
+                        }
+                        break;
                 }
             }
         }

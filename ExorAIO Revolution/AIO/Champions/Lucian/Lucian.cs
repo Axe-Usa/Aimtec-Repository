@@ -1,7 +1,6 @@
 
 using Aimtec;
 using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -52,9 +51,8 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
+            
+            if (sender == null || !sender.IsEnemy || !sender.IsMelee)
             {
                 return;
             }
@@ -62,13 +60,22 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser E.
             /// </summary>
-            if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            if (SpellClass.E.Ready)
             {
-                var playerPos = UtilityClass.Player.ServerPosition;
-                if (args.EndPosition.Distance(playerPos) <= 200)
+                switch (args.Type)
                 {
-                    SpellClass.E.Cast(playerPos.Extend(args.StartPosition, -SpellClass.E.Range));
+                    case GapSpellType.Targeted:
+                        if (args.Target.IsMe)
+                        {
+                            SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -(SpellClass.E.Range - UtilityClass.Player.AttackRange)));
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range - UtilityClass.Player.AttackRange)
+                        {
+                            SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -(SpellClass.E.Range - UtilityClass.Player.AttackRange)));
+                        }
+                        break;
                 }
             }
         }

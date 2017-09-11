@@ -137,9 +137,8 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
+            
+            if (sender == null || !sender.IsEnemy)
             {
                 return;
             }
@@ -147,19 +146,23 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser W.
             /// </summary>
-            if (SpellClass.W.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
-                MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+            if (SpellClass.W.Ready)
             {
-                var playerPos = UtilityClass.Player.ServerPosition;
-                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                if (args.EndPosition.Distance(playerPos) <= 200)
+                switch (args.Type)
                 {
-                    SpellClass.W.Cast(playerPos.Extend(args.StartPosition, UtilityClass.Player.BoundingRadius));
-                }
-                else
-                {
-                    SpellClass.W.Cast(gapSender.ServerPosition.Extend(args.EndPosition, UtilityClass.Player.BoundingRadius));
+                    case GapSpellType.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, UtilityClass.Player.BoundingRadius));
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range)
+                        {
+                            SpellClass.W.Cast(sender.ServerPosition.Extend(args.EndPosition, sender.BoundingRadius));
+                        }
+                        break;
                 }
             }
         }

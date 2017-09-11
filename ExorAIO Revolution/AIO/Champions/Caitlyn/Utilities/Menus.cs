@@ -85,7 +85,9 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("triplecombo", "Try Double/Triple HeadShot Combo"));
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuBool("teleport", "On Teleport"));
-                    MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.W.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
+                    MenuClass.W.Add(new MenuSeperator("separator2"));
                     MenuClass.W.Add(new MenuBool("interrupter", "On Channelling Immobile Targets"));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -96,7 +98,9 @@ namespace AIO.Champions
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
-                    MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.E.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
+                    MenuClass.E.Add(new MenuSeperator("separator2"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Channelling Targets"));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 

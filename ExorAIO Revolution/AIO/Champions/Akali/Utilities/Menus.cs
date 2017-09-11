@@ -63,7 +63,9 @@ namespace AIO.Champions
                 {
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Energy >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.W.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
+                    MenuClass.W.Add(new MenuSeperator("separator2"));
 
                     if (GameObjects.EnemyHeroes.Any())
                     {

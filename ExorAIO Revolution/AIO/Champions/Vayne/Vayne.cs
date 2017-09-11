@@ -105,7 +105,7 @@ namespace AIO.Champions
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
                 if (forceTarget != null)
                 {
-                    //ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
+                    ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
                     args.Target = forceTarget;
                 }
             }
@@ -134,22 +134,8 @@ namespace AIO.Champions
                 return;
             }
 
-            var gapSender = args.Unit;
-            if (gapSender == null || !gapSender.IsEnemy || !gapSender.IsMelee)
+            if (sender == null || !sender.IsEnemy)
             {
-                return;
-            }
-
-            var playerPos = UtilityClass.Player.ServerPosition;
-
-            /// <summary>
-            ///     The Anti-Gapcloser Q.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                args.EndPosition.Distance(playerPos) <= 300 &&
-                MenuClass.Spells["q"]["gapcloser"].As<MenuBool>().Enabled)
-            {
-                SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -300f));
                 return;
             }
 
@@ -157,23 +143,59 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser E.
             /// </summary>
             if (SpellClass.E.Ready &&
-                !Invulnerable.Check(gapSender, DamageType.Magical, false) &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+                !Invulnerable.Check(sender, DamageType.Magical, false))
             {
-                if (args.EndPosition.Distance(playerPos) <= 300)
+                if (sender.IsMelee)
                 {
-                    SpellClass.E.CastOnUnit(gapSender);
-                }
-                else
-                {
-                    const int condemnPushDistance = 410 / 10;
-                    for (var i = 1; i < 10; i++)
+                    switch (args.Type)
                     {
-                        var endPos = args.EndPosition.Extend(playerPos, -condemnPushDistance * i);
-                        if (endPos.IsWall(true))
-                        {
-                            SpellClass.E.CastOnUnit(gapSender);
-                        }
+                        case GapSpellType.Targeted:
+                            if (args.Target.IsMe)
+                            {
+                                SpellClass.E.CastOnUnit(sender);
+                            }
+                            break;
+                        default:
+                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                            {
+                                SpellClass.E.CastOnUnit(sender);
+                            }
+                            break;
+                    }
+                }
+
+                const int condemnPushDistance = 410 / 10;
+                for (var i = 1; i < 10; i++)
+                {
+                    var endPos = args.EndPosition.Extend(UtilityClass.Player.ServerPosition, -condemnPushDistance * i);
+                    if (endPos.IsWall(true))
+                    {
+                        SpellClass.E.CastOnUnit(sender);
+                    }
+                }
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser Q.
+            /// </summary>
+            if (SpellClass.Q.Ready)
+            {
+                if (sender.IsMelee)
+                {
+                    switch (args.Type)
+                    {
+                        case GapSpellType.Targeted:
+                            if (args.Target.IsMe)
+                            {
+                                SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -(SpellClass.Q.Range - UtilityClass.Player.AttackRange)));
+                            }
+                            break;
+                        default:
+                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.Q.Range - UtilityClass.Player.AttackRange)
+                            {
+                                SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -(SpellClass.Q.Range - UtilityClass.Player.AttackRange)));
+                            }
+                            break;
                     }
                 }
             }

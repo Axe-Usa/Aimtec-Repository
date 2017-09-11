@@ -116,7 +116,8 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    Gapcloser.Attach(MenuClass.R, "Anti-Gapcloser");
+                    MenuClass.R.Add(new MenuSeperator("separator"));
                     //MenuClass.R.Add(new MenuSeperator("separator1"));
                     //MenuClass.R.Add(new MenuSeperator("separator2", "It will ult the lowest on health,"));
                     //MenuClass.R.Add(new MenuSeperator("separator3", "whitelisted and non-invulnerable enemy in range."));

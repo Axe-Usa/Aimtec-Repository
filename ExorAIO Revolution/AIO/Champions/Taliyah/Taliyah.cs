@@ -157,11 +157,8 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null ||
-                !gapSender.IsEnemy ||
-                Invulnerable.Check(gapSender, DamageType.Magical, false))
+            
+            if (sender == null || !sender.IsEnemy)
             {
                 return;
             }
@@ -169,18 +166,23 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser E Logic.
             /// </summary>
-            if (SpellClass.E.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            if (SpellClass.E.Ready)
             {
-                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) >= 200)
+                switch (args.Type)
                 {
-                    SpellClass.E.Cast(args.EndPosition);
-                }
-                else
-                {
-                    SpellClass.E.Cast(gapSender.ServerPosition);
+                    case GapSpellType.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            SpellClass.E.Cast(args.StartPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                        {
+                            SpellClass.E.Cast(args.StartPosition);
+                        }
+                        break;
                 }
             }
 
@@ -188,10 +190,24 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.W.Range &&
-                MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
+                !Invulnerable.Check(sender, DamageType.Magical, false))
             {
-                SpellClass.W.Cast(args.EndPosition, args.EndPosition.Extend(args.StartPosition, 200f));
+                switch (args.Type)
+                {
+                    case GapSpellType.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            SpellClass.W.Cast(args.EndPosition, args.EndPosition.Extend(args.StartPosition, 200f));
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                        {
+                            SpellClass.W.Cast(args.EndPosition, args.EndPosition.Extend(args.StartPosition, sender.IsMelee ? 200f : -200f));
+                        }
+                        break;
+                }
             }
         }
 

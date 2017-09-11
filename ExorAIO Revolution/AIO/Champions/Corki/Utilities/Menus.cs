@@ -72,7 +72,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 

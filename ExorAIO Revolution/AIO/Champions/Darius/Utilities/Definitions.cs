@@ -24,7 +24,7 @@ namespace AIO.Champions
             var unitDistanceToPlayer = unit.Distance(UtilityClass.Player);
             return
                 unit.IsValidSpellTarget() &&
-                unitDistanceToPlayer >= 205 &&
+                unitDistanceToPlayer >= UtilityClass.Player.AttackRange &&
                 unitDistanceToPlayer <= SpellClass.Q.Range;
         }
 

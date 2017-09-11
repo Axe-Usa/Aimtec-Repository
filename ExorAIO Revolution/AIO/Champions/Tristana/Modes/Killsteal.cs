@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Menu.Components;
@@ -26,7 +27,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
+                var bestTarget = SpellClass.R.GetBestKillableHeroes(DamageType.Magical).FirstOrDefault(t => MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled);
                 if (bestTarget != null)
                 {
                     if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) +

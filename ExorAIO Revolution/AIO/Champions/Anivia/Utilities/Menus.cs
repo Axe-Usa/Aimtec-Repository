@@ -74,7 +74,9 @@ namespace AIO.Champions
                 {
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
-                    MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.W.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
+                    MenuClass.W.Add(new MenuSeperator("separator2"));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 

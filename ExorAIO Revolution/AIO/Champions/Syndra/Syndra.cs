@@ -136,30 +136,44 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null ||
-                !gapSender.IsEnemy ||
-                Invulnerable.Check(gapSender, DamageType.Magical, false))
+            
+            if (sender == null ||
+                !sender.IsEnemy ||
+                Invulnerable.Check(sender, DamageType.Magical, false))
             {
                 return;
             }
 
             /// <summary>
-            ///     The Anti-Gapcloser Q->E Logic.
+            ///     The Anti-Gapcloser E Logic.
             /// </summary>
-            if (SpellClass.E.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            if (SpellClass.E.Ready)
             {
-                if (SpellClass.Q.Ready)
+                switch (args.Type)
                 {
-                    SpellClass.Q.Cast(args.EndPosition);
-                }
+                    case GapSpellType.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            if (SpellClass.Q.Ready)
+                            {
+                                SpellClass.Q.Cast(args.EndPosition);
+                            }
 
-                if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < 200)
-                {
-                    SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, SpellClass.E.Range));
+                            SpellClass.E.Cast(args.StartPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                        {
+                            if (SpellClass.Q.Ready)
+                            {
+                                SpellClass.Q.Cast(args.EndPosition);
+                            }
+
+                            SpellClass.E.Cast(args.EndPosition);
+                        }
+                        break;
                 }
             }
         }

@@ -70,23 +70,34 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null ||
-                !gapSender.IsEnemy ||
-                Invulnerable.Check(gapSender, DamageType.Magical, false))
+            
+            if (sender == null || !sender.IsEnemy)
             {
                 return;
             }
 
             /// <summary>
-            ///     The Anti-Gapcloser W.
+            ///     The Anti-Gapcloser E.
             /// </summary>
             if (SpellClass.E.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+                !Invulnerable.Check(sender, DamageType.Magical, false))
             {
-                SpellClass.E.Cast(args.EndPosition);
+                switch (args.Type)
+                {
+                    case GapSpellType.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            SpellClass.E.Cast(args.EndPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range)
+                        {
+                            SpellClass.E.Cast(args.EndPosition);
+                        }
+                        break;
+                }
             }
         }
 
@@ -140,7 +151,7 @@ namespace AIO.Champions
                         UtilityClass.Player.GetAutoAttackDamage(orbTarget) *
                         MenuClass.Miscellaneous["focusp"].As<MenuSliderBool>().Value)
                 {
-                    //ImplementationClass.IOrbwalker.ForceTarget(differentTarget);
+                    ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
                     args.Target = forceTarget;
                 }
             }

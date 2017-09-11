@@ -90,7 +90,9 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.W.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
+                    MenuClass.W.Add(new MenuSeperator("separator2"));
                     MenuClass.W.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
 
                     /// <summary>
@@ -138,7 +140,9 @@ namespace AIO.Champions
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
-                    MenuClass.E.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.E.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
+                    MenuClass.E.Add(new MenuSeperator("separator2"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 

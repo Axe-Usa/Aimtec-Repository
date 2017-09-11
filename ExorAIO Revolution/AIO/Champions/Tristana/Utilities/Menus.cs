@@ -45,7 +45,9 @@ namespace AIO.Champions
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
                     MenuClass.W.Add(new MenuBool("antigrab", "Anti-Grab"));
-                    MenuClass.W.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
+                    MenuClass.W.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
+                    MenuClass.W.Add(new MenuSeperator("separator2"));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 
@@ -97,11 +99,32 @@ namespace AIO.Champions
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
                     MenuClass.R.Add(new MenuBool("killsteal", "KillSteal"));
-                    MenuClass.R.Add(new MenuBool("gapcloser", "Anti-Gapcloser"));
-                    MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     MenuClass.R.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.R, "Anti-Gapcloser");
+                    MenuClass.R.Add(new MenuSeperator("separator2"));
+                    MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
+                    MenuClass.R.Add(new MenuSeperator("separator3"));
                     MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
+
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the R Whitelist.
+                        /// </summary>
+                        MenuClass.WhiteList2 = new Menu("whitelist", "R: Whitelist");
+                        {
+                            foreach (var target in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Use on: " + target.ChampionName));
+                            }
+                        }
+                        MenuClass.R.Add(MenuClass.WhiteList2);
+                    }
+                    else
+                    {
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
             }

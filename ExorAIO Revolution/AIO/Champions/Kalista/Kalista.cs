@@ -81,7 +81,7 @@ namespace AIO.Champions
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
                 if (forceTarget != null)
                 {
-                    //ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
+                    ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
                     args.Target = forceTarget;
                 }
             }

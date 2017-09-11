@@ -1,7 +1,6 @@
 
 using Aimtec;
 using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -134,12 +133,8 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            var gapSender = args.Unit;
-            if (gapSender == null ||
-                !gapSender.IsEnemy ||
-                !gapSender.IsMelee ||
-                Invulnerable.Check(gapSender, DamageType.Magical, false))
+            
+            if (sender == null || !sender.IsEnemy)
             {
                 return;
             }
@@ -148,8 +143,8 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser E.
             /// </summary>
             if (SpellClass.E.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+                !Invulnerable.Check(sender, DamageType.Magical, false) &&
+                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range)
             {
                 SpellClass.E.Cast(args.EndPosition);
             }
@@ -176,36 +171,6 @@ namespace AIO.Champions
                 }
             }
         }
-
-        /*
-        /// <summary>
-        ///     Fired on an incoming gapcloser.
-        /// </summary>
-        /// <param name="sender">The object.</param>
-        /// <param name="args">The <see cref="Events.GapCloserEventArgs" /> instance containing the event data.</param>
-        public void OnGapCloser(object sender, Events.GapCloserEventArgs args)
-        {
-            if (UtilityClass.Player.IsDead || Invulnerable.Check(args.Sender, DamageType.Magical, false))
-            {
-                return;
-            }
-
-            if (SpellClass.E.State == SpellState.Ready && args.IsDirectedToPlayer && args.Sender.IsValidTarget(SpellClass.E.SpellData.Range)
-                && MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
-            {
-                if (!SpellClass.E.GetPrediction(args.Sender).CollisionObjects.Any())
-                {
-                    SpellClass.E.Cast(args.Sender.ServerPosition);
-                }
-            }
-
-            if (SpellClass.W.State == SpellState.Ready && args.Sender.IsValidTarget(SpellClass.W.SpellData.Range)
-                && MenuClass.Spells["w"]["gapcloser"].As<MenuBool>().Enabled)
-            {
-                SpellClass.W.Cast(args.End);
-            }
-        }
-        */
 
         /// <summary>
         ///     Fired on issuing an order.

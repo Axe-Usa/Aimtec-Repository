@@ -168,10 +168,9 @@ namespace AIO.Champions
                 return;
             }
 
-            var gapSender = args.Unit;
-            if (gapSender == null ||
-                !gapSender.IsEnemy ||
-                Invulnerable.Check(gapSender, DamageType.Magical, false))
+            if (sender == null ||
+                !sender.IsEnemy ||
+                Invulnerable.Check(sender, DamageType.Magical, false))
             {
                 return;
             }
@@ -179,18 +178,23 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser E.
             /// </summary>
-            if (SpellClass.E.Ready &&
-                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) < SpellClass.E.Range &&
-                MenuClass.Spells["e"]["gapcloser"].As<MenuBool>().Enabled)
+            if (SpellClass.E.Ready)
             {
-                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) >= 200)
+                switch (args.Type)
                 {
-                    SpellClass.E.Cast(args.EndPosition);
-                }
-                else
-                {
-                    SpellClass.E.Cast(gapSender.ServerPosition);
+                    case GapSpellType.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            SpellClass.E.Cast(args.StartPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range)
+                        {
+                            SpellClass.E.Cast(args.EndPosition);
+                        }
+                        break;
                 }
             }
         }
