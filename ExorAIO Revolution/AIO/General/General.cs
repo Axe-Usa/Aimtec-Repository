@@ -58,6 +58,12 @@ namespace AIO
                             return;
                         }
                         break;
+                    default:
+                        if (!MenuClass.Hydra["manual"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+                        break;
                 }
 
                 var hydraItems = new[]{ ItemId.TitanicHydra, ItemId.RavenousHydra, ItemId.Tiamat };

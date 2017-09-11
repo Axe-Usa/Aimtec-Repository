@@ -112,8 +112,7 @@ namespace AIO.Utilities
                 ? heroTarget
                 : ImplementationClass.ITargetSelector.GetTarget(range);
 
-            if (target != null &&
-                target.IsValidTarget() &&
+            if (target.IsValidTarget() &&
                 !Invulnerable.Check(target))
             {
                 return target;
@@ -183,7 +182,12 @@ namespace AIO.Utilities
         /// </summary>
         public static List<Obj_AI_Minion> GetGenericJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.Jungle.Where(m => (MenuClass.General["junglesmall"].As<MenuBool>().Enabled || !GameObjects.JungleSmall.Contains(m)) && m.IsValidTarget(range)).ToList();
+            if (MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
+            {
+                return GameObjects.Jungle.Where(m => m.IsValidTarget(range)).ToList();
+            }
+
+            return GameObjects.Jungle.Where(m => !GameObjects.JungleSmall.Contains(m) && m.IsValidTarget(range)).ToList();
         }
 
         /// <summary>

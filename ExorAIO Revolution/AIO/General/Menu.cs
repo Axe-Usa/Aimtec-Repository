@@ -50,6 +50,7 @@ namespace AIO
                             MenuClass.Hydra.Add(new MenuBool("laneclear", "Use Hydras in Laneclear"));
                             MenuClass.Hydra.Add(new MenuBool("mixed", "Use Hydras in Harass"));
                             MenuClass.Hydra.Add(new MenuBool("lasthit", "Use Hydras in Lasthit"));
+                            MenuClass.Hydra.Add(new MenuBool("manual", "Use Hydras while being Manual"));
                         }
                         MenuClass.General.Add(MenuClass.Hydra);
                     }

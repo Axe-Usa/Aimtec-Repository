@@ -649,3 +649,7 @@ ExorAIO: Revolution Changelog:
   Darius: Added Anti-Gapcloser E.
   Darius: Added R Damage Drawings.
   Darius: Fixed Character not moving while casting Q sometimes.
+
+7.17.0.17:
+  AIO: Added Manual Hydra Option in the general menu,
+  Kalista: Now Correctly rends lesser minions if the Option to include Lesser minions in jungleclear is selected.
