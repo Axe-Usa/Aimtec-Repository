@@ -636,3 +636,6 @@ ExorAIO: Revolution Changelog:
 
 7.17.0.13:
   AIO: Implemented an actual Anti-Gapcloser.
+
+7.17.0.14:
+  AIO: Fixed Anti-Gapcloser and Added Anti-Gapcloser Menu for each Champion.
