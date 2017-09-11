@@ -643,3 +643,9 @@ ExorAIO: Revolution Changelog:
 7.17.0.15:
   AIO: More Anti-Gapcloser Improvements.
   Orianna: Fixed W Missing often in Harass mode.
+
+7.17.0.16:
+  Darius: Fixed R Damage Calculations.
+  Darius: Added Anti-Gapcloser E.
+  Darius: Added R Damage Drawings.
+  Darius: Fixed Character not moving while casting Q sometimes.

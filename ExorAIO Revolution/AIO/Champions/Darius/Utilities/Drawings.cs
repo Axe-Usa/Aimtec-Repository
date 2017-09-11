@@ -1,6 +1,8 @@
 ﻿
 using System.Drawing;
+using System.Linq;
 using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -41,10 +43,42 @@ namespace AIO.Champions
             /// <summary>
             ///     Loads the R drawing.
             /// </summary>
-            if (SpellClass.R.Ready &&
-                MenuClass.Drawings["r"].As<MenuBool>().Enabled)
+            if (SpellClass.R.Ready)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 30, Color.Red);
+                if (MenuClass.Drawings["r"].As<MenuBool>().Enabled)
+                {
+                    Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 30, Color.Red);
+                }
+
+                /// <summary>
+                ///     Loads the R damage to healthbar.
+                /// </summary>
+                if (MenuClass.Drawings["rdmg"].As<MenuBool>().Enabled)
+                {
+                    Extensions.GetEnemyHeroesTargets()
+                        .Where(h => h.IsValidTarget() && !Invulnerable.Check(h))
+                        .ToList()
+                        .ForEach(
+                            target =>
+                            {
+                                var width = DrawingClass.SWidth;
+                                var height = DrawingClass.SHeight;
+                                var xOffset = DrawingClass.SxOffset(target);
+                                var yOffset = DrawingClass.SyOffset(target);
+
+                                var barPos = target.FloatingHealthBarPosition;
+                                barPos.X += xOffset;
+                                barPos.Y += yOffset;
+
+                                var drawEndXPos = barPos.X + width * (target.HealthPercent() / 100);
+                                var drawStartXPos = (float)(barPos.X + (target.GetRealHealth() > GetPerfectNoxianGuillotineDamage(target)
+                                                                ? width * ((target.GetRealHealth() - GetPerfectNoxianGuillotineDamage(target)) / target.MaxHealth * 100 / 100)
+                                                                : 0));
+
+                                Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, target.GetRealHealth() < GetPerfectNoxianGuillotineDamage(target) ? Color.Blue : Color.Orange);
+                                Render.Line(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
+                            });
+                }
             }
         }
 

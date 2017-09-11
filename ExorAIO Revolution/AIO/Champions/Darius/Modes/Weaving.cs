@@ -35,6 +35,7 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 SpellClass.W.Cast();
+                return;
             }
 
             /// <summary>

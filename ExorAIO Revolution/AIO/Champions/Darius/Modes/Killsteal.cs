@@ -29,7 +29,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Physical);
                 if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) >= bestTarget.GetRealHealth())
+                    GetPerfectNoxianGuillotineDamage(bestTarget) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.R.CastOnUnit(bestTarget);
                 }

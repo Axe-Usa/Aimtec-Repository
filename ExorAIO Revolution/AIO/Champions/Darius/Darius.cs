@@ -1,4 +1,6 @@
 
+using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -63,6 +65,19 @@ namespace AIO.Champions
         }
 
         /// <summary>
+        ///     Called on do-cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPreAttack(object sender, PreAttackEventArgs args)
+        {
+            if (UtilityClass.Player.HasBuff("dariusqcast"))
+            {
+                args.Cancel = true;
+            }
+        }
+
+        /// <summary>
         ///     Fired on present.
         /// </summary>
         public void OnPresent()
@@ -71,6 +86,34 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             Drawings();
+        }
+
+        /// <summary>
+        ///     Fired on an incoming gapcloser.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
+        {
+            if (UtilityClass.Player.IsDead)
+            {
+                return;
+            }
+
+            if (sender == null || !sender.IsEnemy)
+            {
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser E.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                !Invulnerable.Check(sender, DamageType.Magical, false) &&
+                args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range)
+            {
+                SpellClass.E.Cast(args.EndPosition);
+            }
         }
 
         /// <summary>
@@ -92,6 +135,11 @@ namespace AIO.Champions
             {
                 return;
             }
+
+            /// <summary>
+            ///     Initializes the Automatic actions.
+            /// </summary>
+            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.

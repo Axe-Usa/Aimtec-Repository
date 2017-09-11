@@ -26,7 +26,7 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Automatic R Logic.
+            ///     The Automatic Q Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["q"]["aoe"] != null &&

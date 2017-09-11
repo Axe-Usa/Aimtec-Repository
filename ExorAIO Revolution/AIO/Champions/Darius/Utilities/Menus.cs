@@ -121,6 +121,8 @@ namespace AIO.Champions
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -183,6 +185,7 @@ namespace AIO.Champions
                 MenuClass.Drawings.Add(new MenuBool("q", "Q Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));
+                MenuClass.Drawings.Add(new MenuBool("rdmg", "R Damage"));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }
