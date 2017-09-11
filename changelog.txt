@@ -639,3 +639,7 @@ ExorAIO: Revolution Changelog:
 
 7.17.0.14:
   AIO: Fixed Anti-Gapcloser and Added Anti-Gapcloser Menu for each Champion.
+
+7.17.0.15:
+  AIO: More Anti-Gapcloser Improvements.
+  Orianna: Fixed W Missing often in Harass mode.
