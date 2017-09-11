@@ -280,7 +280,7 @@
                 {
                     ChampionName = "Gnar",
                     Slot = SpellSlot.E,
-                    SpellName = "gnarbige",
+                    SpellName = "gnare",
                     SpellType = GapSpellType.SkillShot
                 });
 
@@ -289,7 +289,7 @@
                 {
                     ChampionName = "Gnar",
                     Slot = SpellSlot.E,
-                    SpellName = "gnare",
+                    SpellName = "gnarbige",
                     SpellType = GapSpellType.SkillShot
                 });
 
@@ -368,6 +368,15 @@
                     ChampionName = "JarvanIV",
                     Slot = SpellSlot.Q,
                     SpellName = "jarvanivdragonstrike",
+                    SpellType = GapSpellType.SkillShot
+                });
+
+            Spells.Add(
+                new SpellData
+                {
+                    ChampionName = "JarvanIV",
+                    Slot = SpellSlot.R,
+                    SpellName = "jarvanivcataclysm",
                     SpellType = GapSpellType.SkillShot
                 });
 
@@ -606,7 +615,7 @@
                 {
                     ChampionName = "Pantheon",
                     Slot = SpellSlot.W,
-                    SpellName = "pantheon_leapbash",
+                    SpellName = "pantheonw",
                     SpellType = GapSpellType.Targeted
                 });
 
@@ -680,16 +689,7 @@
                 {
                     ChampionName = "Renekton",
                     Slot = SpellSlot.E,
-                    SpellName = "renektonpreexecute",
-                    SpellType = GapSpellType.SkillShot
-                });
-
-            Spells.Add(
-                new SpellData
-                {
-                    ChampionName = "Renekton",
-                    Slot = SpellSlot.E,
-                    SpellName = "renektonsuperexecute",
+                    SpellName = "renektondice",
                     SpellType = GapSpellType.SkillShot
                 });
 
@@ -935,34 +935,49 @@
         {
             if (ObjectManager.Get<Obj_AI_Hero>().Any(h => h.IsEnemy))
             {
-                Menu = new Menu("Gapcloser", menuName)
-                {
-                    new MenuBool("GapcloserEnabled", "Enabled"),
-                    new MenuSeperator("GapcloserSeperator1")
-                };
-                mainMenu.Add(Menu);
-
+                var initiated = false;
                 foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(x => x.IsEnemy))
                 {
-                    var heroMenu = new Menu("Gapcloser" + enemy.ChampionName.ToLower(), enemy.ChampionName)
+                    if (Spells.Any(x => x.ChampionName == enemy.ChampionName))
                     {
-                        new MenuBool("Gapcloser" + enemy.ChampionName.ToLower() + "Enabled", "Enabled"),
-                    };
-                    Menu.Add(heroMenu);
+                        if (!initiated)
+                        {
+                            initiated = true;
+                            Menu = new Menu("Gapcloser", menuName)
+                            {
+                                new MenuBool("GapcloserEnabled", "Enabled"),
+                                new MenuSeperator("GapcloserSeperator1")
+                            };
+                            mainMenu.Add(Menu);
+                        }
 
-                    foreach (var spell in Spells.Where(x => x.ChampionName == enemy.ChampionName))
-                    {
-                        heroMenu.Add(new MenuBool("Gapcloser" + enemy.ChampionName.ToLower() + "." + spell.SpellName.ToLower(), "Slot: " + spell.Slot + " (" + spell.SpellName + ")"));
+                        var heroMenu = new Menu("Gapcloser" + enemy.ChampionName.ToLower(), enemy.ChampionName)
+                        {
+                            new MenuBool("Gapcloser" + enemy.ChampionName.ToLower() + "Enabled", "Enabled")
+                        };
+
+                        foreach (var spell in Spells.Where(x => x.ChampionName == enemy.ChampionName))
+                        {
+                            heroMenu.Add(new MenuBool("Gapcloser" + enemy.ChampionName.ToLower() + "." + spell.SpellName.ToLower(), "Slot: " + spell.Slot + " (" + spell.SpellName + ")"));
+                        }
+                        Menu.Add(heroMenu);
                     }
                 }
 
-                Game.OnUpdate += OnUpdate;
-                Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-                Obj_AI_Base.OnNewPath += OnNewPath;
+                if (initiated)
+                {
+                    Game.OnUpdate += OnUpdate;
+                    Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
+                    Obj_AI_Base.OnNewPath += OnNewPath;
+                }
+                else
+                {
+                    mainMenu.Add(new MenuSeperator("separator5", "No Enemy Dashes found, no need for an Anti-Gapcloser Menu"));
+                }
             }
             else
             {
-                mainMenu.Add(new MenuSeperator("separator5", "No enemies found, no need for an Anti-Gapcloser Menu"));
+                mainMenu.Add(new MenuSeperator("separator5", "No Enemy Heroes found, no need for an Anti-Gapcloser Menu"));
             }
         }
 
@@ -1012,7 +1027,7 @@
 
         private static void OnUpdate()
         {
-            if (Gapclosers.Values.Any(x => Game.TickCount - x.StartTick >= 750))
+            if (Gapclosers.Values.Any(x => Game.TickCount - x.StartTick >= 1500+Game.Ping))
             {
                 Gapclosers.Clear();
             }

@@ -156,7 +156,7 @@ namespace AIO.Champions
                             }
                             break;
                         default:
-                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange/2)
                             {
                                 SpellClass.E.CastOnUnit(sender);
                             }
@@ -191,7 +191,7 @@ namespace AIO.Champions
                             }
                             break;
                         default:
-                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.Q.Range - UtilityClass.Player.AttackRange)
+                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange/2)
                             {
                                 SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -(SpellClass.Q.Range - UtilityClass.Player.AttackRange)));
                             }

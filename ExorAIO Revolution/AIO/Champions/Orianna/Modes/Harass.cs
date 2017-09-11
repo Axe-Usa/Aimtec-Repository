@@ -54,7 +54,7 @@ namespace AIO.Champions
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.W.Width, false, true, (Vector3)BallPosition) &&
+                        t.IsValidTarget(SpellClass.W.Width - t.BoundingRadius - SpellClass.W.Delay * t.BoundingRadius, false, false, (Vector3)BallPosition) &&
                         MenuClass.Spells["w"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                 {
                     SpellClass.W.Cast();
