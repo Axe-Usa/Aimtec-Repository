@@ -52,7 +52,7 @@ namespace AIO.Champions
                         return;
                     }
 
-                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
                             if (IsValidBladeTarget(heroTarget))

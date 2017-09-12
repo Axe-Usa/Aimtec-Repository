@@ -39,18 +39,22 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
-                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    MenuClass.Q2 = new Menu("customization", "Customization:");
                     {
-                        MenuClass.Q3 = new Menu("qmodes", "Q Modes Menu:");
-                        {
-                            MenuClass.Q3.Add(new MenuList("combo", "Q Combo Mode:", new[] { "While Attacking", "Always cast Q" }, 0));
-                            MenuClass.Q3.Add(new MenuList("harass", "Q Harass Mode:", new[] { "Always cast Q" }, 0));
-                        }
-                        MenuClass.Q2.Add(MenuClass.Q3);
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
+
+                    /// <summary>
+                    ///     Sets the modes menu for the Q spell.
+                    /// </summary>
+                    MenuClass.Q3 = new Menu("modes", "Modes:");
+                    {
+                        MenuClass.Q3.Add(new MenuList("combo", "Combo Mode:", new[] { "After Attack", "Always" }, 0));
+                        MenuClass.Q3.Add(new MenuList("harass", "Harass Mode:", new[] { "Always" }, 0));
+                    }
+                    MenuClass.Q.Add(MenuClass.Q3);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -68,7 +72,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -102,7 +106,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
                     /// </summary>
-                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    MenuClass.E2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if killable minions >= x%", 3, 1, 10));
@@ -141,7 +145,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

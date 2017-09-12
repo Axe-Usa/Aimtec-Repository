@@ -108,7 +108,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    switch (MenuClass.Spells["e"]["customization"]["emodes"]["harass"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["e"]["modes"]["harass"].As<MenuList>().Value)
                     {
                         case 0:
                             if (IsChilled(bestTarget))

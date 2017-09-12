@@ -40,7 +40,7 @@ namespace AIO.Champions
                         t.IsImmobile() &&
                         t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
-                    SpellClass.W.Cast(target.ServerPosition);
+                    SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(target.ServerPosition, UtilityClass.Player.Distance(target)+target.BoundingRadius/2));
                 }
             }
 

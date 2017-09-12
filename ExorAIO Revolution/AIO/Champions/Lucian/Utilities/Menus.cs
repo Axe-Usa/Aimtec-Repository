@@ -44,7 +44,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
-                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    MenuClass.Q2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
@@ -80,7 +80,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q3.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.Q3.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q3);
@@ -99,7 +99,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the W spell.
                     /// </summary>
-                    MenuClass.W2 = new Menu("customization", "W Customization:");
+                    MenuClass.W2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
@@ -125,7 +125,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
                     /// </summary>
-                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    MenuClass.E2 = new Menu("customization", "Customization:");
                     {
                         MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Dynamic distance", "Always Long", "Always Short" }, 0));
                         //MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
@@ -165,7 +165,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

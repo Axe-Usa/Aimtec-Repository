@@ -113,7 +113,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    switch (MenuClass.Spells["e"]["customization"]["emodes"]["combo"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["e"]["modes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
                             if (IsChilled(bestTarget))

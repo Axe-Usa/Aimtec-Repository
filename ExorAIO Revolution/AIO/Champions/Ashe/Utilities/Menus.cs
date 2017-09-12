@@ -52,7 +52,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the W spell.
                     /// </summary>
-                    MenuClass.W2 = new Menu("customization", "W Customization:");
+                    MenuClass.W2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.W2.Add(new MenuBool("nowflurry", "Don't W while flurring AAs with Q"));
@@ -78,7 +78,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -126,7 +126,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

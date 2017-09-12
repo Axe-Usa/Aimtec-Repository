@@ -51,7 +51,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(heroTarget) &&
                     MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["harass"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["q"]["modes"]["harass"].As<MenuList>().Value)
                     {
                         case 0:
                             if (IsValidBladeTarget(heroTarget))

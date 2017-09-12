@@ -40,7 +40,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
-                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    MenuClass.Q2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
@@ -63,7 +63,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -104,7 +104,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);

@@ -42,7 +42,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
-                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    MenuClass.Q2 = new Menu("customization", "Customization:");
                     {
                         MenuClass.Q2.Add(new MenuBool("noqoutaarange", "Don't Q out of AA range from target", false));
                         MenuClass.Q2.Add(new MenuBool("onlyqifmouseoutaarange", "Only Q if mouse out of AA Range", false));
@@ -95,7 +95,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);

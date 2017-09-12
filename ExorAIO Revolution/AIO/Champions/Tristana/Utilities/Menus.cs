@@ -65,7 +65,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
                     /// </summary>
-                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    MenuClass.E2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if Minions around target >= x%", 3, 1, 10));
@@ -88,7 +88,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
@@ -123,7 +123,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

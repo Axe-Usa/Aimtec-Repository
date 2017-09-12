@@ -35,7 +35,7 @@ namespace AIO.Champions
                     !bestTarget.HasBuffOfType(BuffType.Slow) &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
                             if (!IsNearWorkedGround())
@@ -134,7 +134,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
                             if (!IsNearWorkedGround())

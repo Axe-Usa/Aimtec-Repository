@@ -79,7 +79,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -105,7 +105,7 @@ namespace AIO.Champions
                         }
                         else
                         {
-                            MenuClass.W2.Add(new MenuSeperator("wsafetycheck", "No enemies found / No need for a W safety check"));
+                            MenuClass.W2.Add(new MenuSeperator("wsafetycheck", "W safety check not needed"));
                         }
                     }
                     MenuClass.W.Add(MenuClass.W2);
@@ -126,7 +126,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -179,7 +179,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

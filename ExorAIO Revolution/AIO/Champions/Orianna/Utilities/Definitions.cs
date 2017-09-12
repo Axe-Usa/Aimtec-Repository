@@ -40,7 +40,10 @@ namespace AIO.Champions
 
             var possiblePosition2 = GameObjects.AllyHeroes.FirstOrDefault(a =>
                     !a.IsMe &&
-                    a.ValidActiveBuffs().Any(b => b.Caster.IsMe && b.Name.Equals("orianaghost")));
+                    a.ValidActiveBuffs().Any(b =>
+                        b.Caster != null &&
+                        b.Caster.IsMe &&
+                        b.Name.Equals("orianaghost")));
             if (possiblePosition2 != null)
             {
                 return possiblePosition2.ServerPosition;
@@ -59,9 +62,7 @@ namespace AIO.Champions
         /// </summary>
         public void UpdateBallPosition()
         {
-            BallPosition = GetBallPosition() != null
-                ? GetBallPosition()
-                : null;
+            BallPosition = GetBallPosition();
         }
 
         #endregion

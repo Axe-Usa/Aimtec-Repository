@@ -30,7 +30,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget))
                 {
-                    switch (MenuClass.Spells["q"]["customization"]["qmodes"]["combo"].As<MenuList>().Value)
+                    switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
                     {
                         case 0:
                             if (bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))

@@ -41,7 +41,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                switch (MenuClass.Spells["q"]["customization"]["qmodes"]["jungleclear"].As<MenuList>().Value)
+                switch (MenuClass.Spells["q"]["modes"]["jungleclear"].As<MenuList>().Value)
                 {
                     case 0:
                         if (!IsNearWorkedGround())
@@ -114,7 +114,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                switch (MenuClass.Spells["q"]["customization"]["qmodes"]["jungleclear"].As<MenuList>().Value)
+                switch (MenuClass.Spells["q"]["modes"]["jungleclear"].As<MenuList>().Value)
                 {
                     case 0:
                         if (!IsNearWorkedGround())

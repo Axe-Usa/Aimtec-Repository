@@ -41,20 +41,23 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
-                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    MenuClass.Q2 = new Menu("customization", "Customization:");
                     {
-                        MenuClass.Q3 = new Menu("qmodes", "Q Modes Menu:");
-                        {
-                            MenuClass.Q3.Add(new MenuList("combo", "Q Combo Mode:", new[] { "Full Q only", "Full + Partial Q" }, 0));
-                            MenuClass.Q3.Add(new MenuList("harass", "Q Harass Mode:", new[] { "Full Q only", "Full + Partial Q" }, 1));
-                            MenuClass.Q3.Add(new MenuList("laneclear", "Q Laneclear Mode:", new[] { "Full Q only", "Full + Partial Q" }, 1));
-                            MenuClass.Q3.Add(new MenuList("jungleclear", "Q Jungleclear Mode:", new[] { "Full Q only", "Full + Partial Q" }, 1));
-                        }
-                        MenuClass.Q2.Add(MenuClass.Q3);
-
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
+
+                    /// <summary>
+                    ///     Sets the modes menu for the Q spell.
+                    /// </summary>
+                    MenuClass.Q3 = new Menu("modes", "Modes:");
+                    {
+                        MenuClass.Q3.Add(new MenuList("combo", "Combo Mode:", new[] { "Only Full", "Full + Partial" }, 1));
+                        MenuClass.Q3.Add(new MenuList("harass", "Harass Mode:", new[] { "Only Full", "Full + Partial" }, 1));
+                        MenuClass.Q3.Add(new MenuList("laneclear", "Laneclear Mode:", new[] { "Only Full", "Full + Partial" }, 1));
+                        MenuClass.Q3.Add(new MenuList("jungleclear", "Jungleclear Mode:", new[] { "Only Full", "Full + Partial" }, 1));
+                    }
+                    MenuClass.Q.Add(MenuClass.Q3);
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
@@ -72,7 +75,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -90,15 +93,15 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 75, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSeperator("separator"));
+                    MenuClass.W.Add(new MenuSeperator("separator4"));
                     Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
-                    MenuClass.W.Add(new MenuSeperator("separator2"));
+                    MenuClass.W.Add(new MenuSeperator("separator5"));
                     MenuClass.W.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
 
                     /// <summary>
                     ///     Sets the customization menu for the W spell.
                     /// </summary>
-                    MenuClass.W2 = new Menu("customization", "W Customization:");
+                    MenuClass.W2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.W2.Add(new MenuSeperator("separator1", "V Unless to Hit boulders on the ground V"));
@@ -129,7 +132,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -149,7 +152,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
                     /// </summary>
-                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    MenuClass.E2 = new Menu("customization", "Customization:");
                     {
                         MenuClass.E2.Add(new MenuBool("onlywready", "Combo: Don't Cast E if W on cooldown"));
                         //MenuClass.E2.Add(new MenuSeperator("separator3", "Laneclear settings:"));

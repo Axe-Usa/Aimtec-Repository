@@ -63,7 +63,7 @@ namespace AIO.Champions
             {
                 /*
                 var farmLocation = SpellClass.Q.GetCircularFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.Q.Width*2);
-                switch (MenuClass.Spells["q"]["customization"]["qmodes"]["laneclear"].As<MenuList>().Value)
+                switch (MenuClass.Spells["q"]["modes"]["laneclear"].As<MenuList>().Value)
                 {
                     case 0:
                         if (!this.IsNearWorkedGround())

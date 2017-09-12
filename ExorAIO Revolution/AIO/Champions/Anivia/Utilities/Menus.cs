@@ -39,7 +39,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
                     /// </summary>
-                    MenuClass.Q2 = new Menu("customization", "Q Customization:");
+                    MenuClass.Q2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
@@ -62,7 +62,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -94,16 +94,12 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuSliderBool("lasthitunk", "LastHit unkillable minions / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
-                    ///     Sets the customization menu for the E spell.
+                    ///     Sets the modes menu for the E spell.
                     /// </summary>
-                    MenuClass.E2 = new Menu("customization", "E Customization:");
+                    MenuClass.E2 = new Menu("modes", "Modes:");
                     {
-                        MenuClass.E3 = new Menu("emodes", "E Modes Menu:");
-                        {
-                            MenuClass.E3.Add(new MenuList("combo", "E Combo Mode:", new[] { "Only if Chilled", "Always cast E" }, 0));
-                            MenuClass.E3.Add(new MenuList("harass", "E Harass Mode:", new[] { "Only if Chilled", "Always cast E" }, 1));
-                        }
-                        MenuClass.E2.Add(MenuClass.E3);
+                        MenuClass.E2.Add(new MenuList("combo", "Combo Mode:", new[] { "Only if Chilled", "Always" }, 0));
+                        MenuClass.E2.Add(new MenuList("harass", "Harass Mode:", new[] { "Only if Chilled", "Always" }, 1));
                     }
                     MenuClass.E.Add(MenuClass.E2);
 
@@ -123,7 +119,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "No enemies found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
