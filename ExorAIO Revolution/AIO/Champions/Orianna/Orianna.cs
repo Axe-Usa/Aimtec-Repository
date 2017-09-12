@@ -120,7 +120,8 @@ namespace AIO.Champions
                                 var bestAlly = GameObjects.AllyHeroes
                                     .Where(a =>
                                         !a.IsMe &&
-                                        a.IsValidTarget(SpellClass.E.Range, true))
+                                        a.IsValidTarget(SpellClass.E.Range, true) &&
+                                        args.EndPosition.Distance(a) <= a.AttackRange / 2)
                                     .MinBy(o => o.MaxHealth);
 
                                 if (bestAlly != null)
