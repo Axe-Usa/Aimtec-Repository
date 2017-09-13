@@ -660,3 +660,9 @@ ExorAIO: Revolution Changelog:
   Orianna: Fixed rare Nullreference.
   Orianna: Fixed E Spam after Anti-Gapcloser update.
 
+7.17.0.19:
+  AIO: Clarified Anti-Gapcloser Menus.
+  AIO: Minor checks improvement.
+  AIO: Anti-Gapcloser code cleanup.
+  AIO: Fixed a Nullreference spamming the console.
+  Ezreal: Fixed rare Nullreference.

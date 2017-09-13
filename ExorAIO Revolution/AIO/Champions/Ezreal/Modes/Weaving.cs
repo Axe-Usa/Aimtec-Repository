@@ -47,16 +47,19 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var buffMenu = MenuClass.Spells["w"]["buff"];
-                if (UtilityClass.Player.TotalAbilityDamage < GetMinimumApForApMode() &&
-                    UtilityClass.Player.ManaPercent()
-                        > ManaManager.GetNeededMana(SpellClass.W.Slot, buffMenu["logical"]) &&
-                    buffMenu["logical"].As<MenuSliderBool>().Enabled &&
-                    GameObjects.AllyHeroes.Any(a =>
-                        !a.IsMe &&
-                        a.IsValidTarget(SpellClass.W.Range, true) &&
-                        buffMenu["allywhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled))
+                if (buffMenu != null)
                 {
-                    return;
+                    if (UtilityClass.Player.TotalAbilityDamage < GetMinimumApForApMode() &&
+                        UtilityClass.Player.ManaPercent()
+                        > ManaManager.GetNeededMana(SpellClass.W.Slot, buffMenu["logical"]) &&
+                        buffMenu["logical"].As<MenuSliderBool>().Enabled &&
+                        GameObjects.AllyHeroes.Any(a =>
+                            !a.IsMe &&
+                            a.IsValidTarget(SpellClass.W.Range, true) &&
+                            buffMenu["allywhitelist"][a.ChampionName.ToLower()].As<MenuBool>().Enabled))
+                    {
+                        return;
+                    }
                 }
 
                 SpellClass.W.Cast(heroTarget);

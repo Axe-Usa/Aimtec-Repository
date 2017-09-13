@@ -46,7 +46,7 @@ namespace AIO.Champions
                 {
                     /*
                     var obj = this.ForceOfWillObject();
-                    if (obj != null &&
+                    if (obj.IsValid &&
                         !this.IsHoldingForceOfWillObject())
                     {
                         SpellClass.W.CastOnUnit(obj);

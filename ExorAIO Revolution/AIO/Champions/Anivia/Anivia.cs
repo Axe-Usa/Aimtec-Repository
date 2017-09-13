@@ -82,7 +82,7 @@ namespace AIO.Champions
         /// </summary>
         public void OnCreate(GameObject obj)
         {
-            if (obj != null && obj.IsValid)
+            if (obj.IsValid)
             {
                 switch (obj.Name)
                 {
@@ -101,7 +101,7 @@ namespace AIO.Champions
         /// </summary>
         public void OnDestroy(GameObject obj)
         {
-            if (obj != null && obj.IsValid)
+            if (obj.IsValid)
             {
                 switch (obj.Name)
                 {

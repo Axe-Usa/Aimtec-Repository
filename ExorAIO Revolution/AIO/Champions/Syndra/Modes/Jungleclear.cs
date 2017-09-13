@@ -40,7 +40,7 @@ namespace AIO.Champions
                 if (!IsHoldingForceOfWillObject())
                 {
                     var obj = ForceOfWillObject();
-                    if (obj != null &&
+                    if (obj.IsValid &&
                         obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
                     {
                         SpellClass.W.CastOnUnit(obj);

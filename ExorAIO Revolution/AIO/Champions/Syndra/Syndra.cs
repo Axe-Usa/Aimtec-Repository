@@ -70,7 +70,7 @@ namespace AIO.Champions
         /// </summary>
         public void OnCreate(GameObject obj)
         {
-            if (obj != null)
+            if (obj.IsValid)
             {
                 switch (obj.Name)
                 {
@@ -87,7 +87,7 @@ namespace AIO.Champions
         /// </summary>
         public void OnDestroy(GameObject obj)
         {
-            if (obj != null && obj.IsValid)
+            if (obj.IsValid)
             {
                 if (DarkSpheres.Any(o => o.Key == obj.NetworkId))
                 {

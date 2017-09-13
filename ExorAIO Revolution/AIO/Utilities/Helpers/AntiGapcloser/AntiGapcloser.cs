@@ -972,28 +972,19 @@
                 }
                 else
                 {
-                    mainMenu.Add(new MenuSeperator("separator5", "No Enemy Dashes found, no need for an Anti-Gapcloser Menu"));
+                    mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser Menu not needed."));
                 }
             }
             else
             {
-                mainMenu.Add(new MenuSeperator("separator5", "No Enemy Heroes found, no need for an Anti-Gapcloser Menu"));
+                mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser Menu not needed."));
             }
         }
 
         private static void OnNewPath(Obj_AI_Base sender, Obj_AI_BaseNewPathEventArgs args)
         {
-            if (sender == null || sender.Type != GameObjectType.obj_AI_Hero || !sender.IsEnemy)
+            if (sender == null || !sender.IsValid || !sender.IsEnemy || !(sender is Obj_AI_Hero))
             {
-                return;
-            }
-
-            if (sender.UnitSkinName == "Vi" || sender.UnitSkinName == "Sion" || sender.UnitSkinName == "Kayn" || sender.UnitSkinName == "Fizz")
-            {
-                // Vi R
-                // Sion R
-                // Kayn R
-                // Fizz E
                 return;
             }
 
@@ -1004,23 +995,14 @@
 
             if (args.IsDash)
             {
-                var gapSender = sender as Obj_AI_Hero;
-                if (gapSender == null)
-                {
-                    return;
-                }
-
-                Gapclosers[sender.NetworkId].Unit = gapSender;
+                Gapclosers[sender.NetworkId].Unit = (Obj_AI_Hero)sender;
                 Gapclosers[sender.NetworkId].Slot = SpellSlot.Unknown;
                 Gapclosers[sender.NetworkId].Type = GapSpellType.Dash;
                 Gapclosers[sender.NetworkId].SpellName = sender.UnitSkinName + "_Dash";
                 Gapclosers[sender.NetworkId].StartPosition = sender.ServerPosition;
                 Gapclosers[sender.NetworkId].EndPosition = args.Path.Last();
                 Gapclosers[sender.NetworkId].StartTick = Game.TickCount;
-                Gapclosers[sender.NetworkId].EndTick =
-                    (int)
-                    (Gapclosers[sender.NetworkId].EndPosition.DistanceSqr(Gapclosers[sender.NetworkId].StartPosition) /
-                     args.Speed * args.Speed * 1000) + Gapclosers[sender.NetworkId].StartTick;
+                Gapclosers[sender.NetworkId].EndTick = (int)(Gapclosers[sender.NetworkId].EndPosition.DistanceSqr(Gapclosers[sender.NetworkId].StartPosition) / args.Speed * args.Speed * 1000) + Gapclosers[sender.NetworkId].StartTick;
                 Gapclosers[sender.NetworkId].DurationTick = Gapclosers[sender.NetworkId].EndTick - Gapclosers[sender.NetworkId].StartTick;
             }
         }
