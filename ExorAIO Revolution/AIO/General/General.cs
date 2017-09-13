@@ -132,7 +132,6 @@ namespace AIO
                 var spellBook = UtilityClass.Player.SpellBook;
                 var data = new Dictionary<SpellSlot, float>();
 
-                // ReSharper disable once LoopCanBeConvertedToQuery
                 foreach (var slot in UtilityClass.SpellSlots)
                 {
                     var spellSlot = spellBook.GetSpell(slot);
@@ -153,16 +152,19 @@ namespace AIO
                 /// <summary>
                 ///     The 'Preserve Spells' Logic.
                 /// </summary>
-                if (ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo)
+                switch (ImplementationClass.IOrbwalker.Mode)
                 {
-                    var target = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.GetSpell(args.Slot).SpellData.CastRange);
-                    if (target.IsValidTarget(UtilityClass.Player.GetFullAttackRange(target)) &&
-                        target.GetRealHealth() <=
-                            UtilityClass.Player.GetAutoAttackDamage(target) *
-                            MenuClass.PreserveSpells[args.Slot.ToString().ToLower()].As<MenuSlider>().Value)
-                    {
-                        args.Process = false;
-                    }
+                    case OrbwalkingMode.Combo:
+                    case OrbwalkingMode.Mixed:
+                        var target = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.GetSpell(args.Slot).SpellData.CastRange);
+                        if (target.IsValidTarget(UtilityClass.Player.GetFullAttackRange(target)) &&
+                            target.GetRealHealth() <=
+                                UtilityClass.Player.GetAutoAttackDamage(target) *
+                                MenuClass.PreserveSpells[args.Slot.ToString().ToLower()].As<MenuSlider>().Value)
+                        {
+                            args.Process = false;
+                        }
+                        break;
                 }
             }
         }
