@@ -30,7 +30,9 @@ namespace AIO
                 return;
             }
 
-            if (MenuClass.Hydra != null)
+            var hydraItems = new[] { ItemId.TitanicHydra, ItemId.RavenousHydra, ItemId.Tiamat };
+            if (MenuClass.Hydra != null &&
+                UtilityClass.Player.Inventory.Slots.Any(t => hydraItems.Contains(t.ItemId)))
             {
                 switch (ImplementationClass.IOrbwalker.Mode)
                 {
@@ -66,7 +68,6 @@ namespace AIO
                         break;
                 }
 
-                var hydraItems = new[]{ ItemId.TitanicHydra, ItemId.RavenousHydra, ItemId.Tiamat };
                 var hydraSlot = UtilityClass.Player.Inventory.Slots.FirstOrDefault(s => hydraItems.Contains(s.ItemId));
                 if (hydraSlot != null)
                 {
