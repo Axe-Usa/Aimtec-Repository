@@ -158,7 +158,7 @@ namespace AIO.Champions
                                         .MinBy(o => o.Distance(args.End));
                                     if (bestTarget != null)
                                     {
-                                        SpellClass.W.Cast(bestTarget.ServerPosition.Extend(UtilityClass.Player.ServerPosition, -100f));
+                                        SpellClass.W.Cast(bestTarget.ServerPosition.Extend(UtilityClass.Player.ServerPosition, -bestTarget.BoundingRadius));
                                     }
                                 }
                                 break;

@@ -101,7 +101,8 @@ namespace AIO.Champions
                     {
                         if (GameObjects.EnemyHeroes.Any())
                         {
-                            MenuClass.W2.Add(new MenuSliderBool("wsafetycheck", "W only if enemies in Fishbones Range <= x", true, 2, 0, GameObjects.EnemyHeroes.Count()));
+                            var count = GameObjects.EnemyHeroes.Count();
+                            MenuClass.W2.Add(new MenuSliderBool("wsafetycheck", "W only if enemies in Fishbones Range <= x", true, count >= 2 ? 2 : 1, 0, GameObjects.EnemyHeroes.Count()));
                         }
                         else
                         {

@@ -666,3 +666,7 @@ ExorAIO: Revolution Changelog:
   AIO: Anti-Gapcloser code cleanup.
   AIO: Fixed a Nullreference spamming the console.
   Ezreal: Fixed rare Nullreference.
+
+7.18.0.1:
+  Caitlyn: Better Trap placement.
+  Jinx: Fixed rare Nullreference.
