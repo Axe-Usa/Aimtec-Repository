@@ -130,7 +130,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator2", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);

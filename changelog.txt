@@ -670,3 +670,9 @@ ExorAIO: Revolution Changelog:
 7.18.0.1:
   Caitlyn: Better Trap placement.
   Jinx: Fixed rare Nullreference.
+
+7.18.0.2:
+ Anti-Gapcloser: Removed Leona E.
+  Taliyah: Fixed Nullref.
+  Ashe: Anti-Gapcloser checks improvement.
+  Ezreal: Fixed little menu Nullref.

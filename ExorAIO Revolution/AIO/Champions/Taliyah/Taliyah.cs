@@ -68,7 +68,7 @@ namespace AIO.Champions
                         switch (args.Slot)
                         {
                             case SpellSlot.Q:
-                                switch (MenuClass.Spells["q"]["combomode"].As<MenuList>().Value)
+                                switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
                                 {
                                     case 0:
                                         if (IsNearWorkedGround())

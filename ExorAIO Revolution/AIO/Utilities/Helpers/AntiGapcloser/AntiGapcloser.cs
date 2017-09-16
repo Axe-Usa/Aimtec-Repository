@@ -517,19 +517,6 @@
 
             #endregion
 
-            #region Leona
-
-            Spells.Add(
-                new SpellData
-                {
-                    ChampionName = "Leona",
-                    Slot = SpellSlot.E,
-                    SpellName = "leonazenithblade",
-                    SpellType = GapSpellType.SkillShot
-                });
-
-            #endregion
-
             #region Lucian
 
             Spells.Add(

@@ -106,9 +106,7 @@ namespace AIO.Champions
                 return;
             }
             
-            if (sender == null ||
-                !sender.IsEnemy ||
-                Invulnerable.Check(sender, DamageType.Magical, false))
+            if (sender == null || !sender.IsEnemy || Invulnerable.Check(sender))
             {
                 return;
             }
