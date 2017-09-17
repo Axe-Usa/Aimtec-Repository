@@ -21,7 +21,7 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
-            ///     The Q Weaving Logic.
+            ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
@@ -37,10 +37,13 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
-                if (!heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) &&
-                    !Invulnerable.Check(heroTarget))
+                if (heroTarget != null)
                 {
-                    SpellClass.W.Cast(heroTarget);
+                    if (!Invulnerable.Check(heroTarget) &&
+                        !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)))
+                    {
+                        SpellClass.W.Cast(heroTarget);
+                    }
                 }
             }
         }

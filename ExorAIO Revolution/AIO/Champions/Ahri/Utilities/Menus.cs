@@ -155,6 +155,9 @@ namespace AIO.Champions
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
                     MenuClass.R.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.R.Add(new MenuSeperator("separator"));
+                    Gapcloser.Attach(MenuClass.R, "Anti-Gapcloser");
+                    MenuClass.R.Add(new MenuSeperator("separator2"));
 
                     /// <summary>
                     ///     Sets the customization menu for the R spell.
@@ -163,6 +166,7 @@ namespace AIO.Champions
                     {
                         //MenuClass.R2.Add(new MenuSeperator("separator1", "General settings:"));
                         MenuClass.R2.Add(new MenuBool("onlyrstarted", "Only R in combo if manually started"));
+                        MenuClass.R2.Add(new MenuBool("onlyrfirst", "Only R on the first cast"));
                     }
                     MenuClass.R.Add(MenuClass.R2);
 

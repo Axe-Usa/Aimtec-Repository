@@ -41,18 +41,24 @@ namespace AIO.Champions
                     break;
 
                 case 1:
+                    if (UtilityClass.Player.HasBuff("AhriTumble") &&
+                        MenuClass.Spells["r"]["customization"]["onlyrfirst"].As<MenuBool>().Enabled)
+                    {
+                        break;
+                    }
+
+                    if (!UtilityClass.Player.HasBuff("AhriTumble") &&
+                        MenuClass.Spells["r"]["customization"]["onlyrstarted"].As<MenuBool>().Enabled)
+                    {
+                        break;
+                    }
+
                     /// <summary>
                     ///     The R Combo Logic.
                     /// </summary>
                     if (SpellClass.R.Ready &&
                         MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
                     {
-                        if (!UtilityClass.Player.HasBuff("AhriTumble") &&
-                            MenuClass.Spells["r"]["customization"]["onlyrstarted"].As<MenuBool>().Enabled)
-                        {
-                            break;
-                        }
-
                         const float rRadius = 500f;
                         var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + rRadius);
                         if (heroTarget == null ||

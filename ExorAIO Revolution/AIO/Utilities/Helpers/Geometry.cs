@@ -97,6 +97,39 @@ namespace AIO.Utilities
             return Clipper.PointInPolygon(p, poly.ToClipperPath()) != 1;
         }
 
+        public static bool Intersects(this Rectangle rectangle, Circle circle)
+        {
+            var rectangleHalfWidth = rectangle.Width / 2;
+            var cx = Math.Abs(circle.Center.X - rectangle.End.X - rectangleHalfWidth);
+            var xDist = rectangleHalfWidth + circle.Radius;
+            if (cx > xDist)
+            {
+                return false;
+            }
+
+            var rectangleHalfHeight = rectangle.Start.Distance(rectangle.End) / 2;
+            var cy = Math.Abs(circle.Center.Y - rectangle.End.Y - rectangleHalfHeight);
+            var yDist = rectangleHalfHeight + circle.Radius;
+            if (cy > yDist)
+            {
+                return false;
+            }
+
+            if (cx <= rectangleHalfWidth || cy <= rectangleHalfHeight)
+            {
+                return true;
+            }
+
+            var xCornerDist = cx - rectangleHalfWidth;
+            var yCornerDist = cy - rectangleHalfHeight;
+
+            var xCornerDistSq = xCornerDist * xCornerDist;
+            var yCornerDistSq = yCornerDist * yCornerDist;
+
+            var maxCornerDistSq = circle.Radius * circle.Radius;
+            return xCornerDistSq + yCornerDistSq <= maxCornerDistSq;
+        }
+
         /// <summary>
         ///     Returns the position on the path after t milliseconds at speed speed.
         /// </summary>

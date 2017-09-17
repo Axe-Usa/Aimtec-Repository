@@ -113,11 +113,13 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
+                    MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Dynamic distance", "Always Long", "Always Short" }, 0));
+                    MenuClass.E.Add(new MenuSeperator("separator"));
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuBool("engage", "Engage"));
-                    MenuClass.E.Add(new MenuSeperator("separator"));
-                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
                     MenuClass.E.Add(new MenuSeperator("separator2"));
+                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
+                    MenuClass.E.Add(new MenuSeperator("separator3"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
@@ -127,9 +129,17 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "Customization:");
                     {
-                        MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Dynamic distance", "Always Long", "Always Short" }, 0));
-                        //MenuClass.W2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
+                        MenuClass.E2.Add(new MenuBool("noeoutaarange", "Don't E out of AA range from target", false));
+                        MenuClass.E2.Add(new MenuBool("onlyeifmouseoutaarange", "Only E if mouse out of AA Range", false));
+                        if (GameObjects.EnemyHeroes.Any())
+                        {
+                            var count = GameObjects.EnemyHeroes.Count();
+                            MenuClass.E2.Add(new MenuSliderBool("erangecheck", "Don't E if pos has >= X enemies in range", false, count >= 3 ? 3 : count, 1, GameObjects.EnemyHeroes.Count()));
+                        }
+                        else
+                        {
+                            MenuClass.E2.Add(new MenuSeperator("exseparator", "Don't E if pos has >= / No enemies found, no need for a position range check."));
+                        }
                     }
                     MenuClass.E.Add(MenuClass.E2);
                 }

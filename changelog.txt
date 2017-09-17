@@ -676,3 +676,10 @@ ExorAIO: Revolution Changelog:
   Taliyah: Fixed Nullref.
   Ashe: Anti-Gapcloser checks improvement.
   Ezreal: Fixed little menu Nullref.
+
+7.18.0.3:
+  Xayah: Better Feather Hitbox tracking.
+  Twitch: Fixed a little Nullref.
+  Ashe: Fixed Nullref.
+  Ahri: Added Only R if first cast option.
+  Lucian: Added more E options like Vayne.

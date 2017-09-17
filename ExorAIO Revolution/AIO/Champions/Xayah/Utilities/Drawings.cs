@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -38,9 +39,11 @@ namespace AIO.Champions
             {
                 foreach (var feather in Feathers)
                 {
-                    var hitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.Q.Width);
-                    hitbox.Draw(
-                        GameObjects.EnemyHeroes.Any(h => hitbox.IsInside((Vector2)h.Position))
+                    var boundingRadius = GameObjects.EnemyHeroes.MinBy(t => t.Distance(feather.Value)).BoundingRadius;
+                    var realFeatherHitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.E.Width + boundingRadius - SpellClass.E.Delay * boundingRadius);
+                    var drawFeatherHitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.E.Width);
+                    drawFeatherHitbox.Draw(
+                        GameObjects.EnemyHeroes.Any(h => realFeatherHitbox.IsInside((Vector2)h.Position))
                             ? Color.Blue
                             : Color.OrangeRed);
                 }

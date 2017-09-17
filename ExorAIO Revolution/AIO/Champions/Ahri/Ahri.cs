@@ -79,15 +79,21 @@ namespace AIO.Champions
                         switch (args.SpellSlot)
                         {
                             case SpellSlot.E:
+                                if (UtilityClass.Player.HasBuff("AhriTumble") &&
+                                    MenuClass.Spells["r"]["customization"]["onlyrfirst"].As<MenuBool>().Enabled)
+                                {
+                                    break;
+                                }
+
+                                if (!UtilityClass.Player.HasBuff("AhriTumble") &&
+                                    MenuClass.Spells["r"]["customization"]["onlyrstarted"].As<MenuBool>().Enabled)
+                                {
+                                    break;
+                                }
+
                                 if (SpellClass.R.Ready &&
                                     MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
                                 {
-                                    if (!UtilityClass.Player.HasBuff("AhriTumble") &&
-                                        MenuClass.Spells["r"]["customization"]["onlyrstarted"].As<MenuBool>().Enabled)
-                                    {
-                                        break;
-                                    }
-
                                     const float rRadius = 500f;
                                     var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range + rRadius);
                                     if (heroTarget == null ||
@@ -132,8 +138,19 @@ namespace AIO.Champions
                 {
                     case SpellSlot.Q:
                     case SpellSlot.W:
+                        if (UtilityClass.Player.HasBuff("AhriTumble") &&
+                            MenuClass.Spells["r"]["customization"]["onlyrfirst"].As<MenuBool>().Enabled)
+                        {
+                            break;
+                        }
+
+                        if (!UtilityClass.Player.HasBuff("AhriTumble") &&
+                            MenuClass.Spells["r"]["customization"]["onlyrstarted"].As<MenuBool>().Enabled)
+                        {
+                            break;
+                        }
+
                         if (SpellClass.R.Ready &&
-                            UtilityClass.Player.HasBuff("AhriTumble") &&
                             MenuClass.Spells["r"]["combo"].As<MenuBool>().Enabled)
                         {
                             const float rRadius = 500f;
@@ -187,12 +204,37 @@ namespace AIO.Champions
                             args.Target.IsMe)
                         {
                             SpellClass.E.Cast(args.StartPosition);
+                            return;
                         }
                         break;
                     default:
                         if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range)
                         {
                             SpellClass.E.Cast(args.EndPosition);
+                            return;
+                        }
+                        break;
+                }
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser R.
+            /// </summary>
+            if (SpellClass.R.Ready)
+            {
+                switch (args.Type)
+                {
+                    case GapSpellType.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            SpellClass.R.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -500));
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange/2)
+                        {
+                            SpellClass.R.Cast(UtilityClass.Player.ServerPosition.Extend(args.EndPosition, -500));
                         }
                         break;
                 }
