@@ -360,6 +360,7 @@
 
             #endregion
 
+            /*
             #region JarvanIV
 
             Spells.Add(
@@ -381,6 +382,7 @@
                 });
 
             #endregion
+            */
 
             #region Jax
 
@@ -543,6 +545,7 @@
 
             #endregion
 
+            /*
             #region MasterYi
 
             Spells.Add(
@@ -555,6 +558,7 @@
                 });
 
             #endregion
+            */
 
             #region MonkeyKing
 
@@ -569,6 +573,7 @@
 
             #endregion
 
+            /*
             #region Nautilus
 
             Spells.Add(
@@ -581,6 +586,7 @@
                 });
 
             #endregion
+            */
 
             #region Nidalee
 
@@ -772,17 +778,8 @@
                 {
                     ChampionName = "Talon",
                     Slot = SpellSlot.Q,
-                    SpellName = "talonq",
+                    SpellName = "talonqdashattack",
                     SpellType = GapSpellType.Targeted
-                });
-
-            Spells.Add(
-                new SpellData
-                {
-                    ChampionName = "Talon",
-                    Slot = SpellSlot.E,
-                    SpellName = "taloncutthroat",
-                    SpellType = GapSpellType.SkillShot
                 });
 
             #endregion
@@ -839,6 +836,7 @@
 
             #endregion
 
+            /*
             #region Warwick
 
             Spells.Add(
@@ -851,6 +849,7 @@
                 });
 
             #endregion
+            */
 
             #region XinZhao
 
@@ -891,6 +890,7 @@
 
             #endregion
 
+            /*
             #region Zed
 
             Spells.Add(
@@ -903,7 +903,9 @@
                 });
 
             #endregion
+            */
 
+            /*
             #region Ziggs
 
             Spells.Add(
@@ -916,6 +918,7 @@
                 });
 
             #endregion
+            */
         }
 
         public static void Attach(Menu mainMenu, string menuName)

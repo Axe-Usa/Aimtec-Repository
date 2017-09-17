@@ -683,3 +683,7 @@ ExorAIO: Revolution Changelog:
   Ashe: Fixed Nullref.
   Ahri: Added Only R if first cast option.
   Lucian: Added more E options like Vayne.
+
+7.18.0.4:
+  AIO: Anti-Gapcloser: Removed useless spells from Anti-Gapcloser.
+  AIO: Anti-Gapcloser: Fixed Talon Q tracking.
