@@ -58,7 +58,8 @@ namespace AIO.Champions
             var hit = 0;
             foreach (var feather in Feathers)
             {
-                var playerToFeatherRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.ServerPosition, (Vector2)feather.Value, SpellClass.Q.Width);
+                var boundingRadius = GameObjects.EnemyHeroes.MinBy(t => t.Distance(feather.Value)).BoundingRadius;
+                var playerToFeatherRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.ServerPosition, (Vector2)feather.Value, SpellClass.E.Width + boundingRadius - SpellClass.E.Delay * boundingRadius);
                 if (playerToFeatherRectangle.IsInside((Vector2)unit.ServerPosition))
                 {
                     hit++;
