@@ -152,7 +152,6 @@ namespace AIO.Champions
                         MenuClass.Miscellaneous["focusp"].As<MenuSliderBool>().Value)
                 {
                     ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
-                    args.Target = forceTarget;
                 }
             }
         }

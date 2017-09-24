@@ -1,5 +1,5 @@
 ﻿
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -123,29 +123,46 @@ namespace AIO
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
         public static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
+            var usedSlot = args.Slot;
+
             /// <summary>
             ///     The 'Preserve Mana' Logic.
             /// </summary>
             if (sender.IsMe &&
-                UtilityClass.SpellSlots.Contains(args.Slot))
+                UtilityClass.SpellSlots.Contains(usedSlot))
             {
                 var spellBook = UtilityClass.Player.SpellBook;
-                var data = new Dictionary<SpellSlot, float>();
+                var data = UtilityClass.PreserveMana;
 
                 foreach (var slot in UtilityClass.SpellSlots)
                 {
                     var spellSlot = spellBook.GetSpell(slot);
-                    if ((spellSlot.State == SpellState.Ready ||
-                         spellSlot.State == SpellState.Cooldown && spellSlot.GetRemainingCooldownTime() <= 5) &&
-                        MenuClass.PreserveMana[slot.ToString().ToLower()].As<MenuBool>().Enabled)
+                    if (MenuClass.PreserveMana[slot.ToString().ToLower()].As<MenuBool>().Enabled)
                     {
-                        data.Add(slot, spellSlot.Cost);
+                        if (!data.ContainsKey(slot))
+                        {
+                            data.Add(slot, spellSlot.Cost+30);
+                            Console.WriteLine($"Preserve Mana List: Added {slot}, Cost: {spellSlot.Cost+30}.");
+                        }
+                    }
+                    else
+                    {
+                        if (data.ContainsKey(slot))
+                        {
+                            data.Remove(slot);
+                            Console.WriteLine($"Preserve Mana List: Removed {slot}.");
+                        }
                     }
                 }
 
-                if (!data.Keys.Contains(args.Slot) &&
-                    UtilityClass.Player.Mana - spellBook.GetSpell(args.Slot).Cost < data.Values.Sum())
+                var sum = data
+                    .Where(d => Bools.CanUseSpell(d.Key))
+                    .Sum(s => s.Value);
+
+                if (!data.Keys.Contains(usedSlot) &&
+                    UtilityClass.Player.Mana - spellBook.GetSpell(usedSlot).Cost < sum)
                 {
+                    Console.WriteLine($"Preserve Mana List: Denied Spell {usedSlot} Usage (Mana: {UtilityClass.Player.Mana}, Cost: {spellBook.GetSpell(usedSlot).Cost}), Preserve Mana Quantity: {sum}");
                     args.Process = false;
                 }
 

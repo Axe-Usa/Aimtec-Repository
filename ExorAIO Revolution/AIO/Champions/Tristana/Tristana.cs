@@ -76,10 +76,16 @@ namespace AIO.Champions
                 var forceTarget = Extensions.GetAllGenericUnitTargets().FirstOrDefault(t =>
                         IsCharged(t) &&
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)));
+
+                if (forceTarget is Obj_AI_Minion &&
+                    ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo)
+                {
+                    return;
+                }
+
                 if (forceTarget != null)
                 {
                     ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
-                    args.Target = forceTarget;
                 }
             }
 

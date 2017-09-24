@@ -32,7 +32,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.HasTearLikeItem() &&
-                UtilityClass.Player.CountEnemyHeroesInRange(1500) == 0 &&
+                UtilityClass.Player.CountEnemyHeroesInRange(1500f) == 0 &&
                 ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 !Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any() &&
                 UtilityClass.Player.ManaPercent()

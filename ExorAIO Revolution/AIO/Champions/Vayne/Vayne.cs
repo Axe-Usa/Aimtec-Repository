@@ -106,7 +106,6 @@ namespace AIO.Champions
                 if (forceTarget != null)
                 {
                     ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
-                    args.Target = forceTarget;
                 }
             }
         }

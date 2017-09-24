@@ -23,6 +23,42 @@ namespace AIO.Utilities
         #region Public Methods and Operators
 
         /// <summary>
+        ///     Returns if a Spell is usable.
+        /// </summary>
+        /// <param name="spell">The spell.</param>
+        public static bool CanUseSpell(Spell spell)
+        {
+            var blackListedStates = new[]
+            {
+                SpellState.Cooldown,
+                SpellState.Disabled,
+                SpellState.NoMana,
+                SpellState.NotLearned,
+                SpellState.Surpressed
+            };
+
+            return blackListedStates.All(state => !spell.State.HasFlag(state));
+        }
+
+        /// <summary>
+        ///     Returns if a Spell from a determined SpellSlot is usable.
+        /// </summary>
+        /// <param name="slot">The spellslot.</param>
+        public static bool CanUseSpell(SpellSlot slot)
+        {
+            var blackListedStates = new[]
+            {
+                SpellState.Cooldown,
+                SpellState.Disabled,
+                SpellState.NoMana,
+                SpellState.NotLearned,
+                SpellState.Surpressed
+            };
+
+            return blackListedStates.All(state => !UtilityClass.Player.SpellBook.GetSpell(slot).State.HasFlag(state));
+        }
+
+        /// <summary>
         ///     Returns if the name is an auto attack
         /// </summary>
         /// <param name="name">Name of spell</param>

@@ -22,21 +22,21 @@ namespace AIO.Utilities
         ///     Gets the spellslots.
         /// </summary>
         public static SpellSlot[] SpellSlots =
-            {
-                SpellSlot.Q,
-                SpellSlot.W,
-                SpellSlot.E,
-                SpellSlot.R
-            };
+        {
+            SpellSlot.Q,
+            SpellSlot.W,
+            SpellSlot.E,
+            SpellSlot.R
+        };
 
         /// <summary>
         ///     Gets the summoner spellslots.
         /// </summary>
         public static SpellSlot[] SummonerSpellSlots =
-            {
-                SpellSlot.Summoner1,
-                SpellSlot.Summoner2
-            };
+        {
+            SpellSlot.Summoner1,
+            SpellSlot.Summoner2
+        };
 
         /// <summary>
         ///     The last tick.
@@ -52,44 +52,44 @@ namespace AIO.Utilities
         ///     Spells that are attacks even if they don't have the "attack" word in their name.
         /// </summary>
         public static readonly string[] Attacks =
-            {
-                "caitlynheadshotmissile", "kennenmegaproc", "masteryidoublestrike",
-                "quinnwenhanced", "renektonexecute", "renektonsuperexecute",
-                "trundleq", "viktorqbuff", "xenzhaothrust", "xenzhaothrust2",
-                "xenzhaothrust3"
-            };
+        {
+            "caitlynheadshotmissile", "kennenmegaproc", "masteryidoublestrike",
+            "quinnwenhanced", "renektonexecute", "renektonsuperexecute",
+            "trundleq", "viktorqbuff", "xenzhaothrust", "xenzhaothrust2",
+            "xenzhaothrust3"
+        };
 
         /// <summary>
         ///     Spells that are not attacks even if they have the "attack" word in their name.
         /// </summary>
         public static readonly string[] NoAttacks =
-            {
-                "asheqattacknoonhit", "volleyattackwithsound", "volleyattack",
-                "annietibbersbasicattack", "annietibbersbasicattack2",
-                "azirsoldierbasicattack", "azirsundiscbasicattack",
-                "elisespiderlingbasicattack", "gravesbasicattackspread",
-                "gravesautoattackrecoil", "heimertyellowbasicattack",
-                "heimertyellowbasicattack2", "heimertbluebasicattack",
-                "jarvanivcataclysmattack", "kindredwolfbasicattack",
-                "malzaharvoidlingbasicattack", "malzaharvoidlingbasicattack2",
-                "malzaharvoidlingbasicattack3", "shyvanadoubleattack",
-                "shyvanadoubleattackdragon", "sivirwattackbounce",
-                "monkeykingdoubleattack", "yorickspectralghoulbasicattack",
-                "yorickdecayedghoulbasicattack", "yorickravenousghoulbasicattack",
-                "zyragraspingplantattack", "zyragraspingplantattack2",
-                "zyragraspingplantattackfire", "zyragraspingplantattack2fire"
-            };
+        {
+            "asheqattacknoonhit", "volleyattackwithsound", "volleyattack",
+            "annietibbersbasicattack", "annietibbersbasicattack2",
+            "azirsoldierbasicattack", "azirsundiscbasicattack",
+            "elisespiderlingbasicattack", "gravesbasicattackspread",
+            "gravesautoattackrecoil", "heimertyellowbasicattack",
+            "heimertyellowbasicattack2", "heimertbluebasicattack",
+            "jarvanivcataclysmattack", "kindredwolfbasicattack",
+            "malzaharvoidlingbasicattack", "malzaharvoidlingbasicattack2",
+            "malzaharvoidlingbasicattack3", "shyvanadoubleattack",
+            "shyvanadoubleattackdragon", "sivirwattackbounce",
+            "monkeykingdoubleattack", "yorickspectralghoulbasicattack",
+            "yorickdecayedghoulbasicattack", "yorickravenousghoulbasicattack",
+            "zyragraspingplantattack", "zyragraspingplantattack2",
+            "zyragraspingplantattackfire", "zyragraspingplantattack2fire"
+        };
 
         /// <summary>
         ///     The jungle HP bar offset list.
         /// </summary>
         internal static readonly string[] JungleList =
-            {
-                "SRU_Dragon_Air", "SRU_Dragon_Fire", "SRU_Dragon_Water",
-                "SRU_Dragon_Earth", "SRU_Dragon_Elder", "SRU_Baron",
-                "SRU_RiftHerald", "SRU_Red", "SRU_Blue", "SRU_Gromp",
-                "Sru_Crab", "SRU_Krug", "SRU_Razorbeak", "SRU_Murkwolf"
-            };
+        {
+            "SRU_Dragon_Air", "SRU_Dragon_Fire", "SRU_Dragon_Water",
+            "SRU_Dragon_Earth", "SRU_Dragon_Elder", "SRU_Baron",
+            "SRU_RiftHerald", "SRU_Red", "SRU_Blue", "SRU_Gromp",
+            "Sru_Crab", "SRU_Krug", "SRU_Razorbeak", "SRU_Murkwolf"
+        };
 
         #endregion
 
@@ -104,13 +104,18 @@ namespace AIO.Utilities
         ///     The Trap names and their collision radius.
         /// </summary>
         public static Dictionary<string, float> Traps = new Dictionary<string, float>
-            {
-                { "Jinx_Base_E_Mine_Ready_Green.troy",      50f   },
-                { "Caitlyn_Base_W_Indicator_SizeRing.troy", 67.5f },
-                { "ZiggsTrap",                              30f   }, // TODO: Find the real name of the ziggs traps.
-                { "Nidalee_Base_W_TC_Green.troy",           75f   },
-                { "Taliyah_Base_E_Mines.troy",              30f   }
-            };
+        {
+            {"Jinx_Base_E_Mine_Ready_Green.troy", 50f},
+            {"Caitlyn_Base_W_Indicator_SizeRing.troy", 67.5f},
+            {"ZiggsTrap", 30f}, // TODO: Find the real name of the ziggs traps.
+            {"Nidalee_Base_W_TC_Green.troy", 75f},
+            {"Taliyah_Base_E_Mines.troy", 30f}
+        };
+
+        /// <summary>
+        ///     The PreserveMana Dictionary.
+        /// </summary>
+        public static Dictionary<SpellSlot, float> PreserveMana = new Dictionary<SpellSlot, float>();
 
         /// <summary>
         ///     Gets the angle by 'degrees' degrees.
