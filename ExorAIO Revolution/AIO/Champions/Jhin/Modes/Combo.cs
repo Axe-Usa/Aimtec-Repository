@@ -28,23 +28,25 @@ namespace AIO.Champions
                 IsUltimateShooting() &&
                 MenuClass.Spells["r"]["combo"].As<MenuBool>().Value)
             {
-                var validEnemiesInsideCone = ImplementationClass.ITargetSelector.GetOrderedTargets(SpellClass.R.Range)
-                    .Where(t => t.IsValidTarget() && !Invulnerable.Check(t) && UltimateCone().IsInside((Vector2)t.ServerPosition));
-                var objAiHeroes = validEnemiesInsideCone as Obj_AI_Hero[] ?? validEnemiesInsideCone.ToArray();
-                if (objAiHeroes.Any())
+                var validEnemiesInsideCone = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range)
+                    .Where(t => t.IsValidTarget() && !Invulnerable.Check(t) && UltimateCone().IsInside((Vector2)t.ServerPosition))
+                    .ToList();
+                if (validEnemiesInsideCone.Any())
                 {
+                    // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
                     if (MenuClass.Spells["r"]["customization"]["nearmouse"].As<MenuBool>().Value)
                     {
-                        SpellClass.R.Cast(objAiHeroes.MinBy(o => o.Distance(Game.CursorPos)));
-                        return;
+                        SpellClass.R.Cast(validEnemiesInsideCone.MinBy(o => o.Distance(Game.CursorPos)));
                     }
-
-                    SpellClass.R.Cast(objAiHeroes.FirstOrDefault());
-                    return;
+                    else
+                    {
+                        SpellClass.R.Cast(validEnemiesInsideCone.FirstOrDefault());
+                    }
                 }
-
-                SpellClass.R.Cast(Game.CursorPos);
-                return;
+                else
+                {
+                    SpellClass.R.Cast(Game.CursorPos);
+                }
             }
 
             /// <summary>

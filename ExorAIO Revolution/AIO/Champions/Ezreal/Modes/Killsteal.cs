@@ -3,7 +3,9 @@ using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.Prediction.Skillshots;
 using AIO.Utilities;
+using Prediction = AIO.Utilities.Prediction;
 
 #pragma warning disable 1587
 
@@ -32,7 +34,11 @@ namespace AIO.Champions
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    var output = Prediction.GetPrediction(SpellClass.Q, bestTarget);
+                    if (output?.HitChance >= HitChance.Low)
+                    {
+                        SpellClass.Q.Cast(output.CastPosition);
+                    }
                     return;
                 }
             }
@@ -48,7 +54,11 @@ namespace AIO.Champions
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.W.Cast(bestTarget);
+                    var output = Prediction.GetPrediction(SpellClass.W, bestTarget);
+                    if (output?.HitChance >= HitChance.Low)
+                    {
+                        SpellClass.W.Cast(output.CastPosition);
+                    }
                 }
             }
         }

@@ -4,7 +4,9 @@ using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
+using Aimtec.SDK.Prediction.Skillshots;
 using AIO.Utilities;
+using Prediction = AIO.Utilities.Prediction;
 
 #pragma warning disable 1587
 
@@ -36,8 +38,12 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.Cast(heroTarget);
-                return;
+                var output = Prediction.GetPrediction(SpellClass.Q, heroTarget);
+                if (output?.HitChance >= HitChance.Low)
+                {
+                    SpellClass.Q.Cast(output.CastPosition);
+                    return;
+                }
             }
 
             /// <summary>
@@ -62,7 +68,11 @@ namespace AIO.Champions
                     }
                 }
 
-                SpellClass.W.Cast(heroTarget);
+                var output = Prediction.GetPrediction(SpellClass.W, heroTarget);
+                if (output?.HitChance >= HitChance.Low)
+                {
+                    SpellClass.W.Cast(output.CastPosition);
+                }
             }
         }
 

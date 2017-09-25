@@ -131,18 +131,34 @@ namespace AIO
             if (sender.IsMe &&
                 UtilityClass.SpellSlots.Contains(usedSlot))
             {
+                var championSpellManaCosts = UtilityClass.ManaCostArray.FirstOrDefault(v => v.Key == UtilityClass.Player.ChampionName).Value;
+                if (championSpellManaCosts == null)
+                {
+                    return;
+                }
+
                 var spellBook = UtilityClass.Player.SpellBook;
-                var data = UtilityClass.PreserveMana;
+                var data = UtilityClass.PreserveManaData;
 
                 foreach (var slot in UtilityClass.SpellSlots)
                 {
-                    var spellSlot = spellBook.GetSpell(slot);
-                    if (MenuClass.PreserveMana[slot.ToString().ToLower()].As<MenuBool>().Enabled)
+                    var spell = spellBook.GetSpell(slot);
+                    var menuOption = MenuClass.PreserveMana[slot.ToString().ToLower()];
+                    if (menuOption != null &&
+                        menuOption.As<MenuBool>().Enabled)
                     {
-                        if (!data.ContainsKey(slot))
+                        if (data.ContainsKey(slot) &&
+                            data.FirstOrDefault(d => d.Key == slot).Value != championSpellManaCosts[slot][spell.Level-1])
                         {
-                            data.Add(slot, spellSlot.Cost+30);
-                            Console.WriteLine($"Preserve Mana List: Added {slot}, Cost: {spellSlot.Cost+30}.");
+                            data.Remove(slot);
+                            Console.WriteLine($"Preserve Mana List: Removed {slot} (Updated ManaCost).");
+                        }
+
+                        if (!data.ContainsKey(slot) &&
+                            !spell.State.HasFlag(SpellState.NotLearned))
+                        {
+                            data.Add(slot, championSpellManaCosts[slot][spell.Level-1]);
+                            Console.WriteLine($"Preserve Mana List: Added {slot}, Cost: {championSpellManaCosts[slot][spell.Level-1]}.");
                         }
                     }
                     else
@@ -150,7 +166,7 @@ namespace AIO
                         if (data.ContainsKey(slot))
                         {
                             data.Remove(slot);
-                            Console.WriteLine($"Preserve Mana List: Removed {slot}.");
+                            Console.WriteLine($"Preserve Mana List: Removed {slot} (Disabled).");
                         }
                     }
                 }

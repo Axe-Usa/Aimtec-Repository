@@ -1,7 +1,4 @@
-﻿// ReSharper disable ArrangeMethodOrOperatorBody
-// ReSharper disable InconsistentNaming
-
-
+﻿
 using System;
 using System.Collections.Generic;
 using Aimtec;
@@ -115,7 +112,230 @@ namespace AIO.Utilities
         /// <summary>
         ///     The PreserveMana Dictionary.
         /// </summary>
-        public static Dictionary<SpellSlot, float> PreserveMana = new Dictionary<SpellSlot, float>();
+        public static Dictionary<SpellSlot, int> PreserveManaData = new Dictionary<SpellSlot, int>();
+
+        /// <summary>
+        ///     The ManaCost Array.
+        /// </summary>
+        public static Dictionary<string, Dictionary<SpellSlot, int[]>> ManaCostArray = new Dictionary<string, Dictionary<SpellSlot, int[]>>
+        {
+            {
+                "Ahri", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{65, 70, 75, 80, 85}},
+                    {SpellSlot.W, new []{50, 50, 50, 50, 50}},
+                    {SpellSlot.E, new []{85, 85, 85, 85, 85}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Akali", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{60, 60, 60, 60, 60}},
+                    {SpellSlot.W, new []{60, 55, 50, 45, 40}},
+                    {SpellSlot.E, new []{60, 55, 50, 45, 40}},
+                    {SpellSlot.R, new []{0, 0, 0}}
+                }
+            },
+            {
+                "Anivia", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{80, 90, 100, 110, 120}},
+                    {SpellSlot.W, new []{70, 70, 70, 70, 70}},
+                    {SpellSlot.E, new []{50, 60, 70, 80, 90}},
+                    {SpellSlot.R, new []{75, 75, 75}}
+                }
+            },
+            {
+                "Ashe", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{50, 50, 50, 50, 50}},
+                    {SpellSlot.W, new []{50, 50, 50, 50, 50}},
+                    {SpellSlot.E, new []{0, 0, 0, 0, 0}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Caitlyn", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{50, 60, 70, 80, 90}},
+                    {SpellSlot.W, new []{20, 20, 20, 20, 20}},
+                    {SpellSlot.E, new []{75, 75, 75, 75, 75}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Corki", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{60, 70, 80, 90, 100}},
+                    {SpellSlot.W, new []{100, 100, 100, 100, 100}},
+                    {SpellSlot.E, new []{50, 50, 50, 50, 50}},
+                    {SpellSlot.R, new []{20, 20, 20}}
+                }
+            },
+            {
+                "Darius", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{30, 35, 40, 45, 50}},
+                    {SpellSlot.W, new []{30, 30, 30, 30, 30}},
+                    {SpellSlot.E, new []{45, 45, 45, 45, 45}},
+                    {SpellSlot.R, new []{100, 100, 0}}
+                }
+            },
+            {
+                "Evelynn", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{12, 18, 24, 30, 36}},
+                    {SpellSlot.W, new []{40, 40, 40, 40, 40}},
+                    {SpellSlot.E, new []{50, 55, 60, 65, 70}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Ezreal", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{28, 31, 34, 37, 40}},
+                    {SpellSlot.W, new []{50, 60, 70, 80, 90}},
+                    {SpellSlot.E, new []{90, 90, 90, 90, 90}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Jhin", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{40, 45, 50, 55, 60}},
+                    {SpellSlot.W, new []{50, 60, 70, 80, 90}},
+                    {SpellSlot.E, new []{30, 35, 40, 45, 50}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Jinx", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{20, 20, 20, 20, 20}},
+                    {SpellSlot.W, new []{50, 60, 70, 80, 90}},
+                    {SpellSlot.E, new []{70, 70, 70, 70, 70}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Kalista", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{50, 55, 60, 65, 70}},
+                    {SpellSlot.W, new []{20, 20, 20, 20, 20}},
+                    {SpellSlot.E, new []{30, 30, 30, 30, 30}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "KogMaw", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{40, 40, 40, 40, 40}},
+                    {SpellSlot.W, new []{40, 40, 40, 40, 40}},
+                    {SpellSlot.E, new []{80, 90, 100, 110, 120}},
+                    {SpellSlot.R, new []{40, 40, 40}}
+                }
+            },
+            {
+                "Lucian", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{50, 60, 70, 80, 90}},
+                    {SpellSlot.W, new []{50, 50, 50, 50, 50}},
+                    {SpellSlot.E, new []{40, 20, 30, 10, 0}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "MissFortune", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{43, 46, 49, 52, 55}},
+                    {SpellSlot.W, new []{30, 30, 30, 30, 30}},
+                    {SpellSlot.E, new []{80, 80, 80, 80, 80}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Olaf", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{60, 60, 60, 60, 60}},
+                    {SpellSlot.W, new []{30, 30, 30, 30, 30}},
+                    {SpellSlot.E, new []{0, 0, 0, 0, 0}},
+                    {SpellSlot.R, new []{100, 90, 80}}
+                }
+            },
+            {
+                "Orianna", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{30, 35, 40, 45, 50}},
+                    {SpellSlot.W, new []{70, 80, 90, 100, 110}},
+                    {SpellSlot.E, new []{60, 60, 60, 60, 60}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Sivir", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{70, 80, 90, 100, 110}},
+                    {SpellSlot.W, new []{60, 60, 60, 60, 60}},
+                    {SpellSlot.E, new []{0, 0, 0, 0, 0}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Syndra", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{40, 50, 60, 70, 80}},
+                    {SpellSlot.W, new []{60, 70, 80, 90, 100}},
+                    {SpellSlot.E, new []{50, 50, 50, 50, 50}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Taliyah", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{60, 70, 80, 90, 100}},
+                    {SpellSlot.W, new []{70, 80, 90, 100, 110}},
+                    {SpellSlot.E, new []{90, 95, 100, 105, 110}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Tristana", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{0, 0, 0, 0, 0}},
+                    {SpellSlot.W, new []{60, 60, 60, 60, 60}},
+                    {SpellSlot.E, new []{70, 75, 80, 85, 90}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Twitch", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{40, 40, 40, 40, 40}},
+                    {SpellSlot.W, new []{70, 70, 70, 70, 70}},
+                    {SpellSlot.E, new []{50, 60, 70, 80, 90}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
+                "Vayne", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{30, 30, 30, 30, 30}},
+                    {SpellSlot.W, new []{0, 0, 0, 0, 0}},
+                    {SpellSlot.E, new []{90, 90, 90, 90, 90}},
+                    {SpellSlot.R, new []{80, 80, 80}}
+                }
+            },
+            {
+                "Xayah", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{50, 50, 50, 50, 50}},
+                    {SpellSlot.W, new []{60, 55, 50, 45, 40}},
+                    {SpellSlot.E, new []{40, 40, 40, 40, 40}},
+                    {SpellSlot.R, new []{80, 90, 100}}
+                }
+            }
+        };
 
         /// <summary>
         ///     Gets the angle by 'degrees' degrees.

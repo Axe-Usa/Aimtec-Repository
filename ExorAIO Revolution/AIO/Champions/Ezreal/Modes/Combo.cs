@@ -1,20 +1,23 @@
 
-using Aimtec;
-using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu.Components;
-using AIO.Utilities;
-
 #pragma warning disable 1587
 
 namespace AIO.Champions
 {
+    using Aimtec;
+
+    using Aimtec.SDK.Extensions;
+    using Utilities;
+
+    using Aimtec.SDK.Menu.Components;
+    using Aimtec.SDK.Prediction.Skillshots;
+
+    using Prediction = Utilities.Prediction;
+
     /// <summary>
     ///     The champion class.
     /// </summary>
     internal partial class Ezreal
     {
-        #region Public Methods and Operators
-
         /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
@@ -26,12 +29,16 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-150f);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range - 150f);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode())
                 {
-                    SpellClass.W.Cast(bestTarget);
+                    var output = Prediction.GetPrediction(SpellClass.W, bestTarget);
+                    if (output?.HitChance >= SpellClass.W.HitChance)
+                    {
+                        SpellClass.W.Cast(output.CastPosition);
+                    }
                 }
             }
 
@@ -41,16 +48,18 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-100f);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 100f);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget) &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    var output = Prediction.GetPrediction(SpellClass.Q, bestTarget);
+                    if (output?.HitChance >= HitChance.Low)
+                    {
+                        SpellClass.Q.Cast(output.CastPosition);
+                    }
                 }
             }
         }
-
-        #endregion
     }
 }

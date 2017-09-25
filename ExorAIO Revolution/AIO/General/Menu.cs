@@ -1,4 +1,5 @@
 ﻿
+using System.Linq;
 using Aimtec.SDK.Menu;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -55,16 +56,30 @@ namespace AIO
                         MenuClass.General.Add(MenuClass.Hydra);
                     }
 
+                    /// <summary>
+                    ///     Loads the preserve mana menu.
+                    /// </summary>
                     MenuClass.PreserveMana = new Menu("preservemanamenu", "Preserve Mana Menu");
                     {
-                        MenuClass.PreserveMana.Add(new MenuSeperator("separator", "Preserve Mana for:"));
-                        foreach (var slot in UtilityClass.SpellSlots)
+                        var championSpellManaCosts = UtilityClass.ManaCostArray.FirstOrDefault(v => v.Key == UtilityClass.Player.ChampionName).Value;
+                        if (championSpellManaCosts != null)
                         {
-                            MenuClass.PreserveMana.Add(new MenuBool(slot.ToString().ToLower(), slot.ToString(), false));
+                            MenuClass.PreserveMana.Add(new MenuSeperator("separator", "Preserve Mana for:"));
+                            foreach (var slot in UtilityClass.SpellSlots)
+                            {
+                                MenuClass.PreserveMana.Add(new MenuBool(slot.ToString().ToLower(), slot.ToString(), false));
+                            }
+                        }
+                        else
+                        {
+                            MenuClass.PreserveMana.Add(new MenuSeperator("preserveseparator", "Preserve Mana Menu not Needed"));
                         }
                     }
                     MenuClass.General.Add(MenuClass.PreserveMana);
 
+                    /// <summary>
+                    ///     Loads the preserve spells menu.
+                    /// </summary>
                     MenuClass.PreserveSpells = new Menu("preservespellsmenu", "Preserve Spells Menu");
                     {
                         MenuClass.PreserveSpells.Add(new MenuSeperator("separator", "Only works for inside-AA-range targets"));
