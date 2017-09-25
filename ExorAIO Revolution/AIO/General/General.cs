@@ -123,63 +123,67 @@ namespace AIO
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
         public static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
-            var usedSlot = args.Slot;
-
-            /// <summary>
-            ///     The 'Preserve Mana' Logic.
-            /// </summary>
             if (sender.IsMe &&
-                UtilityClass.SpellSlots.Contains(usedSlot))
+                UtilityClass.SpellSlots.Contains(args.Slot))
             {
+                /// <summary>
+                ///     The 'Preserve Mana' Logic.
+                /// </summary>
                 var championSpellManaCosts = UtilityClass.ManaCostArray.FirstOrDefault(v => v.Key == UtilityClass.Player.ChampionName).Value;
-                if (championSpellManaCosts == null)
+                if (championSpellManaCosts != null)
                 {
-                    return;
-                }
+                    var spellBook = UtilityClass.Player.SpellBook;
+                    var data = UtilityClass.PreserveManaData;
 
-                var spellBook = UtilityClass.Player.SpellBook;
-                var data = UtilityClass.PreserveManaData;
-
-                foreach (var slot in UtilityClass.SpellSlots)
-                {
-                    var spell = spellBook.GetSpell(slot);
-                    var menuOption = MenuClass.PreserveMana[slot.ToString().ToLower()];
-                    if (menuOption != null &&
-                        menuOption.As<MenuBool>().Enabled)
+                    foreach (var slot in UtilityClass.SpellSlots)
                     {
-                        if (data.ContainsKey(slot) &&
-                            data.FirstOrDefault(d => d.Key == slot).Value != championSpellManaCosts[slot][spell.Level-1])
+                        var spell = spellBook.GetSpell(slot);
+                        var menuOption = MenuClass.PreserveMana[slot.ToString().ToLower()];
+                        if (menuOption != null &&
+                            menuOption.As<MenuBool>().Enabled)
                         {
-                            data.Remove(slot);
-                            Console.WriteLine($"Preserve Mana List: Removed {slot} (Updated ManaCost).");
+                            var registeredSpellData = data.FirstOrDefault(d => d.Key == slot).Value;
+                            var actualSpellData = championSpellManaCosts[slot][spell.Level - 1];
+
+                            if (data.ContainsKey(slot) &&
+                                registeredSpellData != actualSpellData)
+                            {
+                                data.Remove(slot);
+                                Console.WriteLine($"Preserve Mana List: Removed {slot} (Updated ManaCost).");
+                            }
+
+                            if (!data.ContainsKey(slot) &&
+                                !spell.State.HasFlag(SpellState.NotLearned))
+                            {
+                                data.Add(slot, actualSpellData);
+                                Console.WriteLine($"Preserve Mana List: Added {slot}, Cost: {actualSpellData}.");
+                            }
+                        }
+                        else
+                        {
+                            if (data.ContainsKey(slot))
+                            {
+                                data.Remove(slot);
+                                Console.WriteLine($"Preserve Mana List: Removed {slot} (Disabled).");
+                            }
                         }
 
-                        if (!data.ContainsKey(slot) &&
-                            !spell.State.HasFlag(SpellState.NotLearned))
+                        var mana = UtilityClass.Player.Mana;
+
+                        var sum = data
+                            .Where(s => MenuClass.PreserveMana[s.Key.ToString().ToLower()].As<MenuBool>().Enabled)
+                            .Sum(s => s.Value);
+
+                        var spellData =
+                            championSpellManaCosts[args.Slot][UtilityClass.Player.GetSpell(args.Slot).Level - 1];
+
+                        if (!data.Keys.Contains(args.Slot) &&
+                            mana - spellData < sum)
                         {
-                            data.Add(slot, championSpellManaCosts[slot][spell.Level-1]);
-                            Console.WriteLine($"Preserve Mana List: Added {slot}, Cost: {championSpellManaCosts[slot][spell.Level-1]}.");
+                            Console.WriteLine($"Preserve Mana List: Denied Spell {args.Slot} Usage (Mana: {mana}, Cost: {spellData}), Preserve Mana Quantity: {sum}");
+                            args.Process = false;
                         }
                     }
-                    else
-                    {
-                        if (data.ContainsKey(slot))
-                        {
-                            data.Remove(slot);
-                            Console.WriteLine($"Preserve Mana List: Removed {slot} (Disabled).");
-                        }
-                    }
-                }
-
-                var sum = data
-                    .Where(d => Bools.CanUseSpell(d.Key))
-                    .Sum(s => s.Value);
-
-                if (!data.Keys.Contains(usedSlot) &&
-                    UtilityClass.Player.Mana - spellBook.GetSpell(usedSlot).Cost < sum)
-                {
-                    Console.WriteLine($"Preserve Mana List: Denied Spell {usedSlot} Usage (Mana: {UtilityClass.Player.Mana}, Cost: {spellBook.GetSpell(usedSlot).Cost}), Preserve Mana Quantity: {sum}");
-                    args.Process = false;
                 }
 
                 /// <summary>

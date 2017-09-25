@@ -696,3 +696,7 @@ ExorAIO: Revolution Changelog:
   AIO: Finally totally fixed Preserve Mana Option.
   Jhin: Better R Code.
   Ezreal: Implemented Rapid Prediction (Test it please and let me know if you prefer it over the current SDK prediction)
+
+7.18.0.7:
+  AIO: Updated RapidPrediction (Reminder: Only Ezreal uses it for now)
+  AIO: More PreserveMana fixes.
