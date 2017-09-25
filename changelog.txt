@@ -691,3 +691,8 @@ ExorAIO: Revolution Changelog:
 7.18.0.5:
   AIO: Preserve Mana Logic fix.
   Tristana: Fixed a bug where she would focus a minion in combo if it had the E charge.
+
+7.18.0.6:
+  AIO: Finally totally fixed Preserve Mana Option.
+  Jhin: Better R Code.
+  Ezreal: Implemented Rapid Prediction (Test it please and let me know if you prefer it over the current SDK prediction)
