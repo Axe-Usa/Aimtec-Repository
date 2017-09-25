@@ -52,7 +52,7 @@ namespace NabbTracker
                     {
                         Render.Line(xOffset - 76, yOffset + 20, xOffset - 76 + (float)(1.32 * expPercent), yOffset + 20, 7, true, Colors.GetRealColor(Color.Red));
                     }
-                    Render.Text(xOffset - 13, yOffset + 17, Colors.GetRealColor(Color.Yellow), expPercent > 0 ? expPercent + "%" : "0%");
+                    Render.Text(expPercent > 0 ? expPercent + "%" : "0%", new Vector2(xOffset - 13, yOffset + 17), RenderTextFlags.None, Colors.GetRealColor(Color.Yellow));
                 }
             }
         }

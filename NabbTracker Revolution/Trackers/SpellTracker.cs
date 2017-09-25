@@ -38,25 +38,25 @@ namespace NabbTracker
                     var spellColor = UtilityClass.GetUnitSpellStateColor(unit, spell);
                     var spellCooldown = UtilityClass.GetUnitSpellCooldown(unit, spell);
 
-                    Render.Text(xSpellOffset, ySpellOffset, Colors.GetRealColor(spellColor), spellCooldown);
+                    Render.Text(spellCooldown, new Vector2(xSpellOffset, ySpellOffset), RenderTextFlags.None, Colors.GetRealColor(spellColor));
 
                     for (var level = 0; level <= unit.SpellBook.GetSpell(UtilityClass.SpellSlots[spell]).Level - 1; level++)
                     {
                         var xLevelOffset = xSpellOffset + level * 3 - 4;
                         var yLevelOffset = ySpellOffset + 4;
 
-                        Render.Text(xLevelOffset, yLevelOffset, Color.White, ".");
+                        Render.Text(".", new Vector2(xLevelOffset, yLevelOffset), RenderTextFlags.None, Color.White);
                     }
                 }
 
                 for (var summonerSpell = 0; summonerSpell < UtilityClass.SummonerSpellSlots.Length; summonerSpell++)
                 {
-                    var xSummonerSpellOffset = (int)unit.FloatingHealthBarPosition.X + UtilityClass.SummonerSpellXAdjustment(unit) + summonerSpell * 88;
+                    var xSummonerSpellOffset = (int)unit.FloatingHealthBarPosition.X-20 + UtilityClass.SummonerSpellXAdjustment(unit) + summonerSpell * 100;
                     var ySummonerSpellOffset = (int)unit.FloatingHealthBarPosition.Y + UtilityClass.SummonerSpellYAdjustment(unit);
                     var summonerSpellColor = UtilityClass.GetUnitSummonerSpellStateColor(unit, summonerSpell);
                     var summonerSpellCooldown = UtilityClass.GetUnitSummonerSpellFixedName(unit, summonerSpell) + ": " + UtilityClass.GetUnitSummonerSpellCooldown(unit, summonerSpell);
 
-                    Render.Text(xSummonerSpellOffset, ySummonerSpellOffset, Colors.GetRealColor(summonerSpellColor), summonerSpellCooldown);
+                    Render.Text(summonerSpellCooldown, new Vector2(xSummonerSpellOffset, ySummonerSpellOffset), RenderTextFlags.None, Colors.GetRealColor(summonerSpellColor));
                 }
             }
         }
