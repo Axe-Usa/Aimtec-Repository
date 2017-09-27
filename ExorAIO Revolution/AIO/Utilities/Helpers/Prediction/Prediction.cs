@@ -17,12 +17,15 @@
             var result = new PredictionOutput();
 
             var input = spell.GetPredictionInput(unit);
+            if (input == null || !input.Unit.IsValidTarget())
+            {
+                return result;
+            }
 
-            if (input == null) return result;
-
-            if (!input.Unit.IsValidTarget()) return result;
-
-            if (input.Unit.IsMoving) return GetMovementPrediction(spell, input);
+            if (input.Unit.IsMoving)
+            {
+                return GetMovementPrediction(spell, input);
+            }
 
             return spell.GetPrediction(unit);
         }
@@ -46,25 +49,32 @@
 
                 var toUnit = (unitPosition - input.From).Normalized();
                 var cosTheta = Vector3.Dot(direction, toUnit);
+                var calculation = 1 - Math.Abs(cosTheta);
+                var castDirection = cosTheta > 0 ? -direction : direction;
 
-                unitPosition = unitPosition - direction * ((input.Unit.BoundingRadius + input.Radius) * cosTheta);
+                unitPosition = unitPosition + castDirection * input.Unit.BoundingRadius;
+                unitPosition = unitPosition + castDirection * (calculation * (input.Radius * 0.5f));
 
                 var unitDistance = input.From.Distance(unitPosition);
 
-                var a = Vector3.Dot(velocity, velocity) - (input.Speed == float.MaxValue
+                var a = Vector3.Dot(velocity, velocity) - (Math.Abs(input.Speed - float.MaxValue) < 0
                             ? float.MaxValue
                             : (float)Math.Pow(input.Speed, 2));
 
-                var b = 2 * unitDistance * input.Unit.MoveSpeed * (cosTheta == 0 ? 0.1f : cosTheta);
+                var b = 2 * unitDistance * input.Unit.MoveSpeed * (Math.Abs(cosTheta) <= 0 ? 0.1f : cosTheta);
                 var c = (float)Math.Pow(unitDistance, 2);
 
                 var discriminant = b * b - 4f * a * c;
-
-                if (discriminant < 0) return new PredictionOutput { HitChance = HitChance.OutOfRange };
+                if (discriminant < 0)
+                {
+                    return new PredictionOutput { HitChance = HitChance.OutOfRange };
+                }
 
                 var impactTime = 2f * c / ((float)Math.Sqrt(discriminant) - b);
-
-                if (impactTime < 0) return new PredictionOutput { HitChance = HitChance.None };
+                if (impactTime < 0)
+                {
+                    return new PredictionOutput { HitChance = HitChance.None };
+                }
 
                 if (remainingLength / input.Unit.MoveSpeed < impactTime)
                 {
@@ -74,13 +84,16 @@
 
                 unitPosition = input.Unit.ServerPosition + velocity * impactTime;
 
-                var checkPosition = unitPosition + direction * input.Delay;
-                checkPosition = checkPosition + direction * input.Unit.BoundingRadius;
+                var checkPosition = unitPosition + direction * input.Delay + castDirection * (input.Unit.BoundingRadius + input.Radius);
                 if (input.From.Distance(checkPosition) > input.Range)
+                {
                     return new PredictionOutput { HitChance = HitChance.OutOfRange };
+                }
             }
 
-            var collisionObjects = Collision.GetCollision(new List<Vector3> { unitPosition }, input);
+            var collisionObjects = Collision.GetCollision(
+                    new List<Vector3> { input.Unit.ServerPosition, unitPosition },
+                    input);
 
             return new PredictionOutput
             {

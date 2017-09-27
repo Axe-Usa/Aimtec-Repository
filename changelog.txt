@@ -703,3 +703,7 @@ ExorAIO: Revolution Changelog:
  
 7.19.0.0:
   Orianna: Updated for 7.19 Updates.
+  
+7.19.0.1:
+  AIO: Updated RapidPrediction (Reminder: Only Ezreal uses it for now)
+  Kog'Maw: Fixed a little menu warning.
