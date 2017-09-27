@@ -279,10 +279,6 @@ namespace AIO.Champions
             /// </summary>
             switch (ImplementationClass.IOrbwalker.Mode)
             {
-                case OrbwalkingMode.Combo:
-                    Combo();
-                    break;
-
                 case OrbwalkingMode.Mixed:
                     Harass();
                     break;

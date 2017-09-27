@@ -707,3 +707,8 @@ ExorAIO: Revolution Changelog:
 7.19.0.1:
   AIO: Updated RapidPrediction (Reminder: Only Ezreal uses it for now)
   Kog'Maw: Fixed a little menu warning.
+  
+7.19.0.2:
+  Evelynn: Fixed AoE R.
+  Caitlyn: Removed useless W option.
+  Caitlyn: Fixed E.

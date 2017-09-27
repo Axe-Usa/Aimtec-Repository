@@ -37,7 +37,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 if (heroTarget.IsValidTarget(SpellClass.E.Range - 250f) &&
-                    heroTarget.Distance(SpellClass.E.GetPrediction(heroTarget).CastPosition) < SpellClass.E.Range - 250f)
+                    heroTarget.Distance(SpellClass.E.GetPrediction(heroTarget).CastPosition) < SpellClass.E.Range - 300f)
                 {
                     SpellClass.E.Cast(heroTarget);
                 }

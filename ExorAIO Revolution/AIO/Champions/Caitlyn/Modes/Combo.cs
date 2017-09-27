@@ -19,19 +19,7 @@ namespace AIO.Champions
         /// </summary>
         public void Combo()
         {
-            /// <summary>
-            ///     The W Combo Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
-            {
-                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
-                if (heroTarget != null &&
-                    !Invulnerable.Check(heroTarget, DamageType.Magical, false))
-                {
-                    SpellClass.W.Cast(heroTarget);
-                }
-            }
+
         }
 
         #endregion
