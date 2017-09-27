@@ -700,3 +700,6 @@ ExorAIO: Revolution Changelog:
 7.18.0.7:
   AIO: Updated RapidPrediction (Reminder: Only Ezreal uses it for now)
   AIO: More PreserveMana fixes.
+ 
+7.19.0.0:
+  Orianna: Updated for 7.19 Updates.
