@@ -718,3 +718,9 @@ ExorAIO: Revolution Changelog:
   Miss Fortune: Tentative R Interrupt fix.
   Lucian: Added E Menu Options.
   Vayne: Added No Q Under Enemy Turret Option.
+
+7.19.0.4:
+  AIO: Preserve Mana Logic Improvement.
+  Miss Fortune: Reworked Bouncing logics.
+  Miss Fortune: Added Normal Q Harass with manamanager
+  Miss Fortune: Added Customization menu for Extended Q, now you can select whether to only use Q if minion Killable in Combo and Harass.
