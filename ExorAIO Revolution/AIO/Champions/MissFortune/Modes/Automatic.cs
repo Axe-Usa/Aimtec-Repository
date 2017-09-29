@@ -25,7 +25,6 @@ namespace AIO.Champions
             if (passiveObject != null)
             {
                 var passiveUnit = ObjectManager.Get<AttackableUnit>()
-                    .Where(m => m.IsValidTarget())
                     .MinBy(o => o.Distance(passiveObject));
 
                 LoveTapTargetNetworkId = passiveUnit?.NetworkId ?? 0;

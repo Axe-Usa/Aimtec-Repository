@@ -42,7 +42,7 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the Whitelist menu for the Q.
                         /// </summary>
-                        MenuClass.WhiteList = new Menu("whitelist", "Extended: Whitelist");
+                        MenuClass.WhiteList = new Menu("whitelist", "Harass: Whitelist");
                         {
                             //MenuClass.WhiteList.Add(new MenuSeperator("extendedsep", "Note: The Whitelist only works for Mixed and Laneclear."));
                             foreach (var target in GameObjects.EnemyHeroes)

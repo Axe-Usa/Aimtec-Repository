@@ -1,5 +1,4 @@
 
-using System;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -75,7 +74,6 @@ namespace AIO.Champions
             if (sender.IsMe &&
                 buff.Name == "missfortunebulletsound")
             {
-                Console.WriteLine("lol");
                 ImplementationClass.IOrbwalker.MovingEnabled = true;
             }
         }

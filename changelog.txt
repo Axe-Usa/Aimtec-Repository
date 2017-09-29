@@ -724,3 +724,9 @@ ExorAIO: Revolution Changelog:
   Miss Fortune: Reworked Bouncing logics.
   Miss Fortune: Added Normal Q Harass with manamanager
   Miss Fortune: Added Customization menu for Extended Q, now you can select whether to only use Q if minion Killable in Combo and Harass.
+
+7.19.0.5:
+  Miss Fortune: More logic fixes.
+  Miss Fortune: Fixed Spell Ranges.
+  Miss Fortune: Removed debug.
+  Lucian: Fixed Nullref console spam.

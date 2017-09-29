@@ -140,6 +140,7 @@ namespace AIO.Champions
                         {
                             MenuClass.E2.Add(new MenuSeperator("exseparator", "Don't E if pos has >= / No enemies found, no need for a position range check."));
                         }
+                        MenuClass.E2.Add(new MenuBool("noeturret", "Don't use E under Enemy Turret", false));
                     }
                     MenuClass.E.Add(MenuClass.E2);
                 }

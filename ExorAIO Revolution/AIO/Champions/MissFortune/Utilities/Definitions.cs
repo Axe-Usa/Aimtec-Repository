@@ -67,7 +67,7 @@ namespace AIO.Champions
                 targetPos,
                 targetPos.Extend(UtilityClass.Player.ServerPosition, -rangeDiff),
                 SpellClass.Q2.Width,
-                rangeDiff - 50f);
+                rangeDiff - target.BoundingRadius);
         }
 
         #endregion
