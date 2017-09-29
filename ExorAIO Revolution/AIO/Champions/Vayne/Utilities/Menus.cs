@@ -56,6 +56,7 @@ namespace AIO.Champions
                             MenuClass.Q2.Add(new MenuSeperator("exseparator", "Don't Q if pos has >= / No enemies found, no need for a position range check."));
                         }
                         MenuClass.Q2.Add(new MenuBool("wstacks", "Use Q only to proc 3rd W Ring", false));
+                        MenuClass.Q2.Add(new MenuBool("noqturret", "Don't use Q under Enemy Turret", false));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
                 }

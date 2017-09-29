@@ -712,3 +712,9 @@ ExorAIO: Revolution Changelog:
   Evelynn: Fixed AoE R.
   Caitlyn: Removed useless W option.
   Caitlyn: Fixed E.
+
+7.19.0.3:
+  Ezreal: Q and W usage is back to normal fast combos.
+  Miss Fortune: Tentative R Interrupt fix.
+  Lucian: Added E Menu Options.
+  Vayne: Added No Q Under Enemy Turret Option.

@@ -1,4 +1,5 @@
 
+using System;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -52,10 +53,30 @@ namespace AIO.Champions
         {
             if (sender.IsMe)
             {
-                if (IsUltimateShooting())
+                if (args.Slot == SpellSlot.R &&
+                    !IsUltimateShooting())
+                {
+                    ImplementationClass.IOrbwalker.MovingEnabled = false;
+                }
+                else if (IsUltimateShooting())
                 {
                     args.Process = false;
                 }
+            }
+        }
+
+        /// <summary>
+        ///     Fired on spell cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="buff">The buff.</param>
+        public void OnRemoveBuff(Obj_AI_Base sender, Buff buff)
+        {
+            if (sender.IsMe &&
+                buff.Name == "missfortunebulletsound")
+            {
+                Console.WriteLine("lol");
+                ImplementationClass.IOrbwalker.MovingEnabled = true;
             }
         }
 

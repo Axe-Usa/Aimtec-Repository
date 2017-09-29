@@ -104,6 +104,25 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuSliderBool("harass", "Harass / if Mana >= %", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the E spell.
+                    /// </summary>
+                    MenuClass.E2 = new Menu("customization", "Customization:");
+                    {
+                        MenuClass.E2.Add(new MenuBool("noeoutaarange", "Don't E out of AA range from target", false));
+                        if (GameObjects.EnemyHeroes.Any())
+                        {
+                            var count = GameObjects.EnemyHeroes.Count();
+                            MenuClass.E2.Add(new MenuSliderBool("erangecheck", "Don't E if pos has >= X enemies in range", false, count >= 3 ? 3 : count, 1, GameObjects.EnemyHeroes.Count()));
+                        }
+                        else
+                        {
+                            MenuClass.E2.Add(new MenuSeperator("exseparator", "Don't E if pos has >= / No enemies found, no need for a position range check."));
+                        }
+                        MenuClass.E2.Add(new MenuBool("noeturret", "Don't use E under Enemy Turret", false));
+                    }
+                    MenuClass.E.Add(MenuClass.E2);
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 

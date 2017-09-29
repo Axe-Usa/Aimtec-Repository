@@ -21,6 +21,7 @@ namespace AIO.Champions
             SpellBook.OnCastSpell += OnCastSpell;
             Render.OnPresent += OnPresent;
             Gapcloser.OnGapcloser += OnGapcloser;
+            BuffManager.OnRemoveBuff += OnRemoveBuff;
         }
 
         #endregion

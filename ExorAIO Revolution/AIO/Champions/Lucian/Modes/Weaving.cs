@@ -63,6 +63,12 @@ namespace AIO.Champions
                             return;
                         }
 
+                        if (posAfterE.PointUnderEnemyTurret() &&
+                            MenuClass.Spells["e"]["customization"]["noeturret"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+
                         switch (MenuClass.Spells["e"]["mode"].As<MenuList>().Value)
                         {
                             case 0:
@@ -159,8 +165,14 @@ namespace AIO.Champions
                         }
 
                         if (posAfterE.Distance(heroTarget) >
-                            UtilityClass.Player.GetFullAttackRange(heroTarget) &&
+                                UtilityClass.Player.GetFullAttackRange(heroTarget) &&
                             MenuClass.Spells["e"]["customization"]["noeoutaarange"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+
+                        if (posAfterE.PointUnderEnemyTurret() &&
+                            MenuClass.Spells["e"]["customization"]["noeturret"].As<MenuBool>().Enabled)
                         {
                             return;
                         }

@@ -65,6 +65,12 @@ namespace AIO.Champions
                     return;
                 }
 
+                if (posAfterQ.PointUnderEnemyTurret() &&
+                    MenuClass.Spells["q"]["customization"]["noqturret"].As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 SpellClass.Q.Cast(Game.CursorPos);
             }
         }
