@@ -168,17 +168,18 @@ namespace AIO
                             }
                         }
 
-                        var mana = UtilityClass.Player.Mana;
-
                         var sum = data
                             .Where(s => MenuClass.PreserveMana[s.Key.ToString().ToLower()].As<MenuBool>().Enabled)
                             .Sum(s => s.Value);
+                        if (sum <= 0)
+                        {
+                            return;
+                        }
 
                         var spellData =
                             championSpellManaCosts[args.Slot][UtilityClass.Player.GetSpell(args.Slot).Level - 1];
-
-                        if (!data.Keys.Contains(args.Slot) &&
-                            mana - spellData < sum)
+                        var mana = UtilityClass.Player.Mana;
+                        if (!data.Keys.Contains(args.Slot) && mana - spellData < sum)
                         {
                             Console.WriteLine($"Preserve Mana List: Denied Spell {args.Slot} Usage (Mana: {mana}, Cost: {spellData}), Preserve Mana Quantity: {sum}");
                             args.Process = false;

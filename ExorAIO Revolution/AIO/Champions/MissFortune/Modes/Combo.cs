@@ -1,8 +1,8 @@
 
-using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -23,24 +23,23 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
-            ///     The Extended Q Mixed Harass Logic.
+            ///     The Extended Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["extendedq"]["combo"].As<MenuBool>().Enabled)
+                MenuClass.Spells["q2"]["combo"].As<MenuBool>().Enabled)
             {
-                var unitsInQRange = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
-                var unitsToIterate = unitsInQRange.Where(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q));
+                var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
+                unitsToIterate = MenuClass.Spells["q2"]["customization"]["combo"].As<MenuBool>().Enabled
+                    ? unitsToIterate.Where(m => m.Health <= UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
+                    : unitsToIterate;
 
-                var objAiBases = unitsToIterate as IList<Obj_AI_Base> ?? unitsToIterate.ToList();
-                foreach (var hero in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range))
+                foreach (var enemy in GameObjects.EnemyHeroes.Where(t =>
+                    t.IsValidTarget(SpellClass.Q2.Range) &&
+                    MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
-                    foreach (var minion in objAiBases)
+                    foreach (var minion in unitsToIterate.OrderBy(t => t.Health))
                     {
-                        var polygon = QCone(minion);
-                        if (polygon.IsInside((Vector2)hero.ServerPosition) &&
-                            MenuClass.Spells["extendedq"]["whitelist"][hero.ChampionName.ToLower()].Enabled &&
-                            (LoveTapTargetNetworkId == hero.NetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
-                            polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(hero).CastPosition))
+                        if (QCone(minion).IsInside((Vector2)enemy.ServerPosition))
                         {
                             SpellClass.Q.CastOnUnit(minion);
                         }

@@ -1,9 +1,9 @@
 
-using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Damage.JSON;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -27,43 +27,26 @@ namespace AIO.Champions
             ///     The Q Killsteal Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                MenuClass.Spells["extendedq"]["killsteal"].As<MenuBool>().Enabled)
+                MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var unitsInQRange = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
-                var unitsToIterateIfPlayerNormallyKillable =
-                    unitsInQRange.Any(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q))
-                        ? unitsInQRange.Where(m => m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
-                        : unitsInQRange.ToList();
-                var unitsToIterateIfPlayerEmpoweredKillable =
-                        unitsToIterateIfPlayerNormallyKillable.Where(u => u.GetRealHealth() < UtilityClass.Player.GetSpellDamage(u, SpellSlot.Q)).ToList();
-
-                List<Obj_AI_Base> unitsToIterate = null;
-                var heroMultiplier = GetHeroLoveTapDamageMultiplier();
-                foreach (var hero in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range))
+                var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
+                foreach (var enemy in GameObjects.EnemyHeroes.Where(t =>
+                    t.IsValidTarget(SpellClass.Q2.Range) &&
+                    t.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q, DamageStage.Empowered)))
                 {
-                    if (UtilityClass.Player.GetSpellDamage(hero, SpellSlot.Q) + heroMultiplier >= hero.GetRealHealth())
-                    {
-                        unitsToIterate = unitsToIterateIfPlayerNormallyKillable;
-                    }
-                    else if (UtilityClass.Player.GetSpellDamage(hero, SpellSlot.Q, DamageStage.Empowered) + heroMultiplier >= hero.GetRealHealth())
-                    {
-                        unitsToIterate = unitsToIterateIfPlayerEmpoweredKillable;
-                    }
+                    var damageStage = enemy.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.Q)
+                        ? DamageStage.Default
+                        : DamageStage.Empowered;
 
-                    if (unitsToIterate != null)
+                    unitsToIterate = damageStage == DamageStage.Empowered
+                        ? unitsToIterate.Where(m => m.Health <= UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
+                        : unitsToIterate;
+
+                    foreach (var minion in unitsToIterate.OrderBy(t => t.Health))
                     {
-                        foreach (var minion in unitsToIterate)
+                        if (QCone(minion).IsInside((Vector2)enemy.ServerPosition))
                         {
-                            var polygon = QCone(minion);
-                            if (polygon.IsInside((Vector2)hero.ServerPosition) &&
-                                (LoveTapTargetNetworkId == hero.NetworkId || GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition))) &&
-                                polygon.IsInside((Vector2)SpellClass.Q.GetPrediction(hero).CastPosition))
-                            {
-                                if (UtilityClass.Player.GetSpellDamage(hero, SpellSlot.Q, DamageStage.Empowered) >= hero.GetRealHealth())
-                                {
-                                    SpellClass.Q.CastOnUnit(minion);
-                                }
-                            }
+                            SpellClass.Q.CastOnUnit(minion);
                         }
                     }
                 }

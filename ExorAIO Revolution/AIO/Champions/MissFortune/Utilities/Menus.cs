@@ -33,26 +33,16 @@ namespace AIO.Champions
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("killsteal", "Killsteal"));
+                    MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= %", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                }
-                MenuClass.Spells.Add(MenuClass.Q);
-
-                /// <summary>
-                ///     Sets the Extended Q menu.
-                /// </summary>
-                MenuClass.Q3 = new Menu("extendedq", "Use Extended Q in:");
-                {
-                    MenuClass.Q3.Add(new MenuBool("combo", "Combo"));
-                    MenuClass.Q3.Add(new MenuBool("killsteal", "Killsteal"));
-                    MenuClass.Q3.Add(new MenuSliderBool("mixed", "Harass / if Mana >= %", true, 50, 0, 99));
 
                     if (GameObjects.EnemyHeroes.Any())
                     {
                         /// <summary>
-                        ///     Sets the Whitelist menu for the Extended Q.
+                        ///     Sets the Whitelist menu for the Q.
                         /// </summary>
-                        MenuClass.WhiteList = new Menu("whitelist", "Extended Harass: Whitelist");
+                        MenuClass.WhiteList = new Menu("whitelist", "Extended: Whitelist");
                         {
                             //MenuClass.WhiteList.Add(new MenuSeperator("extendedsep", "Note: The Whitelist only works for Mixed and Laneclear."));
                             foreach (var target in GameObjects.EnemyHeroes)
@@ -60,14 +50,55 @@ namespace AIO.Champions
                                 MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
                             }
                         }
-                        MenuClass.Q3.Add(MenuClass.WhiteList);
+                        MenuClass.Q.Add(MenuClass.WhiteList);
                     }
                     else
                     {
-                        MenuClass.Q3.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
-                MenuClass.Spells.Add(MenuClass.Q3);
+                MenuClass.Spells.Add(MenuClass.Q);
+
+                /// <summary>
+                ///     Sets the Extended Q menu.
+                /// </summary>
+                MenuClass.Q2 = new Menu("q2", "Use Extended Q in:");
+                {
+                    MenuClass.Q2.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.Q2.Add(new MenuBool("killsteal", "Killsteal"));
+                    MenuClass.Q2.Add(new MenuSliderBool("harass", "Harass / if Mana >= %", true, 50, 0, 99));
+
+                    /// <summary>
+                    ///     Sets the customization menu for the Q2 spell.
+                    /// </summary>
+                    MenuClass.Q3 = new Menu("customization", "Customization:");
+                    {
+                        MenuClass.Q3.Add(new MenuBool("combo", "Combo: Only if minion killable"));
+                        MenuClass.Q3.Add(new MenuBool("harass", "Harass: Only if minion killable"));
+                    }
+                    MenuClass.Q2.Add(MenuClass.Q3);
+
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the Whitelist menu for the Extended Q.
+                        /// </summary>
+                        MenuClass.WhiteList2 = new Menu("whitelist", "Extended: Whitelist");
+                        {
+                            //MenuClass.WhiteList.Add(new MenuSeperator("extendedsep", "Note: The Whitelist only works for Mixed and Laneclear."));
+                            foreach (var target in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                            }
+                        }
+                        MenuClass.Q2.Add(MenuClass.WhiteList2);
+                    }
+                    else
+                    {
+                        MenuClass.Q2.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                    }
+                }
+                MenuClass.Spells.Add(MenuClass.Q2);
 
                 /// <summary>
                 ///     Sets the menu for the W.
@@ -139,15 +170,15 @@ namespace AIO.Champions
                         /// <summary>
                         ///     Sets the menu for the R Whitelist.
                         /// </summary>
-                        MenuClass.WhiteList2 = new Menu("whitelist", "Ultimate: Whitelist");
+                        MenuClass.WhiteList3 = new Menu("whitelist", "Ultimate: Whitelist");
                         {
                             foreach (var target in GameObjects.EnemyHeroes)
                             {
-                                MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
+                                MenuClass.WhiteList3.Add(new MenuBool(target.ChampionName.ToLower(), "Use against: " + target.ChampionName));
                             }
                         }
 
-                        MenuClass.R.Add(MenuClass.WhiteList2);
+                        MenuClass.R.Add(MenuClass.WhiteList3);
                     }
                     else
                     {
