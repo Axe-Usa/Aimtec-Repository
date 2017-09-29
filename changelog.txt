@@ -730,3 +730,6 @@ ExorAIO: Revolution Changelog:
   Miss Fortune: Fixed Spell Ranges.
   Miss Fortune: Removed debug.
   Lucian: Fixed Nullref console spam.
+
+7.19.0.6:
+  AIO: More target selection fixes.

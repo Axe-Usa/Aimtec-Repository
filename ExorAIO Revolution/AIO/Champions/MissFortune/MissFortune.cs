@@ -170,7 +170,7 @@ namespace AIO.Champions
                         UtilityClass.Player.GetAutoAttackDamage(orbTarget) *
                         MenuClass.Miscellaneous["focusp"].As<MenuSliderBool>().Value)
                 {
-                    ImplementationClass.IOrbwalker.ForceTarget(forceTarget);
+                    args.Target = forceTarget;
                 }
             }
         }
