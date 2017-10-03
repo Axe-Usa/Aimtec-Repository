@@ -56,7 +56,7 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Sets the Extended Q menu.
                 /// </summary>
-                MenuClass.Q3 = new Menu("extendedq", "Use Extended Q in:");
+                MenuClass.Q3 = new Menu("q2", "Use Extended Q in:");
                 {
                     MenuClass.Q3.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q3.Add(new MenuBool("killsteal", "Killsteal"));

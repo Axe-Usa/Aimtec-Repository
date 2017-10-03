@@ -48,10 +48,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aimtec">
+    <Reference Include="Aimtec, Version=1.0.6481.35674, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\Enrico\AppData\Local\AimtecLoader\Data\System\Aimtec.dll</HintPath>
     </Reference>
-    <Reference Include="Aimtec.SDK, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Aimtec.SDK, Version=1.0.1.37, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\Enrico\AppData\Local\AimtecLoader\Data\System\Aimtec.SDK.dll</HintPath>
     </Reference>
@@ -179,6 +180,7 @@
     <Compile Include="AIO\Champions\Ahri\Utilities\Methods.cs" />
     <Compile Include="AIO\Champions\Ahri\Utilities\Spells.cs" />
     <Compile Include="AIO\Champions\Kalista\Utilities\Definitions.cs" />
+    <Compile Include="AIO\Champions\Lucian\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\MissFortune\MissFortune.cs" />
     <Compile Include="AIO\Champions\MissFortune\Modes\Automatic.cs" />
     <Compile Include="AIO\Champions\MissFortune\Modes\Buildingclear.cs" />

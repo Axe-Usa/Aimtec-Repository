@@ -151,7 +151,7 @@ namespace AIO.Utilities
 
         public static Vector3 SwitchZy(this Vector3 v)
         {
-            return new Vector3(v.X, v.Y, v.Z);
+            return new Vector3(v.X, v.Z, v.Y);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace AIO.Utilities
             var polygon = new Polygon();
             foreach (var point in v)
             {
-                polygon.Add(new Vector2(point.X, point.Y));
+                polygon.Add(new Vector3(point.X, point.Y, point.Z));
             }
 
             return polygon;
@@ -201,7 +201,7 @@ namespace AIO.Utilities
         {
             #region Fields
 
-            public Vector2 Center;
+            public Vector3 Center;
 
             public float Radius;
 
@@ -209,7 +209,7 @@ namespace AIO.Utilities
 
             #region Constructors and Destructors
 
-            public Circle(Vector2 center, float radius)
+            public Circle(Vector3 center, float radius)
             {
                 Center = center;
                 Radius = radius;
@@ -222,15 +222,14 @@ namespace AIO.Utilities
             public Polygon ToPolygon(int offset = 0, float overrideWidth = -1)
             {
                 var result = new Polygon();
-                var outRadius = overrideWidth > 0
-                                    ? overrideWidth
-                                    : (offset + Radius) / (float)Math.Cos(2 * Math.PI / CircleLineSegmentN);
+                var outRadius = overrideWidth > 0 ? overrideWidth : (offset + Radius) / (float)Math.Cos(2 * Math.PI / CircleLineSegmentN);
                 for (var i = 1; i <= CircleLineSegmentN; i++)
                 {
                     var angle = i * 2 * Math.PI / CircleLineSegmentN;
-                    var point = new Vector2(
+                    var point = new Vector3(
                         Center.X + outRadius * (float)Math.Cos(angle),
-                        Center.Y + outRadius * (float)Math.Sin(angle));
+                        Center.Y,
+                        Center.Z + outRadius * (float)Math.Sin(angle));
                     result.Add(point);
                 }
 
@@ -244,13 +243,13 @@ namespace AIO.Utilities
         {
             #region Fields
 
-            public List<Vector2> Points = new List<Vector2>();
+            public List<Vector3> Points = new List<Vector3>();
 
             #endregion
 
             #region Public Methods and Operators
 
-            public void Add(Vector2 point)
+            public void Add(Vector3 point)
             {
                 Points.Add(point);
             }
@@ -260,7 +259,7 @@ namespace AIO.Utilities
                 for (var i = 0; i <= Points.Count - 1; i++)
                 {
                     var nextIndex = Points.Count - 1 == i ? 0 : i + 1;
-                    Util.DrawLineInWorld((Vector3)Points[i], (Vector3)Points[nextIndex], width, color);
+                    Util.DrawLineInWorld(Points[i], Points[nextIndex], width, color);
                 }
             }
 
@@ -296,12 +295,12 @@ namespace AIO.Utilities
             /// <summary>
             ///     The end
             /// </summary>
-            public Vector2 End;
+            public Vector3 End;
 
             /// <summary>
             ///     The start
             /// </summary>
-            public Vector2 Start;
+            public Vector3 Start;
 
             /// <summary>
             ///     The width
@@ -318,7 +317,7 @@ namespace AIO.Utilities
             /// <param name="start">The start.</param>
             /// <param name="end">The end.</param>
             /// <param name="width">The width.</param>
-            public Rectangle(Vector2 start, Vector2 end, float width)
+            public Rectangle(Vector3 start, Vector3 end, float width)
             {
                 Start = start;
                 End = end;
@@ -336,7 +335,7 @@ namespace AIO.Utilities
             /// <value>
             ///     The direction.
             /// </value>
-            public Vector2 Direction()
+            public Vector3 Direction()
             {
                 return (End - Start).Normalized();
             }
@@ -347,7 +346,7 @@ namespace AIO.Utilities
             /// <value>
             ///     The perpendicular.
             /// </value>
-            public Vector2 Perpendicular()
+            public Vector3 Perpendicular()
             {
                 return Direction().Perpendicular();
             }
@@ -359,19 +358,14 @@ namespace AIO.Utilities
             /// <param name="overrideWidth">Width of the override.</param>
             public void UpdatePolygon(int offset = 0, float overrideWidth = -1)
             {
+                var getWidth = (overrideWidth > 0 ? overrideWidth : Width + offset);
+                var pos = offset * Direction();
+
                 Points.Clear();
-                Points.Add(
-                    Start + (overrideWidth > 0 ? overrideWidth : Width + offset) * Perpendicular()
-                    - offset * Direction());
-                Points.Add(
-                    Start - (overrideWidth > 0 ? overrideWidth : Width + offset) * Perpendicular()
-                    - offset * Direction());
-                Points.Add(
-                    End - (overrideWidth > 0 ? overrideWidth : Width + offset) * Perpendicular()
-                    + offset * Direction());
-                Points.Add(
-                    End + (overrideWidth > 0 ? overrideWidth : Width + offset) * Perpendicular()
-                    + offset * Direction());
+                Points.Add(Start + getWidth * Perpendicular() - pos);
+                Points.Add(Start - getWidth * Perpendicular() - pos);
+                Points.Add(End - getWidth * Perpendicular() + pos);
+                Points.Add(End + getWidth * Perpendicular() + pos);
             }
 
             #endregion
@@ -381,7 +375,7 @@ namespace AIO.Utilities
         {
             #region Fields
 
-            public Vector2 Center;
+            public Vector3 Center;
 
             public float Radius;
 
@@ -391,7 +385,7 @@ namespace AIO.Utilities
 
             #region Constructors and Destructors
 
-            public Ring(Vector2 center, float radius, float ringRadius)
+            public Ring(Vector3 center, float radius, float ringRadius)
             {
                 Center = center;
                 Radius = radius;
@@ -405,23 +399,24 @@ namespace AIO.Utilities
             public Polygon ToPolygon(int offset = 0)
             {
                 var result = new Polygon();
-                var outRadius = (offset + Radius + RingRadius)
-                                / (float)Math.Cos(2 * Math.PI / CircleLineSegmentN);
+                var outRadius = (offset + Radius + RingRadius) / (float)Math.Cos(2 * Math.PI / CircleLineSegmentN);
                 var innerRadius = Radius - RingRadius - offset;
                 for (var i = 0; i <= CircleLineSegmentN; i++)
                 {
                     var angle = i * 2 * Math.PI / CircleLineSegmentN;
-                    var point = new Vector2(
+                    var point = new Vector3(
                         Center.X - outRadius * (float)Math.Cos(angle),
-                        Center.Y - outRadius * (float)Math.Sin(angle));
+                        Center.Y,
+                        Center.Z - outRadius * (float)Math.Sin(angle));
                     result.Add(point);
                 }
                 for (var i = 0; i <= CircleLineSegmentN; i++)
                 {
                     var angle = i * 2 * Math.PI / CircleLineSegmentN;
-                    var point = new Vector2(
+                    var point = new Vector3(
                         Center.X + innerRadius * (float)Math.Cos(angle),
-                        Center.Y - innerRadius * (float)Math.Sin(angle));
+                        Center.Y,
+                        Center.Z - innerRadius * (float)Math.Sin(angle));
                     result.Add(point);
                 }
 
@@ -446,12 +441,12 @@ namespace AIO.Utilities
             /// <summary>
             ///     The center
             /// </summary>
-            public Vector2 Center;
+            public Vector3 Center;
 
             /// <summary>
             ///     The direction
             /// </summary>
-            public Vector2 Direction;
+            public Vector3 Direction;
 
             /// <summary>
             ///     The radius
@@ -475,7 +470,7 @@ namespace AIO.Utilities
             /// <param name="angle">The angle.</param>
             /// <param name="radius">The radius.</param>
             /// <param name="quality">The quality.</param>
-            public Sector(Vector2 center, Vector2 direction, float angle, float radius, int quality = 20)
+            public Sector(Vector3 center, Vector3 direction, float angle, float radius, int quality = 20)
             {
                 Center = center;
                 Direction = (direction - center).Normalized();
@@ -502,10 +497,10 @@ namespace AIO.Utilities
                 var angle = !radian ? value * Math.PI / 180 : value;
                 var line = Vector2.Subtract(point2, point1);
                 var newline = new Vector2
-                                  {
-                                      X = (float)(line.X * Math.Cos(angle) - line.Y * Math.Sin(angle)),
-                                      Y = (float)(line.X * Math.Sin(angle) + line.Y * Math.Cos(angle))
-                                  };
+                {
+                    X = (float)(line.X * Math.Cos(angle) - line.Y * Math.Sin(angle)),
+                    Y = (float)(line.X * Math.Sin(angle) + line.Y * Math.Cos(angle))
+                };
                 return Vector2.Add(newline, point1);
             }
 
@@ -523,7 +518,10 @@ namespace AIO.Utilities
                 {
                     var cDirection = side1.Rotated(i * Angle / _quality).Normalized();
                     Points.Add(
-                        new Vector2(Center.X + outRadius * cDirection.X, Center.Y + outRadius * cDirection.Y));
+                        new Vector3(
+                            Center.X + outRadius * cDirection.X,
+                            Center.Y,
+                            Center.Z + outRadius * cDirection.Z));
                 }
             }
 

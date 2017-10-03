@@ -81,7 +81,7 @@ namespace AIO.Champions
             var mostBouldersHitPos = Vector3.Zero;
             foreach (var mine in MineField)
             {
-                var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, WPushDistance), unit.BoundingRadius);
+                var unitToMineRectangle = new Geometry.Rectangle(unit.ServerPosition, unit.ServerPosition.Extend((Vector2)mine.Value, WPushDistance), unit.BoundingRadius);
                 var bouldersHit = MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
                 if (bouldersHit > mostBouldersHit)
                 {
@@ -107,7 +107,7 @@ namespace AIO.Champions
             var mostBouldersHit = 0;
             foreach (var mine in MineField)
             {
-                var unitToMineRectangle = new Geometry.Rectangle((Vector2)unit.Position, (Vector2)unit.Position.Extend((Vector2)mine.Value, WPushDistance), unit.BoundingRadius);
+                var unitToMineRectangle = new Geometry.Rectangle(unit.ServerPosition, unit.ServerPosition.Extend((Vector2)mine.Value, WPushDistance), unit.BoundingRadius);
                 var bouldersHit = MineField.Count(o => unitToMineRectangle.IsInside((Vector2)o.Value));
                 if (bouldersHit > mostBouldersHit)
                 {

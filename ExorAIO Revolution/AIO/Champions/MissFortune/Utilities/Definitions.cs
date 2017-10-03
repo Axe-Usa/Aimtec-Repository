@@ -1,6 +1,5 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
-
 using Aimtec;
 using Aimtec.SDK.Extensions;
 using AIO.Utilities;
@@ -61,13 +60,12 @@ namespace AIO.Champions
         /// </returns>
         public Geometry.Sector QCone(Obj_AI_Base target)
         {
-            var targetPos = (Vector2)target.ServerPosition;
-            var rangeDiff = SpellClass.Q2.Range - SpellClass.Q.Range;
-            return new Geometry.Sector(
-                targetPos,
-                targetPos.Extend(UtilityClass.Player.ServerPosition, -rangeDiff),
-                SpellClass.Q2.Width,
-                rangeDiff - target.BoundingRadius);
+            var targetPos = target.Position;
+            var range = SpellClass.Q2.Range - SpellClass.Q.Range - UtilityClass.Player.BoundingRadius;
+            var dir = (targetPos - UtilityClass.Player.Position).Normalized();
+            var spot = targetPos + dir * range;
+
+            return new Geometry.Sector(targetPos, spot, SpellClass.Q2.Width, range);
         }
 
         #endregion

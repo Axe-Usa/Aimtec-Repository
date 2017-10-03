@@ -66,7 +66,11 @@ namespace AIO.Champions
                             t.IsValidTarget(SpellClass.Q2.Range) &&
                             MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                         {
-                            foreach (var minion in unitsToIterate.OrderBy(t => t.Health).Where(m => QCone(m).IsInside((Vector2)enemy.ServerPosition)))
+                            foreach (var minion in unitsToIterate
+                                .OrderBy(t => t.Health)
+                                .Where(m =>
+                                    QCone(m).IsInside((Vector2)enemy.ServerPosition) &&
+                                    QCone(m).IsInside((Vector2)SpellClass.Q2.GetPrediction(enemy).CastPosition)))
                             {
                                 var polygon = QCone(minion);
                                 if (LoveTapTargetNetworkId == enemy.NetworkId ||

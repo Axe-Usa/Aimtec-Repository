@@ -59,7 +59,7 @@ namespace AIO.Champions
                 if (MenuClass.Drawings["edmg"].As<MenuBool>().Enabled)
                 {
                     ObjectManager.Get<Obj_AI_Base>()
-                        .Where(h => IsPerfectRendTarget(h) && (h is Obj_AI_Hero || UtilityClass.JungleList.Contains(h.UnitSkinName)))
+                        .Where(h => IsPerfectRendTarget(h) && (h is Obj_AI_Hero || UtilityClass.JungleList.Contains(h.UnitSkinName)) && h.FloatingHealthBarPosition.OnScreen())
                         .ToList()
                         .ForEach(
                             unit =>

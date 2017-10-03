@@ -1,4 +1,5 @@
-﻿using Aimtec;
+﻿
+using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Damage.JSON;
 using Aimtec.SDK.Extensions;
@@ -27,7 +28,7 @@ namespace AIO.Champions
         public bool IsPerfectExpungeTarget(Obj_AI_Base unit)
         {
             if (unit.HasBuff("twitchdeadlyvenom") &&
-                unit.IsValidTarget(SpellClass.E.Range))
+                unit.IsValidSpellTarget(SpellClass.E.Range))
             {
                 switch (unit.Type)
                 {

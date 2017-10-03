@@ -75,8 +75,7 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                (SpellClass.E.Ready ||
-                    !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
+                (SpellClass.E.Ready || !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-100f);

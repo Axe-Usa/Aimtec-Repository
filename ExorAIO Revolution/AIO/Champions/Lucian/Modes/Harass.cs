@@ -26,24 +26,23 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["extendedq"]["mixed"]) &&
-                MenuClass.Spells["extendedq"]["mixed"].As<MenuSliderBool>().Enabled &&
-                Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Any(m => m.IsValidTarget(SpellClass.Q.Range)))
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q2"]["mixed"]) &&
+                MenuClass.Spells["q2"]["mixed"].As<MenuSliderBool>().Enabled)
             {
-                var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
-                foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Where(m => m.IsValidTarget(SpellClass.Q.Range))
-                                       let polygon = new Geometry.Rectangle(
-                                                            (Vector2)UtilityClass.Player.ServerPosition,
-                                                            (Vector2)UtilityClass.Player.ServerPosition.Extend(minion.ServerPosition, SpellClass.Q2.Range-150f),
-                                                            SpellClass.Q2.Width)
-                                       where
-                                           target != null &&
-                                           target != minion &&
-                                           polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition) &&
-                                           MenuClass.Spells["extendedq"]["whitelist"][target.ChampionName.ToLower()].Enabled
-                                       select minion)
+                var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
+                    .MinBy(t => MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled);
+                if (target.IsValidTarget())
                 {
-                    SpellClass.Q.CastOnUnit(minion);
+                    foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
+                        let polygon = QRectangle(minion)
+                        where
+                            target != minion &&
+                            polygon.IsInside((Vector2)target.ServerPosition) &&
+                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition)
+                        select minion)
+                    {
+                        SpellClass.Q.CastOnUnit(minion);
+                    }
                 }
             }
         }

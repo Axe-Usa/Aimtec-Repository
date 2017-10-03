@@ -34,6 +34,28 @@ namespace AIO.Champions
                    player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Buff);
         }
 
+        /// <summary>
+        ///     Returns true if the target is a perfectly valid charge target.
+        /// </summary>
+        public bool IsPerfectChargeTarget(Obj_AI_Base unit)
+        {
+            if (IsCharged(unit) &&
+                unit.IsValidSpellTarget())
+            {
+                switch (unit.Type)
+                {
+                    case GameObjectType.obj_AI_Minion:
+                        return true;
+
+                    case GameObjectType.obj_AI_Hero:
+                        var heroUnit = (Obj_AI_Hero)unit;
+                        return !Invulnerable.Check(heroUnit);
+                }
+            }
+
+            return false;
+        }
+
         #endregion
     }
 }

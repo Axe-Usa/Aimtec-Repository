@@ -52,13 +52,13 @@ namespace AIO.Champions
                     const int condemnDistancePush = 410;
                     foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.E.Range))
                     {
-                        var targetPos = (Vector2)target.Position;
+                        var targetPos = target.Position;
                         var targetRadius = target.BoundingRadius;
 
-                        var posImpact = (Vector2)target.Position.Extend(playerPos, -condemnDistancePush);
+                        var posImpact = target.Position.Extend(playerPos, -condemnDistancePush);
                         var posRectangle = new Geometry.Rectangle(targetPos, posImpact, targetRadius);
 
-                        var predImpact = (Vector2)SpellClass.E.GetPrediction(target).CastPosition.Extend(playerPos, -condemnDistancePush);
+                        var predImpact = SpellClass.E.GetPrediction(target).CastPosition.Extend(playerPos, -condemnDistancePush);
                         var predRectangle = new Geometry.Rectangle(targetPos, predImpact, targetRadius);
 
                         posRectangle.Draw(Bools.AnyWallInBetween(targetPos, posImpact) ? Color.Blue : Color.OrangeRed);

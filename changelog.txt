@@ -733,3 +733,23 @@ ExorAIO: Revolution Changelog:
 
 7.19.0.6:
   AIO: More target selection fixes.
+
+7.19.0.7:
+  AIO: Fixed "Don't cast X spell if target can die in X AAs" Logic.
+  Caitlyn: Now only draws R Damage on Non-Invulnerable targets.
+  Darius: Now only draws R Damage on Non-Invulnerable targets.
+  Jhin: Fixed Cone Position Drawing.
+  Kalista: Tweaked Orbwalking on Minions Logic.
+  Kalista: Added Skalista and Talista Logics.
+  Kog'Maw: Doesn't E spellshielded targets anymore.
+  Lucian: Better Extended Q Code.
+  Miss Fortune: More accurate Q Bouncing logic. (BETA)
+  Miss Fortune: Fixed Cone drawings position.
+  Olaf: Fixed Pentakill Olaf Axe drawing.
+  Olaf: Fixed Axe drawing rectangle position.
+  Taliyah: Removed useless code.
+  Taliyah: More accurate W to boulders logic.
+  Vayne:  Slightly tweaked condemn.
+  Xayah: Fixed Feathers rectangle positions.
+
+  Thanks so much to @Suzuha, his geometry skills have helped me a lot on this update!

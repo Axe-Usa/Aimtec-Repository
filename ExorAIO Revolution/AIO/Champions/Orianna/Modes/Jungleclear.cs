@@ -58,8 +58,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 var polygon = new Geometry.Rectangle(
-                    (Vector2)UtilityClass.Player.ServerPosition,
-                    (Vector2)UtilityClass.Player.ServerPosition.Extend((Vector3)BallPosition, UtilityClass.Player.Distance((Vector3)BallPosition)),
+                    UtilityClass.Player.ServerPosition,
+                    UtilityClass.Player.ServerPosition.Extend((Vector3)BallPosition, UtilityClass.Player.Distance((Vector3)BallPosition)),
                     SpellClass.E.Width);
 
                 if (!polygon.IsOutside((Vector2)jungleTarget.ServerPosition))

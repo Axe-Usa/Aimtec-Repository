@@ -1,6 +1,5 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
-
 using System;
 using System.Collections.Generic;
 using Aimtec;
@@ -30,9 +29,9 @@ namespace AIO.Champions
         /// </summary>
         public Dictionary<string, Tuple<string, string>> RLogics = new Dictionary<string, Tuple<string, string>>
         {
-            { "Blitzcrank", new Tuple<string, string>("rocketgrab2", "Balista")  },
-            { "Skarner",    new Tuple<string, string>("TODO",        "Skalista") },
-            { "TahmKench",  new Tuple<string, string>("TODO",        "Talista")  }
+            { "Blitzcrank", new Tuple<string, string>("rocketgrab2",        "Balista")  },
+            { "Skarner",    new Tuple<string, string>("SkarnerImpale",      "Skalista") },
+            { "TahmKench",  new Tuple<string, string>("tahmkenchwdevoured", "Talista")  }
         };
         
 
@@ -69,7 +68,7 @@ namespace AIO.Champions
         public bool IsPerfectRendTarget(Obj_AI_Base unit)
         {
             var orbTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
-            if (unit.IsValidTarget(
+            if (unit.IsValidSpellTarget(
                     orbTarget != null &&
                     orbTarget.NetworkId == unit.NetworkId
                         ? SpellClass.E.Range

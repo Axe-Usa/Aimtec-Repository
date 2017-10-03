@@ -65,7 +65,7 @@ namespace AIO.Champions
                         return;
                 }
 
-                const int threshold = 20;
+                const int threshold = 25 / 10;
                 var predictedPos = new Vector3();
                 const int condemnPushDistance = 410 / 10;
 
@@ -90,10 +90,10 @@ namespace AIO.Champions
                     for (var i = 1; i < 10; i++)
                     {
                         var targetPosition = target.ServerPosition.Extend(playerPos, -condemnPushDistance * i);
-                        var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-condemnPushDistance + threshold / 10) * i);
+                        var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-condemnPushDistance + threshold) * i);
 
                         var predPosition = predictedPos.Extend(playerPos, -condemnPushDistance * i);
-                        var predPositionExtended = predictedPos.Extend(playerPos, (-condemnPushDistance + threshold / 10) * i);
+                        var predPositionExtended = predictedPos.Extend(playerPos, (-condemnPushDistance + threshold) * i);
 
                         if (targetPosition.IsWall(true) && targetPositionExtended.IsWall(true) &&
                             predPosition.IsWall(true) && predPositionExtended.IsWall(true))

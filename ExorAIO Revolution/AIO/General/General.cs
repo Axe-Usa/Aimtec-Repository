@@ -194,13 +194,15 @@ namespace AIO
                 {
                     case OrbwalkingMode.Combo:
                     case OrbwalkingMode.Mixed:
-                        var target = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.GetSpell(args.Slot).SpellData.CastRange);
-                        if (target.IsValidTarget(UtilityClass.Player.GetFullAttackRange(target)) &&
-                            target.GetRealHealth() <=
-                                UtilityClass.Player.GetAutoAttackDamage(target) *
-                                MenuClass.PreserveSpells[args.Slot.ToString().ToLower()].As<MenuSlider>().Value)
+                        var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
+                        if (target != null)
                         {
-                            args.Process = false;
+                            if (target.GetRealHealth() <=
+                                    UtilityClass.Player.GetAutoAttackDamage(target) *
+                                    MenuClass.PreserveSpells[args.Slot.ToString().ToLower()].As<MenuSlider>().Value)
+                            {
+                                args.Process = false;
+                            }
                         }
                         break;
                 }

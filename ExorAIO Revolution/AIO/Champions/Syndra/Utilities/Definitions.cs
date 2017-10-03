@@ -168,18 +168,18 @@ namespace AIO.Champions
         public Geometry.Rectangle DarkSphereScatterRectangle(KeyValuePair<int, Vector3> sphere)
         {
             return new Geometry.Rectangle(
-                           (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width*2),
-                           (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, -1100f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
+                           sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width*2),
+                           sphere.Value.Extend(UtilityClass.Player.Position, -1100f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
                            SpellClass.Q.Width-25f);
         }
 
         /// <summary>
         ///     The Scatter the Weak Cone.
         /// </summary>
-        public Geometry.Sector ScatterTheWeakCone(Vector2 targetPos)
+        public Geometry.Sector ScatterTheWeakCone(Vector3 targetPos)
         {
             return new Geometry.Sector(
-                        (Vector2)UtilityClass.Player.Position,
+                        UtilityClass.Player.Position,
                         targetPos,
                         SpellClass.E.Width,
                         SpellClass.E.Range - 50f);

@@ -1,6 +1,7 @@
 ﻿
 using System.Drawing;
 using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -36,9 +37,11 @@ namespace AIO.Champions
             {
                 foreach (var axe in Axes)
                 {
-                    var axeRectangle = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)axe.Value, 1);
-                    Render.Circle(axe.Value, 30f, 30, Color.Yellow);
+                    var drawAxePos = axe.Value.FixHeight();
+                    var axeRectangle = new Geometry.Rectangle(UtilityClass.Player.Position, drawAxePos, UtilityClass.Player.BoundingRadius);
+
                     axeRectangle.Draw(Color.Yellow);
+                    Render.Circle(drawAxePos, UtilityClass.Player.BoundingRadius, 5, Color.OrangeRed);
                 }
             }
         }

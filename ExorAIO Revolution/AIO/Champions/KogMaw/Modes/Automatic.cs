@@ -38,11 +38,10 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
-                        !Invulnerable.Check(t) &&
-                        t.IsValidTarget(SpellClass.Q.Range)))
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                    t.IsImmobile() &&
+                    !Invulnerable.Check(t) &&
+                    t.Distance(UtilityClass.Player) < SpellClass.Q.Range))
                 {
                     SpellClass.Q.Cast(target);
                 }
@@ -54,10 +53,10 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
-                        t.Distance(UtilityClass.Player) < SpellClass.E.Range))
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                    t.IsImmobile() &&
+                    !Invulnerable.Check(t, DamageType.Magical, false) &&
+                    t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target);
                 }

@@ -67,24 +67,11 @@ namespace AIO.Champions
                     case OrbwalkingMode.Combo:
                         switch (args.Slot)
                         {
-                            case SpellSlot.Q:
-                                switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
-                                {
-                                    case 0:
-                                        if (IsNearWorkedGround())
-                                        {
-                                            args.Process = false;
-                                        }
-                                        break;
-                                }
-                                break;
-
                             case SpellSlot.W:
-                                var spellBook = UtilityClass.Player.SpellBook;
-                                if (UtilityClass.Player.Mana <
-                                     spellBook.GetSpell(SpellSlot.W).Cost +
-                                     spellBook.GetSpell(SpellSlot.E).Cost &&
-                                    MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled)
+                                if (SpellClass.E.Ready &&
+                                    UtilityClass.Player.Mana <
+                                        SpellSlot.W.GetManaCost() +
+                                        SpellSlot.E.GetManaCost())
                                 {
                                     args.Process = false;
                                 }

@@ -44,23 +44,22 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Extended.
                 /// </summary>
-                if (MenuClass.Spells["extendedq"]["killsteal"].As<MenuBool>().Enabled &&
-                    Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Any(m => m.IsValidTarget(SpellClass.Q.Range)))
+                if (MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
                 {
-                    var target = SpellClass.Q2.GetBestKillableHero(DamageType.Physical);
-                    foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range).Where(m => m.IsValidTarget(SpellClass.Q.Range))
-                                           let polygon = new Geometry.Rectangle(
-                                                                (Vector2)UtilityClass.Player.ServerPosition,
-                                                                (Vector2)UtilityClass.Player.ServerPosition.Extend(minion.ServerPosition, SpellClass.Q2.Range-150f),
-                                                                SpellClass.Q2.Width)
-                                           where
-                                                target != null &&
-                                                target != minion &&
-                                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition) &&
-                                                UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) >= target.GetRealHealth()
-                        select minion)
+                    var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
+                        .MinBy(t => UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth());
+                    if (target.IsValidTarget())
                     {
-                        SpellClass.Q.CastOnUnit(minion);
+                        foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
+                            let polygon = QRectangle(minion)
+                            where
+                                target != minion &&
+                                polygon.IsInside((Vector2)target.ServerPosition) &&
+                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition)
+                            select minion)
+                        {
+                            SpellClass.Q.CastOnUnit(minion);
+                        }
                     }
                 }
             }

@@ -56,7 +56,7 @@ namespace AIO.Champions
                 if (MenuClass.Drawings["rdmg"].As<MenuBool>().Enabled)
                 {
                     Extensions.GetEnemyHeroesTargets()
-                        .Where(h => h.IsValidTarget() && !Invulnerable.Check(h))
+                        .Where(h => h.IsValidSpellTarget() && !Invulnerable.Check(h) && h.FloatingHealthBarPosition.OnScreen())
                         .ToList()
                         .ForEach(
                             target =>

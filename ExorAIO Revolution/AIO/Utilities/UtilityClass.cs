@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
 
@@ -336,6 +337,24 @@ namespace AIO.Utilities
                 }
             }
         };
+
+        /// <summary>
+        ///     Gets the mana cost of a spell using the ManaCostArray.
+        /// </summary>
+        /// <param name="slot">
+        ///     The spellslot.
+        /// </param>
+        /// <returns>
+        ///     The mana cost.
+        /// </returns>
+        public static int GetManaCost(this SpellSlot slot)
+        {
+            var championSlots = ManaCostArray.FirstOrDefault(e => e.Key == Player.ChampionName).Value;
+            var selectedSlot = championSlots.FirstOrDefault(e => e.Key == slot);
+            var selectedSlotLevel = selectedSlot.Value[Player.SpellBook.GetSpell(slot).Level];
+
+            return selectedSlotLevel;
+        }
 
         /// <summary>
         ///     Gets the angle by 'degrees' degrees.

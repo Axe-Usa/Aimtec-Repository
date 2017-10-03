@@ -42,7 +42,11 @@ namespace AIO.Champions
                         ? unitsToIterate.Where(m => m.Health <= UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
                         : unitsToIterate;
 
-                    foreach (var minion in unitsToIterate.OrderBy(t => t.Health).Where(m => QCone(m).IsInside((Vector2)enemy.ServerPosition)))
+                    foreach (var minion in unitsToIterate
+                        .OrderBy(t => t.Health)
+                        .Where(m =>
+                            QCone(m).IsInside((Vector2)enemy.ServerPosition) &&
+                            QCone(m).IsInside((Vector2)SpellClass.Q2.GetPrediction(enemy).CastPosition)))
                     {
                         var polygon = QCone(minion);
                         if (LoveTapTargetNetworkId == enemy.NetworkId ||

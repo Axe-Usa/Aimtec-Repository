@@ -29,7 +29,7 @@ namespace AIO.Champions
                 .Where(m => m.IsValidSpellTarget(UtilityClass.Player.GetFullAttackRange(m)))
                 .MinBy(o => o.GetRealHealth());
             if (minion != null &&
-                !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)+100f)) &&
+                !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
                 MenuClass.Miscellaneous["minionsorbwalk"].As<MenuBool>().Enabled)
             {
                 UtilityClass.Player.IssueOrder(OrderType.AttackUnit, minion);
@@ -38,11 +38,10 @@ namespace AIO.Champions
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
-            var playerSpellbook = UtilityClass.Player.SpellBook;
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.Mana >=
-                    playerSpellbook.GetSpell(SpellSlot.Q).Cost +
-                    playerSpellbook.GetSpell(SpellSlot.E).Cost &&
+                    SpellSlot.Q.GetManaCost() +
+                    SpellSlot.E.GetManaCost() &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);

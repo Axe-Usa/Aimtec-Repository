@@ -41,17 +41,15 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 SoulBound != null)
             {
-                var soulbound = SoulBound;
-
                 /// <summary>
                 ///     The Offensive R Logics.
                 /// </summary>
                 foreach (var target in GameObjects.EnemyHeroes
                     .Where(t => t.Distance(UtilityClass.Player.ServerPosition) > UtilityClass.Player.GetFullAttackRange(t)))
                 {
-                    if (RLogics.ContainsKey(soulbound.ChampionName))
+                    if (RLogics.ContainsKey(SoulBound.ChampionName))
                     {
-                        var option = RLogics.FirstOrDefault(k => k.Key == soulbound.ChampionName);
+                        var option = RLogics.FirstOrDefault(k => k.Key == SoulBound.ChampionName);
                         var buffName = option.Value.Item1;
                         var menuOption = option.Value.Item2;
 
@@ -66,8 +64,8 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The Lifesaver R Logic.
                 /// </summary>
-                if (soulbound.CountEnemyHeroesInRange(800f) > 0 &&
-                    soulbound.HealthPercent() <=
+                if (SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
+                    SoulBound.HealthPercent() <=
                         MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Value &&
                     MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Enabled)
                 {

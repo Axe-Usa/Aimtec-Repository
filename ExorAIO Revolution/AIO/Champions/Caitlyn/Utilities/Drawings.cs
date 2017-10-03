@@ -72,7 +72,7 @@ namespace AIO.Champions
             if (MenuClass.Drawings["rdmg"].As<MenuBool>().Enabled)
             {
                 GameObjects.EnemyHeroes
-                    .Where(h => h.IsValidSpellTarget(SpellClass.R.Range))
+                    .Where(h => h.IsValidSpellTarget(SpellClass.R.Range) && !Invulnerable.Check(h) && h.FloatingHealthBarPosition.OnScreen())
                     .ToList()
                     .ForEach(
                         hero =>

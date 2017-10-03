@@ -23,6 +23,15 @@ namespace AIO.Utilities
         #region Public Methods and Operators
 
         /// <summary>
+        ///     Returns if a Vector2 position is On Screen.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        public static bool OnScreen(this Vector2 position)
+        {
+            return !position.IsZero;
+        }
+
+        /// <summary>
         ///     Returns if a Spell is usable.
         /// </summary>
         /// <param name="spell">The spell.</param>
@@ -75,7 +84,9 @@ namespace AIO.Utilities
         public static bool IsWall(this Vector3 pos, bool includeBuildings = false)
         {
             var point = NavMesh.WorldToCell(pos).Flags;
-            return point.HasFlag(NavCellFlags.Wall) || includeBuildings && point.HasFlag(NavCellFlags.Building);
+            return
+                point.HasFlag(NavCellFlags.Wall) ||
+                includeBuildings && point.HasFlag(NavCellFlags.Building);
         }
 
         /// <returns>
@@ -104,11 +115,11 @@ namespace AIO.Utilities
         /// <summary>
         ///     Returns true if there is a Wall between X pos and Y pos.
         /// </summary>
-        public static bool AnyWallInBetween(Vector2 startPos, Vector2 endPos)
+        public static bool AnyWallInBetween(Vector3 startPos, Vector3 endPos)
         {
             for (var i = 0; i < startPos.Distance(endPos); i+=5)
             {
-                var point = NavMesh.WorldToCell((Vector3)startPos.Extend(endPos, i));
+                var point = NavMesh.WorldToCell(startPos.Extend(endPos, i));
                 if (point.Flags.HasFlag(NavCellFlags.Wall) ||
                     point.Flags.HasFlag(NavCellFlags.Building))
                 {

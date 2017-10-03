@@ -55,6 +55,7 @@ namespace AIO.Champions
                 switch (obj.Name)
                 {
                     case "Olaf_Base_Q_Axe_Ally.troy":
+                    case "Olaf_Skin04_Q_Axe_Ally.troy":
                         Axes.Add(obj.NetworkId, obj.Position);
                         break;
                 }

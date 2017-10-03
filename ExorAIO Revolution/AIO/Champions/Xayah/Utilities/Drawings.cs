@@ -39,13 +39,16 @@ namespace AIO.Champions
             {
                 foreach (var feather in Feathers)
                 {
+                    var drawFeatherPos = feather.Value.FixHeight();
                     var boundingRadius = GameObjects.EnemyHeroes.MinBy(t => t.Distance(feather.Value)).BoundingRadius;
-                    var realFeatherHitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.E.Width + boundingRadius - SpellClass.E.Delay * boundingRadius);
-                    var drawFeatherHitbox = new Geometry.Rectangle((Vector2)UtilityClass.Player.Position, (Vector2)feather.Value, SpellClass.E.Width);
+                    var realFeatherHitbox = new Geometry.Rectangle(UtilityClass.Player.Position, drawFeatherPos, SpellClass.E.Width + boundingRadius - SpellClass.E.Delay * boundingRadius);
+                    var drawFeatherHitbox = new Geometry.Rectangle(UtilityClass.Player.Position, drawFeatherPos, SpellClass.E.Width);
+
                     drawFeatherHitbox.Draw(
                         GameObjects.EnemyHeroes.Any(h => realFeatherHitbox.IsInside((Vector2)h.Position))
                             ? Color.Blue
-                            : Color.OrangeRed);
+                            : Color.Yellow);
+                    Render.Circle(drawFeatherPos, UtilityClass.Player.BoundingRadius, 5, Color.OrangeRed);
                 }
             }
 
