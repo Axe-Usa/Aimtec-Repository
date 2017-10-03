@@ -68,11 +68,11 @@ namespace AIO.Champions
         public Geometry.Sector UltimateCone()
         {
             var targetPos = End;
-            var range = SpellClass.R.Range;
+            var range = SpellClass.R.Range-UtilityClass.Player.BoundingRadius;
             var dir = (targetPos - UtilityClass.Player.Position).Normalized();
             var spot = targetPos + dir * range;
 
-            return new Geometry.Sector(targetPos, spot, SpellClass.R2.Width, range);
+            return new Geometry.Sector(End.Extend(UtilityClass.Player.Position, End.Distance(UtilityClass.Player)+UtilityClass.Player.BoundingRadius*3), spot, SpellClass.R2.Width, range);
         }
 
         #endregion
