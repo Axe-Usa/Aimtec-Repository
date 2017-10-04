@@ -44,8 +44,8 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Value)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                    t.IsImmobile() &&
-                    t.IsValidTarget(SpellClass.W.Range)))
+                    t.IsImmobile(SpellClass.W.Delay + Game.Ping / 100f) &&
+                    t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
                     SpellClass.W.Cast(
                         UtilityClass.Player.ServerPosition.Extend(

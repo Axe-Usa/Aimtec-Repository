@@ -160,7 +160,7 @@ namespace AIO.Champions
                     default:
                         if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange/2)
                         {
-                            SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.W.Range));
+                            SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.EndPosition, -SpellClass.W.Range));
                         }
                         break;
                 }

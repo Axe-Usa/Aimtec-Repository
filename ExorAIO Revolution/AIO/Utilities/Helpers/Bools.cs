@@ -131,6 +131,15 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Returns true if a the player is being grabbed by an enemy unit.
+        /// </summary>
+        public static bool IsBeingGrabbed()
+        {
+            var grabsBuffs = new[] {"ThreshQ", "rocketgrab2"};
+            return UtilityClass.Player.Buffs.Any(b => grabsBuffs.Contains(b.Name));
+        }
+
+        /// <summary>
         ///     Returns true if a determined buff is a Hard CC Buff.
         /// </summary>
         // ReSharper disable once InconsistentNaming
@@ -150,22 +159,24 @@ namespace AIO.Utilities
         /// <summary>
         ///     Gets a value indicating whether a determined champion can move or not.
         /// </summary>
-        public static bool IsImmobile(this Obj_AI_Base target)
+        /// <param name="hero">The hero.</param>
+        /// <param name="minTime">The minimum time remaining for the CC to trigger this function.</param>
+        public static bool IsImmobile(this Obj_AI_Base hero, double minTime)
         {
-            if (target.IsDead ||
-                target.IsDashing() ||
-                target.Name.Equals("Target Dummy") ||
-                target.HasBuffOfType(BuffType.Knockback))
+            if (hero.IsDead ||
+                hero.IsDashing() ||
+                hero.Name.Equals("Target Dummy") ||
+                hero.HasBuffOfType(BuffType.Knockback))
             {
                 return false;
             }
 
-            if (target.ValidActiveBuffs().Any(buff => buff.IsHardCC()))
+            if (hero.ValidActiveBuffs().Any(buff => buff.IsHardCC() && buff.GetRemainingBuffTime() > minTime))
             {
                 return true;
             }
 
-            if (!target.ActionState.HasFlag(ActionState.CanMove))
+            if (!hero.ActionState.HasFlag(ActionState.CanMove))
             {
                 return true;
             }

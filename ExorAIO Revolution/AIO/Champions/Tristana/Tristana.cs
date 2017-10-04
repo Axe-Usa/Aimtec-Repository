@@ -43,25 +43,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Fired when a buff is added.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="buff">The buff.</param>
-        public void OnAddBuff(Obj_AI_Base sender, Buff buff)
-        {
-            if (sender.IsMe &&
-                SpellClass.W.Ready &&
-                MenuClass.Spells["w"]["antigrab"].As<MenuBool>().Enabled)
-            {
-                if (buff.Name.Equals("ThreshQ") ||
-                    buff.Name.Equals("rocketgrab2"))
-                {
-                    SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(buff.Caster.ServerPosition, -SpellClass.W.Range));
-                }
-            }
-        }
-
-        /// <summary>
         ///     Called on pre attack.
         /// </summary>
         /// <param name="sender">The sender.</param>

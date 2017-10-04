@@ -28,6 +28,22 @@ namespace AIO.Champions
             }
 
             /// <summary>
+            ///     The Anti-Grab Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                Bools.IsBeingGrabbed() &&
+                MenuClass.Spells["e"]["antigrab"].As<MenuBool>().Enabled)
+            {
+                var firstTower = ObjectManager.Get<Obj_AI_Turret>()
+                    .Where(t => t.IsAlly && t.IsValidTarget(allyIsValidTarget: true))
+                    .MinBy(t => t.Distance(UtilityClass.Player));
+                if (firstTower != null)
+                {
+                    SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(firstTower.ServerPosition, SpellClass.E.Range));
+                }
+            }
+
+            /// <summary>
             ///     The Tear Stacking Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&

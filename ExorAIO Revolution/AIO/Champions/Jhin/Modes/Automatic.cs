@@ -35,11 +35,11 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
                         t.HasBuff("jhinespotteddebuff") &&
-                        t.IsValidTarget(SpellClass.W.Range)))
+                        t.IsValidTarget(SpellClass.W.Range) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        t.IsImmobile(SpellClass.W.Delay + Game.Ping / 100f)))
                 {
                     SpellClass.W.Cast(target.ServerPosition);
                 }
@@ -51,9 +51,8 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                        t.IsImmobile(SpellClass.E.Delay + Game.Ping / 100f) &&
                         t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target.ServerPosition);

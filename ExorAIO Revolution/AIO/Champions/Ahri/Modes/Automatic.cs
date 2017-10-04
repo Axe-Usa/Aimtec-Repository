@@ -27,31 +27,14 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Automatic Q Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
-            {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
-                        t.IsValidTarget(SpellClass.Q.Range) &&
-                        !Invulnerable.Check(t, DamageType.Magical)))
-                {
-                    SpellClass.Q.Cast(target);
-                }
-            }
-
-            /// <summary>
             ///     The Automatic E Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
                         t.IsValidTarget(SpellClass.E.Range) &&
+                        t.IsImmobile(SpellClass.E.Delay + Game.Ping / 100f) &&
                         !Invulnerable.Check(t, DamageType.Magical, false)))
                 {
                     SpellClass.E.Cast(target);

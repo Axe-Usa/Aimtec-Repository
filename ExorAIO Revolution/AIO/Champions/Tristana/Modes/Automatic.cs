@@ -25,6 +25,22 @@ namespace AIO.Champions
             SpellClass.R.Range = UtilityClass.Player.AttackRange;
 
             /// <summary>
+            ///     The Anti-Grab Logic.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                Bools.IsBeingGrabbed() &&
+                MenuClass.Spells["w"]["antigrab"].As<MenuBool>().Enabled)
+            {
+                var firstTower = ObjectManager.Get<Obj_AI_Turret>()
+                    .Where(t => t.IsAlly && t.IsValidTarget(allyIsValidTarget: true))
+                    .MinBy(t => t.Distance(UtilityClass.Player));
+                if (firstTower != null)
+                {
+                    SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(firstTower.ServerPosition, SpellClass.W.Range));
+                }
+            }
+
+            /// <summary>
             ///     The Semi-Automatic R Management.
             /// </summary>
             if (SpellClass.R.Ready &&

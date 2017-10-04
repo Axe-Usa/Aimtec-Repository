@@ -202,7 +202,7 @@ namespace AIO.Champions
                     default:
                         if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range)
                         {
-                            SpellClass.R.Cast(args.EndPosition);
+                            SpellClass.E.Cast(args.EndPosition);
                         }
                         break;
                 }

@@ -46,9 +46,8 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                        t.IsImmobile(SpellClass.E.Delay + Game.Ping / 100f) &&
                         t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target.ServerPosition);
@@ -61,8 +60,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["teleport"].As<MenuBool>().Enabled)
             {
-                foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(
-                    m =>
+                foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m =>
                         m.IsEnemy &&
                         m.Distance(UtilityClass.Player) <= SpellClass.E.Range &&
                         m.ValidActiveBuffs().Any(b => b.Name.Equals("teleport_target"))))

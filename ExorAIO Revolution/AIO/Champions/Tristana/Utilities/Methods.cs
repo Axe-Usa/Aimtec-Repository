@@ -16,7 +16,6 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += OnUpdate;
-            BuffManager.OnAddBuff += OnAddBuff;
             ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
             Render.OnPresent += OnPresent;
             Gapcloser.OnGapcloser += OnGapcloser;

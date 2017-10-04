@@ -514,7 +514,7 @@
                     ChampionName = "LeeSin",
                     Slot = SpellSlot.Q,
                     SpellName = "blindmonkqtwo",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = GapSpellType.Dash
                 });
 
             #endregion
@@ -1015,20 +1015,13 @@
                 Menu["Gapcloser" + x.Value.Unit.ChampionName.ToLower()] != null &&
                 Menu["Gapcloser" + x.Value.Unit.ChampionName.ToLower()]["Gapcloser" + x.Value.Unit.ChampionName.ToLower() + "Enabled"].As<MenuBool>().Enabled))
             {
-                switch (args.Value.Type)
-                {
-                    case GapSpellType.SkillShot:
-                    case GapSpellType.Dash:
-                    case GapSpellType.Targeted:
-                        OnGapcloser(args.Value.Unit, args.Value);
-                        break;
-                }
+                OnGapcloser(args.Value.Unit, args.Value);
             }
         }
 
         private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            if (sender == null || !sender.IsValid || !sender.IsEnemy || string.IsNullOrEmpty(args.SpellData.Name))
+            if (!sender.IsValidTarget() || !sender.IsEnemy || string.IsNullOrEmpty(args.SpellData.Name))
             {
                 return;
             }

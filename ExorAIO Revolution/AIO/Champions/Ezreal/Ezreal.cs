@@ -43,25 +43,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Fired when a buff is added.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="buff">The buff.</param>
-        public void OnAddBuff(Obj_AI_Base sender, Buff buff)
-        {
-            if (sender.IsMe &&
-                SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["antigrab"].As<MenuBool>().Enabled)
-            {
-                if (buff.Name.Equals("ThreshQ") ||
-                    buff.Name.Equals("rocketgrab2"))
-                {
-                    SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(buff.Caster.ServerPosition, -SpellClass.E.Range));
-                }
-            }
-        }
-
-        /// <summary>
         ///     Called on process autoattack.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -229,7 +210,7 @@ namespace AIO.Champions
                     default:
                         if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange/2)
                         {
-                            SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.E.Range));
+                            SpellClass.E.Cast(UtilityClass.Player.ServerPosition.Extend(args.EndPosition, -SpellClass.E.Range));
                         }
                         break;
                 }

@@ -35,9 +35,8 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.IsImmobile() &&
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                        t.IsImmobile(SpellClass.W.Delay + Game.Ping / 100f) &&
                         t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
                     SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(target.ServerPosition, UtilityClass.Player.Distance(target)+target.BoundingRadius/2));
@@ -50,8 +49,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
             {
-                foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(
-                    m =>
+                foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m =>
                         m.IsEnemy &&
                         m.Distance(UtilityClass.Player) <= SpellClass.W.Range &&
                         m.ValidActiveBuffs().Any(b => b.Name.Equals("teleport_target"))))
@@ -68,11 +66,11 @@ namespace AIO.Champions
                 UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) <= 3 &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
                         !Invulnerable.Check(t) &&
                         t.IsValidTarget(SpellClass.Q.Range) &&
-                        t.HasBuff("caitlynyordletrapdebuff")))
+                        t.HasBuff("caitlynyordletrapdebuff") &&
+                        t.IsImmobile(SpellClass.Q.Delay + Game.Ping / 100f)))
                 {
                     SpellClass.Q.Cast(target.ServerPosition);
                 }

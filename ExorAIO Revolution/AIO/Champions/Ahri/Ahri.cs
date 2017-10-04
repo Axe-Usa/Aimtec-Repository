@@ -200,8 +200,7 @@ namespace AIO.Champions
                 switch (args.Type)
                 {
                     case GapSpellType.Targeted:
-                        if (sender.IsMelee &&
-                            args.Target.IsMe)
+                        if (args.Target.IsMe)
                         {
                             SpellClass.E.Cast(args.StartPosition);
                             return;
