@@ -783,3 +783,5 @@ ExorAIO: Revolution Changelog:
   AIO: Fixed IsBeingGrabbed() check.
   AIO: Fixed HasImmobileBuff() check.
 
+7.19.0.13:
+  AIO: Fixed Invulnerability checks.

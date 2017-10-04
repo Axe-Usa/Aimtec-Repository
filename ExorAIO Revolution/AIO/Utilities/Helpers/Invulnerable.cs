@@ -34,10 +34,6 @@ namespace AIO.Utilities
             PEntries.AddRange(
                 new List<InvulnerableEntry>
                     {
-                        new InvulnerableEntry("JudicatorIntervention")
-                            {
-                                IsShield = true
-                            },
                         new InvulnerableEntry("BlackShield")
                             {
                                 IsShield = true,
@@ -52,22 +48,9 @@ namespace AIO.Utilities
                             {
                                 MinHealthPercent = 10
                             },
-                        new InvulnerableEntry("FerociousHowl")
-                            {
-                                ChampionName = "Alistar",
-                                CheckFunction = (target, type) =>
-                                        UtilityClass.Player.CountEnemyHeroesInRange(UtilityClass.Player.AttackRange) > 1
-                            },
-                        new InvulnerableEntry("Meditate")
-                            {
-                                ChampionName = "MasterYi",
-                                CheckFunction = (target, type) =>
-                                        UtilityClass.Player.CountEnemyHeroesInRange(UtilityClass.Player.AttackRange) > 1
-                            },
                         new InvulnerableEntry("FioraW")
                             {
-                                ChampionName = "Fiora",
-                                IsShield = true
+                                ChampionName = "Fiora"
                             },
                         new InvulnerableEntry("JaxCounterStrike")
                             {
@@ -82,8 +65,7 @@ namespace AIO.Utilities
                             },
                         new InvulnerableEntry("NocturneShroudofDarkness")
                             {
-                                ChampionName = "Nocturne",
-                                IsShield = true
+                                ChampionName = "Nocturne"
                             },
                         new InvulnerableEntry("OlafRagnarock")
                             {
@@ -92,8 +74,7 @@ namespace AIO.Utilities
                             },
                         new InvulnerableEntry("SivirE")
                             {
-                                ChampionName = "Sivir",
-                                IsShield = true
+                                ChampionName = "Sivir"
                             },
                         new InvulnerableEntry("UndyingRage")
                             {
@@ -110,13 +91,7 @@ namespace AIO.Utilities
         /// <summary>
         ///     The invulnerable entries
         /// </summary>
-        public static ReadOnlyCollection<InvulnerableEntry> Entries
-        {
-            get
-            {
-                return PEntries.AsReadOnly();
-            }
-        }
+        public static ReadOnlyCollection<InvulnerableEntry> Entries => PEntries.AsReadOnly();
 
         #endregion
 
@@ -140,13 +115,6 @@ namespace AIO.Utilities
             {
                 return true;
             }
-
-            /*
-            if (!ignoreShields && hero.HasSpellShield())
-            {
-                return true;
-            }
-            */
 
             foreach (var entry in Entries)
             {
