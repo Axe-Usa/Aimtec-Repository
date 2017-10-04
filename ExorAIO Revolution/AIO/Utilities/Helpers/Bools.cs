@@ -136,7 +136,7 @@ namespace AIO.Utilities
         public static bool IsBeingGrabbed(this Obj_AI_Hero hero)
         {
             var grabsBuffs = new[] {"ThreshQ", "rocketgrab2"};
-            return hero.Buffs.Any(b => grabsBuffs.Contains(b.Name));
+            return hero.ValidActiveBuffs().Any(b => grabsBuffs.Contains(b.Name));
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace AIO.Utilities
 
             // Buffs: Zilean's Chronoshift, Zhonyas, Aatrox's Blood Well, Anivia Egg,
             var immobileBuffs = new[] { "chronorevive", "zhonyasringshield", "AatroxPassiveDeath", "rebirth" };
-            return hero.Buffs.Any(b => immobileBuffs.Contains(b.Name));
+            return hero.ValidActiveBuffs().Any(b => immobileBuffs.Contains(b.Name));
         }
 
         /// <summary>

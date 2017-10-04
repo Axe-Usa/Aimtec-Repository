@@ -778,3 +778,8 @@ ExorAIO: Revolution Changelog:
   Kalista: Added E Lasthit option.
   Kalista: Improved Soulbound drawing.
   Kalista: Generic improvement to the minion Harass logic (now takes into account the E range bug)
+  
+7.19.0.12:
+  AIO: Fixed IsBeingGrabbed() check.
+  AIO: Fixed HasImmobileBuff() check.
+
