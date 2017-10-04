@@ -133,10 +133,36 @@ namespace AIO.Utilities
         /// <summary>
         ///     Returns true if a the player is being grabbed by an enemy unit.
         /// </summary>
-        public static bool IsBeingGrabbed()
+        public static bool IsBeingGrabbed(this Obj_AI_Hero hero)
         {
             var grabsBuffs = new[] {"ThreshQ", "rocketgrab2"};
-            return UtilityClass.Player.Buffs.Any(b => grabsBuffs.Contains(b.Name));
+            return hero.Buffs.Any(b => grabsBuffs.Contains(b.Name));
+        }
+
+        /// <summary>
+        ///     Returns true if a the player is being grabbed by an enemy unit.
+        /// </summary>
+        public static bool HasImmobileBuff(this Obj_AI_Hero hero)
+        {
+            // Objects: Guardian Angel..
+            var immobileObjectLinked = ObjectManager.Get<GameObject>().FirstOrDefault(t => t.IsValid && t.Name == "LifeAura.troy");
+            if (immobileObjectLinked != null &&
+                ObjectManager.Get<Obj_AI_Hero>().MinBy(t => t.Distance(immobileObjectLinked)) == hero)
+            {
+                return true;
+            }
+
+            // Minions: Zac Passive
+            if (hero.ChampionName == "Zac" &&
+                !hero.ActionState.HasFlag(ActionState.CanMove) &&
+                ObjectManager.Get<Obj_AI_Minion>().Any(m => m.Team == hero.Team && m.UnitSkinName == "ZacRebirthBloblet" && m.Distance(hero) < 500))
+            {
+                return true;
+            }
+
+            // Buffs: Zilean's Chronoshift, Zhonyas, Aatrox's Blood Well, Anivia Egg,
+            var immobileBuffs = new[] { "chronorevive", "zhonyasringshield", "AatroxPassiveDeath", "rebirth" };
+            return hero.Buffs.Any(b => immobileBuffs.Contains(b.Name));
         }
 
         /// <summary>
@@ -159,24 +185,28 @@ namespace AIO.Utilities
         /// <summary>
         ///     Gets a value indicating whether a determined champion can move or not.
         /// </summary>
-        /// <param name="hero">The hero.</param>
+        /// <param name="unit">The hero.</param>
         /// <param name="minTime">The minimum time remaining for the CC to trigger this function.</param>
-        public static bool IsImmobile(this Obj_AI_Base hero, double minTime)
+        public static bool IsImmobile(this Obj_AI_Base unit, double minTime)
         {
-            if (hero.IsDead ||
-                hero.IsDashing() ||
-                hero.Name.Equals("Target Dummy") ||
-                hero.HasBuffOfType(BuffType.Knockback))
-            {
-                return false;
-            }
-
-            if (hero.ValidActiveBuffs().Any(buff => buff.IsHardCC() && buff.GetRemainingBuffTime() > minTime))
+            var hero = unit as Obj_AI_Hero;
+            if (hero != null &&
+                hero.HasImmobileBuff())
             {
                 return true;
             }
 
-            if (!hero.ActionState.HasFlag(ActionState.CanMove))
+            if (unit.IsDead ||
+                unit.IsDashing() ||
+                unit.Name.Equals("Target Dummy") ||
+                unit.HasBuffOfType(BuffType.Knockback))
+            {
+                return false;
+            }
+
+            if (unit.ValidActiveBuffs().Any(buff =>
+                    buff.IsHardCC() &&
+                    buff.GetRemainingBuffTime() > minTime))
             {
                 return true;
             }

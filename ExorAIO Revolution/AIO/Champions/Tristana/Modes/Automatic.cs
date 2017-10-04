@@ -28,7 +28,7 @@ namespace AIO.Champions
             ///     The Anti-Grab Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                Bools.IsBeingGrabbed() &&
+                UtilityClass.Player.IsBeingGrabbed() &&
                 MenuClass.Spells["w"]["antigrab"].As<MenuBool>().Enabled)
             {
                 var firstTower = ObjectManager.Get<Obj_AI_Turret>()

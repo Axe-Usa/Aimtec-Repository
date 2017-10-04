@@ -761,8 +761,15 @@ ExorAIO: Revolution Changelog:
   Taliyah: Fixed W usage. (Was broken since 7.19.0.7)
   Jinx: Fixed a bug where she would keep using Fishbones when not needed in Laneclear. (E.G. Against Towers)
   
-7.18.0.9:
+7.19.0.9:
   AIO: Fixed a lot of Anti-Gapcloser and Immobile Logics.
   Ahri: Removed Immobile Q.
   Ezreal: Fixed Anti-Grab E (test).
   Tristana: Fixed Anti-Grab W (test).
+
+7.19.0.10:
+  AIO: Improved Casting on Immobile Heroes.
+
+  // Objects: Guardian Angel
+  // Minions: Zac Passive
+  // Buffs: Zilean's Chronoshift, Zhonyas, Aatrox's Blood Well, Anivia Egg
