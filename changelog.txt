@@ -773,3 +773,8 @@ ExorAIO: Revolution Changelog:
   // Objects: Guardian Angel
   // Minions: Zac Passive
   // Buffs: Zilean's Chronoshift, Zhonyas, Aatrox's Blood Well, Anivia Egg
+
+7.19.0.11:
+ Kalista: Added E Lasthit option.
+ Kalista: Improved Soulbound drawing.
+ Kalista: Generic improvement to the minion Harass logic (now takes into account the E range bug)

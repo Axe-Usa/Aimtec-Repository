@@ -110,7 +110,7 @@ namespace AIO.Champions
                 ///     The E Minion Harass Logic.
                 /// </summary>
                 if (GameObjects.EnemyHeroes.Any(IsPerfectRendTarget) &&
-                    Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).Any(m => IsPerfectRendTarget(m) && m.GetRealHealth() <= GetTotalRendDamage(m)) &&
+                    Extensions.GetEnemyLaneMinionsTargets().Any(m => IsPerfectRendTarget(m) && m.GetRealHealth() <= GetTotalRendDamage(m)) &&
                     MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.Cast();

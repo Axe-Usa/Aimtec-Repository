@@ -45,7 +45,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget.IsValidTarget() &&
+                if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget))
                 {
                     var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;

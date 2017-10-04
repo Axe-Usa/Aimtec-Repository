@@ -140,7 +140,7 @@ namespace AIO.Champions
             {
                 for (var i = 0; i < MenuClass.Drawings["soulbound"].As<MenuSliderBool>().Value; i++)
                 {
-                    Render.Circle(SoulBound.Position, (uint)(60 + i * 5), 30, Color.Black);
+                    Render.Circle(SoulBound.Position, SoulBound.BoundingRadius + 5 * i, (uint)(5 + i), Color.Cyan);
                 }
             }
         }
