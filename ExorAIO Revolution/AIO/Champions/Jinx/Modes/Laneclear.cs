@@ -26,6 +26,10 @@ namespace AIO.Champions
             var minionTarget = args.Target as Obj_AI_Minion;
             if (minionTarget == null)
             {
+                if (IsUsingFishBones())
+                {
+                    SpellClass.Q.Cast();
+                }
                 return;
             }
 

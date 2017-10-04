@@ -351,7 +351,7 @@ namespace AIO.Utilities
         {
             var championSlots = ManaCostArray.FirstOrDefault(e => e.Key == Player.ChampionName).Value;
             var selectedSlot = championSlots.FirstOrDefault(e => e.Key == slot);
-            var selectedSlotLevel = selectedSlot.Value[Player.SpellBook.GetSpell(slot).Level];
+            var selectedSlotLevel = selectedSlot.Value[Player.SpellBook.GetSpell(slot).Level-1];
 
             return selectedSlotLevel;
         }

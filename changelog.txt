@@ -749,7 +749,15 @@ ExorAIO: Revolution Changelog:
   Olaf: Fixed Axe drawing rectangle position.
   Taliyah: Removed useless code.
   Taliyah: More accurate W to boulders logic.
-  Vayne:  Slightly tweaked condemn.
+  Vayne: Slightly tweaked condemn.
   Xayah: Fixed Feathers rectangle positions.
+  Xayah: Improved Feathers' drawings.
 
   Thanks so much to @Suzuha, his geometry skills have helped me a lot on this update!
+
+7.19.0.8:
+  AIO: Fixed a Nullreference.
+  Kalista: Fixed Q usage. (Was broken since 7.19.0.7)
+  Taliyah: Fixed W usage. (Was broken since 7.19.0.7)
+  Jinx: Fixed a bug where she would keep using Fishbones when not needed in Laneclear. (E.G. Against Towers)
+  
