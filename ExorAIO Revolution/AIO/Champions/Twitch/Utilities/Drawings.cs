@@ -37,7 +37,7 @@ namespace AIO.Champions
                 {
                     var qDuration = new[] { 10, 11, 12, 13, 14 }[UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level - 1];
                     Render.Circle(UtilityClass.Player.Position, qDuration * UtilityClass.Player.MoveSpeed, 30, Color.Green);
-                    Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, qDuration * UtilityClass.Player.MoveSpeed, Color.White);
+                    Vector2Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, qDuration * UtilityClass.Player.MoveSpeed, Color.White);
                 }
             }
 

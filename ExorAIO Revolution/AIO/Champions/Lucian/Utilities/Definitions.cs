@@ -19,11 +19,11 @@ namespace AIO.Champions
         /// <summary>
         ///     The Q Rectangle.
         /// </summary>
-        public Geometry.Rectangle QRectangle(Obj_AI_Base unit)
+        public Vector2Geometry.Rectangle QRectangle(Obj_AI_Base unit)
         {
-            return new Geometry.Rectangle(
-                UtilityClass.Player.ServerPosition,
-                UtilityClass.Player.ServerPosition.Extend(unit.ServerPosition, SpellClass.Q2.Range - 100f),
+            return new Vector2Geometry.Rectangle(
+                (Vector2)UtilityClass.Player.ServerPosition,
+                (Vector2)UtilityClass.Player.ServerPosition.Extend(unit.ServerPosition, SpellClass.Q2.Range - 100f),
                 SpellClass.Q2.Width);
         }
 

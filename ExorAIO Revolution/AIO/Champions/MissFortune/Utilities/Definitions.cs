@@ -58,14 +58,27 @@ namespace AIO.Champions
         /// <returns>
         ///     Gets the Q Cone on a determined target unit.
         /// </returns>
-        public Geometry.Sector QCone(Obj_AI_Base target)
+        public Vector2Geometry.Sector QCone(Obj_AI_Base target)
         {
             var targetPos = target.Position;
             var range = SpellClass.Q2.Range - SpellClass.Q.Range - UtilityClass.Player.BoundingRadius;
             var dir = (targetPos - UtilityClass.Player.Position).Normalized();
             var spot = targetPos + dir * range;
 
-            return new Geometry.Sector(targetPos, spot, SpellClass.Q2.Width, range);
+            return new Vector2Geometry.Sector((Vector2)targetPos, (Vector2)spot, SpellClass.Q2.Width, range);
+        }
+
+        /// <returns>
+        ///     Gets the Q Cone on a determined target unit.
+        /// </returns>
+        public Vector3Geometry.Sector DrawQCone(Obj_AI_Base target)
+        {
+            var targetPos = target.Position;
+            var range = SpellClass.Q2.Range - SpellClass.Q.Range - UtilityClass.Player.BoundingRadius;
+            var dir = (targetPos - UtilityClass.Player.Position).Normalized();
+            var spot = targetPos + dir * range;
+
+            return new Vector3Geometry.Sector(targetPos, spot, SpellClass.Q2.Width, range);
         }
 
         #endregion

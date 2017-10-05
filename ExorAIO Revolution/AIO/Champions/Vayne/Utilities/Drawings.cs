@@ -56,10 +56,10 @@ namespace AIO.Champions
                         var targetRadius = target.BoundingRadius;
 
                         var posImpact = target.Position.Extend(playerPos, -condemnDistancePush);
-                        var posRectangle = new Geometry.Rectangle(targetPos, posImpact, targetRadius);
+                        var posRectangle = new Vector3Geometry.Rectangle(targetPos, posImpact, targetRadius);
 
                         var predImpact = SpellClass.E.GetPrediction(target).CastPosition.Extend(playerPos, -condemnDistancePush);
-                        var predRectangle = new Geometry.Rectangle(targetPos, predImpact, targetRadius);
+                        var predRectangle = new Vector3Geometry.Rectangle(targetPos, predImpact, targetRadius);
 
                         posRectangle.Draw(Bools.AnyWallInBetween(targetPos, posImpact) ? Color.Blue : Color.OrangeRed);
                         predRectangle.Draw(Bools.AnyWallInBetween(targetPos, predImpact) ? Color.Blue : Color.OrangeRed);

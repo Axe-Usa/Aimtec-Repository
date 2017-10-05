@@ -62,8 +62,7 @@ namespace AIO.Champions
                 {
                     if (End != Vector3.Zero)
                     {
-                        var cone = UltimateCone();
-                        cone.Draw(GameObjects.EnemyHeroes.Any(t => t.IsValidTarget() && cone.IsInside((Vector2)t.ServerPosition))
+                        DrawUltimateCone().Draw(GameObjects.EnemyHeroes.Any(t => t.IsValidTarget() && UltimateCone().IsInside((Vector2)t.ServerPosition))
                             ? Color.Green
                             : Color.Red);
                     }

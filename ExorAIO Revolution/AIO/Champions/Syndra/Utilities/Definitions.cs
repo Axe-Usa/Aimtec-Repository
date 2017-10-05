@@ -165,22 +165,22 @@ namespace AIO.Champions
         /// <summary>
         ///     The Sphere Scatter Rectangle.
         /// </summary>
-        public Geometry.Rectangle DarkSphereScatterRectangle(KeyValuePair<int, Vector3> sphere)
+        public Vector2Geometry.Rectangle DarkSphereScatterRectangle(KeyValuePair<int, Vector3> sphere)
         {
-            return new Geometry.Rectangle(
-                           sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width*2),
-                           sphere.Value.Extend(UtilityClass.Player.Position, -1100f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
+            return new Vector2Geometry.Rectangle(
+                           (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width*2),
+                           (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, -1100f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
                            SpellClass.Q.Width-25f);
         }
 
         /// <summary>
         ///     The Scatter the Weak Cone.
         /// </summary>
-        public Geometry.Sector ScatterTheWeakCone(Vector3 targetPos)
+        public Vector2Geometry.Sector ScatterTheWeakCone(Vector3 targetPos)
         {
-            return new Geometry.Sector(
-                        UtilityClass.Player.Position,
-                        targetPos,
+            return new Vector2Geometry.Sector(
+                        (Vector2)UtilityClass.Player.Position,
+                        (Vector2)targetPos,
                         SpellClass.E.Width,
                         SpellClass.E.Range - 50f);
         }

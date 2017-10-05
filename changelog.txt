@@ -785,3 +785,10 @@ ExorAIO: Revolution Changelog:
 
 7.19.0.13:
   AIO: Fixed Invulnerability checks.
+
+7.19.0.14:
+  AIO: Fixed some Invulnerabilities declarations.
+  Jhin: Fixed R not being used since some updates.
+  Xayah: Fixed E not being used since some updates.
+  Orianna: Fixed E not being used since some updates.
+  Lucian: Fixed Extended Q not being used since some updates.

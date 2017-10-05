@@ -65,14 +65,27 @@ namespace AIO.Champions
         /// <summary>
         ///     The Ultimate Cone.
         /// </summary>
-        public Geometry.Sector UltimateCone()
+        public Vector2Geometry.Sector UltimateCone()
         {
             var targetPos = End;
             var range = SpellClass.R.Range-UtilityClass.Player.BoundingRadius;
             var dir = (targetPos - UtilityClass.Player.Position).Normalized();
             var spot = targetPos + dir * range;
 
-            return new Geometry.Sector(End.Extend(UtilityClass.Player.Position, End.Distance(UtilityClass.Player)+UtilityClass.Player.BoundingRadius*3), spot, SpellClass.R2.Width, range);
+            return new Vector2Geometry.Sector((Vector2)End.Extend(UtilityClass.Player.Position, End.Distance(UtilityClass.Player)+UtilityClass.Player.BoundingRadius*3), (Vector2)spot, SpellClass.R2.Width, range);
+        }
+
+        /// <summary>
+        ///     The Ultimate Cone.
+        /// </summary>
+        public Vector3Geometry.Sector DrawUltimateCone()
+        {
+            var targetPos = End;
+            var range = SpellClass.R.Range - UtilityClass.Player.BoundingRadius;
+            var dir = (targetPos - UtilityClass.Player.Position).Normalized();
+            var spot = targetPos + dir * range;
+
+            return new Vector3Geometry.Sector(End.Extend(UtilityClass.Player.Position, End.Distance(UtilityClass.Player) + UtilityClass.Player.BoundingRadius * 3), spot, SpellClass.R2.Width, range);
         }
 
         #endregion

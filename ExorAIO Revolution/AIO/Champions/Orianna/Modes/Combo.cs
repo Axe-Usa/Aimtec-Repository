@@ -84,9 +84,9 @@ namespace AIO.Champions
 
                     foreach (var ally in bestAllies)
                     {
-                        var allyToBallRectangle = new Geometry.Rectangle(
-                            ally.ServerPosition,
-                            ally.ServerPosition.Extend((Vector3)BallPosition, ally.Distance((Vector3)BallPosition) + 30f),
+                        var allyToBallRectangle = new Vector2Geometry.Rectangle(
+                            (Vector2)ally.ServerPosition,
+                            (Vector2)ally.ServerPosition.Extend((Vector3)BallPosition, ally.Distance((Vector3)BallPosition) + 30f),
                             SpellClass.E.Width);
 
                         if (GameObjects.EnemyHeroes.Any(

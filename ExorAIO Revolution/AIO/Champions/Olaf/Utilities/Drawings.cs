@@ -38,7 +38,7 @@ namespace AIO.Champions
                 foreach (var axe in Axes)
                 {
                     var drawAxePos = axe.Value.FixHeight();
-                    var axeRectangle = new Geometry.Rectangle(UtilityClass.Player.Position, drawAxePos, UtilityClass.Player.BoundingRadius);
+                    var axeRectangle = new Vector3Geometry.Rectangle(UtilityClass.Player.Position, drawAxePos, UtilityClass.Player.BoundingRadius);
 
                     axeRectangle.Draw(Color.Yellow);
                     Render.Circle(drawAxePos, UtilityClass.Player.BoundingRadius, 5, Color.OrangeRed);

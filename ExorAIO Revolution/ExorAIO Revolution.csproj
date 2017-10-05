@@ -222,6 +222,7 @@
     <Compile Include="AIO\Champions\Sivir\Modes\Weaving.cs" />
     <Compile Include="AIO\Champions\Sivir\Sivir.cs" />
     <Compile Include="AIO\Utilities\Helpers\AntiGapcloser\AntiGapcloser.cs" />
+    <Compile Include="AIO\Utilities\Helpers\Geometry\Vector2Geometry.cs" />
     <Compile Include="AIO\Utilities\Helpers\Prediction\Prediction.cs" />
     <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Data.cs" />
     <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Enumerations\CastType.cs" />
@@ -415,7 +416,7 @@
     <Compile Include="AIO\General\Methods.cs" />
     <Compile Include="AIO\Utilities\Helpers\Extensions.cs" />
     <Compile Include="AIO\Utilities\Helpers\GameObjects.cs" />
-    <Compile Include="AIO\Utilities\Helpers\Geometry.cs" />
+    <Compile Include="AIO\Utilities\Helpers\Geometry\Vector3Geometry.cs" />
     <Compile Include="AIO\Utilities\ImplementationClass.cs" />
     <Compile Include="AIO\Utilities\Helpers\Invulnerable.cs" />
     <Compile Include="AIO\Utilities\MenuClass.cs" />

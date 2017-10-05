@@ -65,7 +65,7 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Drawings["rmm"].As<MenuBool>().Enabled)
                 {
-                    Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, SpellClass.R.Range, Color.White);
+                    Vector2Geometry.DrawCircleOnMinimap(UtilityClass.Player.Position, SpellClass.R.Range, Color.White);
                 }
             }
 

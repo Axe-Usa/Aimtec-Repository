@@ -128,18 +128,17 @@ namespace AIO.Utilities
                             {
                                 if (entry.CheckFunction == null || ExecuteCheckFunction(entry, hero, damageType))
                                 {
-                                    if (damage <= 0 || entry.MinHealthPercent <= 0
-                                        || (hero.GetRealHealth() - damage) / hero.MaxHealth * 100 < entry.MinHealthPercent)
+                                    if (entry.MinHealthPercent <= 0 || hero.HealthPercent() < entry.MinHealthPercent)
                                     {
                                         return true;
                                     }
-                                    return true;
                                 }
                             }
                         }
                     }
                 }
             }
+
             return false;
         }
 
