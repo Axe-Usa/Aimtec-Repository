@@ -135,6 +135,15 @@ namespace AIO.Champions
                     MenuClass.R.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                     {
                         /// <summary>
+                        ///     Sets the customization menu for the R spell.
+                        /// </summary>
+                        MenuClass.R2 = new Menu("customization", "Customization:");
+                        {
+                            MenuClass.R2.Add(new MenuBool("autordisable", "Automatically deactivate R"));
+                        }
+                        MenuClass.R.Add(MenuClass.R2);
+
+                        /// <summary>
                         ///     Sets the menu for the R Whitelist.
                         /// </summary>
                         MenuClass.WhiteList3 = new Menu("whitelist", "Harass: Whitelist");

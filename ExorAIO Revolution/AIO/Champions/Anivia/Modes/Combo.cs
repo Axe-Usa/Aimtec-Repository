@@ -38,7 +38,8 @@ namespace AIO.Champions
                         }
                         break;
                     case 2:
-                        if (UtilityClass.Player.InFountain())
+                        if (UtilityClass.Player.InFountain() ||
+                            !MenuClass.Spells["r"]["customization"]["autordisable"].Enabled)
                         {
                             return;
                         }
@@ -86,7 +87,7 @@ namespace AIO.Champions
                     case 1:
                         var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
                         if (bestTarget != null &&
-                            !Invulnerable.Check(bestTarget, DamageType.Magical))
+                            !Invulnerable.Check(bestTarget, DamageType.Magical, false))
                         {
                             SpellClass.Q.Cast(bestTarget);
                         }
@@ -94,7 +95,7 @@ namespace AIO.Champions
                     case 2:
                         if (FlashFrost != null &&
                             GameObjects.EnemyHeroes.Any(t =>
-                                !Invulnerable.Check(t, DamageType.Magical) &&
+                                !Invulnerable.Check(t, DamageType.Magical, false) &&
                                 t.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position)))
                         {
                             SpellClass.Q.Cast();

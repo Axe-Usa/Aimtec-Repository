@@ -792,3 +792,7 @@ ExorAIO: Revolution Changelog:
   Xayah: Fixed E not being used since some updates.
   Orianna: Fixed E not being used since some updates.
   Lucian: Fixed Extended Q not being used since some updates.
+
+7.19.0.15:
+  AIO: Fixed Anti-Gapcloser acting strange towards Caitlyn E detection.
+  Anivia: Added Option to not automatically deactivate R.

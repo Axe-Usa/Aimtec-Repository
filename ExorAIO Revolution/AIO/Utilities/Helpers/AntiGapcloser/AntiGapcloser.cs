@@ -27,6 +27,8 @@
         public string ChampionName { get; set; }
         public string SpellName { get; set; }
         public SpellSlot Slot { get; set; }
+        public bool IsReversedDash { get; set; }
+        public int PushBackDistance { get; set; }
         public GapSpellType SpellType { get; set; }
     }
 
@@ -132,6 +134,8 @@
                 {
                     ChampionName = "Caitlyn",
                     Slot = SpellSlot.E,
+                    IsReversedDash = true,
+                    PushBackDistance = 400,
                     SpellName = "caitlynentrapment",
                     SpellType = GapSpellType.SkillShot
                 });
@@ -1050,13 +1054,15 @@
                 Gapclosers.Add(sender.NetworkId, new GapcloserArgs());
             }
 
+            var spell = Spells.FirstOrDefault(e => e.SpellName == args.SpellData.Name);
+
             Gapclosers[sender.NetworkId].Unit = gapSender;
             Gapclosers[sender.NetworkId].Slot = args.SpellSlot;
             Gapclosers[sender.NetworkId].Target = (AttackableUnit)args.Target;
             Gapclosers[sender.NetworkId].Type = args.Target != null ? GapSpellType.Targeted : GapSpellType.SkillShot;
             Gapclosers[sender.NetworkId].SpellName = args.SpellData.Name;
             Gapclosers[sender.NetworkId].StartPosition = args.Start;
-            Gapclosers[sender.NetworkId].EndPosition = args.End;
+            Gapclosers[sender.NetworkId].EndPosition = spell.IsReversedDash ? args.Start.Extend(args.End, -spell.PushBackDistance) : args.End;
             Gapclosers[sender.NetworkId].StartTick = Game.TickCount;
         }
     }
