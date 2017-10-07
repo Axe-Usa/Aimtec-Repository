@@ -1054,7 +1054,7 @@
                 Gapclosers.Add(sender.NetworkId, new GapcloserArgs());
             }
 
-            var spell = Spells.FirstOrDefault(e => e.SpellName == args.SpellData.Name);
+            var spell = Spells.FirstOrDefault(e => e.SpellName == argsName);
 
             Gapclosers[sender.NetworkId].Unit = gapSender;
             Gapclosers[sender.NetworkId].Slot = args.SpellSlot;

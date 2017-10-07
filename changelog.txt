@@ -796,3 +796,6 @@ ExorAIO: Revolution Changelog:
 7.19.0.15:
   AIO: Fixed Anti-Gapcloser acting strange towards Caitlyn E detection.
   Anivia: Added Option to not automatically deactivate R.
+  
+7.19.0.16:
+  AIO: More fixes to Anti-Gapcloser acting strange towards Caitlyn E detection.
