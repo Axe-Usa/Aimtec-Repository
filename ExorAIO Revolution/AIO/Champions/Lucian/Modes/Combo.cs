@@ -1,5 +1,4 @@
 
-using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
@@ -22,7 +21,7 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
-            ///     The Q Combo Logic.
+            ///     The Extended Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q2"]["combo"].As<MenuBool>().Enabled)
@@ -30,15 +29,15 @@ namespace AIO.Champions
                 var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
                 if (target != null)
                 {
-                    foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
-                        let polygon = QRectangle(minion)
-                        where
-                            target != minion &&
-                            polygon.IsInside((Vector2)target.ServerPosition) &&
-                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition)
-                        select minion)
+                    foreach (var minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range))
                     {
-                        SpellClass.Q.CastOnUnit(minion);
+                        var polygon = QRectangle(minion);
+                        if (minion != target &&
+                            polygon.IsInside((Vector2)target.ServerPosition) &&
+                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
+                        {
+                            SpellClass.Q.CastOnUnit(minion);
+                        }
                     }
                 }
             }

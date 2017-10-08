@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -38,9 +39,9 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget != null &&
-                    MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                var bestTarget = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q.Range)
+                    .FirstOrDefault(c => MenuClass.Spells["q"]["whitelist"][c.ChampionName.ToLower()].As<MenuBool>().Enabled);
+                if (bestTarget != null)
                 {
                     SpellClass.Q.Cast(bestTarget);
                 }

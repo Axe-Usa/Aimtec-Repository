@@ -815,3 +815,8 @@ ExorAIO: Revolution Changelog:
   Syndra: Fixed OnDash Q.
   Lucian: Fixed Nullref.
   Lucian: Improved Extended Q check.
+
+7.19.0.19:
+  Lucian: Reworked Extended Q Logics.
+  Syndra: Menu words less long.
+  Syndra: Little Harass fix.

@@ -1,5 +1,4 @@
 
-using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -23,7 +22,7 @@ namespace AIO.Champions
         public void Killsteal()
         {
             /// <summary>
-            ///     The Q Killsteal Logic.
+            ///     The Q Killsteal Logics.
             /// </summary>
             if (SpellClass.Q.Ready)
             {
@@ -44,22 +43,23 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Extended.
                 /// </summary>
-                if (MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
+                else if (MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
                 {
                     var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
-                        .MinBy(t => UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth());
-                    if (target != null &&
-                        !Invulnerable.Check(target))
+                        .MinBy(t =>
+                            !Invulnerable.Check(t) &&
+                            UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth());
+                    if (target != null)
                     {
-                        foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
-                            let polygon = QRectangle(minion)
-                            where
-                                target != minion &&
-                                polygon.IsInside((Vector2)target.ServerPosition) &&
-                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition)
-                            select minion)
+                        foreach (var minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range))
                         {
-                            SpellClass.Q.CastOnUnit(minion);
+                            var polygon = QRectangle(minion);
+                            if (minion != target &&
+                                polygon.IsInside((Vector2)target.ServerPosition) &&
+                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
+                            {
+                                SpellClass.Q.CastOnUnit(minion);
+                            }
                         }
                     }
                 }
@@ -68,7 +68,8 @@ namespace AIO.Champions
             /// <summary>
             ///     The KillSteal W Logic.
             /// </summary>
-            if (MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
+            if (SpellClass.W.Ready &&
+                MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
                 var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&

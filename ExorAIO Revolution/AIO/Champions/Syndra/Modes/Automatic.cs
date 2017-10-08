@@ -18,8 +18,15 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-            SpellClass.E.Width = UtilityClass.GetAngleByDegrees(UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Level < 5 ? 40 : 60);
-            SpellClass.R.Range = UtilityClass.Player.BoundingRadius + UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level < 3 ? 675f : 750f;
+            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.E).Level == 5)
+            {
+                SpellClass.E.Width = UtilityClass.GetAngleByDegrees(60);
+            }
+
+            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level == 3)
+            {
+                SpellClass.R.Range = 750f;
+            }
         }
 
         #endregion
