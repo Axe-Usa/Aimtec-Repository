@@ -1,6 +1,7 @@
 
 using System.Linq;
 using Aimtec;
+using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -108,20 +109,23 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Called while processing spellcast operations.
+        ///     Fired on an incoming dash.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
+        private void OnDash(object sender, Dash.DashArgs args)
         {
-            if (sender.IsMe)
+            var heroSender = args.Unit as Obj_AI_Hero;
+            if (heroSender == null || !heroSender.IsEnemy || !Invulnerable.Check(heroSender, DamageType.Magical))
             {
-                if (args.SpellSlot == SpellSlot.Q &&
-                    ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.Combo &&
-                    MenuClass.Spells["e"]["customization"]["forcee"].As<MenuBool>().Enabled)
-                {
-                    SpellClass.E.Cast(args.End);
-                }
+                return;
+            }
+
+            if (SpellClass.Q.Ready &&
+                UtilityClass.Player.Distance(args.EndPos) <= SpellClass.Q.Range &&
+                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            {
+                SpellClass.Q.Cast(args.EndPos);
             }
         }
 

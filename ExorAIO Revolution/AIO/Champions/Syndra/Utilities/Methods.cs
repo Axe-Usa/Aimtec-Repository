@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using Aimtec;
+using Aimtec.SDK.Events;
 using AIO.Utilities;
 
 namespace AIO.Champions
@@ -20,8 +22,8 @@ namespace AIO.Champions
             GameObject.OnDestroy += OnDestroy;
             Render.OnPresent += OnPresent;
             SpellBook.OnCastSpell += OnCastSpell;
-            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
             Gapcloser.OnGapcloser += OnGapcloser;
+            Dash.HeroDashed += OnDash;
 
             //Events.OnInterrupt += this.OnInterrupt;
         }

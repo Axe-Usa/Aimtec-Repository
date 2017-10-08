@@ -33,7 +33,7 @@ namespace AIO.Champions
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("harass", "Harass"));
-                    MenuClass.Q.Add(new MenuBool("buildings", "Demolish buildings"));
+                    MenuClass.Q.Add(new MenuBool("buildings", "To buildings"));
                     MenuClass.Q.Add(new MenuBool("laneclear", "Laneclear"));
                     MenuClass.Q.Add(new MenuBool("jungleclear", "Jungleclear"));
                 }
@@ -58,7 +58,7 @@ namespace AIO.Champions
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("buildings", "To buildings / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 
@@ -88,7 +88,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
@@ -123,7 +123,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

@@ -8,6 +8,7 @@ using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
 #pragma warning disable 1587
@@ -163,13 +164,42 @@ namespace AIO.Champions
         }
 
         /// <summary>
+        ///     Returns the W Logic code.
+        /// </summary>
+        public void InitializeWLogic(bool addWhitelist = false)
+        {
+            var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range + 200f);
+            if (bestTarget != null &&
+                !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                (!addWhitelist || MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled))
+            {
+                if (!IsHoldingForceOfWillObject())
+                {
+                    var obj = ForceOfWillObject();
+                    if (obj.IsValid &&
+                        obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
+                    {
+                        SpellClass.W.CastOnUnit(obj);
+                    }
+                }
+                else
+                {
+                    if (bestTarget.IsValidTarget(SpellClass.W.Range))
+                    {
+                        SpellClass.W.Cast(bestTarget);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         ///     The Sphere Scatter Rectangle.
         /// </summary>
         public Vector2Geometry.Rectangle DarkSphereScatterRectangle(KeyValuePair<int, Vector3> sphere)
         {
             return new Vector2Geometry.Rectangle(
                            (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width*2),
-                           (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, -1100f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
+                           (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, -1050f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
                            SpellClass.Q.Width-25f);
         }
 

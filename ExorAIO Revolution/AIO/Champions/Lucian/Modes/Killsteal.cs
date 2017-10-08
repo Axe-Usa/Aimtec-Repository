@@ -48,7 +48,7 @@ namespace AIO.Champions
                 {
                     var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
                         .MinBy(t => UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth());
-                    if (target.IsValidTarget())
+                    if (target != null)
                     {
                         foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
                             let polygon = QRectangle(minion)

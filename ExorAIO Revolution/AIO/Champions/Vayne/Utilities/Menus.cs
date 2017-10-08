@@ -37,7 +37,7 @@ namespace AIO.Champions
                     MenuClass.Q.Add(new MenuSeperator("separator2"));
                     MenuClass.Q.Add(new MenuSliderBool("farmhelper", "Farmhelper / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.Q.Add(new MenuSliderBool("buildings", "To buildings / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
@@ -96,7 +96,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);

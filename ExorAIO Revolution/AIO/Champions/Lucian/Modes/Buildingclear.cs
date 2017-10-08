@@ -37,7 +37,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["buildings"]) &&
                 MenuClass.Spells["e"]["buildings"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.Cast(UtilityClass.Player.Position.Extend(Game.CursorPos, 25));
+                SpellClass.E.Cast(UtilityClass.Player.Position.Extend(Game.CursorPos, 25f));
                 return;
             }
 

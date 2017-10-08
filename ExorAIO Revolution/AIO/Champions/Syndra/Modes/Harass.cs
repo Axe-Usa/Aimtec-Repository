@@ -1,5 +1,4 @@
 
-using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -28,27 +27,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
                 MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range+200f);
-                if (bestTarget != null &&
-                    MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                {
-                    if (!IsHoldingForceOfWillObject())
-                    {
-                        var obj = ForceOfWillObject();
-                        if (obj.IsValid &&
-                            obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
-                        {
-                            SpellClass.W.CastOnUnit(obj);
-                        }
-                    }
-                    else
-                    {
-                        if (bestTarget.IsValidTarget(SpellClass.W.Range - 100f))
-                        {
-                            SpellClass.W.Cast(bestTarget);
-                        }
-                    }
-                }
+                InitializeWLogic(true);
             }
 
             /// <summary>
@@ -56,12 +35,11 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                if (bestTarget != null &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
                     SpellClass.Q.Cast(bestTarget);

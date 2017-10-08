@@ -17,6 +17,14 @@ namespace AIO.Champions
         #region Fields
 
         /// <summary>
+        ///     Returns true if the player is using the ultimate.
+        /// </summary>
+        public bool IsCulling()
+        {
+            return UtilityClass.Player.HasBuff("LucianR");
+        }
+
+        /// <summary>
         ///     The Q Rectangle.
         /// </summary>
         public Vector2Geometry.Rectangle QRectangle(Obj_AI_Base unit)

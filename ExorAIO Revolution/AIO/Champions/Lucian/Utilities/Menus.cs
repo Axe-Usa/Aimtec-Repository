@@ -80,7 +80,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q3.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.Q3.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q3);
@@ -94,7 +94,7 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("buildings", "To buildings / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the W spell.
@@ -113,7 +113,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Dynamic distance", "Always Long", "Always Short" }, 0));
+                    MenuClass.E.Add(new MenuList("mode", "E Mode", new[] { "Dynamic", "Long", "Short" }, 0));
                     MenuClass.E.Add(new MenuSeperator("separator"));
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuBool("engage", "Engage"));
@@ -122,7 +122,7 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuSeperator("separator3"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.E.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("buildings", "To buildings / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the E spell.
@@ -176,7 +176,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

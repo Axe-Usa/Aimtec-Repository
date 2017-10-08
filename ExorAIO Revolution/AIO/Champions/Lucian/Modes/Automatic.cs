@@ -22,6 +22,8 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
+            ImplementationClass.IOrbwalker.AttackingEnabled = !IsCulling();
+
             /// <summary>
             ///     The Automatic R Orbwalking.
             /// </summary>
@@ -42,13 +44,13 @@ namespace AIO.Champions
             {
                 var bestTarget = GameObjects.EnemyHeroes
                     .Where(t =>
-                        t.IsValidTarget(SpellClass.R.Range) &&
                         !Invulnerable.Check(t) &&
+                        t.IsValidTarget(SpellClass.R.Range) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .MinBy(o => o.GetRealHealth());
 
-                if (bestTarget != null &&
-                    !UtilityClass.Player.HasBuff("LucianR") &&
+                if (!IsCulling() &&
+                    bestTarget != null &&
                     MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
                 {
                     if (SpellClass.W.Ready &&

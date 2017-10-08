@@ -72,7 +72,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -85,7 +85,7 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("buildings", "To buildings / if Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 
@@ -145,7 +145,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

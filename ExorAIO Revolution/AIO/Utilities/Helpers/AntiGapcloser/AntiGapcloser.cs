@@ -966,12 +966,12 @@
                 }
                 else
                 {
-                    mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser Menu not needed."));
+                    mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser not needed."));
                 }
             }
             else
             {
-                mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser Menu not needed."));
+                mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser not needed."));
             }
         }
 

@@ -94,8 +94,10 @@ namespace AIO
                 ///     The 'No AA in Combo' Logic.
                 /// </summary>
                 case OrbwalkingMode.Combo:
-                    if (MenuClass.General["disableaa"].As<MenuBool>().Enabled &&
-                        !UtilityClass.Player.HasSheenLikeBuff())
+                    if (!UtilityClass.Player.HasSheenLikeBuff() &&
+                        UtilityClass.Player.Level >=
+                                MenuClass.General["disableaa"].As<MenuSliderBool>().Value &&
+                        MenuClass.General["disableaa"].As<MenuSliderBool>().Enabled)
                     {
                         args.Cancel = true;
                     }

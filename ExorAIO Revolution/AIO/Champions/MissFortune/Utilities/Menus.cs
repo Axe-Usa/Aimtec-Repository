@@ -54,7 +54,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -95,7 +95,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q2.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.Q2.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q2);
@@ -109,7 +109,7 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuSliderBool("mixed", "Harass / if Mana >= %", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("buildings", "Demolish buildings / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.W.Add(new MenuSliderBool("buildings", "To buildings / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the W spell.
@@ -182,7 +182,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

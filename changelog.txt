@@ -800,3 +800,13 @@ ExorAIO: Revolution Changelog:
 7.19.0.16:
   AIO: Fixes to Anti-Gapcloser logics.
   AIO: More fixes to Anti-Gapcloser acting strange towards Caitlyn E detection.
+
+7.19.0.17:
+  AIO: Changed "Disable AA in Combo option" to "Disable AA in Combo / If Level >= x" (customizable!)
+  AIO: Cleaned up some Menu words to make the menus less long.
+  Lucian: Some code clearing.
+  Syndra: W Logic rework.
+  Syndra: Added Q on Dashing enemies.
+  Syndra: Fixed Prediction on Q and W.
+  Syndra: Fixed strange movement stuttering.
+  Syndra: Fixed Console Nullref.

@@ -28,7 +28,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q2"]["combo"].As<MenuBool>().Enabled)
             {
                 var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
-                if (target.IsValidTarget())
+                if (target != null)
                 {
                     foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
                         let polygon = QRectangle(minion)

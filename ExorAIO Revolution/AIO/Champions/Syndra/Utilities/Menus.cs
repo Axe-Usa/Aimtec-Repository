@@ -128,7 +128,6 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "Customization:");
                     {
-                        MenuClass.E2.Add(new MenuBool("forcee", "Instantly force E after Q"));
                         //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
                         MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 4, 1, 10));
                     }

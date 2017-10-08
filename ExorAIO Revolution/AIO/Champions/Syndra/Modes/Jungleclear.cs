@@ -23,7 +23,7 @@ namespace AIO.Champions
         public void Jungleclear()
         {
             var jungleTarget = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m => Extensions.GetGenericJungleMinionsTargets().Contains(m));
-            if (jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
+            if (jungleTarget == null || jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 3)
             {
                 return;
             }
@@ -48,12 +48,11 @@ namespace AIO.Champions
                 }
                 else
                 {
-                    SpellClass.W.Cast(jungleTarget?.ServerPosition ?? Game.CursorPos);
+                    SpellClass.W.Cast(jungleTarget);
                 }
             }
 
-            if (jungleTarget == null ||
-                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State == SpellState.Ready)
+            if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State == SpellState.Ready)
             {
                 return;
             }
@@ -75,7 +74,6 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 IsPerfectSphereTarget(jungleTarget) &&
-                jungleTarget.IsValidTarget(SpellClass.E.Range) &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)

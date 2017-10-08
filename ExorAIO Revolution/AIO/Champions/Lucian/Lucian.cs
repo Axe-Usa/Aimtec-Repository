@@ -105,36 +105,20 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public void OnPostAttack(object sender, PostAttackEventArgs args)
         {
-            if (!UtilityClass.Player.HasBuff("LucianR"))
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (ImplementationClass.IOrbwalker.Mode)
             {
-                /// <summary>
-                ///     Initializes the orbwalkingmodes.
-                /// </summary>
-                switch (ImplementationClass.IOrbwalker.Mode)
-                {
-                    case OrbwalkingMode.Combo:
-                        Weaving(sender, args);
-                        break;
+                case OrbwalkingMode.Combo:
+                    Weaving(sender, args);
+                    break;
 
-                    case OrbwalkingMode.Laneclear:
-                        Laneclear(sender, args);
-                        Jungleclear(sender, args);
-                        Buildingclear(sender, args);
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Called on pre attack.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
-        public void OnPreAttack(object sender, PreAttackEventArgs args)
-        {
-            if (UtilityClass.Player.HasBuff("LucianR"))
-            {
-                args.Cancel = true;
+                case OrbwalkingMode.Laneclear:
+                    Laneclear(sender, args);
+                    Jungleclear(sender, args);
+                    Buildingclear(sender, args);
+                    break;
             }
         }
 
@@ -174,7 +158,7 @@ namespace AIO.Champions
             /// </summary>
             Automatic();
 
-            if (UtilityClass.Player.HasBuff("LucianR"))
+            if (IsCulling())
             {
                 return;
             }
