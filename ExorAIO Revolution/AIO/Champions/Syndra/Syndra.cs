@@ -113,10 +113,10 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Dash.DashArgs" /> instance containing the event data.</param>
-        private void OnDash(object sender, Dash.DashArgs args)
+        public void OnDash(object sender, Dash.DashArgs args)
         {
             var heroSender = args.Unit as Obj_AI_Hero;
-            if (heroSender == null || !heroSender.IsEnemy || !Invulnerable.Check(heroSender, DamageType.Magical))
+            if (heroSender == null || !heroSender.IsEnemy || Invulnerable.Check(heroSender, DamageType.Magical))
             {
                 return;
             }

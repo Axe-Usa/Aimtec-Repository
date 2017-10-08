@@ -810,3 +810,8 @@ ExorAIO: Revolution Changelog:
   Syndra: Fixed Prediction on Q and W.
   Syndra: Fixed strange movement stuttering.
   Syndra: Fixed Console Nullref.
+
+7.19.0.18:
+  Syndra: Fixed OnDash Q.
+  Lucian: Fixed Nullref.
+  Lucian: Improved Extended Q check.

@@ -4,6 +4,7 @@ using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
+using Aimtec.SDK.TargetSelector;
 using AIO.Utilities;
 
 #pragma warning disable 1587
@@ -31,8 +32,9 @@ namespace AIO.Champions
                 MenuClass.Spells["q2"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
-                    .MinBy(t => MenuClass.Spells["extendedq"]["whitelist"][t.ChampionName.ToLower()].Enabled);
-                if (target.IsValidTarget())
+                    .MinBy(t => MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled);
+                if (target != null &&
+                    !Invulnerable.Check(target))
                 {
                     foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
                         let polygon = QRectangle(minion)

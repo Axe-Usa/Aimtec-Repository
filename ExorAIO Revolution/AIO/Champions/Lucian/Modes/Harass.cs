@@ -31,7 +31,8 @@ namespace AIO.Champions
             {
                 var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
                     .MinBy(t => MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled);
-                if (target != null)
+                if (target != null &&
+                    !Invulnerable.Check(target))
                 {
                     foreach (var minion in from minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
                         let polygon = QRectangle(minion)
