@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
@@ -26,13 +27,16 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q2"]["combo"].As<MenuBool>().Enabled)
             {
-                var target = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
+                var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
+                    .FirstOrDefault(t =>
+                        !Invulnerable.Check(t) &&
+                        t.Distance(UtilityClass.Player) > UtilityClass.Player.GetFullAttackRange(t));
                 if (target != null)
                 {
                     foreach (var minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range))
                     {
                         var polygon = QRectangle(minion);
-                        if (minion != target &&
+                        if (minion.NetworkId != target.NetworkId &&
                             polygon.IsInside((Vector2)target.ServerPosition) &&
                             polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
                         {

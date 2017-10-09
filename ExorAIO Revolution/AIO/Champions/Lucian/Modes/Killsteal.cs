@@ -43,20 +43,19 @@ namespace AIO.Champions
                 /// <summary>
                 ///     Extended.
                 /// </summary>
-                else if (MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
+                if (MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
                 {
-                    var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
-                        .MinBy(t =>
-                            !Invulnerable.Check(t) &&
-                            UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth());
-                    if (target != null)
+                    var bestTarget = SpellClass.Q2.GetBestKillableHero(DamageType.Physical);
+                    if (bestTarget != null &&
+                        !bestTarget.IsValidTarget(SpellClass.Q.Range) &&
+                        UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                     {
                         foreach (var minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range))
                         {
                             var polygon = QRectangle(minion);
-                            if (minion != target &&
-                                polygon.IsInside((Vector2)target.ServerPosition) &&
-                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
+                            if (minion.NetworkId != bestTarget.NetworkId &&
+                                polygon.IsInside((Vector2)bestTarget.ServerPosition) &&
+                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(bestTarget).CastPosition))
                             {
                                 SpellClass.Q.CastOnUnit(minion);
                             }

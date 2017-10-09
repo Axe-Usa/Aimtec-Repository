@@ -129,18 +129,18 @@ namespace AIO.Champions
                     /// </summary>
                     MenuClass.E2 = new Menu("customization", "Customization:");
                     {
-                        MenuClass.E2.Add(new MenuBool("noeoutaarange", "Don't E out of AA range from target", false));
+                        MenuClass.E2.Add(new MenuBool("noeoutaarange", "Don't E out of AA range from target"));
                         MenuClass.E2.Add(new MenuBool("onlyeifmouseoutaarange", "Only E if mouse out of AA Range", false));
                         if (GameObjects.EnemyHeroes.Any())
                         {
                             var count = GameObjects.EnemyHeroes.Count();
-                            MenuClass.E2.Add(new MenuSliderBool("erangecheck", "Don't E if pos has >= X enemies in range", false, count >= 3 ? 3 : count, 1, GameObjects.EnemyHeroes.Count()));
+                            MenuClass.E2.Add(new MenuSliderBool("erangecheck", "Don't E if pos has >= X enemies in range", true, count >= 3 ? 3 : count, 1, GameObjects.EnemyHeroes.Count()));
                         }
                         else
                         {
                             MenuClass.E2.Add(new MenuSeperator("exseparator", "Don't E if pos has >= / No enemies found, no need for a position range check."));
                         }
-                        MenuClass.E2.Add(new MenuBool("noeturret", "Don't use E under Enemy Turret", false));
+                        MenuClass.E2.Add(new MenuBool("noeturret", "Don't use E under Enemy Turret"));
                     }
                     MenuClass.E.Add(MenuClass.E2);
                 }

@@ -17,8 +17,8 @@ namespace AIO.Champions
         /// </summary>
         public void Spells()
         {
-            SpellClass.Q = new Spell(SpellSlot.Q, UtilityClass.Player.BoundingRadius * 4 + 500f);
-            SpellClass.Q2 = new Spell(SpellSlot.Q, SpellClass.Q.Range + 400f);
+            SpellClass.Q = new Spell(SpellSlot.Q, UtilityClass.Player.AttackRange+UtilityClass.Player.BoundingRadius);
+            SpellClass.Q2 = new Spell(SpellSlot.Q, SpellClass.Q.Range + 400f - UtilityClass.Player.BoundingRadius);
             SpellClass.W = new Spell(SpellSlot.W, 900f);
             SpellClass.E = new Spell(SpellSlot.E, UtilityClass.Player.AttackRange + 425f);
             SpellClass.R = new Spell(SpellSlot.R, 1150f);

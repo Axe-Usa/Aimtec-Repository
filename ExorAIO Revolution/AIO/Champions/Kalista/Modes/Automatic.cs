@@ -121,20 +121,20 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Enabled)
                 {
-                    foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Where(IsPerfectRendTarget))
+                    foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Where(m =>
+                        IsPerfectRendTarget(m) &&
+                        m.GetRealHealth() <= GetTotalRendDamage(m)))
                     {
-                        if (minion.GetRealHealth() <= GetTotalRendDamage(minion))
+                        if (UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
+                            MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
                         {
-                            if (UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
-                                MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
-                            {
-                                SpellClass.E.Cast();
-                            }
-                            else if (!UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
-                                     MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
-                            {
-                                SpellClass.E.Cast();
-                            }
+                            SpellClass.E.Cast();
+                        }
+
+                        if (!UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
+                            MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.E.Cast();
                         }
                     }
                 }

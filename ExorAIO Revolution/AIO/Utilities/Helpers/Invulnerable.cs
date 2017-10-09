@@ -34,6 +34,7 @@ namespace AIO.Utilities
             PEntries.AddRange(
                 new List<InvulnerableEntry>
                     {
+                        new InvulnerableEntry("KindredrNoDeathBuff"),
                         new InvulnerableEntry("BlackShield")
                             {
                                 IsShield = true,
@@ -43,10 +44,6 @@ namespace AIO.Utilities
                             {
                                 IsShield = true,
                                 DamageType = DamageType.Magical
-                            },
-                        new InvulnerableEntry("KindredrNoDeathBuff")
-                            {
-                                MinHealthPercent = 10
                             },
                         new InvulnerableEntry("FioraW")
                             {
@@ -78,8 +75,7 @@ namespace AIO.Utilities
                             },
                         new InvulnerableEntry("UndyingRage")
                             {
-                                ChampionName = "Tryndamere",
-                                MinHealthPercent = 5
+                                ChampionName = "Tryndamere"
                             }
                     });
         }

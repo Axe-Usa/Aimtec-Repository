@@ -820,3 +820,10 @@ ExorAIO: Revolution Changelog:
   Lucian: Reworked Extended Q Logics.
   Syndra: Menu words less long.
   Syndra: Little Harass fix.
+
+7.19.0.20:
+  AIO: Fixed Tryndamere R and Kindred R invulnerability checks.
+  Kalista: Better Orbwalking to minions check.
+  Lucian: Improved Extended Q Logics' checks.
+  Lucian: Better E Menu default settings.
+  Lucian: Fixed Q and Extended Q ranges.

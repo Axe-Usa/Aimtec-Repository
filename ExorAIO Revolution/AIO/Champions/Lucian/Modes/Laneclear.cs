@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
@@ -30,15 +31,16 @@ namespace AIO.Champions
                 MenuClass.Spells["q2"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
-                    .MinBy(t =>
+                    .FirstOrDefault(t =>
                         !Invulnerable.Check(t) &&
+                        t.Distance(UtilityClass.Player) > UtilityClass.Player.GetFullAttackRange(t) &&
                         MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled);
                 if (target != null)
                 {
                     foreach (var minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range))
                     {
                         var polygon = QRectangle(minion);
-                        if (minion != target &&
+                        if (minion.NetworkId != target.NetworkId &&
                             polygon.IsInside((Vector2)target.ServerPosition) &&
                             polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
                         {
