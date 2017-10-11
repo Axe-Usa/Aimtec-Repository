@@ -22,7 +22,7 @@ namespace AIO
             /// <summary>
             ///     Loads the root Menu.
             /// </summary>
-            MenuClass.Root = new Menu(UtilityClass.Player.ChampionName.ToLower(), "ExorAIO Revolution: " + UtilityClass.Player.ChampionName, true);
+            MenuClass.Root = new Menu(UtilityClass.Player.ChampionName.ToLower(), "ExorAIO: " + UtilityClass.Player.ChampionName, true);
             {
                 /// <summary>
                 ///     Loads the orbwalker menu.
@@ -72,7 +72,7 @@ namespace AIO
                         }
                         else
                         {
-                            MenuClass.PreserveMana.Add(new MenuSeperator("preserveseparator", "Preserve Mana Menu not Needed"));
+                            MenuClass.PreserveMana.Add(new MenuSeperator("preserveseparator", "Preserve Mana not needed"));
                         }
                     }
                     MenuClass.General.Add(MenuClass.PreserveMana);

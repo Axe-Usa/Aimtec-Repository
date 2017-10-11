@@ -827,3 +827,8 @@ ExorAIO: Revolution Changelog:
   Lucian: Improved Extended Q Logics' checks.
   Lucian: Better E Menu default settings.
   Lucian: Fixed Q and Extended Q ranges.
+
+7.20.0.0:
+  AIO: Some code cleanup.
+  AIO: Menu Name has been made smaller to fix every issue where the menu interface would go out of the screen.
+  Kalista: Fixed Little Nullref.

@@ -1,4 +1,4 @@
-using System.Diagnostics;
+
 using Aimtec;
 using Aimtec.SDK.Events;
 using AIO.Utilities;

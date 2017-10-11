@@ -83,12 +83,13 @@ namespace AIO.Champions
                     args.Cancel = true;
                 }
 
-                else if (UtilityClass.Player.HasBuff("summonerexhaust"))
+                if (UtilityClass.Player.HasBuff("summonerexhaust"))
                 {
                     args.Cancel = true;
                 }
 
-                else if (GameObjects.EnemyHeroes.Count(t => t.IsValidTarget(UtilityClass.Player.AttackRange)) >=
+                if (GameObjects.EnemyHeroes.Count(t =>
+                        t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) >=
                     MenuClass.Miscellaneous["stealthcheck"].As<MenuSlider>().Value)
                 {
                     args.Cancel = true;
