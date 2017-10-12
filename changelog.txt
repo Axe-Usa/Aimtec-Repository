@@ -855,3 +855,6 @@ ExorAIO: Revolution Changelog:
   Evelynn: Added R Blink safety position = range drawing option.
   Evelynn: Fixed Q Prediction values.
   Evelynn: Added Don't AA Semi-Allured Targets option.
+
+7.20.1.3:
+  AIO: Fixed CompilingError.

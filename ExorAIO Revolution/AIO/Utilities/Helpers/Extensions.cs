@@ -75,7 +75,7 @@ namespace AIO.Utilities
         /// </summary>
         public static List<Obj_AI_Minion> GetAllyLaneMinionsTargetsInRange(float range)
         {
-            return GameObjects.AllyMinions.Where(m => m.IsValidSpellTarget(true, range)).ToList();
+            return GameObjects.AllyMinions.Where(m => m.IsValidTarget(range, true)).ToList();
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace AIO.Utilities
         /// </summary>
         public static List<Obj_AI_Minion> GetEnemyLaneMinionsTargetsInRange(float range)
         {
-            return GameObjects.EnemyMinions.Where(m => m.IsValidSpellTarget(false, range) && m.UnitSkinName.Contains("Minion") && !m.UnitSkinName.Contains("Odin")).ToList();
+            return GameObjects.EnemyMinions.Where(m => m.IsValidSpellTarget(range) && m.UnitSkinName.Contains("Minion") && !m.UnitSkinName.Contains("Odin")).ToList();
         }
 
         /// <summary>
@@ -184,10 +184,10 @@ namespace AIO.Utilities
         {
             if (MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
             {
-                return GameObjects.Jungle.Where(m => m.IsValidSpellTarget(false, range)).ToList();
+                return GameObjects.Jungle.Where(m => m.IsValidSpellTarget(range)).ToList();
             }
 
-            return GameObjects.Jungle.Where(m => (!GameObjects.JungleSmall.Contains(m) || m.UnitSkinName.Equals("Sru_Crab")) && m.IsValidSpellTarget(false, range)).ToList();
+            return GameObjects.Jungle.Where(m => (!GameObjects.JungleSmall.Contains(m) || m.UnitSkinName.Equals("Sru_Crab")) && m.IsValidSpellTarget(range)).ToList();
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace AIO.Utilities
         /// </summary>
         public static List<Obj_AI_Minion> GetLargeJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.JungleLarge.Where(m => m.IsValidSpellTarget(false, range)).ToList();
+            return GameObjects.JungleLarge.Where(m => m.IsValidSpellTarget(range)).ToList();
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace AIO.Utilities
         /// </summary>
         public static List<Obj_AI_Minion> GetLegendaryJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.JungleLegendary.Where(m => m.IsValidSpellTarget(false, range)).ToList();
+            return GameObjects.JungleLegendary.Where(m => m.IsValidSpellTarget(range)).ToList();
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace AIO.Utilities
         /// </summary>
         public static List<Obj_AI_Minion> GetSmallJungleMinionsTargetsInRange(float range)
         {
-            return GameObjects.JungleSmall.Where(m => m.IsValidSpellTarget(false, range)).ToList();
+            return GameObjects.JungleSmall.Where(m => m.IsValidSpellTarget(range)).ToList();
         }
 
         #endregion

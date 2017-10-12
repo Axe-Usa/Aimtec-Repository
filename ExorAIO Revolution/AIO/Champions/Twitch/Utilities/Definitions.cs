@@ -28,7 +28,7 @@ namespace AIO.Champions
         public bool IsPerfectExpungeTarget(Obj_AI_Base unit)
         {
             if (unit.HasBuff("twitchdeadlyvenom") &&
-                unit.IsValidSpellTarget(false, SpellClass.E.Range))
+                unit.IsValidSpellTarget(SpellClass.E.Range))
             {
                 switch (unit.Type)
                 {
