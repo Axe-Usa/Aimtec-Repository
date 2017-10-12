@@ -107,7 +107,7 @@ namespace AIO.Utilities
             bool ignoreShields = true,
             float damage = -1f)
         {
-            if (hero.ValidActiveBuffs().Any(b => b.Type == BuffType.Invulnerability) || hero.IsInvulnerable)
+            if (hero.ValidActiveBuffs().Any(b => b.Type == BuffType.Invulnerability))
             {
                 return true;
             }
