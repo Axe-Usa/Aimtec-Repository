@@ -26,7 +26,7 @@ namespace AIO.Champions
             ///     Orbwalk on minions.
             /// </summary>
             var minion = Extensions.GetAllGenericMinionsTargetsInRange(UtilityClass.Player.AttackRange)
-                .Where(m => m.IsValidSpellTarget(UtilityClass.Player.GetFullAttackRange(m)))
+                .Where(m => m.IsValidSpellTarget(false, UtilityClass.Player.GetFullAttackRange(m)))
                 .MinBy(o => o.GetRealHealth());
             if (minion != null &&
                 !GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)+100f)) &&

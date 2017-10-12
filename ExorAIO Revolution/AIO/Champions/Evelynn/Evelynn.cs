@@ -1,6 +1,7 @@
 
 using Aimtec;
 using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -39,6 +40,24 @@ namespace AIO.Champions
         #endregion
 
         #region Public Methods and Operators
+
+        /// <summary>
+        ///     Called on pre attack.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPreAttack(object sender, PreAttackEventArgs args)
+        {
+            var orbTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Base;
+            if (orbTarget != null)
+            {
+                if (IsAllured(orbTarget) && !IsFullyAllured(orbTarget) &&
+                    MenuClass.Spells["miscellaneous"]["dontaasemiallured"].As<MenuBool>().Enabled)
+                {
+                    args.Cancel = true;
+                }
+            }
+        }
 
         /// <summary>
         ///     Fired on an incoming gapcloser.

@@ -843,3 +843,15 @@ ExorAIO: Revolution Changelog:
   Evelynn: Added Anti-Gapcloser R with whitelist menu.
   Evelynn: Updated Manacosts.
 
+7.20.1.2:
+  AIO: Fixed CompilingError.
+  AIO: Fixed Manamanagers, it now takes into account the correct spells' mana costs.
+  AIO: Fixed some spells getting casted against plants on Laneclear.
+  Evelynn: Added R customization Menu:
+   - Blink position safety range slider.
+   - Don't R if >= X enemies in blink position safety range.
+   - Don't R if position under enemy turret.
+  Evelynn: Fixed Jungleclear logic.
+  Evelynn: Added R Blink safety position = range drawing option.
+  Evelynn: Fixed Q Prediction values.
+  Evelynn: Added Don't AA Semi-Allured Targets option.

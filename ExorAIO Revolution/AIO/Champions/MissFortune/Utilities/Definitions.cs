@@ -60,9 +60,9 @@ namespace AIO.Champions
         /// </returns>
         public Vector2Geometry.Sector QCone(Obj_AI_Base target)
         {
-            var targetPos = target.Position;
+            var targetPos = target.ServerPosition;
             var range = SpellClass.Q2.Range - SpellClass.Q.Range - UtilityClass.Player.BoundingRadius;
-            var dir = (targetPos - UtilityClass.Player.Position).Normalized();
+            var dir = (targetPos - UtilityClass.Player.ServerPosition).Normalized();
             var spot = targetPos + dir * range;
 
             return new Vector2Geometry.Sector((Vector2)targetPos, (Vector2)spot, SpellClass.Q2.Width, range);

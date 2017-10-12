@@ -23,7 +23,8 @@ namespace AIO.Champions
             SpellClass.E = new Spell(SpellSlot.E, 225f + UtilityClass.Player.BoundingRadius);
             SpellClass.R = new Spell(SpellSlot.R, 450f + UtilityClass.Player.BoundingRadius);
 
-            SpellClass.Q2.SetSkillshot(0.25f, UtilityClass.Player.BoundingRadius, 1000f, true, SkillshotType.Line);
+            SpellClass.Q.SetSkillshot(0.25f, UtilityClass.Player.BoundingRadius, 1000f, true, SkillshotType.Line);
+            SpellClass.R.SetSkillshot(0.25f, UtilityClass.GetAngleByDegrees(180), float.MaxValue, false, SkillshotType.Cone);
         }
 
         #endregion

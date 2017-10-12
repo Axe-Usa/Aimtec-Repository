@@ -1,6 +1,7 @@
 ﻿
 using System.Drawing;
 using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -48,12 +49,27 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     Loads the R drawing.
+            ///     Loads the R drawings.
             /// </summary>
-            if (SpellClass.R.Ready &&
-                MenuClass.Drawings["r"].As<MenuBool>().Enabled)
+            if (SpellClass.R.Ready)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 30, Color.Red);
+                /// <summary>
+                ///     Loads the R range.
+                /// </summary>
+                if (MenuClass.Drawings["r"].As<MenuBool>().Enabled)
+                {
+                    Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 30, Color.Red);
+                }
+
+                /// <summary>
+                ///     Loads the R safe position check drawing.
+                /// </summary>
+                if (UtilityClass.Player.Path.Length > 1  &&
+                    MenuClass.Drawings["rsafepos"].As<MenuBool>().Enabled)
+                {
+                    Render.Circle(UtilityClass.Player.Position.Extend(UtilityClass.Player.Path[1], -LastCaressPushBackDistance()), UtilityClass.Player.BoundingRadius, 30, Color.Red);
+                    Render.Circle(UtilityClass.Player.Position.Extend(UtilityClass.Player.Path[1], -LastCaressPushBackDistance()), MenuClass.Spells["r"]["customization"]["safetyrange"].As<MenuSlider>().Value, 30, Color.Red);
+                }
             }
         }
 

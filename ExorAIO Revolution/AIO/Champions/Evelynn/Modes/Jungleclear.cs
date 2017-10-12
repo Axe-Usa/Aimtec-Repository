@@ -42,6 +42,7 @@ namespace AIO.Champions
                     MenuClass.Spells["w"]["whitelist"][targetName].As<MenuBool>().Enabled)
                 {
                     SpellClass.W.CastOnUnit(jungleTarget);
+                    return;
                 }
             }
 
@@ -60,31 +61,34 @@ namespace AIO.Champions
                     SpellClass.E.CastOnUnit(jungleTarget);
                 }
             }
-            else if (!IsWhiplashEmpowered())
-            {
-                /// <summary>
-                ///     The Q Jungleclear Logic.
-                /// </summary>
-                if (SpellClass.Q.Ready &&
-                    jungleTarget.IsValidTarget(SpellClass.Q.Range) &&
-                    UtilityClass.Player.ManaPercent()
-                        > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
-                    MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
-                {
-                    SpellClass.Q.CastOnUnit(jungleTarget);
-                }
 
-                /// <summary>
-                ///     The E Jungleclear Logic.
-                /// </summary>
-                if (SpellClass.E.Ready &&
-                    jungleTarget.IsValidTarget(SpellClass.E.Range) &&
-                    UtilityClass.Player.ManaPercent()
-                        > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
-                    MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
-                {
-                    SpellClass.E.CastOnUnit(jungleTarget);
-                }
+            if (IsAllured(jungleTarget) && !IsFullyAllured(jungleTarget))
+            {
+                return;
+            }
+
+            /// <summary>
+            ///     The Q Jungleclear Logic.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.Q.Range) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
+                MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
+            {
+                SpellClass.Q.CastOnUnit(jungleTarget);
+            }
+
+            /// <summary>
+            ///     The E Jungleclear Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                jungleTarget.IsValidTarget(SpellClass.E.Range) &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
+                MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
+            {
+                SpellClass.E.CastOnUnit(jungleTarget);
             }
         }
 

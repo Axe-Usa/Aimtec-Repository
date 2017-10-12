@@ -1,5 +1,6 @@
 
 using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -30,6 +31,19 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
+                    var positionAfterR = UtilityClass.Player.ServerPosition.Extend(SpellClass.R.GetPrediction(bestTarget).CastPosition, -LastCaressPushBackDistance());
+                    if (MenuClass.Spells["r"]["customization"]["aoecheck"] != null &&
+                        positionAfterR.CountEnemyHeroesInRange(MenuClass.Spells["r"]["customization"]["safetyrange"].As<MenuSlider>().Value) >= MenuClass.Spells["r"]["customization"]["aoecheck"].As<MenuSlider>().Value)
+                    {
+                        return;
+                    }
+
+                    if (positionAfterR.PointUnderEnemyTurret() &&
+                        MenuClass.Spells["r"]["customization"]["turretcheck"].As<MenuBool>().Enabled)
+                    {
+                        return;
+                    }
+
                     SpellClass.R.CastIfWillHit(bestTarget, MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value);
                 }
             }

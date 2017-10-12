@@ -137,12 +137,41 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("separator", "AoE / Not enough enemies found"));
+                        MenuClass.R.Add(new MenuSeperator("separator2", "AoE / Not enough enemies found"));
                     }
+
+                    /// <summary>
+                    ///     Sets the customization menu for the R spell.
+                    /// </summary>
+                    MenuClass.R2 = new Menu("customization", "Customization:");
+                    {
+                        MenuClass.R2.Add(new MenuSeperator(string.Empty, "Keep in mind that Killsteal R ignores those safety checks"));
+                        MenuClass.R2.Add(new MenuSlider("safetyrange", "Blink position safety range:", 450, 200, 750));
+
+                        if (GameObjects.EnemyHeroes.Count() >= 2)
+                        {
+                            MenuClass.R2.Add(new MenuSlider("aoecheck", "Only if < x enemies in Blink position", 3, 2, GameObjects.EnemyHeroes.Count()));
+                        }
+                        else
+                        {
+                            MenuClass.R2.Add(new MenuSeperator("exseparator", "No enemies found, no need for AoE blink position check."));
+                        }
+
+                        MenuClass.R2.Add(new MenuBool("turretcheck", "Only if no enemy turrets in Blink position"));
+                    }
+                    MenuClass.R.Add(MenuClass.R2);
                 }
                 MenuClass.Spells.Add(MenuClass.R);
-            }
 
+                /// <summary>
+                ///     Sets the miscellaneous menu.
+                /// </summary>
+                MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
+                {
+                    MenuClass.Miscellaneous.Add(new MenuBool("dontaasemiallured", "Don't AA Semi-Allured Targets")).SetToolTip("If the target is Allured (W) it will wait until the mark completes itself before attacking the target");
+                }
+                MenuClass.Root.Add(MenuClass.Miscellaneous);
+            }
             MenuClass.Root.Add(MenuClass.Spells);
 
             /// <summary>
@@ -154,6 +183,7 @@ namespace AIO.Champions
                 MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));
+                MenuClass.Drawings.Add(new MenuBool("rsafepos", "Draw R Safe Position"));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

@@ -17,6 +17,7 @@ namespace AIO.Champions
         {
             Game.OnUpdate += OnUpdate;
             Render.OnPresent += OnPresent;
+            ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
             Gapcloser.OnGapcloser += OnGapcloser;
         }
 

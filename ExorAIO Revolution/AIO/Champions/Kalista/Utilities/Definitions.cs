@@ -68,7 +68,7 @@ namespace AIO.Champions
         public bool IsPerfectRendTarget(Obj_AI_Base unit)
         {
             var orbTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
-            if (unit.IsValidSpellTarget(
+            if (unit.IsValidSpellTarget(false,
                     orbTarget != null &&
                     orbTarget.NetworkId == unit.NetworkId
                         ? SpellClass.E.Range

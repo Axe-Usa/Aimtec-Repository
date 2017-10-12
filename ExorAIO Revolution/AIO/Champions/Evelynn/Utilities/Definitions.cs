@@ -58,5 +58,39 @@ namespace AIO.Champions
         {
             return UtilityClass.Player.GetSpell(SpellSlot.Q).ToggleState == 1;
         }
+
+        /// <summary>
+        ///     Returns Last Caress' push back distance from the starting point.
+        /// </summary>
+        public int LastCaressPushBackDistance()
+        {
+            return 700;
+        }
+
+        /// <summary>
+        ///     The real Sector part of the Last Caress.
+        /// </summary>
+        public Vector2Geometry.Sector RSector()
+        {
+            var targetPos = UtilityClass.Player.Path[1];
+            var range = SpellClass.R.Range;
+            var dir = (targetPos - UtilityClass.Player.ServerPosition).Normalized();
+            var spot = targetPos + dir * range;
+
+            return new Vector2Geometry.Sector((Vector2)targetPos, (Vector2)spot, SpellClass.R.Width, range);
+        }
+
+        /// <summary>
+        ///     Draws the Sector part of the Last Caress.
+        /// </summary>
+        public Vector3Geometry.Sector DrawRSector()
+        {
+            var targetPos = UtilityClass.Player.Path[1];
+            var range = SpellClass.R.Range;
+            var dir = (targetPos - UtilityClass.Player.Position).Normalized();
+            var spot = targetPos + dir * range;
+
+            return new Vector3Geometry.Sector(targetPos, spot, SpellClass.Q2.Width, range);
+        }
     }
 }

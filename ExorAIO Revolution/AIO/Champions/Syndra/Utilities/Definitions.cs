@@ -62,13 +62,13 @@ namespace AIO.Champions
         /// </summary>
         public GameObject ForceOfWillObject()
         {
-            var possibleTarget1 = GameObjects.JungleLarge.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
+            var possibleTarget1 = GameObjects.JungleLarge.FirstOrDefault(m => m.IsValidSpellTarget(false, SpellClass.W.Range));
             if (possibleTarget1 != null)
             {
                 return possibleTarget1;
             }
 
-            var possibleTarget2 = GameObjects.EnemyMinions.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
+            var possibleTarget2 = GameObjects.EnemyMinions.FirstOrDefault(m => m.IsValidSpellTarget(false, SpellClass.W.Range));
             if (possibleTarget2 != null)
             {
                 return possibleTarget2;
