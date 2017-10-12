@@ -1,8 +1,4 @@
 
-using Aimtec;
-using Aimtec.SDK.Damage;
-using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -43,42 +39,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on non killable minion.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="NonKillableMinionEventArgs" /> instance containing the event data.</param>
-        public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
-        {
-            var minion = (Obj_AI_Minion)args.Target;
-            if (minion == null)
-            {
-                return;
-            }
-
-            /// <summary>
-            ///     Initializes the orbwalkingmodes.
-            /// </summary>
-            switch (ImplementationClass.IOrbwalker.Mode)
-            {
-                case OrbwalkingMode.Laneclear:
-                case OrbwalkingMode.Lasthit:
-                case OrbwalkingMode.Mixed:
-                    if (SpellClass.Q.Ready &&
-                        minion.IsValidTarget(SpellClass.Q.Range) &&
-                        UtilityClass.Player.ManaPercent()
-                            > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["lasthitunk"]) &&
-                        MenuClass.Spells["q"]["lasthitunk"].As<MenuSliderBool>().Enabled)
-                    {
-                        if (minion.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
-                        {
-                            SpellClass.Q.CastOnUnit(minion);
-                        }
-                    }
-                    break;
-            }
-        }
-
-        /// <summary>
         ///     Fired on present.
         /// </summary>
         public void OnPresent()
@@ -104,6 +64,11 @@ namespace AIO.Champions
             /// </summary>
             Killsteal();
 
+            /// <summary>
+            ///     Initializes the Automatic events.
+            /// </summary>
+            Automatic();
+
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {
                 return;
@@ -123,9 +88,6 @@ namespace AIO.Champions
                 case OrbwalkingMode.Laneclear:
                     Laneclear();
                     Jungleclear();
-                    break;
-                case OrbwalkingMode.Lasthit:
-                    Lasthit();
                     break;
             }
         }

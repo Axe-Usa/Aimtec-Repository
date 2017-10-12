@@ -119,6 +119,7 @@
     <Compile Include="AIO\Champions\Evelynn\Modes\Laneclear.cs" />
     <Compile Include="AIO\Champions\Evelynn\Modes\Lasthit.cs" />
     <Compile Include="AIO\Champions\Evelynn\Modes\Weaving.cs" />
+    <Compile Include="AIO\Champions\Evelynn\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\Evelynn\Utilities\Drawings.cs" />
     <Compile Include="AIO\Champions\Evelynn\Utilities\Menus.cs" />
     <Compile Include="AIO\Champions\Evelynn\Utilities\Methods.cs" />

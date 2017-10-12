@@ -1,5 +1,4 @@
 using Aimtec;
-using AIO.Utilities;
 
 namespace AIO.Champions
 {
@@ -17,7 +16,6 @@ namespace AIO.Champions
         {
             Game.OnUpdate += OnUpdate;
             Render.OnPresent += OnPresent;
-            ImplementationClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
         }
 
         #endregion

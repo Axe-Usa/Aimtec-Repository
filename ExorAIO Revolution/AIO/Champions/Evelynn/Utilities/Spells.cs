@@ -17,12 +17,13 @@ namespace AIO.Champions
         /// </summary>
         public void Spells()
         {
-            SpellClass.Q = new Spell(SpellSlot.Q, 500f);
-            SpellClass.W = new Spell(SpellSlot.W);
-            SpellClass.E = new Spell(SpellSlot.E, 225f);
-            SpellClass.R = new Spell(SpellSlot.R, 650f);
+            SpellClass.Q = new Spell(SpellSlot.Q, 800f);
+            SpellClass.Q2 = new Spell(SpellSlot.Q, 550f);
+            SpellClass.W = new Spell(SpellSlot.W, 1200f);
+            SpellClass.E = new Spell(SpellSlot.E, 225f + UtilityClass.Player.BoundingRadius);
+            SpellClass.R = new Spell(SpellSlot.R, 450f + UtilityClass.Player.BoundingRadius);
 
-            SpellClass.R.SetSkillshot(0.25f, 350f, 1000f, true, SkillshotType.Circle);
+            SpellClass.Q2.SetSkillshot(0.25f, UtilityClass.Player.BoundingRadius, 1000f, true, SkillshotType.Line);
         }
 
         #endregion

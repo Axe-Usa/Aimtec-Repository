@@ -1,6 +1,7 @@
 
 using Aimtec;
 using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -27,10 +28,9 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical);
+                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
+                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E, IsWhiplashEmpowered() ? DamageStage.Empowered : DamageStage.Default) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.E.CastOnUnit(bestTarget);
                 }
@@ -44,8 +44,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) >= bestTarget.GetRealHealth())
+                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R, bestTarget.HealthPercent() < 30 ? DamageStage.Empowered : DamageStage.Default) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.R.Cast(bestTarget);
                 }

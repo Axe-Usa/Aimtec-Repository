@@ -1,5 +1,6 @@
 
 using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
@@ -34,7 +35,11 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.Cast(heroTarget);
+                if (UtilityClass.Player.GetRealBuffCount("XayahPassiveActive") <= 3 &&
+                    MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
+                {
+                    SpellClass.Q.Cast(heroTarget);
+                }
             }
 
             /// <summary>
@@ -43,7 +48,11 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.W.Cast();
+                if (UtilityClass.Player.GetRealBuffCount("XayahPassiveActive") <= 3 &&
+                    MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
+                {
+                    SpellClass.W.Cast();
+                }
             }
         }
 

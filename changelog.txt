@@ -832,3 +832,7 @@ ExorAIO: Revolution Changelog:
   AIO: Some code cleanup.
   AIO: Menu Name has been made smaller to fix every issue where the menu interface would go out of the screen.
   Kalista: Fixed Little Nullref.
+
+7.20.1.0:
+  Evelynn: Updated for the Rework.
+  Xayah: Reworked Feather Weaving Logic.

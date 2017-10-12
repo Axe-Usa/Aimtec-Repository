@@ -1,7 +1,6 @@
 
 using Aimtec;
 using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
 #pragma warning disable 1587
@@ -20,19 +19,9 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-            if (UtilityClass.Player.IsRecalling())
+            if (!UtilityClass.Player.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned))
             {
-                return;
-            }
-
-            /// <summary>
-            ///     The Automatic W Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                UtilityClass.Player.HasBuffOfType(BuffType.Slow) &&
-                MenuClass.Spells["w"]["logical"].As<MenuBool>().Value)
-            {
-                SpellClass.W.Cast();
+                SpellClass.W.Range = 1100 + 100 * UtilityClass.Player.GetSpell(SpellSlot.W).Level;
             }
         }
 

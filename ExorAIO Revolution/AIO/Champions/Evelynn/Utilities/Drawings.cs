@@ -21,6 +21,33 @@ namespace AIO.Champions
         public void Drawings()
         {
             /// <summary>
+            ///     Loads the Q drawing.
+            /// </summary>
+            if (SpellClass.Q.Ready &&
+                MenuClass.Drawings["q"].As<MenuBool>().Enabled)
+            {
+                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.LightGreen);
+            }
+
+            /// <summary>
+            ///     Loads the W drawing.
+            /// </summary>
+            if (SpellClass.W.Ready &&
+                MenuClass.Drawings["w"].As<MenuBool>().Enabled)
+            {
+                Render.Circle(UtilityClass.Player.Position, SpellClass.W.Range, 30, Color.Yellow);
+            }
+
+            /// <summary>
+            ///     Loads the E drawing.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                MenuClass.Drawings["e"].As<MenuBool>().Enabled)
+            {
+                Render.Circle(UtilityClass.Player.Position, SpellClass.E.Range, 30, Color.Cyan);
+            }
+
+            /// <summary>
             ///     Loads the R drawing.
             /// </summary>
             if (SpellClass.R.Ready &&

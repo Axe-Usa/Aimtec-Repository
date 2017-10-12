@@ -48,37 +48,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Fired on spell cast.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
-        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
-        {
-            if (sender.IsMe)
-            {
-                switch (args.Slot)
-                {
-                    case SpellSlot.Q:
-                        if (!Interrupt &&
-                            UtilityClass.Player.GetBuffCount("XayahPassiveActive") >= 3 &&
-                            MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
-                        {
-                            args.Process = false;
-                        }
-                        break;
-
-                    case SpellSlot.W:
-                        if (UtilityClass.Player.GetBuffCount("XayahPassiveActive") >= 3 &&
-                            MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
-                        {
-                            args.Process = false;
-                        }
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
         ///     Fired upon GameObject creation.
         /// </summary>
         public void OnCreate(GameObject obj)

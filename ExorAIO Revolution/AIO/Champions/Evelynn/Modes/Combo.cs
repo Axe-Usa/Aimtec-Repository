@@ -40,10 +40,21 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget != null)
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(GetRealQRange());
+                if (bestTarget != null &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    SpellClass.Q.CastOnUnit(bestTarget);
+                    if (IsAllured(bestTarget))
+                    {
+                        if (IsFullyAllured(bestTarget) || !MenuClass.Spells["q"]["onlyiffullyallured"].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.Q.Cast(bestTarget);
+                        }
+                    }
+                    else
+                    {
+                        SpellClass.Q.Cast(bestTarget);
+                    }
                 }
             }
 
@@ -55,9 +66,19 @@ namespace AIO.Champions
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
                 if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget, DamageType.Physical))
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
-                    SpellClass.E.CastOnUnit(bestTarget);
+                    if (IsAllured(bestTarget))
+                    {
+                        if (IsFullyAllured(bestTarget) || !MenuClass.Spells["e"]["onlyiffullyallured"].As<MenuBool>().Enabled)
+                        {
+                            SpellClass.E.CastOnUnit(bestTarget);
+                        }
+                    }
+                    else
+                    {
+                        SpellClass.E.CastOnUnit(bestTarget);
+                    }
                 }
             }
         }

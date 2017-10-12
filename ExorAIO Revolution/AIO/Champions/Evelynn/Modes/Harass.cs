@@ -28,12 +28,12 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(GetRealQRange());
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.Q.CastOnUnit(bestTarget);
+                    SpellClass.Q.Cast(bestTarget);
                 }
             }
 
@@ -47,7 +47,7 @@ namespace AIO.Champions
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
                 if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget, DamageType.Physical) &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
                     SpellClass.E.CastOnUnit(bestTarget);

@@ -31,11 +31,11 @@ namespace AIO.Champions
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.Q.Add(new MenuBool("onlyiffullyallured", "^ Only if enemy fully Allured")).SetToolTip("If the enemy is marked by Allure (W), it will wait until the Mark completes itself before casting Q against him.");
+                    MenuClass.Q.Add(new MenuSeperator(string.Empty, string.Empty));
                     MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("lasthitaa", "LastHit out of AA Range / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("lasthitunk", "LastHit unkillable minions / if Mana >= x%", true, 50, 0, 99));
 
                     /// <summary>
                     ///     Sets the customization menu for the Q spell.
@@ -73,7 +73,19 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
-                    MenuClass.W.Add(new MenuBool("logical", "Anti-Slow"));
+                    /// <summary>
+                    ///     Sets the menu for the E Whitelist.
+                    /// </summary>
+                    MenuClass.WhiteList2 = new Menu("whitelist", "Junglesteal Allure: Whitelist");
+                    {
+                        foreach (var target in UtilityClass.JungleList)
+                        {
+                            MenuClass.WhiteList2.Add(new MenuBool(target, "Allure: " + target));
+                        }
+                    }
+                    MenuClass.W.Add(MenuClass.WhiteList2);
+
+                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 
@@ -83,6 +95,8 @@ namespace AIO.Champions
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.E.Add(new MenuBool("onlyiffullyallured", "^ Only if enemy fully Allured")).SetToolTip("If the enemy is marked by Allure (W), it will wait until the Mark completes itself before casting E against him.");
+                    MenuClass.E.Add(new MenuSeperator(string.Empty, string.Empty));
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
@@ -115,13 +129,13 @@ namespace AIO.Champions
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
                     MenuClass.R.Add(new MenuBool("killsteal", "KillSteal", false));
-                    if (GameObjects.EnemyHeroes.Any())
+                    if (GameObjects.EnemyHeroes.Count() >= 2)
                     {
-                        MenuClass.R.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", true, 2, 1, GameObjects.EnemyHeroes.Count()));
+                        MenuClass.R.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", true, 2, 2, GameObjects.EnemyHeroes.Count()));
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("separator", "AoE / Not enough enemies found."));
+                        MenuClass.R.Add(new MenuSeperator("separator", "AoE / Not enough enemies found"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
@@ -134,6 +148,9 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
+                MenuClass.Drawings.Add(new MenuBool("q", "Q Range", false));
+                MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
+                MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));
             }
             MenuClass.Root.Add(MenuClass.Drawings);

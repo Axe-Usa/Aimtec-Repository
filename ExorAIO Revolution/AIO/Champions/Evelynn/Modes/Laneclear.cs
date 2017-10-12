@@ -1,5 +1,5 @@
 
-using Aimtec;
+using System.Linq;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -20,8 +20,6 @@ namespace AIO.Champions
         /// </summary>
         public void Laneclear()
         {
-            var minions = Extensions.GetEnemyLaneMinionsTargets();
-
             /// <summary>
             ///     The Q Laneclear Logic.
             /// </summary>
@@ -30,13 +28,11 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                /*
-                var farmLocation = SpellClass.Q.GetCircularFarmLocation(minions, SpellClass.Q.Width);
-                if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
+                var minion = Extensions.GetEnemyLaneMinionsTargetsInRange(GetRealQRange()).FirstOrDefault();
+                if (minion != null)
                 {
-                    SpellClass.Q.Cast(farmLocation.Position);
+                    SpellClass.Q.Cast(minion);
                 }
-                */
             }
 
             /// <summary>
@@ -47,11 +43,10 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["laneclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Minion;
-                if (target != null &&
-                    minions.Contains(target))
+                var minion = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).FirstOrDefault(m => m.Name.Contains("Siege") || m.Name.Contains("Super"));
+                if (minion != null)
                 {
-                    SpellClass.E.CastOnUnit(target);
+                    SpellClass.E.CastOnUnit(minion);
                 }
             }
         }
