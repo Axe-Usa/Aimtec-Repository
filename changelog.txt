@@ -836,3 +836,10 @@ ExorAIO: Revolution Changelog:
 7.20.1.0:
   Evelynn: Updated for the Rework.
   Xayah: Reworked Feather Weaving Logic.
+  
+7.20.1.1:
+  AIO: Removed some trash code.
+  Xayah: Now it will use Anti-Gapcloser R even if target is Invulnerable/Shielded.
+  Evelynn: Added Anti-Gapcloser R with whitelist menu.
+  Evelynn: Updated Manacosts.
+

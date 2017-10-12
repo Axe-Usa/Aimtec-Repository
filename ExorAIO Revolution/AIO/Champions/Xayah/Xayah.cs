@@ -2,7 +2,6 @@
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -130,26 +129,22 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser R.
             /// </summary>
-            if (SpellClass.R.Ready &&
-                !Invulnerable.Check(sender))
+            if (SpellClass.R.Ready)
             {
-                if (sender.IsMelee)
+                switch (args.Type)
                 {
-                    switch (args.Type)
-                    {
-                        case GapSpellType.Targeted:
-                            if (args.Target.IsMe)
-                            {
-                                SpellClass.R.Cast(args.StartPosition);
-                            }
-                            break;
-                        default:
-                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
-                            {
-                                SpellClass.R.Cast(args.StartPosition);
-                            }
-                            break;
-                    }
+                    case GapSpellType.Targeted:
+                        if (args.Target.IsMe)
+                        {
+                            SpellClass.R.Cast(args.StartPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                        {
+                            SpellClass.R.Cast(args.StartPosition);
+                        }
+                        break;
                 }
             }
         }

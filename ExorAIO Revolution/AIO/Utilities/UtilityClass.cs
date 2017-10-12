@@ -94,23 +94,6 @@ namespace AIO.Utilities
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The Traps in the game and their position.
-        /// </summary>
-        public static Dictionary<int, Tuple<Vector3, float>> ActualTraps = new Dictionary<int, Tuple<Vector3, float>>();
-
-        /// <summary>
-        ///     The Trap names and their collision radius.
-        /// </summary>
-        public static Dictionary<string, float> Traps = new Dictionary<string, float>
-        {
-            {"Jinx_Base_E_Mine_Ready_Green.troy", 50f},
-            {"Caitlyn_Base_W_Indicator_SizeRing.troy", 67.5f},
-            {"ZiggsTrap", 30f}, // TODO: Find the real name of the ziggs traps.
-            {"Nidalee_Base_W_TC_Green.troy", 75f},
-            {"Taliyah_Base_E_Mines.troy", 30f}
-        };
-
-        /// <summary>
         ///     The PreserveMana Dictionary.
         /// </summary>
         public static Dictionary<SpellSlot, int> PreserveManaData = new Dictionary<SpellSlot, int>();
@@ -186,9 +169,9 @@ namespace AIO.Utilities
             {
                 "Evelynn", new Dictionary<SpellSlot, int[]>
                 {
-                    {SpellSlot.Q, new []{12, 18, 24, 30, 36}},
-                    {SpellSlot.W, new []{40, 40, 40, 40, 40}},
-                    {SpellSlot.E, new []{50, 55, 60, 65, 70}},
+                    {SpellSlot.Q, new []{40, 45, 50, 55, 60}},
+                    {SpellSlot.W, new []{60, 70, 80, 90, 100}},
+                    {SpellSlot.E, new []{40, 45, 50, 55, 60}},
                     {SpellSlot.R, new []{100, 100, 100}}
                 }
             },

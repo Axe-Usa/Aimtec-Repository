@@ -1,4 +1,6 @@
 
+using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -37,6 +39,46 @@ namespace AIO.Champions
         #endregion
 
         #region Public Methods and Operators
+
+        /// <summary>
+        ///     Fired on an incoming gapcloser.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
+        {
+            if (UtilityClass.Player.IsDead)
+            {
+                return;
+            }
+
+            if (sender == null || !sender.IsEnemy || !sender.IsMelee)
+            {
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser R.
+            /// </summary>
+            if (SpellClass.R.Ready)
+            {
+                switch (args.Type)
+                {
+                    case GapSpellType.Targeted:
+                        if (args.Target.IsMe)
+                        {
+                            SpellClass.R.Cast(args.StartPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                        {
+                            SpellClass.R.Cast(args.StartPosition);
+                        }
+                        break;
+                }
+            }
+        }
 
         /// <summary>
         ///     Fired on present.

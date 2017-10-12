@@ -128,6 +128,8 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
+                    Gapcloser.Attach(MenuClass.R, "Anti-Gapcloser");
+                    MenuClass.R.Add(new MenuSeperator("separator"));
                     MenuClass.R.Add(new MenuBool("killsteal", "KillSteal", false));
                     if (GameObjects.EnemyHeroes.Count() >= 2)
                     {

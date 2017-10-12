@@ -1,4 +1,5 @@
 using Aimtec;
+using AIO.Utilities;
 
 namespace AIO.Champions
 {
@@ -16,6 +17,7 @@ namespace AIO.Champions
         {
             Game.OnUpdate += OnUpdate;
             Render.OnPresent += OnPresent;
+            Gapcloser.OnGapcloser += OnGapcloser;
         }
 
         #endregion
