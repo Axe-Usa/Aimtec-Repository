@@ -871,3 +871,4 @@ ExorAIO: Revolution Changelog:
   Evelynn: Adjusted Q Prediction values.
   Evelynn: Now Q Cast is Dynamic (uses prediction for the skillshot, and spams the spikes)
   Evelynn: Now will always spam the spikes, they consume 0 mana and thus they won't take the manamanager into account anymore.
+  Evelynn: W Jungleclear will now prioritize the nearest monster.
