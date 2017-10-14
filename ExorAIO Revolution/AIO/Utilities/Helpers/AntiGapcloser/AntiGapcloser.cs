@@ -1,67 +1,63 @@
-﻿namespace AIO.Utilities
+﻿using Aimtec.SDK.Menu;
+using Aimtec.SDK.Menu.Components;
+
+namespace AIO.Utilities
 {
-    #region
-
-    using Aimtec;
-    using Aimtec.SDK.Menu;
-    using Aimtec.SDK.Menu.Components;
-    using Aimtec.SDK.Extensions;
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    #endregion
-
-    public delegate void OnGapcloserEvent(Obj_AI_Hero target, GapcloserArgs args);
-
-    public enum GapSpellType
-    {
-        Dash = 0,
-        SkillShot = 1,
-        Targeted = 2
-    }
-
-    internal struct SpellData
-    {
-        public string ChampionName { get; set; }
-        public string SpellName { get; set; }
-        public SpellSlot Slot { get; set; }
-        public bool IsReversedDash { get; set; }
-        public int PushBackDistance { get; set; }
-        public GapSpellType SpellType { get; set; }
-    }
-
-    public class GapcloserArgs
-    {
-        internal Obj_AI_Hero Unit { get; set; }
-        public SpellSlot Slot { get; set; }
-        public AttackableUnit Target { get; set; }
-        public string SpellName { get; set; }
-        public GapSpellType Type { get; set; }
-        public Vector3 StartPosition { get; set; }
-        public Vector3 EndPosition { get; set; }
-        public int StartTick { get; set; }
-        public int EndTick { get; set; }
-        public int DurationTick { get; set; }
-    }
+    using Aimtec;
+    using Aimtec.SDK.Extensions;
+    using Aimtec.SDK.Orbwalking;
 
     public static class Gapcloser
     {
-        public static event OnGapcloserEvent OnGapcloser;
-
-        public static Dictionary<int, GapcloserArgs> Gapclosers = new Dictionary<int, GapcloserArgs>();
-        internal static List<SpellData> Spells = new List<SpellData>();
+        #region Static Fields
 
         public static Menu Menu;
+
+        private static readonly List<SpellData> Spells = new List<SpellData>();
+
+        // ReSharper disable once InconsistentNaming
+        private static Dictionary<int, GapcloserArgs> Gapclosers = new Dictionary<int, GapcloserArgs>();
+
+        #endregion
+
+        #region Delegates
+
+        public delegate void OnGapcloserEvent(Obj_AI_Hero target, GapcloserArgs args);
+
+        #endregion
+
+        #region Events
+
+        public static event OnGapcloserEvent OnGapcloser;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         static Gapcloser()
         {
             Initialize();
         }
 
+        #endregion
+
+        #region Methods
+
         private static void Initialize()
         {
+            InitSpells();
+
+            Game.OnUpdate += OnUpdate;
+            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
+        }
+
+        private static void InitSpells()
+        {
+
             #region Aatrox
 
             Spells.Add(
@@ -70,7 +66,7 @@
                     ChampionName = "Aatrox",
                     Slot = SpellSlot.Q,
                     SpellName = "aatroxq",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -83,7 +79,7 @@
                     ChampionName = "Ahri",
                     Slot = SpellSlot.R,
                     SpellName = "ahritumble",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -96,7 +92,7 @@
                     ChampionName = "Akali",
                     Slot = SpellSlot.R,
                     SpellName = "akalishadowdance",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -109,7 +105,7 @@
                     ChampionName = "Alistar",
                     Slot = SpellSlot.W,
                     SpellName = "headbutt",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -122,7 +118,7 @@
                     ChampionName = "Azir",
                     Slot = SpellSlot.E,
                     SpellName = "azire",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -137,7 +133,7 @@
                     IsReversedDash = true,
                     PushBackDistance = 400,
                     SpellName = "caitlynentrapment",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -150,7 +146,7 @@
                     ChampionName = "Camille",
                     Slot = SpellSlot.E,
                     SpellName = "camillee",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -159,7 +155,7 @@
                     ChampionName = "Camille",
                     Slot = SpellSlot.E,
                     SpellName = "camilleedash2",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -172,7 +168,7 @@
                     ChampionName = "Corki",
                     Slot = SpellSlot.W,
                     SpellName = "carpetbomb",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -185,7 +181,7 @@
                     ChampionName = "Diana",
                     Slot = SpellSlot.R,
                     SpellName = "dianateleport",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -198,7 +194,7 @@
                     ChampionName = "Ekko",
                     Slot = SpellSlot.E,
                     SpellName = "ekkoeattack",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -211,7 +207,7 @@
                     ChampionName = "Elise",
                     Slot = SpellSlot.Q,
                     SpellName = "elisespiderqcast",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -220,7 +216,7 @@
                     ChampionName = "Elise",
                     Slot = SpellSlot.E,
                     SpellName = "elisespideredescent",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -233,7 +229,7 @@
                     ChampionName = "Ezreal",
                     Slot = SpellSlot.E,
                     SpellName = "ezrealarcaneshift",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -246,7 +242,7 @@
                     ChampionName = "Fiora",
                     Slot = SpellSlot.Q,
                     SpellName = "fioraq",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -259,7 +255,7 @@
                     ChampionName = "Fizz",
                     Slot = SpellSlot.Q,
                     SpellName = "fizzpiercingstrike",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -272,7 +268,7 @@
                     ChampionName = "Galio",
                     Slot = SpellSlot.E,
                     SpellName = "galioe",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -285,7 +281,7 @@
                     ChampionName = "Gnar",
                     Slot = SpellSlot.E,
                     SpellName = "gnare",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -294,7 +290,7 @@
                     ChampionName = "Gnar",
                     Slot = SpellSlot.E,
                     SpellName = "gnarbige",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -307,7 +303,7 @@
                     ChampionName = "Gragas",
                     Slot = SpellSlot.E,
                     SpellName = "gragase",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -320,7 +316,7 @@
                     ChampionName = "Graves",
                     Slot = SpellSlot.E,
                     SpellName = "gravesmove",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -333,7 +329,7 @@
                     ChampionName = "Hecarim",
                     Slot = SpellSlot.R,
                     SpellName = "hecarimult",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -346,7 +342,7 @@
                     ChampionName = "Illaoi",
                     Slot = SpellSlot.W,
                     SpellName = "illaoiwattack",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -359,7 +355,7 @@
                     ChampionName = "Irelia",
                     Slot = SpellSlot.Q,
                     SpellName = "ireliagatotsu",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -373,7 +369,7 @@
                     ChampionName = "JarvanIV",
                     Slot = SpellSlot.Q,
                     SpellName = "jarvanivdragonstrike",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -382,7 +378,7 @@
                     ChampionName = "JarvanIV",
                     Slot = SpellSlot.R,
                     SpellName = "jarvanivcataclysm",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -396,7 +392,7 @@
                     ChampionName = "Jax",
                     Slot = SpellSlot.Q,
                     SpellName = "jaxleapstrike",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -409,7 +405,7 @@
                     ChampionName = "Jayce",
                     Slot = SpellSlot.Q,
                     SpellName = "jaycetotheskies",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -422,7 +418,7 @@
                     ChampionName = "Kassadin",
                     Slot = SpellSlot.R,
                     SpellName = "riftwalk",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -435,7 +431,7 @@
                     ChampionName = "Katarina",
                     Slot = SpellSlot.E,
                     SpellName = "katarinae",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -448,7 +444,7 @@
                     ChampionName = "Kayn",
                     Slot = SpellSlot.Q,
                     SpellName = "kaynq",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -461,7 +457,7 @@
                     ChampionName = "Khazix",
                     Slot = SpellSlot.E,
                     SpellName = "khazixe",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -470,7 +466,7 @@
                     ChampionName = "Khazix",
                     Slot = SpellSlot.E,
                     SpellName = "khazixelong",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -483,7 +479,7 @@
                     ChampionName = "Kindred",
                     Slot = SpellSlot.Q,
                     SpellName = "kindredq",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -496,7 +492,7 @@
                     ChampionName = "Leblanc",
                     Slot = SpellSlot.W,
                     SpellName = "leblancslide",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -505,7 +501,7 @@
                     ChampionName = "Leblanc",
                     Slot = SpellSlot.W,
                     SpellName = "leblancslidem",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -518,7 +514,7 @@
                     ChampionName = "LeeSin",
                     Slot = SpellSlot.Q,
                     SpellName = "blindmonkqtwo",
-                    SpellType = GapSpellType.Dash
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -531,7 +527,7 @@
                     ChampionName = "Lucian",
                     Slot = SpellSlot.E,
                     SpellName = "luciane",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -544,7 +540,7 @@
                     ChampionName = "Malphite",
                     Slot = SpellSlot.R,
                     SpellName = "ufslash",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -558,7 +554,7 @@
                     ChampionName = "MasterYi",
                     Slot = SpellSlot.Q,
                     SpellName = "alphastrike",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -572,7 +568,7 @@
                     ChampionName = "MonkeyKing",
                     Slot = SpellSlot.E,
                     SpellName = "monkeykingnimbus",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -586,7 +582,7 @@
                     ChampionName = "Nautilus",
                     Slot = SpellSlot.Q,
                     SpellName = "nautilusq",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -600,7 +596,20 @@
                     ChampionName = "Nidalee",
                     Slot = SpellSlot.W,
                     SpellName = "pounce",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
+                });
+
+            #endregion
+
+            #region Ornn
+
+            Spells.Add(
+                new SpellData
+                {
+                    ChampionName = "Ornn",
+                    Slot = SpellSlot.E,
+                    SpellName = "ornne",
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -613,7 +622,7 @@
                     ChampionName = "Pantheon",
                     Slot = SpellSlot.W,
                     SpellName = "pantheonw",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -626,7 +635,7 @@
                     ChampionName = "Poppy",
                     Slot = SpellSlot.E,
                     SpellName = "poppyheroiccharge",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -639,7 +648,7 @@
                     ChampionName = "Quinn",
                     Slot = SpellSlot.E,
                     SpellName = "quinne",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -652,7 +661,7 @@
                     ChampionName = "Rakan",
                     Slot = SpellSlot.W,
                     SpellName = "rakanw",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -665,7 +674,7 @@
                     ChampionName = "RekSai",
                     Slot = SpellSlot.E,
                     SpellName = "reksaieburrowed",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -678,7 +687,7 @@
                     ChampionName = "Renekton",
                     Slot = SpellSlot.E,
                     SpellName = "renektonsliceanddice",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -687,7 +696,7 @@
                     ChampionName = "Renekton",
                     Slot = SpellSlot.E,
                     SpellName = "renektondice",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -700,7 +709,7 @@
                     ChampionName = "Rengar",
                     Slot = SpellSlot.Unknown,
                     SpellName = "rengarpassivebuffdash",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -709,7 +718,7 @@
                     ChampionName = "Rengar",
                     Slot = SpellSlot.Unknown,
                     SpellName = "rengarpassivebuffdashaadummy",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -722,7 +731,7 @@
                     ChampionName = "Riven",
                     Slot = SpellSlot.Q,
                     SpellName = "riventricleave",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             Spells.Add(
@@ -731,7 +740,7 @@
                     ChampionName = "Riven",
                     Slot = SpellSlot.E,
                     SpellName = "rivenfeint",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -744,7 +753,7 @@
                     ChampionName = "Sejuani",
                     Slot = SpellSlot.Q,
                     SpellName = "sejuaniarcticassault",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -757,7 +766,7 @@
                     ChampionName = "Shen",
                     Slot = SpellSlot.E,
                     SpellName = "shene",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -770,7 +779,7 @@
                     ChampionName = "Shyvana",
                     Slot = SpellSlot.R,
                     SpellName = "shyvanatransformcast",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -783,7 +792,7 @@
                     ChampionName = "Talon",
                     Slot = SpellSlot.Q,
                     SpellName = "talonqdashattack",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -796,7 +805,7 @@
                     ChampionName = "Tristana",
                     Slot = SpellSlot.W,
                     SpellName = "rocketjump",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -809,7 +818,7 @@
                     ChampionName = "Tryndamere",
                     Slot = SpellSlot.E,
                     SpellName = "slashcast",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -822,7 +831,7 @@
                     ChampionName = "Vi",
                     Slot = SpellSlot.Q,
                     SpellName = "viq",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -835,7 +844,7 @@
                     ChampionName = "Vayne",
                     Slot = SpellSlot.Q,
                     SpellName = "vaynetumble",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -849,7 +858,7 @@
                     ChampionName = "Warwick",
                     Slot = SpellSlot.R,
                     SpellName = "warwickr",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -863,7 +872,7 @@
                     ChampionName = "XinZhao",
                     Slot = SpellSlot.E,
                     SpellName = "xenzhaosweep",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -876,7 +885,7 @@
                     ChampionName = "Yasuo",
                     Slot = SpellSlot.E,
                     SpellName = "yasuodashwrapper",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -889,7 +898,7 @@
                     ChampionName = "Zac",
                     Slot = SpellSlot.E,
                     SpellName = "zace",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -903,7 +912,7 @@
                     ChampionName = "Zed",
                     Slot = SpellSlot.R,
                     SpellName = "zedr",
-                    SpellType = GapSpellType.Targeted
+                    SpellType = Type.Targeted
                 });
 
             #endregion
@@ -918,7 +927,7 @@
                     ChampionName = "Ziggs",
                     Slot = SpellSlot.W,
                     SpellName = "ziggswtoggle",
-                    SpellType = GapSpellType.SkillShot
+                    SpellType = Type.SkillShot
                 });
 
             #endregion
@@ -939,32 +948,22 @@
                             initiated = true;
                             Menu = new Menu("Gapcloser", menuName)
                             {
-                                new MenuBool("GapcloserEnabled", "Enabled"),
-                                new MenuSeperator("GapcloserSeperator1")
+                                new MenuBool("enabled", "Enable"),
+                                new MenuSeperator(string.Empty)
                             };
                             mainMenu.Add(Menu);
                         }
 
-                        var heroMenu = new Menu("Gapcloser" + enemy.ChampionName.ToLower(), enemy.ChampionName)
-                        {
-                            new MenuBool("Gapcloser" + enemy.ChampionName.ToLower() + "Enabled", "Enabled")
-                        };
-
+                        var heroMenu = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
                         foreach (var spell in Spells.Where(x => x.ChampionName == enemy.ChampionName))
                         {
-                            heroMenu.Add(new MenuBool("Gapcloser" + enemy.ChampionName.ToLower() + "." + spell.SpellName.ToLower(), "Slot: " + spell.Slot + " (" + spell.SpellName + ")"));
+                            heroMenu.Add(new MenuBool(enemy.ChampionName.ToLower() + "." + spell.SpellName.ToLower(), "Slot: " + spell.Slot + " (" + spell.SpellName + ")"));
                         }
                         Menu.Add(heroMenu);
                     }
                 }
 
-                if (initiated)
-                {
-                    Game.OnUpdate += OnUpdate;
-                    Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
-                    Obj_AI_Base.OnNewPath += OnNewPath;
-                }
-                else
+                if (!initiated)
                 {
                     mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser not needed."));
                 }
@@ -975,49 +974,20 @@
             }
         }
 
-        private static void OnNewPath(Obj_AI_Base sender, Obj_AI_BaseNewPathEventArgs args)
-        {
-            if (sender == null || !sender.IsValid || !sender.IsEnemy || !(sender is Obj_AI_Hero))
-            {
-                return;
-            }
-
-            if (!Gapclosers.ContainsKey(sender.NetworkId))
-            {
-                Gapclosers.Add(sender.NetworkId, new GapcloserArgs());
-            }
-
-            if (args.IsDash)
-            {
-                Gapclosers[sender.NetworkId].Unit = (Obj_AI_Hero)sender;
-                Gapclosers[sender.NetworkId].Slot = SpellSlot.Unknown;
-                Gapclosers[sender.NetworkId].Type = GapSpellType.Dash;
-                Gapclosers[sender.NetworkId].SpellName = sender.UnitSkinName + "_Dash";
-                Gapclosers[sender.NetworkId].StartPosition = sender.ServerPosition;
-                Gapclosers[sender.NetworkId].EndPosition = args.Path.Last();
-                Gapclosers[sender.NetworkId].StartTick = Game.TickCount;
-                Gapclosers[sender.NetworkId].EndTick = (int)(Gapclosers[sender.NetworkId].EndPosition.DistanceSqr(Gapclosers[sender.NetworkId].StartPosition) / args.Speed * args.Speed * 1000) + Gapclosers[sender.NetworkId].StartTick;
-                Gapclosers[sender.NetworkId].DurationTick = Gapclosers[sender.NetworkId].EndTick - Gapclosers[sender.NetworkId].StartTick;
-            }
-        }
-
         private static void OnUpdate()
         {
-            if (Gapclosers.Values.Any(x => Game.TickCount - x.StartTick >= 1500+Game.Ping))
+            foreach (var needToDelectValue in Gapclosers.Where(x => Game.TickCount - x.Value.StartTick > 1250 + Game.Ping))
             {
-                Gapclosers.Clear();
+                Gapclosers.Remove(needToDelectValue.Key);
             }
 
-            var option = Menu["GapcloserEnabled"].As<MenuBool>();
+            var option = Menu["enabled"].As<MenuBool>();
             if (OnGapcloser == null || option == null || !option.Enabled)
             {
                 return;
             }
 
-            foreach (var args in Gapclosers.Where(x =>
-                x.Value.Unit.IsValidTarget() &&
-                Menu["Gapcloser" + x.Value.Unit.ChampionName.ToLower()] != null &&
-                Menu["Gapcloser" + x.Value.Unit.ChampionName.ToLower()]["Gapcloser" + x.Value.Unit.ChampionName.ToLower() + "Enabled"].As<MenuBool>().Enabled))
+            foreach (var args in Gapclosers.Where(x => x.Value.Unit.IsValidTarget()))
             {
                 OnGapcloser(args.Value.Unit, args.Value);
             }
@@ -1025,26 +995,20 @@
 
         private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            if (!sender.IsValidTarget() || !sender.IsEnemy || string.IsNullOrEmpty(args.SpellData.Name))
+            if (sender == null || !sender.IsValid || sender.Type != GameObjectType.obj_AI_Hero || !sender.IsEnemy)
             {
                 return;
             }
 
             var argsName = args.SpellData.Name.ToLower();
-            if (argsName.Contains("attack") || argsName.Contains("crit"))
+            if (string.IsNullOrEmpty(argsName) ||
+                argsName.Contains("attack") || argsName.Contains("crit") || AOrbwalker.SpecialAttacks.Contains(argsName))
             {
                 return;
             }
 
-            var gapSender = sender as Obj_AI_Hero;
-            if (gapSender == null)
-            {
-                return;
-            }
-
-            if (Spells.All(x =>
-                    !string.Equals(x.SpellName, args.SpellData.Name, StringComparison.CurrentCultureIgnoreCase)) ||
-                    !Menu["Gapcloser" + sender.UnitSkinName.ToLower()]["Gapcloser" + sender.UnitSkinName.ToLower() + "." + args.SpellData.Name.ToLower()].As<MenuBool>().Enabled)
+            if (Spells.All(x => !string.Equals(x.SpellName, argsName, StringComparison.CurrentCultureIgnoreCase)) ||
+                !Menu[sender.UnitSkinName.ToLower()][sender.UnitSkinName.ToLower() + "." + args.SpellData.Name.ToLower()].As<MenuBool>().Enabled)
             {
                 return;
             }
@@ -1054,16 +1018,77 @@
                 Gapclosers.Add(sender.NetworkId, new GapcloserArgs());
             }
 
+            var heroSender = (Obj_AI_Hero)sender;
+            var unit = Gapclosers[sender.NetworkId];
             var spell = Spells.FirstOrDefault(e => e.SpellName == argsName);
 
-            Gapclosers[sender.NetworkId].Unit = gapSender;
-            Gapclosers[sender.NetworkId].Slot = args.SpellSlot;
-            Gapclosers[sender.NetworkId].Target = (AttackableUnit)args.Target;
-            Gapclosers[sender.NetworkId].Type = args.Target != null ? GapSpellType.Targeted : GapSpellType.SkillShot;
-            Gapclosers[sender.NetworkId].SpellName = args.SpellData.Name;
-            Gapclosers[sender.NetworkId].StartPosition = args.Start;
-            Gapclosers[sender.NetworkId].EndPosition = spell.IsReversedDash ? args.Start.Extend(args.End, -spell.PushBackDistance) : args.End;
-            Gapclosers[sender.NetworkId].StartTick = Game.TickCount;
+            unit.Unit = heroSender;
+            unit.Slot = args.SpellSlot;
+            unit.Target = (AttackableUnit)args.Target;
+            unit.Type = args.Target != null ? Type.Targeted : Type.SkillShot;
+            unit.SpellName = args.SpellData.Name;
+            unit.StartPosition = args.Start;
+            unit.EndPosition = spell.IsReversedDash ? args.Start.Extend(args.End, -spell.PushBackDistance) : args.End;
+            unit.StartTick = Game.TickCount;
+        }
+
+        #endregion
+
+        public enum Type
+        {
+            SkillShot = 0,
+
+            Targeted = 1
+        }
+
+        public struct SpellData
+        {
+            #region Public Properties
+
+            public string ChampionName { get; set; }
+
+            public string SpellName { get; set; }
+
+            public SpellSlot Slot { get; set; }
+
+            public Type SpellType { get; set; }
+
+            public bool IsReversedDash { get; set; }
+
+            public int PushBackDistance { get; set; }
+
+            #endregion
+        }
+
+        public class GapcloserArgs
+        {
+            #region Properties
+
+            internal Obj_AI_Hero Unit { get; set; }
+
+            #endregion
+
+            #region Public Properties
+
+            public SpellSlot Slot { get; set; }
+
+            public AttackableUnit Target { get; set; }
+
+            public string SpellName { get; set; }
+
+            public Type Type { get; set; }
+
+            public Vector3 StartPosition { get; set; }
+
+            public Vector3 EndPosition { get; set; }
+
+            public int StartTick { get; set; }
+
+            public int EndTick { get; set; }
+
+            public int DurationTick { get; set; }
+
+            #endregion
         }
     }
 }

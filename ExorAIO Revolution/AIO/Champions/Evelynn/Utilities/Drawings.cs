@@ -27,7 +27,14 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
-                Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.LightGreen);
+                if (IsHateSpikeSkillshot())
+                {
+                    Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.LightGreen);
+                }
+                else
+                {
+                    Render.Circle(UtilityClass.Player.Position, SpellClass.Q2.Range, 30, Color.LightGreen);
+                }
             }
 
             /// <summary>

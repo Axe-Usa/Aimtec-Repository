@@ -98,8 +98,8 @@ namespace AIO.Champions
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="GapcloserArgs" /> instance containing the event data.</param>
-        public void OnGapcloser(Obj_AI_Hero sender, GapcloserArgs args)
+        /// <param name="args">The <see cref="Gapcloser.GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, Gapcloser.GapcloserArgs args)
         {
             if (UtilityClass.Player.IsDead)
             {
@@ -118,7 +118,7 @@ namespace AIO.Champions
             {
                 switch (args.Type)
                 {
-                    case GapSpellType.Targeted:
+                    case Gapcloser.Type.Targeted:
                         if (sender.IsMelee &&
                             args.Target.IsMe)
                         {

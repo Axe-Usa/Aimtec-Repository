@@ -24,14 +24,21 @@ namespace AIO.Champions
             ///     The Q Laneclear Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
+                (UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) || !IsHateSpikeSkillshot()) &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 var minion = Extensions.GetEnemyLaneMinionsTargetsInRange(GetRealQRange()).FirstOrDefault();
                 if (minion != null)
                 {
-                    SpellClass.Q.Cast(minion);
+                    if (IsHateSpikeSkillshot())
+                    {
+                        SpellClass.Q.Cast(minion);
+                    }
+                    else
+                    {
+                        SpellClass.Q.CastOnUnit(minion);
+                    }
                 }
             }
 

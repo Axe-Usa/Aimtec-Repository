@@ -62,7 +62,14 @@ namespace AIO.Champions
                     {
                         if (IsFullyAllured(bestTarget) || !MenuClass.Spells["q"]["onlyiffullyallured"].As<MenuBool>().Enabled)
                         {
-                            SpellClass.Q.Cast(bestTarget);
+                            if (IsHateSpikeSkillshot())
+                            {
+                                SpellClass.Q.Cast(bestTarget);
+                            }
+                            else
+                            {
+                                SpellClass.Q.CastOnUnit(bestTarget);
+                            }
                         }
                     }
                     else

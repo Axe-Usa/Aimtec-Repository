@@ -858,3 +858,16 @@ ExorAIO: Revolution Changelog:
 
 7.20.1.3:
   AIO: Fixed CompilingError.
+
+7.20.1.4:
+  AIO: fixed spells not casting on targets with GA buff.
+
+7.20.1.5:
+  AIO: Improved Anti-Gapcloser.
+  AIO: Added Ornn E Anti-Gapcloser option.
+  Ezreal: Removed useless MenuSeparator.
+  Tristana: Removed useless MenuSeparator.
+  Evelynn: Now Q range drawing is dynamic, based on the Q stance she's in.
+  Evelynn: Adjusted Q Prediction values.
+  Evelynn: Now Q Cast is Dynamic (uses prediction for the skillshot, and spams the spikes)
+  Evelynn: Now will always spam the spikes, they consume 0 mana and thus they won't take the manamanager into account anymore.

@@ -47,7 +47,6 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("antigrab", "Anti-Grab"));
                     MenuClass.W.Add(new MenuSeperator("separator"));
                     Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
-                    MenuClass.W.Add(new MenuSeperator("separator2"));
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 

@@ -24,8 +24,8 @@ namespace AIO.Champions
             ///     The Q Harass Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
+                (UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) || !IsHateSpikeSkillshot()) &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(GetRealQRange());
