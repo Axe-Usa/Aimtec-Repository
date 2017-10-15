@@ -17,10 +17,12 @@ namespace AIO.Utilities
 
         public static Menu Menu;
 
+        public static bool Initiated = false;
+
         private static readonly List<SpellData> Spells = new List<SpellData>();
 
         // ReSharper disable once InconsistentNaming
-        private static Dictionary<int, GapcloserArgs> Gapclosers = new Dictionary<int, GapcloserArgs>();
+        private static readonly Dictionary<int, GapcloserArgs> Gapclosers = new Dictionary<int, GapcloserArgs>();
 
         #endregion
 
@@ -938,14 +940,13 @@ namespace AIO.Utilities
         {
             if (ObjectManager.Get<Obj_AI_Hero>().Any(h => h.IsEnemy))
             {
-                var initiated = false;
                 foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(x => x.IsEnemy))
                 {
                     if (Spells.Any(x => x.ChampionName == enemy.ChampionName))
                     {
-                        if (!initiated)
+                        if (!Initiated)
                         {
-                            initiated = true;
+                            Initiated = true;
                             Menu = new Menu("Gapcloser", menuName)
                             {
                                 new MenuBool("enabled", "Enable"),
@@ -963,7 +964,7 @@ namespace AIO.Utilities
                     }
                 }
 
-                if (!initiated)
+                if (!Initiated)
                 {
                     mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser not needed."));
                 }
@@ -976,15 +977,14 @@ namespace AIO.Utilities
 
         private static void OnUpdate()
         {
-            foreach (var needToDelectValue in Gapclosers.Where(x => Game.TickCount - x.Value.StartTick > 1250 + Game.Ping))
-            {
-                Gapclosers.Remove(needToDelectValue.Key);
-            }
-
-            var option = Menu["enabled"].As<MenuBool>();
-            if (OnGapcloser == null || option == null || !option.Enabled)
+            if (!Initiated || OnGapcloser == null)
             {
                 return;
+            }
+
+            foreach (var needToDeleteValue in Gapclosers.Where(x => Game.TickCount - x.Value.StartTick > 1250 + Game.Ping))
+            {
+                Gapclosers.Remove(needToDeleteValue.Key);
             }
 
             foreach (var args in Gapclosers.Where(x => x.Value.Unit.IsValidTarget()))
@@ -995,20 +995,19 @@ namespace AIO.Utilities
 
         private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            if (sender == null || !sender.IsValid || sender.Type != GameObjectType.obj_AI_Hero || !sender.IsEnemy)
+            if (!sender.IsValidTarget() || sender.Type != GameObjectType.obj_AI_Hero || !sender.IsEnemy)
             {
                 return;
             }
 
             var argsName = args.SpellData.Name.ToLower();
-            if (string.IsNullOrEmpty(argsName) ||
-                argsName.Contains("attack") || argsName.Contains("crit") || AOrbwalker.SpecialAttacks.Contains(argsName))
+            if (string.IsNullOrEmpty(argsName) || argsName.Contains("attack") || argsName.Contains("crit") || AOrbwalker.SpecialAttacks.Contains(argsName))
             {
                 return;
             }
 
-            if (Spells.All(x => !string.Equals(x.SpellName, argsName, StringComparison.CurrentCultureIgnoreCase)) ||
-                !Menu[sender.UnitSkinName.ToLower()][sender.UnitSkinName.ToLower() + "." + args.SpellData.Name.ToLower()].As<MenuBool>().Enabled)
+            var menuOption = Menu[sender.UnitSkinName.ToLower()][sender.UnitSkinName.ToLower() + "." + argsName].As<MenuBool>();
+            if (Spells.All(x => !string.Equals(x.SpellName, argsName, StringComparison.CurrentCultureIgnoreCase)) || menuOption == null || !menuOption.Enabled)
             {
                 return;
             }
@@ -1020,7 +1019,6 @@ namespace AIO.Utilities
 
             var heroSender = (Obj_AI_Hero)sender;
             var unit = Gapclosers[sender.NetworkId];
-            var spell = Spells.FirstOrDefault(e => e.SpellName == argsName);
 
             unit.Unit = heroSender;
             unit.Slot = args.SpellSlot;
@@ -1028,7 +1026,19 @@ namespace AIO.Utilities
             unit.Type = args.Target != null ? Type.Targeted : Type.SkillShot;
             unit.SpellName = args.SpellData.Name;
             unit.StartPosition = args.Start;
-            unit.EndPosition = spell.IsReversedDash ? args.Start.Extend(args.End, -spell.PushBackDistance) : args.End;
+
+            if (Spells.Any(e => e.SpellName == argsName))
+            {
+                var spell = Spells.FirstOrDefault(e => e.SpellName == argsName);
+                unit.EndPosition = spell.IsReversedDash
+                    ? args.Start.Extend(args.End, -spell.PushBackDistance)
+                    : args.End;
+            }
+            else
+            {
+                unit.EndPosition = args.End;
+            }
+
             unit.StartTick = Game.TickCount;
         }
 

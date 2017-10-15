@@ -147,9 +147,9 @@ namespace AIO.Champions
                     }
                     MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.E.Add(new MenuBool("teleport", "On Teleport"));
-                    MenuClass.E.Add(new MenuSeperator("separator"));
-                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
                     MenuClass.E.Add(new MenuSeperator("separator2"));
+                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
+                    MenuClass.E.Add(new MenuSeperator("separator3"));
                     MenuClass.E.Add(new MenuBool("interrupter", "On Channelling Immobile Targets"));
                 }
                 MenuClass.Spells.Add(MenuClass.E);

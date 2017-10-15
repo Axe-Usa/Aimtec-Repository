@@ -872,3 +872,8 @@ ExorAIO: Revolution Changelog:
   Evelynn: Now Q Cast is Dynamic (uses prediction for the skillshot, and spams the spikes)
   Evelynn: Now will always spam the spikes, they consume 0 mana and thus they won't take the manamanager into account anymore.
   Evelynn: W Jungleclear will now prioritize the nearest monster.
+
+7.20.1.6:
+  AIO: Fixed Anti-Gapcloser Nullreference.
+  Jinx: Fixed W Collision check.
+  Jinx: Fishbones check should be more consistent.

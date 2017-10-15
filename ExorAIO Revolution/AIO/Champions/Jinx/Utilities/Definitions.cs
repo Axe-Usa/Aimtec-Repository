@@ -1,6 +1,7 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
 
+using Aimtec;
 using Aimtec.SDK.Extensions;
 using AIO.Utilities;
 
@@ -20,13 +21,13 @@ namespace AIO.Champions
         /// </summary>
         public bool IsUsingFishBones()
         {
-            return UtilityClass.Player.HasBuff("jinxq");
+            return UtilityClass.Player.GetSpell(SpellSlot.Q).ToggleState == 2;
         }
 
         /// <summary>
         ///     Returns Fishbones' SplashRange.
         /// </summary>
-        public const float SplashRange = 250f;
+        public const float SplashRange = 200f;
 
         #endregion
     }
