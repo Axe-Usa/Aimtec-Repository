@@ -117,7 +117,45 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("combo", "Q -> E / E Spheres to enemy"));
                     MenuClass.E.Add(new MenuList("catchmode", "Catch out of Q range people with", new[] { "E->Q", "Q->E" }, 0));
                     MenuClass.E.Add(new MenuSeperator("separator"));
-                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
+
+                    if (GameObjects.EnemyHeroes.Any(x => x.IsMelee))
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the Anti-Gapcloser E.
+                        /// </summary>
+                        MenuClass.Gapcloser = new Menu("gapcloser", "Anti-Gapcloser");
+                        {
+                            if (GameObjects.EnemyHeroes.Any(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                            {
+                                MenuClass.Gapcloser.Add(new MenuBool("enabled", "Enable"));
+                                MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty));
+                                MenuClass.E.Add(MenuClass.Gapcloser);
+
+                                foreach (var enemy in GameObjects.EnemyHeroes.Where(t => t.IsMelee))
+                                {
+                                    MenuClass.SubGapcloser = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
+                                    {
+                                        foreach (var spell in Gapcloser.Spells.Where(x => x.ChampionName == enemy.ChampionName))
+                                        {
+                                            MenuClass.SubGapcloser.Add(new MenuBool(
+                                                $"{enemy.ChampionName.ToLower()}.{spell.SpellName.ToLower()}",
+                                                $"Slot: {spell.Slot} ({spell.SpellName})"));
+                                        }
+                                    }
+                                    MenuClass.Gapcloser.Add(MenuClass.SubGapcloser);
+                                }
+                            }
+                            else
+                            {
+                                MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MenuClass.E.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                    }
+
                     MenuClass.E.Add(new MenuSeperator("separator2"));
                     MenuClass.E.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", false, 50, 0, 99));

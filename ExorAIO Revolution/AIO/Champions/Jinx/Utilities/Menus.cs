@@ -148,7 +148,38 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.E.Add(new MenuBool("teleport", "On Teleport"));
                     MenuClass.E.Add(new MenuSeperator("separator2"));
-                    Gapcloser.Attach(MenuClass.E, "Anti-Gapcloser");
+
+                    if (GameObjects.EnemyHeroes.Any(x => Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the Anti-Gapcloser E.
+                        /// </summary>
+                        MenuClass.Gapcloser = new Menu("gapcloser", "Anti-Gapcloser");
+                        {
+                            MenuClass.Gapcloser.Add(new MenuBool("enabled", "Enable"));
+                            MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty));
+                            MenuClass.E.Add(MenuClass.Gapcloser);
+
+                            foreach (var enemy in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.SubGapcloser = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
+                                {
+                                    foreach (var spell in Gapcloser.Spells.Where(x => x.ChampionName == enemy.ChampionName))
+                                    {
+                                        MenuClass.SubGapcloser.Add(new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.{spell.SpellName.ToLower()}",
+                                            $"Slot: {spell.Slot} ({spell.SpellName})"));
+                                    }
+                                }
+                                MenuClass.Gapcloser.Add(MenuClass.SubGapcloser);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MenuClass.E.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                    }
+
                     MenuClass.E.Add(new MenuSeperator("separator3"));
                     MenuClass.E.Add(new MenuBool("interrupter", "On Channelling Immobile Targets"));
                 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -120,8 +121,20 @@ namespace AIO.Champions
             {
                 return;
             }
-            
+
+            var enabledOption = MenuClass.Gapcloser["enabled"];
+            if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
+            {
+                return;
+            }
+
             if (sender == null || !sender.IsEnemy || !sender.IsMelee)
+            {
+                return;
+            }
+
+            var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+            if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
             {
                 return;
             }

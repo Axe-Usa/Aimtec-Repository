@@ -44,8 +44,7 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The Offensive R Logics.
                 /// </summary>
-                foreach (var target in GameObjects.EnemyHeroes
-                    .Where(t => t.Distance(UtilityClass.Player.ServerPosition) > UtilityClass.Player.GetFullAttackRange(t)))
+                foreach (var target in GameObjects.EnemyHeroes.Where(t => t.Distance(UtilityClass.Player.ServerPosition) > UtilityClass.Player.GetFullAttackRange(t)))
                 {
                     if (RLogics.ContainsKey(SoulBound.ChampionName))
                     {

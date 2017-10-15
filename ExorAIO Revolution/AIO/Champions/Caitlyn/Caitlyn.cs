@@ -154,11 +154,11 @@ namespace AIO.Champions
                                     MenuClass.Spells["w"]["triplecombo"].As<MenuBool>().Enabled)
                                 {
                                     var bestTarget = GameObjects.EnemyHeroes
-                                        .Where(t => t.IsValidTarget(SpellClass.E.Range))
+                                        .Where(t => !Invulnerable.Check(t))
                                         .MinBy(o => o.Distance(args.End));
                                     if (bestTarget != null)
                                     {
-                                        SpellClass.W.Cast(bestTarget.ServerPosition.Extend(UtilityClass.Player.ServerPosition, -bestTarget.BoundingRadius));
+                                        SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(bestTarget.ServerPosition, UtilityClass.Player.Distance(bestTarget)+bestTarget.BoundingRadius));
                                     }
                                 }
                                 break;
@@ -180,7 +180,7 @@ namespace AIO.Champions
                 return;
             }
             
-            if (sender == null || !sender.IsEnemy)
+            if (sender == null || !sender.IsEnemy || Invulnerable.Check(sender))
             {
                 return;
             }
@@ -190,6 +190,18 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready)
             {
+                var enabledOption = MenuClass.Gapcloser["enabled"];
+                if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 switch (args.Type)
                 {
                     case Gapcloser.Type.Targeted:
@@ -212,9 +224,20 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser W.
             /// </summary>
             if (SpellClass.W.Ready &&
-                !Invulnerable.Check(sender, DamageType.Magical, false) &&
                 args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range)
             {
+                var enabledOption2 = MenuClass.Gapcloser2["enabled"];
+                if (enabledOption2 == null || !enabledOption2.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                var spellOption2 = MenuClass.SubGapcloser2[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption2 == null || !spellOption2.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 SpellClass.W.Cast(args.EndPosition);
             }
         }

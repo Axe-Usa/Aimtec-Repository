@@ -51,7 +51,38 @@ namespace AIO.Champions
                         MenuClass.W.Add(new MenuSeperator("separator", "AoE / Not enough enemies found."));
                     }
                     MenuClass.W.Add(new MenuSeperator("separator2"));
-                    Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
+
+                    if (GameObjects.EnemyHeroes.Any(x => Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the Anti-Gapcloser W.
+                        /// </summary>
+                        MenuClass.Gapcloser = new Menu("gapcloser", "Anti-Gapcloser");
+                        {
+                            MenuClass.Gapcloser.Add(new MenuBool("enabled", "Enable"));
+                            MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty));
+                            MenuClass.W.Add(MenuClass.Gapcloser);
+
+                            foreach (var enemy in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.SubGapcloser = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
+                                {
+                                    foreach (var spell in Gapcloser.Spells.Where(x => x.ChampionName == enemy.ChampionName))
+                                    {
+                                        MenuClass.SubGapcloser.Add(new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.{spell.SpellName.ToLower()}",
+                                            $"Slot: {spell.Slot} ({spell.SpellName})"));
+                                    }
+                                }
+                                MenuClass.Gapcloser.Add(MenuClass.SubGapcloser);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MenuClass.W.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                    }
+
                     MenuClass.W.Add(new MenuSeperator("separator3"));
                     MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));

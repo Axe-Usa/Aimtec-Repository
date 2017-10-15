@@ -185,9 +185,7 @@ namespace AIO.Champions
                 return;
             }
 
-            if (sender == null ||
-                !sender.IsEnemy ||
-                Invulnerable.Check(sender, DamageType.Magical, false))
+            if (sender == null || !sender.IsEnemy)
             {
                 return;
             }
@@ -195,8 +193,21 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser E.
             /// </summary>
-            if (SpellClass.E.Ready)
+            if (SpellClass.E.Ready &&
+                !Invulnerable.Check(sender, DamageType.Magical, false))
             {
+                var enabledOption = MenuClass.Gapcloser["enabled"];
+                if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 switch (args.Type)
                 {
                     case Gapcloser.Type.Targeted:
@@ -219,8 +230,20 @@ namespace AIO.Champions
             /// <summary>
             ///     The Anti-Gapcloser R.
             /// </summary>
-            if (SpellClass.R.Ready)
+            if (SpellClass.R.Ready && sender.IsMelee)
             {
+                var enabledOption2 = MenuClass.Gapcloser2["enabled"];
+                if (enabledOption2 == null || !enabledOption2.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                var spellOption2 = MenuClass.SubGapcloser2[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption2 == null || !spellOption2.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 switch (args.Type)
                 {
                     case Gapcloser.Type.Targeted:

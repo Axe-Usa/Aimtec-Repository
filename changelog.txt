@@ -877,3 +877,6 @@ ExorAIO: Revolution Changelog:
   AIO: Fixed Anti-Gapcloser Nullreference.
   Jinx: Fixed W Collision check.
   Jinx: Fishbones check should be more consistent.
+
+7.20.1.7:
+  AIO: Completely fixed, reworked and improved Anti-Gapcloser, now it's specific per champion with spell-specific custom menus.

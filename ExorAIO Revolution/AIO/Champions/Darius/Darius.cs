@@ -1,6 +1,7 @@
 
 using Aimtec;
 using Aimtec.SDK.Extensions;
+using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
@@ -100,7 +101,19 @@ namespace AIO.Champions
                 return;
             }
 
-            if (sender == null || !sender.IsEnemy)
+            var enabledOption = MenuClass.Gapcloser["enabled"];
+            if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
+            {
+                return;
+            }
+
+            if (sender == null || !sender.IsEnemy || Invulnerable.Check(sender, DamageType.Magical, false))
+            {
+                return;
+            }
+
+            var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+            if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
             {
                 return;
             }
@@ -109,7 +122,6 @@ namespace AIO.Champions
             ///     The Anti-Gapcloser E.
             /// </summary>
             if (SpellClass.E.Ready &&
-                !Invulnerable.Check(sender, DamageType.Magical, false) &&
                 args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.E.Range)
             {
                 SpellClass.E.Cast(args.EndPosition);

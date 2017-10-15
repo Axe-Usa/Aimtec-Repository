@@ -1,5 +1,4 @@
 ﻿using Aimtec.SDK.Menu;
-using Aimtec.SDK.Menu.Components;
 
 namespace AIO.Utilities
 {
@@ -17,9 +16,9 @@ namespace AIO.Utilities
 
         public static Menu Menu;
 
-        public static bool Initiated = false;
+        public static bool Initialized;
 
-        private static readonly List<SpellData> Spells = new List<SpellData>();
+        public static readonly List<SpellData> Spells = new List<SpellData>();
 
         // ReSharper disable once InconsistentNaming
         private static readonly Dictionary<int, GapcloserArgs> Gapclosers = new Dictionary<int, GapcloserArgs>();
@@ -936,53 +935,14 @@ namespace AIO.Utilities
             */
         }
 
-        public static void Attach(Menu mainMenu, string menuName)
-        {
-            if (ObjectManager.Get<Obj_AI_Hero>().Any(h => h.IsEnemy))
-            {
-                foreach (var enemy in ObjectManager.Get<Obj_AI_Hero>().Where(x => x.IsEnemy))
-                {
-                    if (Spells.Any(x => x.ChampionName == enemy.ChampionName))
-                    {
-                        if (!Initiated)
-                        {
-                            Initiated = true;
-                            Menu = new Menu("Gapcloser", menuName)
-                            {
-                                new MenuBool("enabled", "Enable"),
-                                new MenuSeperator(string.Empty)
-                            };
-                            mainMenu.Add(Menu);
-                        }
-
-                        var heroMenu = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
-                        foreach (var spell in Spells.Where(x => x.ChampionName == enemy.ChampionName))
-                        {
-                            heroMenu.Add(new MenuBool(enemy.ChampionName.ToLower() + "." + spell.SpellName.ToLower(), "Slot: " + spell.Slot + " (" + spell.SpellName + ")"));
-                        }
-                        Menu.Add(heroMenu);
-                    }
-                }
-
-                if (!Initiated)
-                {
-                    mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser not needed."));
-                }
-            }
-            else
-            {
-                mainMenu.Add(new MenuSeperator("gapseparator", "Anti-Gapcloser not needed."));
-            }
-        }
-
         private static void OnUpdate()
         {
-            if (!Initiated || OnGapcloser == null)
+            if (OnGapcloser == null)
             {
                 return;
             }
 
-            foreach (var needToDeleteValue in Gapclosers.Where(x => Game.TickCount - x.Value.StartTick > 1250 + Game.Ping))
+            foreach (var needToDeleteValue in Gapclosers.Where(x => Game.TickCount - x.Value.StartTick > 1250 + Game.Ping).ToList())
             {
                 Gapclosers.Remove(needToDeleteValue.Key);
             }
@@ -1006,8 +966,7 @@ namespace AIO.Utilities
                 return;
             }
 
-            var menuOption = Menu[sender.UnitSkinName.ToLower()][sender.UnitSkinName.ToLower() + "." + argsName].As<MenuBool>();
-            if (Spells.All(x => !string.Equals(x.SpellName, argsName, StringComparison.CurrentCultureIgnoreCase)) || menuOption == null || !menuOption.Enabled)
+            if (Spells.All(x => !string.Equals(x.SpellName, argsName, StringComparison.CurrentCultureIgnoreCase)))
             {
                 return;
             }

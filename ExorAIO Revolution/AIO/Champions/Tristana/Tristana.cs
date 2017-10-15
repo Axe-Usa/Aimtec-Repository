@@ -119,25 +119,34 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready)
             {
-                if (sender.IsMelee)
+                var enabledOption = MenuClass.Gapcloser["enabled"];
+                if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
                 {
-                    switch (args.Type)
-                    {
-                        case Gapcloser.Type.Targeted:
-                            if (args.Target.IsMe)
-                            {
-                                SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.W.Range));
-                                return;
-                            }
-                            break;
-                        default:
-                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
-                            {
-                                SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.W.Range));
-                                return;
-                            }
-                            break;
-                    }
+                    return;
+                }
+
+                var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                switch (args.Type)
+                {
+                    case Gapcloser.Type.Targeted:
+                        if (args.Target.IsMe)
+                        {
+                            SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.W.Range));
+                            return;
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                        {
+                            SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.W.Range));
+                            return;
+                        }
+                        break;
                 }
             }
 
@@ -147,23 +156,32 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 !Invulnerable.Check(sender, DamageType.Magical, false))
             {
-                if (sender.IsMelee)
+                var enabledOption2 = MenuClass.Gapcloser2["enabled"];
+                if (enabledOption2 == null || !enabledOption2.As<MenuBool>().Enabled)
                 {
-                    switch (args.Type)
-                    {
-                        case Gapcloser.Type.Targeted:
-                            if (args.Target.IsMe)
-                            {
-                                SpellClass.R.CastOnUnit(sender);
-                            }
-                            break;
-                        default:
-                            if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
-                            {
-                                SpellClass.R.CastOnUnit(sender);
-                            }
-                            break;
-                    }
+                    return;
+                }
+
+                var spellOption2 = MenuClass.SubGapcloser2[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption2 == null || !spellOption2.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                switch (args.Type)
+                {
+                    case Gapcloser.Type.Targeted:
+                        if (args.Target.IsMe)
+                        {
+                            SpellClass.R.CastOnUnit(sender);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                        {
+                            SpellClass.R.CastOnUnit(sender);
+                        }
+                        break;
                 }
             }
         }

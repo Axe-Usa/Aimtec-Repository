@@ -151,34 +151,23 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Anti-Gapcloser E Logic.
-            /// </summary>
-            if (SpellClass.E.Ready)
-            {
-                switch (args.Type)
-                {
-                    case Gapcloser.Type.Targeted:
-                        if (sender.IsMelee &&
-                            args.Target.IsMe)
-                        {
-                            SpellClass.E.Cast(args.StartPosition);
-                        }
-                        break;
-                    default:
-                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
-                        {
-                            SpellClass.E.Cast(args.StartPosition);
-                        }
-                        break;
-                }
-            }
-
-            /// <summary>
             ///     The Anti-Gapcloser W Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
                 !Invulnerable.Check(sender, DamageType.Magical, false))
             {
+                var enabledOption = MenuClass.Gapcloser["enabled"];
+                if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 switch (args.Type)
                 {
                     case Gapcloser.Type.Targeted:
@@ -192,6 +181,41 @@ namespace AIO.Champions
                         if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
                         {
                             SpellClass.W.Cast(args.EndPosition, args.EndPosition.Extend(args.StartPosition, sender.IsMelee ? 200f : -200f));
+                        }
+                        break;
+                }
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser E Logic.
+            /// </summary>
+            if (SpellClass.E.Ready)
+            {
+                var enabledOption2 = MenuClass.Gapcloser2["enabled"];
+                if (enabledOption2 == null || !enabledOption2.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                var spellOption2 = MenuClass.SubGapcloser2[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption2 == null || !spellOption2.As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                switch (args.Type)
+                {
+                    case Gapcloser.Type.Targeted:
+                        if (sender.IsMelee &&
+                            args.Target.IsMe)
+                        {
+                            SpellClass.E.Cast(args.StartPosition);
+                        }
+                        break;
+                    default:
+                        if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
+                        {
+                            SpellClass.E.Cast(args.StartPosition);
                         }
                         break;
                 }

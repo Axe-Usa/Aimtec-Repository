@@ -99,13 +99,24 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The Anti-Gapcloser E.
                 /// </summary>
-                if (sender.IsEnemy)
+                if (sender.IsEnemy && sender.IsMelee)
                 {
+                    var enabledOption = MenuClass.Gapcloser["enabled"];
+                    if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
+                    {
+                        return;
+                    }
+
+                    var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                    if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
+                    {
+                        return;
+                    }
+
                     switch (args.Type)
                     {
                         case Gapcloser.Type.Targeted:
-                            if (sender.IsMelee &&
-                                args.Target.IsMe)
+                            if (args.Target.IsMe)
                             {
                                 SpellClass.E.CastOnUnit(UtilityClass.Player);
                             }
@@ -132,7 +143,7 @@ namespace AIO.Champions
                             break;
                     }
                 }
-                else
+                else if (sender.IsAlly)
                 {
                     if (MenuClass.Spells["r"]["aoe"] == null ||
                         !MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
@@ -143,8 +154,7 @@ namespace AIO.Champions
                     /// <summary>
                     ///     The E Engager Logic.
                     /// </summary>
-                    if (sender.IsAlly &&
-                        sender.IsValidTarget(SpellClass.E.Range, true) &&
+                    if (sender.IsValidTarget(SpellClass.E.Range, true) &&
                         MenuClass.Spells["e"]["engager"].As<MenuBool>().Enabled)
                     {
                         if (GameObjects.EnemyHeroes.Count(t =>

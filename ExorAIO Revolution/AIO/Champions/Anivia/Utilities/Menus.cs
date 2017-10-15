@@ -75,8 +75,37 @@ namespace AIO.Champions
                     MenuClass.W.Add(new MenuBool("combo", "Combo"));
                     MenuClass.W.Add(new MenuBool("logical", "On Hard-CC'd/Stasis Enemies"));
                     MenuClass.W.Add(new MenuSeperator("separator"));
-                    Gapcloser.Attach(MenuClass.W, "Anti-Gapcloser");
-                    MenuClass.W.Add(new MenuSeperator("separator2"));
+
+                    if (GameObjects.EnemyHeroes.Any(x => Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the Anti-Gapcloser W.
+                        /// </summary>
+                        MenuClass.Gapcloser = new Menu("gapcloser", "Anti-Gapcloser");
+                        {
+                            MenuClass.Gapcloser.Add(new MenuBool("enabled", "Enable"));
+                            MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty));
+                            MenuClass.W.Add(MenuClass.Gapcloser);
+
+                            foreach (var enemy in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.SubGapcloser = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
+                                {
+                                    foreach (var spell in Gapcloser.Spells.Where(x => x.ChampionName == enemy.ChampionName))
+                                    {
+                                        MenuClass.SubGapcloser.Add(new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.{spell.SpellName.ToLower()}",
+                                            $"Slot: {spell.Slot} ({spell.SpellName})"));
+                                    }
+                                }
+                                MenuClass.Gapcloser.Add(MenuClass.SubGapcloser);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MenuClass.W.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                    }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
 

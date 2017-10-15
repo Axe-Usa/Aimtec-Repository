@@ -27,6 +27,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Drawings["q"].As<MenuBool>().Enabled)
             {
+                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
                 if (IsHateSpikeSkillshot())
                 {
                     Render.Circle(UtilityClass.Player.Position, SpellClass.Q.Range, 30, Color.LightGreen);

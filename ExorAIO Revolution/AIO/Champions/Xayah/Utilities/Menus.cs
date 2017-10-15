@@ -120,7 +120,37 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    Gapcloser.Attach(MenuClass.R, "Anti-Gapcloser");
+                    if (GameObjects.EnemyHeroes.Any(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                    {
+                        /// <summary>
+                        ///     Sets the menu for the Anti-Gapcloser R.
+                        /// </summary>
+                        MenuClass.Gapcloser = new Menu("gapcloser", "Anti-Gapcloser");
+                        {
+                            MenuClass.Gapcloser.Add(new MenuBool("enabled", "Enable"));
+                            MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty));
+                            MenuClass.R.Add(MenuClass.Gapcloser);
+
+                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee))
+                            {
+                                MenuClass.SubGapcloser = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
+                                {
+                                    foreach (var spell in Gapcloser.Spells.Where(x => x.ChampionName == enemy.ChampionName))
+                                    {
+                                        MenuClass.SubGapcloser.Add(new MenuBool(
+                                            $"{enemy.ChampionName.ToLower()}.{spell.SpellName.ToLower()}",
+                                            $"Slot: {spell.Slot} ({spell.SpellName})"));
+                                    }
+                                }
+                                MenuClass.Gapcloser.Add(MenuClass.SubGapcloser);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MenuClass.R.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                    }
+
                     MenuClass.R.Add(new MenuSeperator("separator"));
                     //MenuClass.R.Add(new MenuSeperator("separator1"));
                     //MenuClass.R.Add(new MenuSeperator("separator2", "It will ult the lowest on health,"));

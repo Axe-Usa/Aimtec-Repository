@@ -115,6 +115,26 @@ namespace AIO.Utilities
         public static Menu WhiteList5 { get; set; }
 
         /// <summary>
+        ///     Gets or sets the first Anti-Gapcloser menu.
+        /// </summary>
+        public static Menu Gapcloser { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the second Anti-Gapcloser menu.
+        /// </summary>
+        public static Menu Gapcloser2 { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the first Sub-Anti-Gapcloser menu.
+        /// </summary>
+        public static Menu SubGapcloser { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the second Sub-Anti-Gapcloser menu.
+        /// </summary>
+        public static Menu SubGapcloser2 { get; set; }
+
+        /// <summary>
         ///     Gets or sets the pattern menu.
         /// </summary>
         public static Menu Pattern { get; set; }
