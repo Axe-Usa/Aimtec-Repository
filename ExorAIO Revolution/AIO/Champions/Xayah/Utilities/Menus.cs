@@ -131,7 +131,7 @@ namespace AIO.Champions
                             MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty));
                             MenuClass.R.Add(MenuClass.Gapcloser);
 
-                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee))
+                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
                             {
                                 MenuClass.SubGapcloser = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
                                 {

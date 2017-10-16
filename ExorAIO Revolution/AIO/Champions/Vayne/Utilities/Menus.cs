@@ -45,7 +45,7 @@ namespace AIO.Champions
                             MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty));
                             MenuClass.Q.Add(MenuClass.Gapcloser);
 
-                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee))
+                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
                             {
                                 MenuClass.SubGapcloser = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
                                 {
@@ -113,7 +113,7 @@ namespace AIO.Champions
                             MenuClass.Gapcloser2.Add(new MenuSeperator(string.Empty));
                             MenuClass.E.Add(MenuClass.Gapcloser2);
 
-                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee))
+                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
                             {
                                 MenuClass.SubGapcloser2 = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
                                 {

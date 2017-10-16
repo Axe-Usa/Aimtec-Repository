@@ -98,7 +98,7 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("harass", "Harass with minions"));
                     MenuClass.E.Add(new MenuBool("lasthit", "Lasthit"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / If killable minions >= x", true, 1, 1, 5));
-                    MenuClass.E.Add(new MenuBool("junglesteal", "Junglesteal"));
+                    MenuClass.E.Add(new MenuSliderBool("junglesteal", "Junglesteal / If Level >=", true, 2, 1, 18));
                     //MenuClass.E.Add(new MenuSeperator("separator"));
                     //MenuClass.E.Add(new MenuSeperator("separator1", "It will cast E if there are any minions with"));
                     //MenuClass.E.Add(new MenuSeperator("separator2", "stacks the orbwalker cannot reach in time to kill them."));

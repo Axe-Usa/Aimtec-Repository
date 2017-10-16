@@ -118,7 +118,9 @@ namespace AIO.Champions
                 /// <summary>
                 ///     The E Jungleclear Logic.
                 /// </summary>
-                if (MenuClass.Spells["e"]["junglesteal"].As<MenuBool>().Enabled)
+                if (UtilityClass.Player.Level >=
+                        MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Value &&
+                    MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Enabled)
                 {
                     foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Where(m =>
                         IsPerfectRendTarget(m) &&

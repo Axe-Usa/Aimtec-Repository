@@ -880,3 +880,7 @@ ExorAIO: Revolution Changelog:
 
 7.20.1.7:
   AIO: Completely fixed, reworked and improved Anti-Gapcloser, now it's specific per champion with spell-specific custom menus.
+
+7.20.1.8:
+  AIO: Removed some useless Anti-Gapcloser menus.
+  Kalista: The Junglesteal option has now a Level component "Junglesteal / If level >= X", to avoid stealing the ally jungler buffs at level 1.
