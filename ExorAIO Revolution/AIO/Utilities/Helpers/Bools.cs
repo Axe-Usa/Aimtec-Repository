@@ -131,6 +131,20 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Returns true if a determined hero is a zombie.
+        /// </summary>
+        public static bool IsZombie(this Obj_AI_Hero hero)
+        {
+            switch (hero.ChampionName)
+            {
+                case "Sion":
+                    return hero.HasBuff("sionpassivezombie");
+            }
+
+            return false;
+        }
+
+        /// <summary>
         ///     Returns true if a the player is being grabbed by an enemy unit.
         /// </summary>
         public static bool IsBeingGrabbed(this Obj_AI_Hero hero)

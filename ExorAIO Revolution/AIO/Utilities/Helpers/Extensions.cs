@@ -128,7 +128,8 @@ namespace AIO.Utilities
                 target = tsTarget;
             }
 
-            if (target.IsValidTarget() &&
+            if (!target.IsZombie() &&
+                target.IsValidTarget() &&
                 !Invulnerable.Check(target))
             {
                 return target;
@@ -142,7 +143,7 @@ namespace AIO.Utilities
         /// </summary>
         public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
         {
-            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range-100f).FirstOrDefault(t => !Invulnerable.Check(t, damageType, ignoreShields));
+            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range-100f).FirstOrDefault(t => !t.IsZombie() && !Invulnerable.Check(t, damageType, ignoreShields));
         }
 
         /// <summary>
@@ -150,7 +151,7 @@ namespace AIO.Utilities
         /// </summary>
         public static IEnumerable<Obj_AI_Hero> GetBestKillableHeroes(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
         {
-            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range).Where(t => !Invulnerable.Check(t, damageType, ignoreShields));
+            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range).Where(t => !t.IsZombie() && !Invulnerable.Check(t, damageType, ignoreShields));
         }
 
         /// <summary>

@@ -889,3 +889,6 @@ ExorAIO: Revolution Changelog:
   AIO: Better target selection on spells.
   Vayne: Added Dash prediction on condemn.
   Vayne: Reworked Condemn Logic and Mode selection.
+
+7.20.1.10:
+  AIO: Spells will no longer be casted against Zombie Sions.
