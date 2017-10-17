@@ -3,6 +3,7 @@ using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
+using Aimtec.SDK.TargetSelector;
 using Spell = Aimtec.SDK.Spell;
 
 namespace AIO.Utilities
@@ -107,10 +108,25 @@ namespace AIO.Utilities
         /// </summary>
         public static Obj_AI_Hero GetBestEnemyHeroTargetInRange(float range)
         {
-            var heroTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
-            var target = heroTarget != null
-                ? heroTarget
-                : ImplementationClass.ITargetSelector.GetTarget(range);
+            Obj_AI_Hero target = null;
+
+            var selectedTarget = TargetSelector.GetSelectedTarget();
+            if (selectedTarget != null)
+            {
+                target = selectedTarget;
+            }
+
+            var orbTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
+            if (orbTarget != null)
+            {
+                target = orbTarget;
+            }
+
+            var tsTarget = ImplementationClass.ITargetSelector.GetTarget(range);
+            if (tsTarget != null)
+            {
+                target = tsTarget;
+            }
 
             if (target.IsValidTarget() &&
                 !Invulnerable.Check(target))

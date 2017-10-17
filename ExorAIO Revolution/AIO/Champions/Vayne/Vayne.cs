@@ -136,17 +136,20 @@ namespace AIO.Champions
                 return;
             }
 
-            if (SpellClass.E.Ready &&
-                MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2)
+            if (!heroSender.IsValidTarget(SpellClass.E.Range) &&
+                UtilityClass.Player.Distance(args.EndPos) > SpellClass.E.Range)
             {
-                const int condemnPushDistance = 410 / 10;
-                for (var i = 1; i < 10; i++)
+                return;
+            }
+
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2 &&
+                MenuClass.Spells["e"]["whitelist"][heroSender.ChampionName.ToLower()].Enabled)
+            {
+                var endPos = args.EndPos.Extend(UtilityClass.Player.ServerPosition, -405);
+                if (Bools.AnyWallInBetween(args.EndPos.To3D(), endPos.To3D()))
                 {
-                    var endPos = args.EndPos.Extend(UtilityClass.Player.ServerPosition, -condemnPushDistance * i).To3D();
-                    if (endPos.IsWall(true))
-                    {
-                        SpellClass.E.CastOnUnit(heroSender);
-                    }
+                    SpellClass.E.CastOnUnit(heroSender);
                 }
             }
         }

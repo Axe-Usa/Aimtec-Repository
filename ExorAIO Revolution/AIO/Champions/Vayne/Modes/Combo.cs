@@ -47,27 +47,13 @@ namespace AIO.Champions
             ///     The E Stun Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                !UtilityClass.Player.IsDashing())
+                !UtilityClass.Player.IsDashing() &&
+                MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
-                switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
-                {
-                    case 0:
-                        SpellClass.E.Delay = 0.5f;
-                        SpellClass.E.Speed = 1200f;
 
-                        break;
-                    case 1:
-                        SpellClass.E.Delay = 0.4f;
-                        SpellClass.E.Speed = 1000f;
-                        break;
-                    default:
-                        return;
-                }
-
-                const int threshold = 25 / 10;
-                var predictedPos = new Vector3();
-                const int condemnPushDistance = 410 / 10;
+                const int threshold = 55;
+                const int condemnPushDistance = 405;
 
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
@@ -76,30 +62,24 @@ namespace AIO.Champions
                         !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
-                    var prediction = SpellClass.E.GetPrediction(target);
-                    switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
+                    var predictedPos = SpellClass.E.GetPrediction(target).CastPosition;
+                    if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
                     {
-                        case 0:
-                            predictedPos = prediction.UnitPosition;
-                            break;
-                        case 1:
-                            predictedPos = prediction.CastPosition;
-                            break;
+                        var predPosition = predictedPos.Extend(playerPos, -condemnPushDistance);
+                        var predPositionExtended = predictedPos.Extend(playerPos, -(condemnPushDistance + threshold));
+                        if (!Bools.AnyWallInBetween(target.ServerPosition, predPosition) ||
+                            !Bools.AnyWallInBetween(target.ServerPosition, predPositionExtended))
+                        {
+                            return;
+                        }
                     }
 
-                    for (var i = 1; i < 10; i++)
+                    var targetPosition = target.ServerPosition.Extend(playerPos, -condemnPushDistance);
+                    var targetPositionExtended = target.ServerPosition.Extend(playerPos, -(condemnPushDistance + threshold));
+                    if (Bools.AnyWallInBetween(target.ServerPosition, targetPosition) &&
+                        Bools.AnyWallInBetween(target.ServerPosition, targetPositionExtended))
                     {
-                        var targetPosition = target.ServerPosition.Extend(playerPos, -condemnPushDistance * i);
-                        var targetPositionExtended = target.ServerPosition.Extend(playerPos, (-condemnPushDistance + threshold) * i);
-
-                        var predPosition = predictedPos.Extend(playerPos, -condemnPushDistance * i);
-                        var predPositionExtended = predictedPos.Extend(playerPos, (-condemnPushDistance + threshold) * i);
-
-                        if (targetPosition.IsWall(true) && targetPositionExtended.IsWall(true) &&
-                            predPosition.IsWall(true) && predPositionExtended.IsWall(true))
-                        {
-                            SpellClass.E.CastOnUnit(target);
-                        }
+                        SpellClass.E.CastOnUnit(target);
                     }
                 }
             }

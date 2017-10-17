@@ -1,5 +1,6 @@
 
 using System.Drawing;
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
@@ -49,20 +50,65 @@ namespace AIO.Champions
                 if (MenuClass.Drawings["epred"].As<MenuBool>().Enabled)
                 {
                     var playerPos = UtilityClass.Player.Position;
-                    const int condemnDistancePush = 410;
-                    foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.E.Range))
+                    const int condemnPushDistance = 405;
+                    const int threshold = 55;
+
+                    foreach (var target in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.E.Range)))
                     {
                         var targetPos = target.Position;
                         var targetRadius = target.BoundingRadius;
+                        const int checkedPoints = 10;
 
-                        var posImpact = target.Position.Extend(playerPos, -condemnDistancePush);
+                        var posImpact = target.Position.Extend(playerPos, -(condemnPushDistance + threshold));
                         var posRectangle = new Vector3Geometry.Rectangle(targetPos, posImpact, targetRadius);
+                        posRectangle.Draw(Bools.AnyWallInBetween(targetPos, posImpact)
+                            ? Color.Blue
+                            : Color.OrangeRed);
 
-                        var predImpact = SpellClass.E.GetPrediction(target).CastPosition.Extend(playerPos, -condemnDistancePush);
-                        var predRectangle = new Vector3Geometry.Rectangle(targetPos, predImpact, targetRadius);
+                        if (Bools.AnyWallInBetween(targetPos, posImpact))
+                        {
+                            for (var i = 1; i < checkedPoints; i++)
+                            {
+                                var posImpactIter = target.Position.Extend(playerPos, -condemnPushDistance / checkedPoints * i);
+                                var wallPosRectangle = new Vector3Geometry.Rectangle(targetPos, posImpactIter, targetRadius);
+                                wallPosRectangle.Draw(posImpactIter.IsWall(true)
+                                    ? Color.Blue
+                                    : Color.OrangeRed);
 
-                        posRectangle.Draw(Bools.AnyWallInBetween(targetPos, posImpact) ? Color.Blue : Color.OrangeRed);
-                        predRectangle.Draw(Bools.AnyWallInBetween(targetPos, predImpact) ? Color.Blue : Color.OrangeRed);
+                                var posImpactIterTh = target.Position.Extend(playerPos, -(condemnPushDistance + threshold) / checkedPoints * i);
+                                var wallPosRectangleTh = new Vector3Geometry.Rectangle(targetPos, posImpactIterTh, targetRadius);
+                                wallPosRectangleTh.Draw(posImpactIterTh.IsWall(true)
+                                    ? Color.Blue
+                                    : Color.OrangeRed);
+                            }
+                        }
+
+                        if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
+                        {
+                            var predImpact = SpellClass.E.GetPrediction(target).CastPosition.Extend(playerPos, -(condemnPushDistance + threshold));
+                            var predRectangle = new Vector3Geometry.Rectangle(targetPos, predImpact, targetRadius);
+                            predRectangle.Draw(Bools.AnyWallInBetween(targetPos, predImpact)
+                                ? Color.Blue
+                                : Color.OrangeRed);
+
+                            if (Bools.AnyWallInBetween(targetPos, predImpact))
+                            {
+                                for (var i = 1; i < checkedPoints; i++)
+                                {
+                                    var predImpactIter = SpellClass.E.GetPrediction(target).CastPosition.Extend(playerPos, -condemnPushDistance / checkedPoints * i);
+                                    var wallPredRectangle = new Vector3Geometry.Rectangle(targetPos, predImpactIter, targetRadius);
+                                    wallPredRectangle.Draw(predImpactIter.IsWall(true)
+                                        ? Color.Blue
+                                        : Color.OrangeRed);
+
+                                    var predImpactIterTh = SpellClass.E.GetPrediction(target).CastPosition.Extend(playerPos, -(condemnPushDistance + threshold) / checkedPoints * i);
+                                    var wallPredRectangleTh = new Vector3Geometry.Rectangle(targetPos, predImpactIterTh, targetRadius);
+                                    wallPredRectangleTh.Draw(predImpactIterTh.IsWall(true)
+                                        ? Color.Blue
+                                        : Color.OrangeRed);
+                                }
+                            }
+                        }
                     }
                 }
             }

@@ -884,3 +884,8 @@ ExorAIO: Revolution Changelog:
 7.20.1.8:
   AIO: Removed some useless Anti-Gapcloser menus.
   Kalista: The Junglesteal option has now a Level component "Junglesteal / If level >= X", to avoid stealing the ally jungler buffs at level 1.
+
+7.20.1.9:
+  AIO: Better target selection on spells.
+  Vayne: Added Dash prediction on condemn.
+  Vayne: Reworked Condemn Logic and Mode selection.

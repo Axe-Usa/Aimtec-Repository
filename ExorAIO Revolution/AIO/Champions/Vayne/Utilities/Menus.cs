@@ -98,7 +98,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuList("emode", "Condemn Mode", new []{ "Exory", "Perfect BETA", "Don't Condemn to stun"}, 0));
+                    MenuClass.E.Add(new MenuList("emode", "Condemn Mode", new []{ "Exory Perfect", "Exory Fast", "Don't Condemn to stun"}, 0).SetToolTip("Fast: Fastest condemn possible, Perfect: Slower but almost 100% accurate."));
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuSeperator("separator"));
 
