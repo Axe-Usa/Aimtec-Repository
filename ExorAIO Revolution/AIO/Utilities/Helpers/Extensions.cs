@@ -16,7 +16,7 @@ namespace AIO.Utilities
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Gets the valid generic (lane or jungle) minions targets in the game inside a determined range.
+        ///     Gets the valid generic (lane or jungle) minions targets in the game.
         /// </summary>
         public static List<Obj_AI_Minion> GetAllGenericMinionsTargets()
         {
@@ -80,7 +80,7 @@ namespace AIO.Utilities
         }
 
         /// <summary>
-        ///     Gets the best valid enemy heroes targets in the game inside a determined range.
+        ///     Gets the best valid enemy heroes targets in the game.
         /// </summary>
         public static List<Obj_AI_Hero> GetBestEnemyHeroesTargets()
         {
