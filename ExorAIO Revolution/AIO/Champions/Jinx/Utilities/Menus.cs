@@ -223,6 +223,7 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
+                MenuClass.Miscellaneous.Add(new MenuBool("forcelasthit", "Force PowPow switch in LastHit mode"));
                 MenuClass.Miscellaneous.Add(new MenuBool("forcepowpow", "Force PowPow switch after switching Orbwalking Mode"));
             }
             MenuClass.Root.Add(MenuClass.Miscellaneous);

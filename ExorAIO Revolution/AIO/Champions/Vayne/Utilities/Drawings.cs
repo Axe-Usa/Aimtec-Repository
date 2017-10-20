@@ -50,8 +50,8 @@ namespace AIO.Champions
                 if (MenuClass.Drawings["epred"].As<MenuBool>().Enabled)
                 {
                     var playerPos = UtilityClass.Player.Position;
-                    const int condemnPushDistance = 405;
-                    const int threshold = 55;
+                    const int condemnPushDistance = 410;
+                    const int threshold = 60;
 
                     foreach (var target in GameObjects.EnemyHeroes.Where(t => t.IsValidTarget(SpellClass.E.Range)))
                     {

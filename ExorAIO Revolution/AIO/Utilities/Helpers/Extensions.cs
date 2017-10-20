@@ -128,11 +128,13 @@ namespace AIO.Utilities
                 target = tsTarget;
             }
 
-            if (!target.IsZombie() &&
-                target.IsValidTarget() &&
+            if (target.IsValidTarget() &&
                 !Invulnerable.Check(target))
             {
-                return target;
+                if (!target.IsZombie())
+                {
+                    return target;
+                }
             }
 
             return null;
@@ -141,9 +143,15 @@ namespace AIO.Utilities
         /// <summary>
         ///     Gets the best valid killable enemy hero target in the game inside a determined range.
         /// </summary>
-        public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
+        public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false, bool includeBoundingRadius = false)
         {
-            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range-100f).FirstOrDefault(t => !t.IsZombie() && !Invulnerable.Check(t, damageType, ignoreShields));
+            var target = ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range).FirstOrDefault(t => !t.IsZombie() && !Invulnerable.Check(t, damageType, ignoreShields));
+            if (target != null)
+            {
+                return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range + (includeBoundingRadius ? target.BoundingRadius : 0)).FirstOrDefault(t => !t.IsZombie() && !Invulnerable.Check(t, damageType, ignoreShields));
+            }
+
+            return null;
         }
 
         /// <summary>

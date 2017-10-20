@@ -1,5 +1,6 @@
 
 using Aimtec;
+using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -72,6 +73,28 @@ namespace AIO.Champions
                 }
 
                 SpellClass.Q.Cast(Game.CursorPos);
+            }
+
+            if (heroTarget.IsZombie())
+            {
+                return;
+            }
+
+            /// <summary>
+            ///     The E KillSteal Weaving Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                !Invulnerable.Check(heroTarget) &&
+                heroTarget.IsValidTarget(SpellClass.E.Range+heroTarget.BoundingRadius) &&
+                MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
+            {
+                var shouldIncludeWDamage = heroTarget.GetBuffCount("vaynesilvereddebuff") == 1;
+                if (UtilityClass.Player.GetAutoAttackDamage(heroTarget) +
+                    UtilityClass.Player.GetSpellDamage(heroTarget, SpellSlot.E) +
+                    (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(heroTarget, SpellSlot.W) : 0) >= heroTarget.GetRealHealth())
+                {
+                    SpellClass.E.CastOnUnit(heroTarget);
+                }
             }
         }
 

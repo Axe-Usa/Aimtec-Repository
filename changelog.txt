@@ -892,3 +892,10 @@ ExorAIO: Revolution Changelog:
 
 7.20.1.10:
   AIO: Spells will no longer be casted against Zombie Sions.
+
+7.20.1.11:
+  AIO: Fixes to Preserve Mana Logic.
+  Jinx: Added option to always switch to PowPow in Lasthit mode.
+  Twitch: Added a Level component to JungleSteal option, now it's "Junglesteal / If Level >= x"
+  Vayne: Fixed and Improved E Killsteal.
+  Vayne: Some condemn tweaks.

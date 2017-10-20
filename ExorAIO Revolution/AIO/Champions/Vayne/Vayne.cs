@@ -146,7 +146,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2 &&
                 MenuClass.Spells["e"]["whitelist"][heroSender.ChampionName.ToLower()].Enabled)
             {
-                var endPos = args.EndPos.Extend(UtilityClass.Player.ServerPosition, -405);
+                var endPos = args.EndPos.Extend(UtilityClass.Player.ServerPosition, -410);
                 if (Bools.AnyWallInBetween(args.EndPos.To3D(), endPos.To3D()))
                 {
                     SpellClass.E.CastOnUnit(heroSender);

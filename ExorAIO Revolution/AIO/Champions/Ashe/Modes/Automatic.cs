@@ -33,12 +33,10 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
-                var bestTarget = GameObjects.EnemyHeroes
-                    .Where(
-                        t =>
-                            t.IsValidTarget(2000f) &&
-                            !Invulnerable.Check(t, DamageType.Magical, false) &&
-                            MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                var bestTarget = GameObjects.EnemyHeroes.Where(t =>
+                        t.IsValidTarget(2000f) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .MinBy(o => o.GetRealHealth());
                 if (bestTarget != null)
                 {

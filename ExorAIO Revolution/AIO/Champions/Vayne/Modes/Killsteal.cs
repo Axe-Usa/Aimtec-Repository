@@ -27,12 +27,11 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical);
+                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical, includeBoundingRadius: true);
                 if (bestTarget != null)
                 {
                     var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
-                    if (!bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                        UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) +
+                    if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) +
                         (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
                     {
                         SpellClass.E.CastOnUnit(bestTarget);

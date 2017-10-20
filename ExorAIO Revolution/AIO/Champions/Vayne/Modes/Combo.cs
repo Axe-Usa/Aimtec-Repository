@@ -51,33 +51,29 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
-
-                const int threshold = 55;
-                const int condemnPushDistance = 405;
+                const int condemnPushDistance = 410;
 
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
-                        t.IsValidTarget(SpellClass.E.Range) &&
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
+                        t.IsValidTarget(SpellClass.E.Range+t.BoundingRadius) &&
                         !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
                     var predictedPos = SpellClass.E.GetPrediction(target).CastPosition;
                     if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
                     {
-                        var predPosition = predictedPos.Extend(playerPos, -condemnPushDistance);
-                        var predPositionExtended = predictedPos.Extend(playerPos, -(condemnPushDistance + threshold));
-                        if (!Bools.AnyWallInBetween(target.ServerPosition, predPosition) ||
-                            !Bools.AnyWallInBetween(target.ServerPosition, predPositionExtended))
+                        var predPositionExtended = predictedPos.Extend(playerPos, -condemnPushDistance);
+                        if (!Bools.AnyWallInBetween(predictedPos, predPositionExtended) ||
+                            !IsGoodWallWallWidth(predictedPos, predPositionExtended))
                         {
                             return;
                         }
                     }
 
-                    var targetPosition = target.ServerPosition.Extend(playerPos, -condemnPushDistance);
-                    var targetPositionExtended = target.ServerPosition.Extend(playerPos, -(condemnPushDistance + threshold));
-                    if (Bools.AnyWallInBetween(target.ServerPosition, targetPosition) &&
-                        Bools.AnyWallInBetween(target.ServerPosition, targetPositionExtended))
+                    var targetPositionExtended = target.ServerPosition.Extend(playerPos, -condemnPushDistance);
+                    if (Bools.AnyWallInBetween(target.ServerPosition, targetPositionExtended) &&
+                        IsGoodWallWallWidth(target.ServerPosition, targetPositionExtended))
                     {
                         SpellClass.E.CastOnUnit(target);
                     }
