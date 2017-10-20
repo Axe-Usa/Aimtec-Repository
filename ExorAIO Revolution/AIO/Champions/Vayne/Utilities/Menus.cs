@@ -192,7 +192,6 @@ namespace AIO.Champions
             {
                 MenuClass.Drawings.Add(new MenuBool("q", "Q Range"));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
-                MenuClass.Drawings.Add(new MenuBool("epred", "E Prediction Rectangles", false));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }
