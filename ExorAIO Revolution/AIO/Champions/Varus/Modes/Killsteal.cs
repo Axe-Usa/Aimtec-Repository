@@ -1,7 +1,5 @@
 
 using Aimtec;
-using Aimtec.SDK.Damage;
-using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -29,7 +27,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
                 if (bestTarget != null &&
-                    SpellClass.Q.IsCharging &&
+                    IsChargingPiercingArrow() &&
                     GetRealPiercingArrowDamage(bestTarget) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.Q.Cast(bestTarget);

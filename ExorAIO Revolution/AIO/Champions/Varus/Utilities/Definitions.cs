@@ -1,11 +1,9 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
-
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Damage.JSON;
 using Aimtec.SDK.Extensions;
-using Aimtec.SDK.TargetSelector;
 using AIO.Utilities;
 
 #pragma warning disable 1587

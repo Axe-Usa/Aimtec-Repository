@@ -57,7 +57,8 @@ namespace AIO.Utilities
                                                     "Apply",
                                                     BindingFlags.Public | BindingFlags.Instance);
 
-                                                value = apply.Invoke(filterInstance, new[] { value });
+                                                
+                                                value = apply?.Invoke(filterInstance, new[] {value});
                                             }
 
                                             member.SetValue(null, value);
@@ -94,7 +95,7 @@ namespace AIO.Utilities
                     var filterInstance = Activator.CreateInstance(import.Filter);
                     var apply = import.Filter.GetMethod("Apply", BindingFlags.Public | BindingFlags.Instance);
 
-                    value = apply.Invoke(filterInstance, new[] { value });
+                    value = apply?.Invoke(filterInstance, new[] { value });
                 }
 
                 member.SetValue(null, value);

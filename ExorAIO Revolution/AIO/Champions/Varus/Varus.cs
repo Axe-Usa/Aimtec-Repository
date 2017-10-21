@@ -1,5 +1,4 @@
 
-using System;
 using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;

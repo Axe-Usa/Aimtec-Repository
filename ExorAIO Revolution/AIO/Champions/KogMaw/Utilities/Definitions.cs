@@ -1,7 +1,5 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
-
-using Aimtec;
 using Aimtec.SDK.Extensions;
 using AIO.Utilities;
 
