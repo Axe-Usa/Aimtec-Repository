@@ -56,7 +56,7 @@ namespace AIO.Champions
             ///     The R KillSteal Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value
+                MenuClass.Spells["r"]["killsteal"].As<MenuSliderBool>().Value
                     >= UtilityClass.Player.GetRealBuffCount("kogmawlivingartillerycost") &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuSliderBool>().Enabled)
             {

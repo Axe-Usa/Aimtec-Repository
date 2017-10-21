@@ -899,3 +899,11 @@ ExorAIO: Revolution Changelog:
   Twitch: Added a Level component to JungleSteal option, now it's "Junglesteal / If Level >= x"
   Vayne: Fixed and Improved E Killsteal.
   Vayne: Some condemn tweaks.
+
+7.20.1.12:
+  Kog'Maw: Fixed Q Collision.
+  Kog'Maw: Fixed Killsteal R check.
+  Kog'Maw: Added Only R if target out of AA range option.
+  Kog'Maw: Added Only E if target out of AA range option.
+  Kog'Maw: Added Only R if not using W option.
+  Kog'Maw: Added Only E if not using W option.

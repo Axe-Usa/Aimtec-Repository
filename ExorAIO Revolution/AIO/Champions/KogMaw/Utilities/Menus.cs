@@ -210,6 +210,18 @@ namespace AIO.Champions
             MenuClass.Root.Add(MenuClass.Spells);
 
             /// <summary>
+            ///     Sets the miscellaneous menu.
+            /// </summary>
+            MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
+            {
+                MenuClass.Miscellaneous.Add(new MenuBool("onlyroutw", "Only R if not using W", false));
+                MenuClass.Miscellaneous.Add(new MenuBool("onlyeoutw", "Only E if not using W", false));
+                MenuClass.Miscellaneous.Add(new MenuBool("onlyroutaarange", "Only R if target out AA range", false));
+                MenuClass.Miscellaneous.Add(new MenuBool("onlyeoutaarange", "Only E if target out AA range", false));
+            }
+            MenuClass.Root.Add(MenuClass.Miscellaneous);
+
+            /// <summary>
             ///     Sets the drawings menu.
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");

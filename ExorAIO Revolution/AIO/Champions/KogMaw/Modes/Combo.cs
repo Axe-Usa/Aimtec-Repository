@@ -39,8 +39,20 @@ namespace AIO.Champions
                     >= UtilityClass.Player.GetRealBuffCount("kogmawlivingartillerycost") &&
                 MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled)
             {
+                if (IsUsingBioArcaneBarrage() &&
+                    MenuClass.Miscellaneous["onlyroutw"].As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range))
                 {
+                    if (target.IsValidAutoRange() &&
+                        MenuClass.Miscellaneous["onlyroutaarange"].As<MenuBool>().Enabled)
+                    {
+                        return;
+                    }
+
                     if (target.HealthPercent() <= 40 &&
                         !Invulnerable.Check(target, DamageType.Magical) &&
                         MenuClass.Spells["r"]["whitelist"][target.ChampionName.ToLower()].As<MenuBool>().Enabled)

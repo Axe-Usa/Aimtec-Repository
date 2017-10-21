@@ -43,6 +43,17 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
+                if (MenuClass.Miscellaneous["onlyeoutaarange"].As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
+                if (IsUsingBioArcaneBarrage() &&
+                    MenuClass.Miscellaneous["onlyeoutw"].As<MenuBool>().Enabled)
+                {
+                    return;
+                }
+
                 SpellClass.E.Cast(heroTarget);
             }
         }

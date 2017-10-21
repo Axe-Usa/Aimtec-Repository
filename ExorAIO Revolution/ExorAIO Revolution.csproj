@@ -181,6 +181,7 @@
     <Compile Include="AIO\Champions\Ahri\Utilities\Methods.cs" />
     <Compile Include="AIO\Champions\Ahri\Utilities\Spells.cs" />
     <Compile Include="AIO\Champions\Kalista\Utilities\Definitions.cs" />
+    <Compile Include="AIO\Champions\KogMaw\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\Lucian\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\MissFortune\MissFortune.cs" />
     <Compile Include="AIO\Champions\MissFortune\Modes\Automatic.cs" />
