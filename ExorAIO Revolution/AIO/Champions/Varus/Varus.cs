@@ -43,6 +43,45 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
+        ///     Fired on spell cast.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
+        public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                switch (args.Slot)
+                {
+                    case SpellSlot.E:
+                    case SpellSlot.Q when !IsChargingPiercingArrow():
+                        if (Game.TickCount - LastCastedWeaving < 1000)
+                        {
+                            args.Process = false;
+                        }
+                        else
+                        {
+                            LastCastedWeaving = Game.TickCount;
+                        }
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Called on pre attack.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="PreAttackEventArgs" /> instance containing the event data.</param>
+        public void OnPreAttack(object sender, PreAttackEventArgs args)
+        {
+            if (IsChargingPiercingArrow())
+            {
+                args.Cancel = true;
+            }
+        }
+
+        /// <summary>
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>

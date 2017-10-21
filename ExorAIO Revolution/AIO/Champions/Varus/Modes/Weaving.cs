@@ -38,10 +38,10 @@ namespace AIO.Champions
                     MenuClass.Spells["e"]["customization"]["combostacks"].As<MenuSlider>().Value - 1)
                 {
                     SpellClass.E.Cast(heroTarget);
-                    return;
                 }
             }
 
+            /*
             /// <summary>
             ///     The Q Weaving Logic.
             /// </summary>
@@ -51,9 +51,10 @@ namespace AIO.Champions
                 if (GetBlightStacks(heroTarget) >=
                     MenuClass.Spells["q"]["customization"]["combostacks"].As<MenuSlider>().Value - 1)
                 {
-                    PiercingArrowLogicalCast(heroTarget);
+                    SpellClass.Q.Cast();
+                    SpellClass.Q.Cast(heroTarget);
                 }
-            }
+            }*/
         }
 
         #endregion

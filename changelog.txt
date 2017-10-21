@@ -914,3 +914,9 @@ ExorAIO: Revolution Changelog:
   Lucian: Should now be more free to cast Q mid combo.
   Vayne: Some condemn check fixes.
   Varus: Beta Release.
+
+7.20.2.1:
+  Varus: Fixed Nullref.
+  Varus: Added Long Range Q Combo option.
+  Varus: Fixed Spazing while Charging Q.
+  Varus: Fixed Q starting to charge but not casting.

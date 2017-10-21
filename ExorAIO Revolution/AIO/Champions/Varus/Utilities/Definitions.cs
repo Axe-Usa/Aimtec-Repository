@@ -20,19 +20,33 @@ namespace AIO.Champions
         #region Fields
 
         /// <summary>
+        ///     Returns the last casted Q or E time;
+        /// </summary>
+        public static int LastCastedWeaving = 0;
+
+        /// <summary>
         ///     Returns Q Charging Logic;
         /// </summary>
         public static void PiercingArrowLogicalCast(Obj_AI_Base target)
         {
-            if (!SpellClass.Q.IsCharging &&
+            if (!IsChargingPiercingArrow() &&
                 target.IsValidTarget(SpellClass.Q.ChargedMaxRange))
             {
                 SpellClass.Q.StartCharging(SpellClass.Q.GetPrediction(target).CastPosition);
             }
-            else if (target.IsValidTarget(SpellClass.Q.Range))
+            else if (IsChargingPiercingArrow() &&
+                target.IsValidTarget(SpellClass.Q.Range))
             {
                 SpellClass.Q.Cast(target);
             }
+        }
+
+        /// <summary>
+        ///     Returns true if the player is charging Q;
+        /// </summary>
+        public static bool IsChargingPiercingArrow()
+        {
+            return UtilityClass.Player.HasBuff(SpellClass.Q.ChargedBuffName);
         }
 
         /// <summary>

@@ -26,9 +26,7 @@ namespace AIO.Champions
                 return;
             }
 
-            ImplementationClass.IOrbwalker.AttackingEnabled = !SpellClass.Q.IsCharging;
-
-            if (SpellClass.Q.IsCharging)
+            if (IsChargingPiercingArrow())
             {
                 SpellClass.Q.Range = 925+UtilityClass.Player.BoundingRadius + 7*SpellClass.Q.ChargePercent;
             }

@@ -302,6 +302,15 @@ namespace AIO.Utilities
                 }
             },
             {
+                "Varus", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{70, 75, 80, 85, 90}},
+                    {SpellSlot.W, new []{0, 0, 0, 0, 0}},
+                    {SpellSlot.E, new []{80, 80, 80, 80, 80}},
+                    {SpellSlot.R, new []{100, 100, 100}}
+                }
+            },
+            {
                 "Vayne", new Dictionary<SpellSlot, int[]>
                 {
                     {SpellSlot.Q, new []{30, 30, 30, 30, 30}},

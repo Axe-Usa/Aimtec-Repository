@@ -40,17 +40,24 @@ namespace AIO.Champions
             /// <summary>
             ///     The Q Combo Logic.
             /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+            if (SpellClass.Q.Ready)
             {
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.ChargedMaxRange);
                 if (heroTarget != null)
                 {
-                    if (!Invulnerable.Check(heroTarget) &&
-                        !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) &&
-                        GetBlightStacks(heroTarget) >= MenuClass.Spells["q"]["customization"]["combostacks"].As<MenuSlider>().Value)
+                    if (!Invulnerable.Check(heroTarget))
                     {
-                        PiercingArrowLogicalCast(heroTarget);
+                        if (MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled &&
+                            GetBlightStacks(heroTarget) >= MenuClass.Spells["q"]["customization"]["combostacks"].As<MenuSlider>().Value)
+                        {
+                            PiercingArrowLogicalCast(heroTarget);
+                        }
+
+                        if (MenuClass.Spells["q"]["combolong"].As<MenuBool>().Enabled &&
+                            !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)))
+                        {
+                            PiercingArrowLogicalCast(heroTarget);
+                        }
                     }
                 }
             }
