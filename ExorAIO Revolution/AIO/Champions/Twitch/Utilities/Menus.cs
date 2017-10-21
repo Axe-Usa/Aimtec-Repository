@@ -80,7 +80,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                        MenuClass.W.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed"));
                     }
 
                     MenuClass.W.Add(new MenuSeperator("separator3"));
@@ -99,7 +99,7 @@ namespace AIO.Champions
                         //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
                         //MenuClass.W2.Add(new MenuSeperator("separator4", "v (Will only take into account minions) v:"));
                         //MenuClass.W2.Add(new MenuSeperator("separator5", "v (with less than or equal 4 venom stacks) v:"));
-                        MenuClass.W2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
+                        MenuClass.W2.Add(new MenuSlider("laneclear", "Laneclear / if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.W.Add(MenuClass.W2);
 
@@ -120,7 +120,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);

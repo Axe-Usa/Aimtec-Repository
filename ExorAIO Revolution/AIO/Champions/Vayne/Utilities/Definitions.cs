@@ -21,17 +21,14 @@ namespace AIO.Champions
         {
             var thickness = 0;
 
-            for (var i = 0; i < minWallWidth; i+=5)
+            for (var i = 5; i < minWallWidth; i+=5)
             {
                 if (!start.Extend(direction, i).IsWall(true))
                 {
                     break;
                 }
 
-                if (thickness < minWallWidth)
-                {
-                    thickness = i;
-                }
+                thickness = i;
             }
 
             return thickness >= minWallWidth;

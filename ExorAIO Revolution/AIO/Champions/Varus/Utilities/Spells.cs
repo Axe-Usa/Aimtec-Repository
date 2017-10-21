@@ -1,0 +1,33 @@
+using Aimtec;
+using Aimtec.SDK.Prediction.Skillshots;
+using AIO.Utilities;
+using Spell = Aimtec.SDK.Spell;
+
+namespace AIO.Champions
+{
+    /// <summary>
+    ///     The spell class.
+    /// </summary>
+    internal partial class Varus
+    {
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Initializes the spells.
+        /// </summary>
+        public void Spells()
+        {
+            SpellClass.Q = new Spell(SpellSlot.Q, 925f+UtilityClass.Player.BoundingRadius);
+            SpellClass.E = new Spell(SpellSlot.E, 925f);
+            SpellClass.R = new Spell(SpellSlot.R, 1200f);
+
+            SpellClass.Q.SetSkillshot(0.25f, 75f, 1500f, false, SkillshotType.Line);
+            SpellClass.Q.SetCharged("VarusQ", "VarusQ", (int)(925+UtilityClass.Player.BoundingRadius), 1625, 1.3f);
+
+            SpellClass.E.SetSkillshot(0.25f, 235f, 1750f, false, SkillshotType.Circle);
+            SpellClass.R.SetSkillshot(0.25f, 450f, 1200f, false, SkillshotType.Line);
+        }
+
+        #endregion
+    }
+}

@@ -907,3 +907,10 @@ ExorAIO: Revolution Changelog:
   Kog'Maw: Added Only E if target out of AA range option.
   Kog'Maw: Added Only R if not using W option.
   Kog'Maw: Added Only E if not using W option.
+
+7.20.2.0:
+  AIO: Simplified some Menu names.
+  Ashe: Some Check fixes.
+  Lucian: Should now be more free to cast Q mid combo.
+  Vayne: Some condemn check fixes.
+  Varus: Beta Release.

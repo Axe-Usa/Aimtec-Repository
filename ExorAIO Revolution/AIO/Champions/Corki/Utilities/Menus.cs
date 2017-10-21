@@ -42,7 +42,7 @@ namespace AIO.Champions
                     MenuClass.Q2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.Q2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
+                        MenuClass.Q2.Add(new MenuSlider("laneclear", "Laneclear / if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.Q.Add(MenuClass.Q2);
 
@@ -62,7 +62,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -100,7 +100,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                        MenuClass.W.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -121,7 +121,7 @@ namespace AIO.Champions
                     MenuClass.E2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.E2.Add(new MenuSeperator("separator1", "Laneclear settings:"));
-                        MenuClass.E2.Add(new MenuSlider("laneclear", "Only Laneclear if hittable minions >= x%", 3, 1, 10));
+                        MenuClass.E2.Add(new MenuSlider("laneclear", "Laneclear / if hittable minions >= x%", 3, 1, 10));
                     }
                     MenuClass.E.Add(MenuClass.E2);
 
@@ -141,7 +141,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);

@@ -13,7 +13,7 @@ namespace AIO.Champions
     /// <summary>
     ///     The champion class.
     /// </summary>
-    internal partial class Ashe
+    internal partial class Varus
     {
         #region Public Methods and Operators
 
@@ -36,23 +36,24 @@ namespace AIO.Champions
             ///     The Jungleclear Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.HasBuff("AsheQCastReady") &&
+                GetBlightStacks(jungleTarget) == 3 &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.Q.Cast();
+                PiercingArrowLogicalCast(jungleTarget);
             }
 
             /// <summary>
-            ///     The Jungleclear W Logic.
+            ///     The Jungleclear E Logic.
             /// </summary>
-            if (SpellClass.W.Ready &&
+            if (SpellClass.E.Ready &&
+                GetBlightStacks(jungleTarget) == 3 &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
-                MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
+                MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.W.Cast(jungleTarget);
+                SpellClass.E.Cast(jungleTarget);
             }
         }
 

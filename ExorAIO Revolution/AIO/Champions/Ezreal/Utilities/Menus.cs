@@ -57,7 +57,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
+                        MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
@@ -130,7 +130,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator("exseparator2", "Whitelist not needed."));
+                        MenuClass.W.Add(new MenuSeperator("exseparator2", "Whitelist not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -171,7 +171,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                        MenuClass.E.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
@@ -202,7 +202,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

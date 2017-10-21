@@ -76,13 +76,13 @@ namespace AIO.Champions
                             }
                             else
                             {
-                                MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                                MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed"));
                             }
                         }
                     }
                     else
                     {
-                        MenuClass.W.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                        MenuClass.W.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.W);
@@ -124,7 +124,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.E);
@@ -166,13 +166,13 @@ namespace AIO.Champions
                             }
                             else
                             {
-                                MenuClass.Gapcloser2.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                                MenuClass.Gapcloser2.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed"));
                             }
                         }
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed."));
+                        MenuClass.R.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed"));
                     }
 
                     MenuClass.R.Add(new MenuSeperator("separator2"));
@@ -197,7 +197,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist not needed."));
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);

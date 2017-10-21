@@ -12,7 +12,7 @@ namespace AIO.Champions
     /// <summary>
     ///     The menu class.
     /// </summary>
-    internal partial class Ashe
+    internal partial class Varus
     {
         #region Public Methods and Operators
 
@@ -32,66 +32,85 @@ namespace AIO.Champions
                 MenuClass.Q = new Menu("q", "Use Q to:");
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.Q.Add(new MenuBool("killsteal", "KillSteal"));
+                    MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.Q.Add(new MenuSliderBool("buildings", "To buildings / If Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.Q);
 
                 /// <summary>
-                ///     Sets the menu for the W.
+                ///     Sets the customization menu for the Q spell.
                 /// </summary>
-                MenuClass.W = new Menu("w", "Use W to:");
+                MenuClass.Q2 = new Menu("customization", "Customization:");
                 {
-                    MenuClass.W.Add(new MenuBool("combo", "Combo"));
-                    MenuClass.W.Add(new MenuBool("killsteal", "Killsteal"));
-                    MenuClass.W.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
-                    MenuClass.W.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
-
-                    /// <summary>
-                    ///     Sets the customization menu for the W spell.
-                    /// </summary>
-                    MenuClass.W2 = new Menu("customization", "Customization:");
-                    {
-                        //MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
-                        MenuClass.W2.Add(new MenuBool("nowflurry", "Don't W while flurring AAs with Q"));
-                        //MenuClass.W2.Add(new MenuSeperator("separator2"));
-                        //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear settings:"));
-                        MenuClass.W2.Add(new MenuSlider("laneclear", "Laneclear / if hittable minions >= x%", 4, 1, 10));
-                    }
-                    MenuClass.W.Add(MenuClass.W2);
-
-                    if (GameObjects.EnemyHeroes.Any())
-                    {
-                        /// <summary>
-                        ///     Sets the menu for the W Harass Whitelist.
-                        /// </summary>
-                        MenuClass.WhiteList = new Menu("whitelist", "Harass: Whitelist");
-                        {
-                            foreach (var target in GameObjects.EnemyHeroes)
-                            {
-                                MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
-                            }
-                        }
-                        MenuClass.W.Add(MenuClass.WhiteList);
-                    }
-                    else
-                    {
-                        MenuClass.W.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
-                    }
+                    MenuClass.Q2.Add(new MenuSlider("combostacks", "Combo / if Blight Stacks >= x", 3, 0, 3));
+                    MenuClass.Q2.Add(new MenuSlider("harassstacks", "Harass / if Blight Stacks >= x", 3, 0, 3));
+                    MenuClass.Q2.Add(new MenuSlider("laneclear", "Laneclear / if hittable minions >= x%", 4, 1, 10));
                 }
-                MenuClass.Spells.Add(MenuClass.W);
+                MenuClass.Q.Add(MenuClass.Q2);
+
+                if (GameObjects.EnemyHeroes.Any())
+                {
+                    /// <summary>
+                    ///     Sets the menu for the Q Harass Whitelist.
+                    /// </summary>
+                    MenuClass.WhiteList = new Menu("whitelist", "Harass: Whitelist");
+                    {
+                        foreach (var target in GameObjects.EnemyHeroes)
+                        {
+                            MenuClass.WhiteList.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                        }
+                    }
+                    MenuClass.Q.Add(MenuClass.WhiteList);
+                }
+                else
+                {
+                    MenuClass.Q.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
+                }
 
                 /// <summary>
                 ///     Sets the menu for the E.
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuBool("vision", "Vision"));
-                    MenuClass.E.Add(new MenuBool("logical", "Cover Ultimate"));
+                    MenuClass.E.Add(new MenuBool("combo", "Combo"));
+                    MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
+                    MenuClass.E.Add(new MenuSliderBool("harass", "Harass / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
+                    MenuClass.E.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
                 }
                 MenuClass.Spells.Add(MenuClass.E);
+
+                /// <summary>
+                ///     Sets the customization menu for the E spell.
+                /// </summary>
+                MenuClass.E2 = new Menu("customization", "Customization:");
+                {
+                    MenuClass.E2.Add(new MenuSlider("combostacks", "Combo / if Blight Stacks >= x", 3, 0, 3));
+                    MenuClass.E2.Add(new MenuSlider("harassstacks", "Harass / if Blight Stacks >= x", 3, 0, 3));
+                    MenuClass.E2.Add(new MenuSlider("laneclear", "Laneclear / if hittable minions >= x%", 4, 1, 10));
+                }
+                MenuClass.E.Add(MenuClass.E2);
+
+                if (GameObjects.EnemyHeroes.Any())
+                {
+                    /// <summary>
+                    ///     Sets the menu for the E Harass Whitelist.
+                    /// </summary>
+                    MenuClass.WhiteList2 = new Menu("whitelist", "Harass: Whitelist");
+                    {
+                        foreach (var target in GameObjects.EnemyHeroes)
+                        {
+                            MenuClass.WhiteList2.Add(new MenuBool(target.ChampionName.ToLower(), "Harass: " + target.ChampionName));
+                        }
+                    }
+                    MenuClass.E.Add(MenuClass.WhiteList2);
+                }
+                else
+                {
+                    MenuClass.E.Add(new MenuSeperator("exseparator", "Whitelist not needed"));
+                }
 
                 /// <summary>
                 ///     Sets the menu for the R.
@@ -130,6 +149,16 @@ namespace AIO.Champions
                     }
 
                     MenuClass.R.Add(new MenuSeperator("separator"));
+                    if (GameObjects.EnemyHeroes.Count() >= 2)
+                    {
+                        MenuClass.R.Add(new MenuSliderBool("aoe", "AoE / If can hit >= x enemies", true, 2, 2, GameObjects.EnemyHeroes.Count()));
+                    }
+                    else
+                    {
+                        MenuClass.R.Add(new MenuSeperator("separator2", "AoE / Not enough enemies found"));
+                    }
+                    MenuClass.R.Add(new MenuBool("killsteal", "KillSteal", false));
+                    MenuClass.R.Add(new MenuBool("logical", "On Hard-CC'ed Enemies"));
                     MenuClass.R.Add(new MenuBool("interrupter", "Interrupt Enemy Channels"));
                     //MenuClass.R.Add(new MenuSeperator("separator"));
                     //MenuClass.R.Add(new MenuSeperator("separator1", "It will ult the lowest on health,"));
@@ -167,7 +196,10 @@ namespace AIO.Champions
             /// </summary>
             MenuClass.Drawings = new Menu("drawings", "Drawings");
             {
-                MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
+                MenuClass.Drawings.Add(new MenuBool("qmin", "Q Minimum Range", false));
+                MenuClass.Drawings.Add(new MenuBool("qmax", "Q Maximum Range", false));
+                MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
+                MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }
