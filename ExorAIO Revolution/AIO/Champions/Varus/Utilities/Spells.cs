@@ -25,7 +25,7 @@ namespace AIO.Champions
             SpellClass.Q.SetCharged("VarusQ", "VarusQ", (int)(925+UtilityClass.Player.BoundingRadius), 1625, 1.3f);
 
             SpellClass.E.SetSkillshot(0.25f, 235f, 1750f, false, SkillshotType.Circle);
-            SpellClass.R.SetSkillshot(0.25f, 450f, 1200f, false, SkillshotType.Line);
+            SpellClass.R.SetSkillshot(0.25f, 90f, 1200f, false, SkillshotType.Line);
         }
 
         #endregion

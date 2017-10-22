@@ -224,6 +224,7 @@ namespace AIO.Champions
                     break;
                 case OrbwalkingMode.Laneclear:
                     Laneclear();
+                    Jungleclear();
                     break;
             }
         }

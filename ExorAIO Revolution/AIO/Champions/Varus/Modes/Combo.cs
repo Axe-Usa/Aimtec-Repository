@@ -45,19 +45,19 @@ namespace AIO.Champions
                 var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.ChargedMaxRange);
                 if (heroTarget != null)
                 {
-                    if (!Invulnerable.Check(heroTarget))
+                    if (!Invulnerable.Check(heroTarget) &&
+                        MenuClass.Spells["q"]["combolong"].As<MenuBool>().Enabled &&
+                        MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled &&
+                        (!heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) || IsChargingPiercingArrow()))
                     {
-                        if (MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled &&
-                            GetBlightStacks(heroTarget) >= MenuClass.Spells["q"]["customization"]["combostacks"].As<MenuSlider>().Value)
-                        {
-                            PiercingArrowLogicalCast(heroTarget);
-                        }
+                        PiercingArrowLogicalCast(heroTarget);
+                    }
 
-                        if (MenuClass.Spells["q"]["combolong"].As<MenuBool>().Enabled &&
-                            !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)))
-                        {
-                            PiercingArrowLogicalCast(heroTarget);
-                        }
+                    if (IsChargingPiercingArrow() &&
+                        MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled &&
+                        GetBlightStacks(heroTarget) >= MenuClass.Spells["q"]["customization"]["combostacks"].As<MenuSlider>().Value)
+                    {
+                        SpellClass.Q.Cast(heroTarget);
                     }
                 }
             }

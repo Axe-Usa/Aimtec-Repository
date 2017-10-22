@@ -38,14 +38,13 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["aoe"] != null &&
                 MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Enabled)
             {
-                var bestTarget = GameObjects.EnemyHeroes.FirstOrDefault(t =>
-                    t.IsValidTarget(SpellClass.R.Range) &&
-                    !Invulnerable.Check(t, DamageType.Magical, false) &&
-                    GameObjects.EnemyHeroes.Count(t2 =>
-                        t2.Distance(t) <= 550f &&
-                        !Invulnerable.Check(t2, DamageType.Magical, false)) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value);
+                var bestTarget = GameObjects.EnemyHeroes
+                    .Where(t =>
+                        t.IsValidTarget(SpellClass.R.Range) &&
+                        !Invulnerable.Check(t, DamageType.Magical, false))
+                    .MinBy(t2 => t2.CountEnemyHeroesInRange(550f));
 
-                if (bestTarget != null)
+                if (bestTarget.CountEnemyHeroesInRange(550f) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value)
                 {
                     SpellClass.R.Cast(bestTarget);
                 }

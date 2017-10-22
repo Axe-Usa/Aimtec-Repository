@@ -920,3 +920,9 @@ ExorAIO: Revolution Changelog:
   Varus: Added Long Range Q Combo option.
   Varus: Fixed Spazing while Charging Q.
   Varus: Fixed Q starting to charge but not casting.
+
+7.20.2.2:
+  Varus: Fixed Q sometimes not Firing after Charging.
+  Varus: Fixed Jungleclear Q.
+  Varus: Fixed Combo Q.
+  Varus: Improved AoE R.
