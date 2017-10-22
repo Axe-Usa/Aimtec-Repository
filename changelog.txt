@@ -928,7 +928,7 @@ ExorAIO: Revolution Changelog:
   Varus: Improved AoE R.
 
 7.20.2.3:
-  AIO: Fixed Some Anti-Gaplcoser Menus showing useless or empty sections.
+  AIO: Fixed Some Anti-Gapcloser Menus showing useless or empty sections.
   Varus: Now Long Range Combo Q takes into account the Harass Whitelist (Won't cast to blacklisted targets).
   Varus: Fixed Q and E usage if W not learned.
   Varus: Fixed Nullref.
@@ -941,3 +941,8 @@ ExorAIO: Revolution Changelog:
 
 7.20.2.5:
   Varus: Fixed Spells' Prediction values.
+
+7.20.2.6:
+  Kalista: Fixed Nullref.
+  Vayne: Polished some checks.
+  Vayne: Condemn Fixes.

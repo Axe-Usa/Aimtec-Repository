@@ -136,8 +136,7 @@ namespace AIO.Champions
                 return;
             }
 
-            if (!heroSender.IsValidTarget(SpellClass.E.Range) &&
-                UtilityClass.Player.Distance(args.EndPos) > SpellClass.E.Range)
+            if (!heroSender.IsValidTarget(SpellClass.E.Range))
             {
                 return;
             }

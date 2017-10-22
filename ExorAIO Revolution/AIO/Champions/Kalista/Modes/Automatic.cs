@@ -42,6 +42,11 @@ namespace AIO.Champions
                 SoulBound != null)
             {
                 var option = RLogics.FirstOrDefault(k => k.Key == SoulBound.ChampionName).Value;
+                if (option == null)
+                {
+                    return;
+                }
+
                 var buffName = option.Item1;
                 var menuOption = option.Item2;
 

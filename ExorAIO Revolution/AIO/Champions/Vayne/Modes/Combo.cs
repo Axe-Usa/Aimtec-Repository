@@ -60,21 +60,25 @@ namespace AIO.Champions
                         !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
-                    var predictedPos = SpellClass.E.GetPrediction(target).CastPosition;
-                    if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
+                    var targetPos = target.ServerPosition;
+                    var predPosition = SpellClass.E.GetPrediction(target).CastPosition;
+                    for (var i = 60; i < condemnPushDistance; i += 10)
                     {
-                        var predPositionExtended = predictedPos.Extend(playerPos, -condemnPushDistance);
-                        if (!Bools.AnyWallInBetween(predictedPos, predPositionExtended) ||
-                            !IsGoodWallWallWidth(predictedPos, predPositionExtended))
+                        if (!targetPos.Extend(playerPos, -i).IsWall(true) ||
+                            !targetPos.Extend(playerPos, -i-60).IsWall(true))
                         {
-                            return;
+                            continue;
                         }
-                    }
 
-                    var targetPositionExtended = target.ServerPosition.Extend(playerPos, -condemnPushDistance);
-                    if (Bools.AnyWallInBetween(target.ServerPosition, targetPositionExtended) &&
-                        IsGoodWallWallWidth(target.ServerPosition, targetPositionExtended))
-                    {
+                        if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
+                        {
+                            if (!predPosition.Extend(playerPos, -i).IsWall(true) ||
+                                !predPosition.Extend(playerPos, -i-60).IsWall(true))
+                            {
+                                continue;
+                            }
+                        }
+
                         SpellClass.E.CastOnUnit(target);
                     }
                 }
