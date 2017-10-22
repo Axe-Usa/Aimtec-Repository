@@ -41,9 +41,9 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 SoulBound != null)
             {
-                var option = RLogics.FirstOrDefault(k => k.Key == SoulBound.ChampionName);
-                var buffName = option.Value.Item1;
-                var menuOption = option.Value.Item2;
+                var option = RLogics.FirstOrDefault(k => k.Key == SoulBound.ChampionName).Value;
+                var buffName = option.Item1;
+                var menuOption = option.Item2;
 
                 /// <summary>
                 ///     The Offensive R Logics.
