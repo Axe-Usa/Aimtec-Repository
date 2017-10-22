@@ -41,23 +41,20 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 SoulBound != null)
             {
+                var option = RLogics.FirstOrDefault(k => k.Key == SoulBound.ChampionName);
+                var buffName = option.Value.Item1;
+                var menuOption = option.Value.Item2;
+
                 /// <summary>
                 ///     The Offensive R Logics.
                 /// </summary>
-                foreach (var target in GameObjects.EnemyHeroes.Where(t => t.Distance(UtilityClass.Player.ServerPosition) > UtilityClass.Player.GetFullAttackRange(t)))
+                if (RLogics.ContainsKey(SoulBound.ChampionName) &&
+                    GameObjects.EnemyHeroes.Any(t =>
+                        t.HasBuff(buffName) &&
+                        MenuClass.Spells["r"][menuOption].As<MenuBool>().Enabled &&
+                        t.Distance(UtilityClass.Player.ServerPosition) > UtilityClass.Player.GetFullAttackRange(t)))
                 {
-                    if (RLogics.ContainsKey(SoulBound.ChampionName))
-                    {
-                        var option = RLogics.FirstOrDefault(k => k.Key == SoulBound.ChampionName);
-                        var buffName = option.Value.Item1;
-                        var menuOption = option.Value.Item2;
-
-                        if (target.HasBuff(buffName) &&
-                            MenuClass.Spells["r"][menuOption].As<MenuBool>().Enabled)
-                        {
-                            SpellClass.R.Cast();
-                        }
-                    }
+                    SpellClass.R.Cast();
                 }
 
                 /// <summary>

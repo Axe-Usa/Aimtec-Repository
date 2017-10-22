@@ -1,6 +1,7 @@
 ﻿
 using System.Linq;
 using Aimtec;
+using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -22,7 +23,9 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            var jungleTarget = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(m => Extensions.GetGenericJungleMinionsTargets().Contains(m));
+            var jungleTarget = ObjectManager.Get<Obj_AI_Minion>()
+                .Where(m => Extensions.GetGenericJungleMinionsTargets().Contains(m))
+                .MinBy(m => m.Distance(UtilityClass.Player));
             if (jungleTarget == null)
             {
                 return;
@@ -44,7 +47,8 @@ namespace AIO.Champions
         {
             var jungleTarget = args.Target as Obj_AI_Minion;
             if (jungleTarget == null ||
-                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
+                !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget) ||
+                jungleTarget.GetRealHealth() < UtilityClass.Player.GetAutoAttackDamage(jungleTarget) * 2)
             {
                 return;
             }

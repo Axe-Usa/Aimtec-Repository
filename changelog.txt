@@ -933,3 +933,8 @@ ExorAIO: Revolution Changelog:
   Varus: Fixed Q and E usage if W not learned.
   Varus: Fixed Nullref.
   Tristana: Cleaned up a code part.
+
+7.20.2.4:
+  AIO: Fixed Some champions casting spells to jungle monsters different from the one being focused.
+  Kalista: Little rewrite to the offensive R Logics.
+  Kalista: Tweaked Q Collision and Prediction values.

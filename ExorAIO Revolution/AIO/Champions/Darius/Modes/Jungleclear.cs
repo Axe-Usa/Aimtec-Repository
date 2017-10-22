@@ -48,7 +48,6 @@ namespace AIO.Champions
             ///     The Q Jungleclear Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                Extensions.GetGenericJungleMinionsTargetsInRange(SpellClass.Q.Range).Any() &&
                 UtilityClass.Player.ManaPercent()
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
