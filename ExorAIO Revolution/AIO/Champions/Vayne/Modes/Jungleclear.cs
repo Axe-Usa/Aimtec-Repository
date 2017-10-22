@@ -1,5 +1,4 @@
 ﻿
-using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -40,27 +39,30 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                if (UtilityClass.JungleList.Contains(jungleTarget.UnitSkinName) &&
-                    !Extensions.GetLegendaryJungleMinionsTargets().Contains(jungleTarget))
+                const int condemnPushDistance = 410;
+                var playerPos = UtilityClass.Player.ServerPosition;
+
+                var targetPos = jungleTarget.ServerPosition;
+                var predPosition = SpellClass.E.GetPrediction(jungleTarget).CastPosition;
+
+                for (var i = 60; i < condemnPushDistance; i += 10)
                 {
-                    var playerPos = UtilityClass.Player.ServerPosition;
-                    const int condemnPushDistance = 410 / 10;
-                    for (var i = 1; i < 10; i++)
+                    if (!targetPos.Extend(playerPos, -i).IsWall(true) ||
+                        !targetPos.Extend(playerPos, -i-60).IsWall(true))
                     {
-                        var predictedPos = SpellClass.E.GetPrediction(jungleTarget).UnitPosition;
+                        continue;
+                    }
 
-                        var targetPosition = jungleTarget.ServerPosition.Extend(playerPos, -condemnPushDistance * i);
-                        var targetPositionExtended = jungleTarget.ServerPosition.Extend(playerPos, (-condemnPushDistance + 1) * i);
-
-                        var predPosition = predictedPos.Extend(playerPos, -condemnPushDistance * i);
-                        var predPositionExtended = predictedPos.Extend(playerPos, (-condemnPushDistance + 1) * i);
-
-                        if (targetPosition.IsWall(true) && targetPositionExtended.IsWall(true) &&
-                            predPosition.IsWall(true) && predPositionExtended.IsWall(true))
+                    if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
+                    {
+                        if (!predPosition.Extend(playerPos, -i).IsWall(true) ||
+                            !predPosition.Extend(playerPos, -i-60).IsWall(true))
                         {
-                            SpellClass.E.CastOnUnit(jungleTarget);
+                            continue;
                         }
                     }
+
+                    SpellClass.E.CastOnUnit(jungleTarget);
                 }
             }
 
