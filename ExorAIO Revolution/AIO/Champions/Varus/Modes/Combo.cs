@@ -1,4 +1,5 @@
 
+using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -29,10 +30,13 @@ namespace AIO.Champions
                 if (heroTarget != null)
                 {
                     if (!Invulnerable.Check(heroTarget) &&
-                        !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) &&
-                        GetBlightStacks(heroTarget) >= MenuClass.Spells["e"]["customization"]["combostacks"].As<MenuSlider>().Value)
+                        !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)))
                     {
-                        SpellClass.E.Cast(heroTarget);
+                        if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
+                            GetBlightStacks(heroTarget) >= MenuClass.Spells["e"]["customization"]["combostacks"].As<MenuSlider>().Value)
+                        {
+                            SpellClass.E.Cast(heroTarget);
+                        }
                     }
                 }
             }
@@ -54,10 +58,13 @@ namespace AIO.Champions
                     }
 
                     if (IsChargingPiercingArrow() &&
-                        MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled &&
-                        GetBlightStacks(heroTarget) >= MenuClass.Spells["q"]["customization"]["combostacks"].As<MenuSlider>().Value)
+                        MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                     {
-                        SpellClass.Q.Cast(heroTarget);
+                        if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
+                            GetBlightStacks(heroTarget) >= MenuClass.Spells["e"]["customization"]["combostacks"].As<MenuSlider>().Value)
+                        {
+                            SpellClass.Q.Cast(heroTarget);
+                        }
                     }
                 }
             }

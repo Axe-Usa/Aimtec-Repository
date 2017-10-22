@@ -144,13 +144,13 @@ namespace AIO.Champions
                         /// </summary>
                         MenuClass.Gapcloser2 = new Menu("gapcloser", "Anti-Gapcloser");
                         {
-                            if (GameObjects.EnemyHeroes.Any(x => Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                            if (GameObjects.EnemyHeroes.Any(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
                             {
                                 MenuClass.Gapcloser2.Add(new MenuBool("enabled", "Enable"));
                                 MenuClass.Gapcloser2.Add(new MenuSeperator(string.Empty));
                                 MenuClass.R.Add(MenuClass.Gapcloser2);
 
-                                foreach (var enemy in GameObjects.EnemyHeroes)
+                                foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
                                 {
                                     MenuClass.SubGapcloser2 = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
                                     {

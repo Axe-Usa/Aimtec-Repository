@@ -1,4 +1,5 @@
 
+using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -30,10 +31,13 @@ namespace AIO.Champions
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.ChargedMaxRange);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget) &&
-                    MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled &&
-                    GetBlightStacks(bestTarget) >= MenuClass.Spells["q"]["customization"]["harassstacks"].As<MenuSlider>().Value)
+                    MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    PiercingArrowLogicalCast(bestTarget);
+                    if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
+                        GetBlightStacks(bestTarget) >= MenuClass.Spells["q"]["customization"]["harassstacks"].As<MenuSlider>().Value)
+                    {
+                        PiercingArrowLogicalCast(bestTarget);
+                    }
                 }
             }
 
@@ -48,10 +52,13 @@ namespace AIO.Champions
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range);
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget) &&
-                    MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled &&
-                    GetBlightStacks(bestTarget) >= MenuClass.Spells["e"]["customization"]["harassstacks"].As<MenuSlider>().Value)
+                    MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.E.Cast(bestTarget);
+                    if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
+                        GetBlightStacks(bestTarget) >= MenuClass.Spells["e"]["customization"]["harassstacks"].As<MenuSlider>().Value)
+                    {
+                        SpellClass.E.Cast(bestTarget);
+                    }
                 }
             }
         }

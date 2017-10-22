@@ -223,16 +223,6 @@ namespace AIO.Champions
             Killsteal();
 
             /// <summary>
-            ///     Initializes the Automatic events.
-            /// </summary>
-            Automatic();
-
-            if (ImplementationClass.IOrbwalker.IsWindingUp)
-            {
-                return;
-            }
-
-            /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
             Automatic();

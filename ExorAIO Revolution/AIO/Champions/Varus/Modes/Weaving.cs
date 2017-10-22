@@ -34,8 +34,8 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                if (GetBlightStacks(heroTarget) >=
-                    MenuClass.Spells["e"]["customization"]["combostacks"].As<MenuSlider>().Value - 1)
+                if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
+                    GetBlightStacks(heroTarget) >= MenuClass.Spells["e"]["customization"]["combostacks"].As<MenuSlider>().Value - 1)
                 {
                     SpellClass.E.Cast(heroTarget);
                 }
@@ -47,8 +47,8 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                if (GetBlightStacks(heroTarget) >=
-                    MenuClass.Spells["q"]["customization"]["combostacks"].As<MenuSlider>().Value - 1)
+                if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
+                    GetBlightStacks(heroTarget) >= MenuClass.Spells["q"]["customization"]["combostacks"].As<MenuSlider>().Value - 1)
                 {
                     SpellClass.Q.StartCharging(heroTarget.ServerPosition);
                 }

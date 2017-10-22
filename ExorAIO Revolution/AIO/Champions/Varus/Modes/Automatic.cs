@@ -44,7 +44,8 @@ namespace AIO.Champions
                         !Invulnerable.Check(t, DamageType.Magical, false))
                     .MinBy(t2 => t2.CountEnemyHeroesInRange(550f));
 
-                if (bestTarget.CountEnemyHeroesInRange(550f) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value)
+                if (bestTarget != null &&
+                    bestTarget.CountEnemyHeroesInRange(550f) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value)
                 {
                     SpellClass.R.Cast(bestTarget);
                 }

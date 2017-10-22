@@ -926,3 +926,10 @@ ExorAIO: Revolution Changelog:
   Varus: Fixed Jungleclear Q.
   Varus: Fixed Combo Q.
   Varus: Improved AoE R.
+
+7.20.2.3:
+  AIO: Fixed Some Anti-Gaplcoser Menus showing useless or empty sections.
+  Varus: Now Long Range Combo Q takes into account the Harass Whitelist (Won't cast to blacklisted targets).
+  Varus: Fixed Q and E usage if W not learned.
+  Varus: Fixed Nullref.
+  Tristana: Cleaned up a code part.
