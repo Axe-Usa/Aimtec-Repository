@@ -938,3 +938,6 @@ ExorAIO: Revolution Changelog:
   AIO: Fixed Some champions casting spells to jungle monsters different from the one being focused.
   Kalista: Little rewrite to the offensive R Logics.
   Kalista: Tweaked Q Collision and Prediction values.
+
+7.20.2.5:
+  Varus: Fixed Spells' Prediction values.

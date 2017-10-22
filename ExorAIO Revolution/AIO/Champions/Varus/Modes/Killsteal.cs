@@ -1,5 +1,6 @@
 
 using Aimtec;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -28,7 +29,8 @@ namespace AIO.Champions
                 var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
                 if (bestTarget != null &&
                     IsChargingPiercingArrow() &&
-                    GetRealPiercingArrowDamage(bestTarget) >= bestTarget.GetRealHealth())
+                    GetRealPiercingArrowDamage(bestTarget) >= bestTarget.GetRealHealth() &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
                     SpellClass.Q.Cast(bestTarget);
                 }
@@ -42,7 +44,8 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    GetRealHailOfArrowsDamage(bestTarget) >= bestTarget.GetRealHealth())
+                    GetRealHailOfArrowsDamage(bestTarget) >= bestTarget.GetRealHealth() &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
                     SpellClass.E.Cast(bestTarget);
                 }
@@ -56,7 +59,8 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    GetRealChainOfCorruptionDamage(bestTarget) >= bestTarget.GetRealHealth())
+                    GetRealChainOfCorruptionDamage(bestTarget) >= bestTarget.GetRealHealth() &&
+                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
                     SpellClass.R.Cast(bestTarget);
                 }
