@@ -946,3 +946,10 @@ ExorAIO: Revolution Changelog:
   Kalista: Fixed Nullref.
   Vayne: Polished some checks.
   Vayne: Condemn Fixes.
+
+7.20.2.7:
+  AIO: Fixed CompilingError.
+  Vayne: Applied Condemn rework to Jungleclear condemn too.
+
+7.20.2.8:
+  Varus: Fixed Q sometimes not firing in Harass.
