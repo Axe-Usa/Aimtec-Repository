@@ -176,7 +176,12 @@ namespace AIO.Utilities
 
             // Buffs: Zilean's Chronoshift, Zhonyas, Aatrox's Blood Well, Anivia Egg,
             var immobileBuffs = new[] { "chronorevive", "zhonyasringshield", "AatroxPassiveDeath", "rebirth" };
-            return hero.ValidActiveBuffs().Any(b => immobileBuffs.Contains(b.Name));
+            if (hero.ValidActiveBuffs().Any(b => immobileBuffs.Contains(b.Name)))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
