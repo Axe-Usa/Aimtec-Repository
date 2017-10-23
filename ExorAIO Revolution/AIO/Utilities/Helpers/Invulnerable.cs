@@ -35,15 +35,10 @@ namespace AIO.Utilities
                 new List<InvulnerableEntry>
                     {
                         new InvulnerableEntry("KindredrNoDeathBuff"),
+                        new InvulnerableEntry("BansheesVeil"),
                         new InvulnerableEntry("BlackShield")
                             {
                                 IsShield = true,
-                                DamageType = DamageType.Magical
-                            },
-                        new InvulnerableEntry("BansheesVeil")
-                            {
-                                IsShield = true,
-                                DamageType = DamageType.Magical
                             },
                         new InvulnerableEntry("FioraW")
                             {
@@ -52,7 +47,6 @@ namespace AIO.Utilities
                         new InvulnerableEntry("JaxCounterStrike")
                             {
                                 ChampionName = "Jax",
-                                IsShield = true,
                                 DamageType = DamageType.Physical
                             },
                         new InvulnerableEntry("malzaharpassiveshield")

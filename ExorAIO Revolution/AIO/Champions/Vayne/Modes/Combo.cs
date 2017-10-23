@@ -51,6 +51,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
+
+                const int threshold = 60;
                 const int condemnPushDistance = 410;
 
                 foreach (var target in
@@ -62,10 +64,10 @@ namespace AIO.Champions
                 {
                     var targetPos = target.ServerPosition;
                     var predPosition = SpellClass.E.GetPrediction(target).CastPosition;
-                    for (var i = 60; i < condemnPushDistance; i += 10)
+                    for (var i = threshold; i < condemnPushDistance; i += 10)
                     {
                         if (!targetPos.Extend(playerPos, -i).IsWall(true) ||
-                            !targetPos.Extend(playerPos, -i-60).IsWall(true))
+                            !targetPos.Extend(playerPos, -i-threshold).IsWall(true))
                         {
                             continue;
                         }
@@ -73,7 +75,7 @@ namespace AIO.Champions
                         if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
                         {
                             if (!predPosition.Extend(playerPos, -i).IsWall(true) ||
-                                !predPosition.Extend(playerPos, -i-60).IsWall(true))
+                                !predPosition.Extend(playerPos, -i-threshold).IsWall(true))
                             {
                                 continue;
                             }

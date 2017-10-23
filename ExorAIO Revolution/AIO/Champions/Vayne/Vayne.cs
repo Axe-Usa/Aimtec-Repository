@@ -136,7 +136,11 @@ namespace AIO.Champions
                 return;
             }
 
-            if (!heroSender.IsValidTarget(SpellClass.E.Range))
+            var endPos = (Vector3)args.EndPos;
+            var playerPos = UtilityClass.Player.ServerPosition;
+
+            if (!heroSender.IsValidTarget(SpellClass.E.Range) &&
+                endPos.Distance(playerPos) > SpellClass.E.Range)
             {
                 return;
             }
@@ -145,9 +149,14 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2 &&
                 MenuClass.Spells["e"]["whitelist"][heroSender.ChampionName.ToLower()].Enabled)
             {
-                var endPos = args.EndPos.Extend(UtilityClass.Player.ServerPosition, -410);
-                if (Bools.AnyWallInBetween(args.EndPos.To3D(), endPos.To3D()))
+                const int condemnPushDistance = 410;
+                for (var i = 0; i < condemnPushDistance; i += 10)
                 {
+                    if (!endPos.Extend(playerPos, -i).IsWall(true))
+                    {
+                        continue;
+                    }
+
                     SpellClass.E.CastOnUnit(heroSender);
                 }
             }

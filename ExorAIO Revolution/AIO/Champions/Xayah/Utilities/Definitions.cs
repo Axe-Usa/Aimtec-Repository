@@ -8,6 +8,7 @@ using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
 using AIO.Utilities;
+// ReSharper disable LoopCanBeConvertedToQuery
 
 #pragma warning disable 1587
 
@@ -107,7 +108,7 @@ namespace AIO.Champions
                         return true;
 
                     case GameObjectType.obj_AI_Hero:
-                        return !Invulnerable.Check((Obj_AI_Hero)unit);
+                        return !Invulnerable.Check((Obj_AI_Hero)unit, DamageType.Physical, false);
                 }
             }
 
