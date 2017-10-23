@@ -201,13 +201,25 @@ namespace AIO.Champions
                     case Gapcloser.Type.Targeted:
                         if (args.Target.IsMe)
                         {
-                            SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -(SpellClass.Q.Range - UtilityClass.Player.AttackRange)));
+                            var targetPos = UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.Q.Range);
+                            if (targetPos.PointUnderEnemyTurret())
+                            {
+                                return;
+                            }
+
+                            SpellClass.Q.Cast(targetPos);
                         }
                         break;
                     default:
+                        var targetPos2 = UtilityClass.Player.ServerPosition.Extend(args.EndPosition, -SpellClass.Q.Range);
+                        if (targetPos2.PointUnderEnemyTurret())
+                        {
+                            return;
+                        }
+
                         if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
                         {
-                            SpellClass.Q.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -(SpellClass.Q.Range - UtilityClass.Player.AttackRange)));
+                            SpellClass.Q.Cast(targetPos2);
                         }
                         break;
                 }

@@ -25,7 +25,9 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                if (GameObjects.EnemyHeroes.Any(t => IsPerfectExpungeTarget(t) && t.GetRealHealth() < GetTotalExpungeDamage(t)))
+                if (GameObjects.EnemyHeroes.Any(t =>
+                        IsPerfectExpungeTarget(t) &&
+                        t.GetRealHealth() < GetTotalExpungeDamage(t)))
                 {
                     SpellClass.E.Cast();
                 }

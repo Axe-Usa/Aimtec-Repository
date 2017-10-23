@@ -250,13 +250,25 @@ namespace AIO.Champions
                         if (sender.IsMelee &&
                             args.Target.IsMe)
                         {
-                            SpellClass.R.Cast(UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -500));
+                            var targetPos = UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.R.Range);
+                            if (targetPos.PointUnderEnemyTurret())
+                            {
+                                return;
+                            }
+
+                            SpellClass.R.Cast(targetPos);
                         }
                         break;
                     default:
+                        var targetPos2 = UtilityClass.Player.ServerPosition.Extend(args.EndPosition, -SpellClass.R.Range);
+                        if (targetPos2.PointUnderEnemyTurret())
+                        {
+                            return;
+                        }
+
                         if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
                         {
-                            SpellClass.R.Cast(UtilityClass.Player.ServerPosition.Extend(args.EndPosition, -500));
+                            SpellClass.R.Cast(targetPos2);
                         }
                         break;
                 }

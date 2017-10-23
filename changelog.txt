@@ -963,3 +963,6 @@ ExorAIO: Revolution Changelog:
   Caitlyn: Added Anti-Dash E.
   Caitlyn: Auto W should be faster overall.
   Caitlyn: Fixed Anti-Gapcloser W and E.
+
+7.20.2.11:
+  AIO: Anti-Gapcloser will not make the character jump under enemy turrets anymore.

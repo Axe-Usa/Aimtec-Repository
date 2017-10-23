@@ -220,7 +220,7 @@ namespace AIO.Utilities
 
             if (unit.ValidActiveBuffs().Any(buff =>
                     buff.IsHardCC() &&
-                    buff.GetRemainingBuffTime() > minTime))
+                    buff.GetRemainingBuffTime() >= minTime))
             {
                 return true;
             }
