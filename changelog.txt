@@ -958,3 +958,8 @@ ExorAIO: Revolution Changelog:
   AIO: Fixed some invulnerability values.
   Xayah: Will no longer use E if target is spellshielded.
   Vayne: Anti-Dash Condemn rework.
+
+7.20.2.10:
+  Caitlyn: Added Anti-Dash E.
+  Caitlyn: Auto W should be faster overall.
+  Caitlyn: Fixed Anti-Gapcloser W and E.

@@ -190,14 +190,14 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready)
             {
-                var enabledOption = MenuClass.Gapcloser["enabled"];
-                if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
+                var enabledOption2 = MenuClass.Gapcloser2["enabled"];
+                if (enabledOption2 == null || !enabledOption2.As<MenuBool>().Enabled)
                 {
                     return;
                 }
 
-                var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
-                if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
+                var spellOption2 = MenuClass.SubGapcloser2[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption2 == null || !spellOption2.As<MenuBool>().Enabled)
                 {
                     return;
                 }
@@ -226,14 +226,14 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= SpellClass.W.Range)
             {
-                var enabledOption2 = MenuClass.Gapcloser2["enabled"];
-                if (enabledOption2 == null || !enabledOption2.As<MenuBool>().Enabled)
+                var enabledOption = MenuClass.Gapcloser2["enabled"];
+                if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
                 {
                     return;
                 }
 
-                var spellOption2 = MenuClass.SubGapcloser2[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
-                if (spellOption2 == null || !spellOption2.As<MenuBool>().Enabled)
+                var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+                if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
                 {
                     return;
                 }
@@ -287,15 +287,15 @@ namespace AIO.Champions
             /// </summary>
             Killsteal();
 
-            if (ImplementationClass.IOrbwalker.IsWindingUp)
-            {
-                return;
-            }
-
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
             Automatic();
+
+            if (ImplementationClass.IOrbwalker.IsWindingUp)
+            {
+                return;
+            }
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.

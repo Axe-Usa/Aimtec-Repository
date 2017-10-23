@@ -130,7 +130,7 @@ namespace AIO.Champions
                     MenuClass.E.Add(new MenuBool("combo", "Combo"));
                     MenuClass.E.Add(new MenuSeperator("separator"));
 
-                    if (GameObjects.EnemyHeroes.Any(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                    if (GameObjects.EnemyHeroes.Any(x => Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
                     {
                         /// <summary>
                         ///     Sets the menu for the Anti-Gapcloser E.
@@ -141,7 +141,7 @@ namespace AIO.Champions
                             MenuClass.Gapcloser2.Add(new MenuSeperator(string.Empty));
                             MenuClass.E.Add(MenuClass.Gapcloser2);
 
-                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => x.IsMelee && Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                            foreach (var enemy in GameObjects.EnemyHeroes.Where(x => Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
                             {
                                 MenuClass.SubGapcloser2 = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
                                 {
