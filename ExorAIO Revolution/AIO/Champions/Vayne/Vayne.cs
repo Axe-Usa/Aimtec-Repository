@@ -297,11 +297,6 @@ namespace AIO.Champions
             /// </summary>
             Killsteal();
 
-            if (ImplementationClass.IOrbwalker.IsWindingUp)
-            {
-                return;
-            }
-
             /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>

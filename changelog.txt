@@ -970,3 +970,7 @@ ExorAIO: Revolution Changelog:
 7.20.2.12:
   Caitlyn: More responsive W on CC.
   Jinx: More responsive E on CC.
+
+7.21.0.0:
+  AIO: More responsive Anti-Gapcloser.
+  Vayne: Code polishment.
