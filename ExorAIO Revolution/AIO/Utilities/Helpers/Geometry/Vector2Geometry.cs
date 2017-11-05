@@ -65,11 +65,8 @@ namespace AIO.Utilities
                 var a = pointList[i];
                 var b = pointList[i == pointList.Count - 1 ? 0 : i + 1];
 
-                Vector2 aonScreen;
-                Vector2 bonScreen;
-
-                Render.WorldToMinimap(a, out aonScreen);
-                Render.WorldToMinimap(b, out bonScreen);
+                Render.WorldToMinimap(a, out var aonScreen);
+                Render.WorldToMinimap(b, out var bonScreen);
 
                 Render.Line(aonScreen, bonScreen, color);
             }
@@ -159,11 +156,9 @@ namespace AIO.Utilities
 
             public static void DrawLineInWorld(Vector3 start, Vector3 end, int width, Color color)
             {
-                Vector2 from;
-                Vector2 to;
 
-                Render.WorldToScreen(start, out from);
-                Render.WorldToScreen(end, out to);
+                Render.WorldToScreen(start, out var from);
+                Render.WorldToScreen(end, out var to);
                 Render.Line(from, to, color);
             }
 

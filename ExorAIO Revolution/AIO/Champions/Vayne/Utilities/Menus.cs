@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Aimtec.SDK.Menu;
 using Aimtec.SDK.Menu.Components;
@@ -171,12 +172,12 @@ namespace AIO.Champions
             MenuClass.Miscellaneous = new Menu("miscellaneous", "Miscellaneous");
             {
                 MenuClass.Miscellaneous.Add(new MenuBool("focusw", "Focus enemies with 2 W stacks"));
-                MenuClass.Miscellaneous.Add(new MenuSlider("stealthtime", "Stay Invisible: For at least x ms [1000 ms = 1 second]", 0, 0, 1000));
+                MenuClass.Miscellaneous.Add(new MenuSliderBool("stealthtime", "Stay Invisible: For at least x ms [1000 ms = 1 second]", false, 0, 0, 1000));
 
                 if (GameObjects.EnemyHeroes.Any())
                 {
                     var count = GameObjects.EnemyHeroes.Count();
-                    MenuClass.Miscellaneous.Add(new MenuSlider("stealthcheck", "Stay Invisible: if >= x enemies in AA Range", count >= 3 ? 3 : count, 0, count));
+                    MenuClass.Miscellaneous.Add(new MenuSliderBool("stealthcheck", "Stay Invisible: if >= x enemies in AA Range", false, Math.Min(count, 3), 1, count));
                 }
                 else
                 {

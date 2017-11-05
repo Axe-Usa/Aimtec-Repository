@@ -27,8 +27,7 @@ namespace AIO.Utilities
         {
             try
             {
-                IDataType dataImpl;
-                if (Cache.TryGetValue(typeof(T), out dataImpl))
+                if (Cache.TryGetValue(typeof(T), out var dataImpl))
                 {
                     return (T)dataImpl;
                 }
@@ -65,6 +64,7 @@ namespace AIO.Utilities
         #endregion
     }
 
+    /// <inheritdoc />
     /// <summary>
     ///     Represents that a class has data that can be obtained from LeagueSharp.Data. Provides an implemenation to
     ///     automaticaly load JSON resources.
@@ -74,6 +74,7 @@ namespace AIO.Utilities
     {
         #region Explicit Interface Methods
 
+        /// <inheritdoc />
         /// <summary>
         ///     Initializes the instance of the type.
         /// </summary>

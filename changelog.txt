@@ -974,3 +974,10 @@ ExorAIO: Revolution Changelog:
 7.21.0.0:
   AIO: More responsive Anti-Gapcloser.
   Vayne: Code polishment.
+
+7.21.0.1:
+ AIO: Cleared up useless code parts.
+ Ezreal: Increased Q Width.
+ Ezreal: Better Q Laneclear logic.
+ Vayne: Disabled Dash-Prediction condemn against Kalista.
+ Vayne: Now Miscellaneous options are MenuSliderBools instead of MenuSliders.

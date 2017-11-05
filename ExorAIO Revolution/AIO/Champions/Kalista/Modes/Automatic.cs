@@ -41,6 +41,17 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 SoulBound != null)
             {
+                /// <summary>
+                ///     The Lifesaver R Logic.
+                /// </summary>
+                if (SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
+                    SoulBound.HealthPercent() <=
+                    MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Value &&
+                    MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Enabled)
+                {
+                    SpellClass.R.Cast();
+                }
+
                 var option = RLogics.FirstOrDefault(k => k.Key == SoulBound.ChampionName).Value;
                 if (option != null)
                 {
@@ -58,17 +69,6 @@ namespace AIO.Champions
                     {
                         SpellClass.R.Cast();
                     }
-                }
-
-                /// <summary>
-                ///     The Lifesaver R Logic.
-                /// </summary>
-                if (SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
-                    SoulBound.HealthPercent() <=
-                        MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Value &&
-                    MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Enabled)
-                {
-                    SpellClass.R.Cast();
                 }
             }
 

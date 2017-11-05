@@ -78,8 +78,9 @@ namespace AIO.Champions
                 UtilityClass.Player.HasBuff("vaynetumblefade"))
             {
                 var invisibilityBuff = UtilityClass.Player.GetBuff("vaynetumblefade");
-                if (invisibilityBuff.GetRemainingBuffTime() >
-                    invisibilityBuff.EndTime - invisibilityBuff.StartTime - MenuClass.Miscellaneous["stealthtime"].As<MenuSlider>().Value / 1000f)
+                if (MenuClass.Miscellaneous["stealthtime"].As<MenuSliderBool>().Enabled &&
+                    invisibilityBuff.GetRemainingBuffTime() >
+                    invisibilityBuff.EndTime - invisibilityBuff.StartTime - MenuClass.Miscellaneous["stealthtime"].As<MenuSliderBool>().Value / 1000f)
                 {
                     args.Cancel = true;
                 }
@@ -89,9 +90,10 @@ namespace AIO.Champions
                     args.Cancel = true;
                 }
 
-                if (GameObjects.EnemyHeroes.Count(t =>
+                if (MenuClass.Miscellaneous["stealthcheck"].As<MenuSliderBool>().Enabled &&
+                    GameObjects.EnemyHeroes.Count(t =>
                         t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) >=
-                    MenuClass.Miscellaneous["stealthcheck"].As<MenuSlider>().Value)
+                    MenuClass.Miscellaneous["stealthcheck"].As<MenuSliderBool>().Value)
                 {
                     args.Cancel = true;
                 }
@@ -136,6 +138,11 @@ namespace AIO.Champions
                 return;
             }
 
+            if (heroSender.ChampionName.Equals("Kalista"))
+            {
+                return;
+            }
+
             var endPos = (Vector3)args.EndPos;
             var playerPos = UtilityClass.Player.ServerPosition;
 
@@ -150,7 +157,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["whitelist"][heroSender.ChampionName.ToLower()].Enabled)
             {
                 const int condemnPushDistance = 410;
-                for (var i = 0; i < condemnPushDistance; i += 10)
+                for (var i = UtilityClass.Player.BoundingRadius; i < condemnPushDistance; i += 10)
                 {
                     if (!endPos.Extend(playerPos, -i).IsWall(true))
                     {
@@ -201,7 +208,7 @@ namespace AIO.Champions
                     case Gapcloser.Type.Targeted:
                         if (args.Target.IsMe)
                         {
-                            var targetPos = UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.Q.Range);
+                            var targetPos = UtilityClass.Player.ServerPosition.Extend(args.StartPosition, -SpellClass.Q.Range+UtilityClass.Player.AttackRange);
                             if (targetPos.PointUnderEnemyTurret())
                             {
                                 return;
@@ -211,7 +218,7 @@ namespace AIO.Champions
                         }
                         break;
                     default:
-                        var targetPos2 = UtilityClass.Player.ServerPosition.Extend(args.EndPosition, -SpellClass.Q.Range);
+                        var targetPos2 = UtilityClass.Player.ServerPosition.Extend(args.EndPosition, -SpellClass.Q.Range+UtilityClass.Player.AttackRange);
                         if (targetPos2.PointUnderEnemyTurret())
                         {
                             return;
