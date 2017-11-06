@@ -981,3 +981,6 @@ ExorAIO: Revolution Changelog:
  Ezreal: Better Q Laneclear logic.
  Vayne: Disabled Dash-Prediction condemn against Kalista.
  Vayne: Now Miscellaneous options are MenuSliderBools instead of MenuSliders.
+
+7.21.0.2:
+  AIO: Minor code changes.

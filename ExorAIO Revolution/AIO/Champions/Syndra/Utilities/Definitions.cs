@@ -46,7 +46,14 @@ namespace AIO.Champions
         /// </summary>
         public bool IsDarkSphere(GameObject obj)
         {
-            return obj.Name == "Syndra_Base_Q_idle.troy" || obj.Name == "Syndra_Base_Q_Lv5_idle.troy";
+            switch (obj.Name)
+            {
+                case "Syndra_Base_Q_idle.troy":
+                case "Syndra_Base_Q_Lv5_idle.troy":
+                    return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -135,7 +142,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the real Damage the R spell would deal to a determined enemy hero.
         /// </summary>
-        public double GetPerfectUnleashedPowerDamage(Obj_AI_Hero target)
+        public double GetTotalUnleashedPowerDamage(Obj_AI_Hero target)
         {
             var player = UtilityClass.Player;
             var singleSphereDamage = player.GetSpellDamage(target, SpellSlot.R) / 3;
@@ -222,12 +229,9 @@ namespace AIO.Champions
         {
             foreach (var sphere in ObjectManager.Get<GameObject>().Where(o => o != null && o.IsValid))
             {
-                if (sphere.IsValid)
+                if (DarkSpheres.Any(o => o.Key == sphere.NetworkId))
                 {
-                    if (DarkSpheres.Any(o => o.Key == sphere.NetworkId))
-                    {
-                        DarkSpheres.Remove(sphere.NetworkId);
-                    }
+                    DarkSpheres.Remove(sphere.NetworkId);
                 }
 
                 switch (sphere.Name)

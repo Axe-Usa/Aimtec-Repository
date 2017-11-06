@@ -33,7 +33,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the real Damage the R spell would deal to a determined enemy hero.
         /// </summary>
-        public double GetPerfectNoxianGuillotineDamage(Obj_AI_Hero target)
+        public double GetTotalNoxianGuillotineDamage(Obj_AI_Hero target)
         {
             var player = UtilityClass.Player;
             return

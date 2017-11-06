@@ -64,29 +64,34 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Drawings["rdmg"].As<MenuBool>().Enabled)
                 {
-                    Extensions.GetEnemyHeroesTargetsInRange(SpellClass.R.Range)
-                        .Where(h => h.IsValidSpellTarget() && !Invulnerable.Check(h, DamageType.Magical, false) && h.FloatingHealthBarPosition.OnScreen())
-                        .ToList()
-                        .ForEach(
-                            target =>
-                                {
-                                    var width = DrawingClass.SWidth;
-                                    var height = DrawingClass.SHeight;
-                                    var xOffset = DrawingClass.SxOffset(target);
-                                    var yOffset = DrawingClass.SyOffset(target);
+                    foreach (var hero in Extensions.GetEnemyHeroesTargetsInRange(SpellClass.R.Range).Where(h =>
+                        !Invulnerable.Check(h, DamageType.Magical, false) &&
+                        h.FloatingHealthBarPosition.OnScreen()))
+                    {
+                        var width = DrawingClass.SWidth;
+                        var height = DrawingClass.SHeight;
+                        var xOffset = DrawingClass.SxOffset(hero);
+                        var yOffset = DrawingClass.SyOffset(hero);
 
-                                    var barPos = target.FloatingHealthBarPosition;
-                                    barPos.X += xOffset;
-                                    barPos.Y += yOffset;
+                        var barPos = hero.FloatingHealthBarPosition;
+                        barPos.X += xOffset;
+                        barPos.Y += yOffset;
 
-                                    var drawEndXPos = barPos.X + width * (target.HealthPercent() / 100);
-                                    var drawStartXPos = (float)(barPos.X + (target.GetRealHealth() > GetPerfectUnleashedPowerDamage(target)
-                                                                                ? width * ((target.GetRealHealth() - GetPerfectUnleashedPowerDamage(target)) / target.MaxHealth * 100 / 100)
-                                                                                : 0));
+                        var unitHealth = hero.GetRealHealth();
+                        var totalDamage = GetTotalUnleashedPowerDamage(hero);
 
-                                    Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, target.GetRealHealth() < GetPerfectUnleashedPowerDamage(target) ? Color.Blue : Color.Orange);
-                                    Render.Line(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
-                                });
+                        var barLength = 0;
+                        if (unitHealth > totalDamage)
+                        {
+                            barLength = (int)(width * ((unitHealth - totalDamage) / hero.MaxHealth * 100 / 100));
+                        }
+
+                        var drawEndXPos = barPos.X + width * (hero.HealthPercent() / 100);
+                        var drawStartXPos = barPos.X + barLength;
+
+                        Render.Line(drawStartXPos, barPos.Y, drawEndXPos, barPos.Y, height, true, unitHealth < totalDamage ? Color.Blue : Color.Orange);
+                        Render.Line(drawStartXPos, barPos.Y, drawStartXPos, barPos.Y + height + 1, 1, true, Color.Lime);
+                    }
                 }
             }
 

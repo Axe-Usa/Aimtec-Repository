@@ -59,7 +59,7 @@ namespace AIO.Champions
             {
                 var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
                 if (bestTarget != null &&
-                    GetPerfectUnleashedPowerDamage(bestTarget) >= bestTarget.GetRealHealth())
+                    GetTotalUnleashedPowerDamage(bestTarget) >= bestTarget.GetRealHealth())
                 {
                     SpellClass.R.CastOnUnit(bestTarget);
                 }
