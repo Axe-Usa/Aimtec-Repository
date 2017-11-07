@@ -41,7 +41,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                InitializeWLogic();
+                InitializeWLogic(false);
             }
 
             /// <summary>

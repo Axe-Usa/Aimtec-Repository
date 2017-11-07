@@ -173,7 +173,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the W Logic code.
         /// </summary>
-        public void InitializeWLogic(bool addWhitelist = false)
+        public void InitializeWLogic(bool addWhitelist)
         {
             var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range + 200f);
             if (bestTarget != null &&

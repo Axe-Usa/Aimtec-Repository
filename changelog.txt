@@ -984,3 +984,4 @@ ExorAIO: Revolution Changelog:
 
 7.21.0.2:
   AIO: Minor code changes.
+  Syndra: Minor fix.
