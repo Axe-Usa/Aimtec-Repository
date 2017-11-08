@@ -36,9 +36,10 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                        t.IsImmobile(SpellClass.W.Delay) &&
+                        CanTrap(t) &&
                         t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
+                    UpdateEnemyTrapTime(target.NetworkId);
                     SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(target.ServerPosition, UtilityClass.Player.Distance(target)+target.BoundingRadius/2));
                 }
             }

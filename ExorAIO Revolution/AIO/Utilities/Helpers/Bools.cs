@@ -1,3 +1,5 @@
+
+using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -190,15 +192,20 @@ namespace AIO.Utilities
         // ReSharper disable once InconsistentNaming
         public static bool IsHardCC(this Buff buff)
         {
-            return
-                buff.Type == BuffType.Stun ||
-                buff.Type == BuffType.Fear ||
-                buff.Type == BuffType.Flee ||
-                buff.Type == BuffType.Snare ||
-                buff.Type == BuffType.Taunt ||
-                buff.Type == BuffType.Charm ||
-                buff.Type == BuffType.Knockup ||
-                buff.Type == BuffType.Suppression;
+            // ReSharper disable once InconsistentNaming
+            var hardCCList = new List<BuffType>
+            {
+                BuffType.Stun,
+                BuffType.Fear,
+                BuffType.Flee,
+                BuffType.Snare,
+                BuffType.Taunt,
+                BuffType.Charm,
+                BuffType.Knockup,
+                BuffType.Suppression
+            };
+
+            return hardCCList.Contains(buff.Type);
         }
 
         /// <summary>
@@ -223,9 +230,9 @@ namespace AIO.Utilities
                 return false;
             }
 
-            if (unit.ValidActiveBuffs().Any(buff =>
-                    buff.IsHardCC() &&
-                    buff.GetRemainingBuffTime() >= minTime))
+            if (unit.ValidActiveBuffs().Any(b =>
+                    b.IsHardCC() &&
+                    b.GetRemainingBuffTime() >= minTime))
             {
                 return true;
             }

@@ -36,6 +36,11 @@ namespace AIO.Champions
             ///     Initializes the spells.
             /// </summary>
             Spells();
+
+            /// <summary>
+            ///     Initializes the trap time check for each enemy.
+            /// </summary>
+            InitializeTrapTimeCheck();
         }
 
         #endregion
@@ -64,16 +69,6 @@ namespace AIO.Champions
 
                     case SpellSlot.W:
                         if (ObjectManager.Get<GameObject>().Any(m => m.Distance(args.End) <= SpellClass.W.Width && m.Name.Equals("caitlyn_Base_yordleTrap_idle_green.troy")))
-                        {
-                            args.Process = false;
-                        }
-
-                        // Logic to not cast Trap if enemy has been afflicted by it less than 4 seconds ago and he's still in the area.
-                        // Note: The time the minion takes to actually be cancelled by the ObjectManager is exactly 4 seconds, that's why i check for its presence.
-                        //       maybe a tiny bit more, but the check is solid.
-                        var nearestEnemy = GameObjects.EnemyHeroes.MinBy(t => t.Distance(args.End));
-                        if (nearestEnemy.HasBuff("caitlynyordletrapsight") &&
-                            ObjectManager.Get<Obj_AI_Minion>().Any(m => m.IsAlly && m.UnitSkinName == "CaitlynTrap" && m.Distance(nearestEnemy) <= SpellClass.W.Width))
                         {
                             args.Process = false;
                         }
@@ -156,8 +151,10 @@ namespace AIO.Champions
                                     var bestTarget = GameObjects.EnemyHeroes
                                         .Where(t => !Invulnerable.Check(t))
                                         .MinBy(o => o.Distance(args.End));
-                                    if (bestTarget != null)
+                                    if (bestTarget != null &&
+                                        CanTrap(bestTarget))
                                     {
+                                        UpdateEnemyTrapTime(bestTarget.NetworkId);
                                         SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(bestTarget.ServerPosition, UtilityClass.Player.Distance(bestTarget)+bestTarget.BoundingRadius));
                                     }
                                 }
@@ -232,6 +229,11 @@ namespace AIO.Champions
                 }
             }
 
+            if (!CanTrap(sender))
+            {
+                return;
+            }
+
             /// <summary>
             ///     The Anti-Gapcloser W.
             /// </summary>
@@ -250,6 +252,7 @@ namespace AIO.Champions
                     return;
                 }
 
+                UpdateEnemyTrapTime(sender.NetworkId);
                 SpellClass.W.Cast(args.EndPosition);
             }
         }

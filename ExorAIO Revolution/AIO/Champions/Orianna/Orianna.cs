@@ -49,6 +49,11 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
         public void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
+            if (!MenuClass.Miscellaneous["blockr"].As<MenuBool>().Enabled)
+            {
+                return;
+            }
+
             if (sender.IsMe &&
                 BallPosition != null &&
                 args.Slot == SpellSlot.R)

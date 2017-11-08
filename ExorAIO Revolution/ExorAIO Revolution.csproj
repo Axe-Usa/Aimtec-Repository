@@ -79,6 +79,7 @@
     <Compile Include="AIO\Champions\Anivia\Utilities\Menus.cs" />
     <Compile Include="AIO\Champions\Anivia\Utilities\Methods.cs" />
     <Compile Include="AIO\Champions\Anivia\Utilities\Spells.cs" />
+    <Compile Include="AIO\Champions\Caitlyn\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\Varus\Utilities\Definitions.cs" />
     <Compile Include="AIO\Champions\Varus\Varus.cs" />
     <Compile Include="AIO\Champions\Varus\Modes\Automatic.cs" />

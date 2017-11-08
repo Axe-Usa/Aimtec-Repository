@@ -124,7 +124,7 @@ namespace AIO.Champions
             {
                 switch (feather.Name)
                 {
-                    case "Xayah_Base_Passive_Dagger_Mark8s.troy":
+                    case "Xayah_Base_Passive_Dagger_Mark8s":
                         Feathers.Add(feather.NetworkId, feather.Position);
                         break;
                 }

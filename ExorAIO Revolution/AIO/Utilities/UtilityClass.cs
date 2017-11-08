@@ -363,7 +363,7 @@ namespace AIO.Utilities
         }
 
         /// <summary>
-        ///     Gets the remaining buff time of the 'buff' Buff.
+        ///     Gets the remaining buff time of the 'buff' Buff in seconds.
         /// </summary>
         /// <param name="buff">
         ///     The buff.

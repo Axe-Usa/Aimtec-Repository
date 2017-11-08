@@ -985,3 +985,8 @@ ExorAIO: Revolution Changelog:
 7.21.0.2:
   AIO: Minor code changes.
   Syndra: Minor fix.
+  
+7.22.0.0:
+  Caitlyn: Now the Trap checks are more solid and consistent.
+  Orianna: Fixed a bug where she would cancel manual R usage if it didn't hit any enemy, even if the block manual R option was disabled.
+  Xayah: Fixed Feathers usage, Riot changed the name of the feather objects, that's why it wasn't tracking them anymore.
