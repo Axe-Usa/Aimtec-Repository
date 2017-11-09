@@ -64,16 +64,21 @@ namespace AIO.Champions
             ///     The Automatic Q Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                ImplementationClass.IOrbwalker.Mode != OrbwalkingMode.None &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                    !Invulnerable.Check(t) &&
-                    t.IsImmobile(SpellClass.Q.Delay) &&
-                    t.IsValidTarget(SpellClass.Q.Range) &&
-                    t.HasBuff("caitlynyordletrapdebuff")))
+                switch (ImplementationClass.IOrbwalker.Mode)
                 {
-                    SpellClass.Q.Cast(target.ServerPosition);
+                    case OrbwalkingMode.Combo:
+                    case OrbwalkingMode.Mixed:
+                        foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                            !Invulnerable.Check(t) &&
+                            t.IsImmobile(SpellClass.Q.Delay) &&
+                            t.IsValidTarget(SpellClass.Q.Range) &&
+                            t.HasBuff("caitlynyordletrapdebuff")))
+                        {
+                            SpellClass.Q.Cast(target.ServerPosition);
+                        }
+                        break;
                 }
             }
 

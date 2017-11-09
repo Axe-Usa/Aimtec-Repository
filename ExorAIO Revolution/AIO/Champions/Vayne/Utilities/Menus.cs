@@ -81,7 +81,7 @@ namespace AIO.Champions
                         if (GameObjects.EnemyHeroes.Any())
                         {
                             var count = GameObjects.EnemyHeroes.Count();
-                            MenuClass.Q2.Add(new MenuSliderBool("qrangecheck", "Don't Q if pos has >= X enemies in range", false, count >= 3 ? 3 : count, 1, GameObjects.EnemyHeroes.Count()));
+                            MenuClass.Q2.Add(new MenuSliderBool("qrangecheck", "Don't Q if pos has >= X enemies in range", false, count >= 3 ? 3 : count, 1, count));
                         }
                         else
                         {

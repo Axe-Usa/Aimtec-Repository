@@ -1004,3 +1004,8 @@ ExorAIO: Revolution Changelog:
 7.22.0.4:
   Orianna: Fixed Ball drawings flickering out while moving.
   Xayah: Fixed a little Q logic mistake.
+
+7.22.0.5:
+  Vayne: Minor Menu Improvement.
+  Lucian: Minor Menu Improvement.
+  Caitlyn: Now will only cast Q on trapped targets on Combo and Mixed mode.
