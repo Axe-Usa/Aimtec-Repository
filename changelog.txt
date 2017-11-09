@@ -990,3 +990,7 @@ ExorAIO: Revolution Changelog:
   Caitlyn: Now the Trap checks are more solid and consistent.
   Orianna: Fixed a bug where she would cancel manual R usage if it didn't hit any enemy, even if the block manual R option was disabled.
   Xayah: Fixed Feathers usage, Riot changed the name of the feather objects, that's why it wasn't tracking them anymore.
+
+7.22.0.1:
+  AIO: Fixed Melee AA Resets not working.
+  AIO: Cleaned up Anti-Gapcloser code and Improved some anti-gapclosing spells.

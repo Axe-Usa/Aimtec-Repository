@@ -32,7 +32,7 @@ namespace AIO
 
             var hydraItems = new[] { ItemId.TitanicHydra, ItemId.RavenousHydra, ItemId.Tiamat };
             if (MenuClass.Hydra != null &&
-                UtilityClass.Player.Inventory.Slots.Any(t => hydraItems.Contains(t.ItemId)))
+                UtilityClass.Player.Inventory.Slots.Any(t => t.SlotTaken && hydraItems.Contains(t.ItemId)))
             {
                 switch (ImplementationClass.IOrbwalker.Mode)
                 {

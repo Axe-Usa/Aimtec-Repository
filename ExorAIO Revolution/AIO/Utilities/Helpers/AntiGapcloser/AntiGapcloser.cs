@@ -8,7 +8,6 @@ namespace AIO.Utilities
 
     using Aimtec;
     using Aimtec.SDK.Extensions;
-    using Aimtec.SDK.Orbwalking;
 
     public static class Gapcloser
     {
@@ -961,11 +960,6 @@ namespace AIO.Utilities
             }
 
             var argsName = args.SpellData.Name.ToLower();
-            if (string.IsNullOrEmpty(argsName) || argsName.Contains("attack") || argsName.Contains("crit") || AOrbwalker.SpecialAttacks.Contains(argsName))
-            {
-                return;
-            }
-
             if (Spells.All(x => !string.Equals(x.SpellName, argsName, StringComparison.CurrentCultureIgnoreCase)))
             {
                 return;
@@ -981,7 +975,7 @@ namespace AIO.Utilities
 
             unit.Unit = heroSender;
             unit.Slot = args.SpellSlot;
-            unit.Target = (AttackableUnit)args.Target;
+            unit.Target = args.Target as AttackableUnit;
             unit.Type = args.Target != null ? Type.Targeted : Type.SkillShot;
             unit.SpellName = args.SpellData.Name;
             unit.StartPosition = args.Start;
