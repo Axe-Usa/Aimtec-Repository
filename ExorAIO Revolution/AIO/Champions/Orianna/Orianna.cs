@@ -235,6 +235,11 @@ namespace AIO.Champions
             UpdateBallPosition();
 
             /// <summary>
+            ///     Updates the drawing position of the ball.
+            /// </summary>
+            UpdateDrawingBallPosition();
+
+            /// <summary>
             ///     Initializes the Automatic actions.
             /// </summary>
             Automatic();

@@ -38,7 +38,7 @@ namespace AIO.Champions
                 Render.Circle(UtilityClass.Player.Position, SpellClass.E.Range, 30, Color.Cyan);
             }
 
-            if (BallPosition == null)
+            if (DrawingBallPosition == null)
             {
                 return;
             }
@@ -50,7 +50,7 @@ namespace AIO.Champions
             {
                 for (var i = 0; i < MenuClass.Drawings["ball"].As<MenuSliderBool>().Value; i++)
                 {
-                    Render.Circle((Vector3)BallPosition, SpellClass.Q.Width+5*i, (uint)(5+i), Color.OrangeRed);
+                    Render.Circle((Vector3)DrawingBallPosition, SpellClass.Q.Width+5*i, (uint)(5+i), Color.OrangeRed);
                 }
             }
 
@@ -60,7 +60,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Drawings["ballw"].As<MenuBool>().Enabled)
             {
-                Render.Circle((Vector3)BallPosition, SpellClass.W.Width, 30, Color.Yellow);
+                Render.Circle((Vector3)DrawingBallPosition, SpellClass.W.Width, 30, Color.Yellow);
             }
 
             /// <summary>
@@ -69,7 +69,7 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Drawings["ballr"].As<MenuBool>().Enabled)
             {
-                Render.Circle((Vector3)BallPosition, SpellClass.R.Width, 30, Color.Red);
+                Render.Circle((Vector3)DrawingBallPosition, SpellClass.R.Width, 30, Color.Red);
             }
         }
 

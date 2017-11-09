@@ -46,7 +46,6 @@ namespace AIO.Champions
                 else
                 {
                     SpellClass.Q.Cast(heroTarget);
-                    return;
                 }
             }
 
