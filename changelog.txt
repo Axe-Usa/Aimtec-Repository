@@ -1013,3 +1013,8 @@ ExorAIO: Revolution Changelog:
 7.22.0.6:
   Caitlyn: Fixed Trap usage in Triple Headshot Combo.
   Caitlyn: Various code cleanup.
+
+7.22.0.7:
+  Taliyah: Totally Fixed E and W Codes Logics.
+  Taliyah: Cleaned a lot of trash code.
+  Taliyah: Fixed a bug where sometimes she wouldn't cast Q.

@@ -34,7 +34,6 @@ namespace AIO.Champions
             ///     The Automatic W Logic. 
             /// </summary>
             if (SpellClass.W.Ready &&
-                SpellClass.E.Ready &&
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
@@ -42,19 +41,7 @@ namespace AIO.Champions
                     t.IsValidTarget(SpellClass.W.Range) &&
                     !Invulnerable.Check(t, DamageType.Magical, false)))
                 {
-                    Vector3 targetPosAfterW;
-                    var targetPred = SpellClass.W.GetPrediction(target).CastPosition;
-                    if (UtilityClass.Player.Distance(GetUnitPositionAfterPull(target)) >= 200f)
-                    {
-                        targetPosAfterW = GetUnitPositionAfterPull(target);
-                    }
-                    else
-                    {
-                        targetPosAfterW = GetUnitPositionAfterPush(target);
-                    }
-
-                    //SpellClass.W.Cast(targetPred, targetPosAfterW);
-                    SpellClass.W.Cast(targetPosAfterW, targetPred);
+                    SpellClass.W.Cast(GetUnitPositionAfterPull(target), SpellClass.W.GetPrediction(target).CastPosition);
                 }
             }
         }

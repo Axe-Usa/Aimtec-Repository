@@ -1,6 +1,5 @@
 // ReSharper disable ConvertIfStatementToConditionalTernaryExpression
 
-
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -32,7 +31,6 @@ namespace AIO.Champions
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range-50f);
                 if (bestTarget != null &&
-                    !bestTarget.HasBuffOfType(BuffType.Slow) &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
                     switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
@@ -72,14 +70,14 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The W Combo Logic.
+            ///     The W-> E Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
                 (SpellClass.E.Ready || !MenuClass.Spells["w"]["customization"]["onlyeready"].As<MenuBool>().Enabled) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range-100f);
-                if (bestTarget.IsValidTarget() &&
+                if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical))
                 {
                     switch (MenuClass.Spells["pattern"].As<MenuList>().Value)
@@ -87,19 +85,6 @@ namespace AIO.Champions
                         case 0:
                             var targetPred = SpellClass.W.GetPrediction(bestTarget).CastPosition;
                             SpellClass.W.Cast(GetTargetPositionAfterW(bestTarget), targetPred);
-
-                            if (SpellClass.E.Ready &&
-                                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
-                            {
-                                SpellClass.E.Cast(GetTargetPositionAfterW(bestTarget));
-                            }
-                            break;
-                        case 1:
-                            if (SpellClass.E.Ready &&
-                                MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
-                            {
-                                SpellClass.E.Cast(GetTargetPositionAfterW(bestTarget));
-                            }
                             break;
                     }
                 }
@@ -112,7 +97,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready &&
                 (!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled) &&
-                !MenuClass.Spells["e"]["customization"]["onlywready"].As<MenuBool>().Enabled &&
+                (SpellClass.W.Ready || !MenuClass.Spells["e"]["customization"]["onlywready"].As<MenuBool>().Enabled) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 if (bestETarget != null &&

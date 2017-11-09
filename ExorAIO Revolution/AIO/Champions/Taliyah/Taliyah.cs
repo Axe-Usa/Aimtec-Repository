@@ -290,38 +290,6 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Called while processing spellcast operations.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public void OnPerformCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
-        {
-            if (sender.IsMe)
-            {
-                switch (args.SpellSlot)
-                {
-                    /// <summary>
-                    ///     The W->E Combo Logic.
-                    /// </summary>
-                    case SpellSlot.W:
-                        if (SpellClass.E.Ready)
-                        {
-                            switch (ImplementationClass.IOrbwalker.Mode)
-                            {
-                                case OrbwalkingMode.Combo:
-                                    if (MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
-                                    {
-                                        SpellClass.E.Cast(args.End);
-                                    }
-                                    break;
-                            }
-                        }
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
         public void OnUpdate()

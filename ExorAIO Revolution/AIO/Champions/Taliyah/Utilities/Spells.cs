@@ -23,7 +23,7 @@ namespace AIO.Champions
             SpellClass.R = new Spell(SpellSlot.R, 1500 + 1500 * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level);
 
             SpellClass.Q.SetSkillshot(0.25f, 100f, 3600f, true, SkillshotType.Line, false, HitChance.None);
-            SpellClass.W.SetSkillshot(1.1f, 200f, float.MaxValue, false, SkillshotType.Circle, true);
+            SpellClass.W.SetSkillshot(1.6f, 200f, float.MaxValue, false, SkillshotType.Circle, true);
             SpellClass.E.SetSkillshot(0.30f, UtilityClass.GetAngleByDegrees(80f), float.MaxValue, false, SkillshotType.Cone);
         }
 
