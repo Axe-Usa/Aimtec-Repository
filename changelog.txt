@@ -1000,3 +1000,7 @@ ExorAIO: Revolution Changelog:
   
 7.22.0.3:
   Xayah: Fixed Q and W Logics.
+
+7.22.0.4:
+  Orianna: Fixed Ball drawings flickering out while moving.
+  Xayah: Fixed a little Q logic mistake.
