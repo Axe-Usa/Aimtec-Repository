@@ -26,7 +26,7 @@ namespace NabbTracker
                     a.IsAlly && MenuClass.AttackRangeTracker["allies"].As<MenuBool>().Enabled)))
             {
                 var attackRange = hero.AttackRange;
-                Render.Circle(hero.ServerPosition, attackRange, 30, UtilityClass.Player.Distance(hero) < attackRange
+                Render.Circle(hero.Position, attackRange, 30, UtilityClass.Player.Distance(hero) < attackRange
                     ? Colors.GetRealColor(Color.Red)
                     : Colors.GetRealColor(Color.Yellow));
             }
