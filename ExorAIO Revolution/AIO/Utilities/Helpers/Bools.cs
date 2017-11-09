@@ -224,7 +224,7 @@ namespace AIO.Utilities
 
             if (unit.IsDead ||
                 unit.IsDashing() ||
-                unit.Name.Equals("Target Dummy") ||
+                //unit.Name.Equals("Target Dummy") ||
                 unit.HasBuffOfType(BuffType.Knockback))
             {
                 return false;

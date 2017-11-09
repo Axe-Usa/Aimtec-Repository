@@ -44,11 +44,6 @@ namespace AIO.Champions
         /// </summary>
         public bool CanTrap(Obj_AI_Hero hero)
         {
-            if (!hero.IsEnemy)
-            {
-                return false;
-            }
-
             return Game.TickCount - GetLastEnemyTrapTime(hero.NetworkId) >= 4000 - SpellClass.W.Delay * 1000;
         }
 

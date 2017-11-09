@@ -1009,3 +1009,7 @@ ExorAIO: Revolution Changelog:
   Vayne: Minor Menu Improvement.
   Lucian: Minor Menu Improvement.
   Caitlyn: Now will only cast Q on trapped targets on Combo and Mixed mode.
+
+7.22.0.6:
+  Caitlyn: Fixed Trap usage in Triple Headshot Combo.
+  Caitlyn: Various code cleanup.

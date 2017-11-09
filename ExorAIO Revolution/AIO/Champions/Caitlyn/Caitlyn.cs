@@ -143,7 +143,7 @@ namespace AIO.Champions
                     case OrbwalkingMode.Combo:
                         switch (args.SpellData.Name)
                         {
-                            case "CaitlynEntrapment":
+                            //case "CaitlynEntrapment":
                             case "CaitlynEntrapmentMissile":
                                 if (SpellClass.W.Ready &&
                                     MenuClass.Spells["w"]["triplecombo"].As<MenuBool>().Enabled)
@@ -154,7 +154,7 @@ namespace AIO.Champions
                                     if (bestTarget != null &&
                                         CanTrap(bestTarget))
                                     {
-                                        SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(bestTarget.ServerPosition, UtilityClass.Player.Distance(bestTarget)+bestTarget.BoundingRadius));
+                                        SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(bestTarget.ServerPosition, UtilityClass.Player.Distance(bestTarget) + bestTarget.BoundingRadius));
                                         UpdateEnemyTrapTime(bestTarget.NetworkId);
                                     }
                                 }
