@@ -35,10 +35,18 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                if (UtilityClass.Player.GetRealBuffCount("XayahPassiveActive") <= 3 &&
-                    MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
+                if (MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
+                {
+                    if (UtilityClass.Player.GetRealBuffCount("XayahPassiveActive") <= 3)
+                    {
+                        SpellClass.Q.Cast(heroTarget);
+                        return;
+                    }
+                }
+                else
                 {
                     SpellClass.Q.Cast(heroTarget);
+                    return;
                 }
             }
 
@@ -48,8 +56,14 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                if (UtilityClass.Player.GetRealBuffCount("XayahPassiveActive") <= 3 &&
-                    MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
+                if (MenuClass.Miscellaneous["feathersweaving"].As<MenuBool>().Enabled)
+                {
+                    if (UtilityClass.Player.GetRealBuffCount("XayahPassiveActive") <= 3)
+                    {
+                        SpellClass.W.Cast();
+                    }
+                }
+                else
                 {
                     SpellClass.W.Cast();
                 }

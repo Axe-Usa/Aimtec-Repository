@@ -1,6 +1,5 @@
 
 using System.Linq;
-using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -32,12 +31,6 @@ namespace AIO.Champions
                 {
                     switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
                     {
-                        case 0:
-                            if (bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
-                            {
-                                SpellClass.Q.Cast(bestTarget);
-                            }
-                            break;
                         case 1:
                             SpellClass.Q.Cast(bestTarget);
                             break;

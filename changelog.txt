@@ -997,3 +997,6 @@ ExorAIO: Revolution Changelog:
 
 7.22.0.2:
   AIO: Code cleanup and minor improvements.
+  
+7.22.0.3:
+  Xayah: Fixed Q and W Logics.
