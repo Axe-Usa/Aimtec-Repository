@@ -36,12 +36,7 @@ namespace AIO.Champions
         /// </summary>
         public double GetLastEnemyTrapTime(int networkId)
         {
-            if (EnemyTrapData.ContainsKey(networkId))
-            {
-                return EnemyTrapData.FirstOrDefault(k => k.Key == networkId).Value;
-            }
-
-            return 0;
+            return EnemyTrapData.FirstOrDefault(k => k.Key == networkId).Value;
         }
 
         /// <summary>
@@ -54,11 +49,6 @@ namespace AIO.Champions
                 return false;
             }
 
-            if (hero.IsImmobile(SpellClass.W.Delay))
-            {
-                return true;
-            }
-
             return Game.TickCount - GetLastEnemyTrapTime(hero.NetworkId) >= 4000 - SpellClass.W.Delay * 1000;
         }
 
@@ -67,12 +57,7 @@ namespace AIO.Champions
         /// </summary>
         public void UpdateEnemyTrapTime(int networkId)
         {
-            if (EnemyTrapData.ContainsKey(networkId))
-            {
-                EnemyTrapData.Remove(networkId);
-            }
-
-            EnemyTrapData.Add(networkId, Game.TickCount);
+            EnemyTrapData[networkId] = Game.TickCount;
         }
 
         #endregion

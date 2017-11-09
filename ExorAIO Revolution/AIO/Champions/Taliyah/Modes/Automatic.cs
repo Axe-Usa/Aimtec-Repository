@@ -38,9 +38,9 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                        t.IsValidTarget(SpellClass.W.Range) &&
-                        !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsImmobile(SpellClass.W.Delay + Game.Ping / 100f)))
+                    t.IsImmobile(SpellClass.W.Delay) &&
+                    t.IsValidTarget(SpellClass.W.Range) &&
+                    !Invulnerable.Check(t, DamageType.Magical, false)))
                 {
                     Vector3 targetPosAfterW;
                     var targetPred = SpellClass.W.GetPrediction(target).CastPosition;

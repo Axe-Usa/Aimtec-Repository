@@ -47,8 +47,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                        t.IsImmobile(SpellClass.E.Delay) &&
-                        t.Distance(UtilityClass.Player) < SpellClass.E.Range))
+                    t.IsImmobile(SpellClass.E.Delay) &&
+                    t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target.ServerPosition);
                 }

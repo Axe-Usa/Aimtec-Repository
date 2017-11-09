@@ -33,9 +33,9 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                        t.IsValidTarget(SpellClass.E.Range) &&
-                        t.IsImmobile(SpellClass.E.Delay + Game.Ping / 100f) &&
-                        !Invulnerable.Check(t, DamageType.Magical, false)))
+                    t.IsImmobile(SpellClass.E.Delay) &&
+                    t.IsValidTarget(SpellClass.E.Range) &&
+                    !Invulnerable.Check(t, DamageType.Magical, false)))
                 {
                     SpellClass.E.Cast(target);
                 }

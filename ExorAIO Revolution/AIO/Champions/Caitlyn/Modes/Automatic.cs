@@ -36,11 +36,12 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                        CanTrap(t) &&
-                        t.Distance(UtilityClass.Player) < SpellClass.W.Range))
+                    CanTrap(t) &&
+                    t.IsImmobile(SpellClass.W.Delay) &&
+                    t.Distance(UtilityClass.Player) < SpellClass.W.Range))
                 {
-                    UpdateEnemyTrapTime(target.NetworkId);
                     SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(target.ServerPosition, UtilityClass.Player.Distance(target)+target.BoundingRadius/2));
+                    UpdateEnemyTrapTime(target.NetworkId);
                 }
             }
 
@@ -51,9 +52,9 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["teleport"].As<MenuBool>().Enabled)
             {
                 foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m =>
-                        m.IsEnemy &&
-                        m.Distance(UtilityClass.Player) <= SpellClass.W.Range &&
-                        m.ValidActiveBuffs().Any(b => b.Name.Equals("teleport_target"))))
+                    m.IsEnemy &&
+                    m.Distance(UtilityClass.Player) <= SpellClass.W.Range &&
+                    m.ValidActiveBuffs().Any(b => b.Name.Equals("teleport_target"))))
                 {
                     SpellClass.W.Cast(minion.ServerPosition);
                 }
@@ -64,14 +65,13 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 ImplementationClass.IOrbwalker.Mode != OrbwalkingMode.None &&
-                UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) <= 3 &&
                 MenuClass.Spells["q"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                        !Invulnerable.Check(t) &&
-                        t.IsValidTarget(SpellClass.Q.Range) &&
-                        t.HasBuff("caitlynyordletrapdebuff") &&
-                        t.IsImmobile(SpellClass.Q.Delay + Game.Ping / 100f)))
+                    !Invulnerable.Check(t) &&
+                    t.IsImmobile(SpellClass.Q.Delay) &&
+                    t.IsValidTarget(SpellClass.Q.Range) &&
+                    t.HasBuff("caitlynyordletrapdebuff")))
                 {
                     SpellClass.Q.Cast(target.ServerPosition);
                 }

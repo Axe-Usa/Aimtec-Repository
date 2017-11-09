@@ -149,13 +149,13 @@ namespace AIO.Champions
                                     MenuClass.Spells["w"]["triplecombo"].As<MenuBool>().Enabled)
                                 {
                                     var bestTarget = GameObjects.EnemyHeroes
-                                        .Where(t => !Invulnerable.Check(t))
+                                        .Where(t => !Invulnerable.Check(t) && t.IsValidTarget(SpellClass.W.Range))
                                         .MinBy(o => o.Distance(args.End));
                                     if (bestTarget != null &&
                                         CanTrap(bestTarget))
                                     {
-                                        UpdateEnemyTrapTime(bestTarget.NetworkId);
                                         SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(bestTarget.ServerPosition, UtilityClass.Player.Distance(bestTarget)+bestTarget.BoundingRadius));
+                                        UpdateEnemyTrapTime(bestTarget.NetworkId);
                                     }
                                 }
                                 break;
@@ -252,8 +252,8 @@ namespace AIO.Champions
                     return;
                 }
 
-                UpdateEnemyTrapTime(sender.NetworkId);
                 SpellClass.W.Cast(args.EndPosition);
+                UpdateEnemyTrapTime(sender.NetworkId);
             }
         }
 

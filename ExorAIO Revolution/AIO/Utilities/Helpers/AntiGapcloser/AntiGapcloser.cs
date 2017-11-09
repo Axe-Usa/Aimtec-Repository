@@ -954,7 +954,7 @@ namespace AIO.Utilities
 
         private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            if (!sender.IsValidTarget() || sender.Type != GameObjectType.obj_AI_Hero || !sender.IsEnemy)
+            if (!sender.IsValidTarget() || sender.Type != GameObjectType.obj_AI_Hero)
             {
                 return;
             }

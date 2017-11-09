@@ -994,3 +994,6 @@ ExorAIO: Revolution Changelog:
 7.22.0.1:
   AIO: Fixed Melee AA Resets not working.
   AIO: Cleaned up Anti-Gapcloser code and Improved some anti-gapclosing spells.
+
+7.22.0.2:
+  AIO: Code cleanup and minor improvements.

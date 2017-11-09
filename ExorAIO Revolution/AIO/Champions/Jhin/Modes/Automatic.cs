@@ -36,10 +36,10 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                        t.HasBuff("jhinespotteddebuff") &&
-                        t.IsValidTarget(SpellClass.W.Range) &&
-                        !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsImmobile(SpellClass.W.Delay + Game.Ping / 100f)))
+                    t.HasBuff("jhinespotteddebuff") &&
+                    t.IsImmobile(SpellClass.W.Delay) &&
+                    t.IsValidTarget(SpellClass.W.Range) &&
+                    !Invulnerable.Check(t, DamageType.Magical, false)))
                 {
                     SpellClass.W.Cast(target.ServerPosition);
                 }
@@ -52,8 +52,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["logical"].As<MenuBool>().Enabled)
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
-                        t.IsImmobile(SpellClass.E.Delay + Game.Ping / 100f) &&
-                        t.Distance(UtilityClass.Player) < SpellClass.E.Range))
+                    t.IsImmobile(SpellClass.E.Delay) &&
+                    t.Distance(UtilityClass.Player) < SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target.ServerPosition);
                 }
@@ -65,11 +65,10 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["teleport"].As<MenuBool>().Enabled)
             {
-                foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(
-                    m =>
-                        m.IsEnemy &&
-                        m.Distance(UtilityClass.Player) <= SpellClass.E.Range &&
-                        m.ValidActiveBuffs().Any(b => b.Name.Equals("teleport_target"))))
+                foreach (var minion in ObjectManager.Get<Obj_AI_Minion>().Where(m =>
+                    m.IsEnemy &&
+                    m.Distance(UtilityClass.Player) <= SpellClass.E.Range &&
+                    m.ValidActiveBuffs().Any(b => b.Name.Equals("teleport_target"))))
                 {
                     SpellClass.E.Cast(minion.ServerPosition);
                 }
