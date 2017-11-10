@@ -1,6 +1,5 @@
 ﻿
 using Aimtec.SDK.Orbwalking;
-using Aimtec.SDK.Util.Cache;
 
 namespace AimDev
 {
@@ -17,7 +16,9 @@ namespace AimDev
     {
         #region Static Fields
 
+        public static double LastSpellTime;
         public static Menu Menu;
+        public static Menu SubMenu;
 
         #endregion
 
@@ -30,8 +31,18 @@ namespace AimDev
         {
             Menu = new Menu("aimdev", "AimDev", true);
             {
+                SubMenu = new Menu("select", "GameObject Tracking Selection:");
+                {
+                    foreach (var type in Enum.GetNames(typeof(GameObjectType)))
+                    {
+                        SubMenu.Add(new MenuBool(type.ToLower(), type));
+                    }
+                }
+                Menu.Add(SubMenu);
                 Menu.Add(new MenuSlider("range", "Max object dist from cursor", 400, 50, 2000));
                 Menu.Add(new MenuBool("antiafk", "Anti-AFK Mode"));
+                Menu.Add(new MenuBool("showobjects", "Show GameObjects"));
+                Menu.Add(new MenuBool("printobjects", "Print GameObjects on Console"));
             }
             Menu.Attach();
         }
@@ -46,6 +57,7 @@ namespace AimDev
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
             Obj_AI_Base.OnProcessAutoAttack += OnProcessAutoAttack;
             Game.OnNotifyAway += OnNotifyAway;
+            SpellBook.OnCastSpell += OnCastSpell;
         }
 
         /// <summary>
@@ -75,6 +87,20 @@ namespace AimDev
         }
 
         /// <summary>
+        ///     Called on spell cast.
+        /// </summary>
+        /// <param name="sender">The SpellBook.</param>
+        /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
+        private static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
+        {
+            /*
+            if (sender.IsMe && args.Slot == SpellSlot.Q)
+            {
+                LastRTime = Game.ClockTime;
+            }*/
+        }
+
+        /// <summary>
         ///     Called on do-cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -83,8 +109,6 @@ namespace AimDev
         {
             if (sender.IsMe)
             {
-                //var player = ObjectManager.GetLocalPlayer();
-                //var basicData = player.BasicAttack;
                 var spellData = args.SpellData;
 
                 Console.WriteLine("----------------------------------------------");
@@ -110,7 +134,17 @@ namespace AimDev
         /// </summary>
         private static void OnUpdate()
         {
-            foreach (var obj in ObjectManager.Get<GameObject>().Where(o => o.Distance(Game.CursorPos) < Menu["range"].Value))
+            //Console.WriteLine($"Total: {Game.ClockTime - LastSpellTime}");
+
+            if (!Menu["showobjects"].As<MenuBool>().Enabled)
+            {
+                return;
+            }
+
+            foreach (var obj in ObjectManager.Get<GameObject>().Where(o =>
+                Enum.GetNames(typeof(GameObjectType)).Contains(o.Type.ToString()) &&
+                SubMenu[o.Type.ToString().ToLower()].As<MenuBool>().Enabled &&
+                o.Distance(Game.CursorPos) < Menu["range"].Value))
             {
                 Render.WorldToScreen(obj.Position, out var screenPosition);
 
@@ -191,6 +225,25 @@ namespace AimDev
                         Render.Text("NetworkID: "    + obj.NetworkId,        new Vector2(screenPosition.X,       screenPosition.Y + 50), RenderTextFlags.None, Color.OrangeRed);
                         Render.Text("X: "            + obj.ServerPosition.X, new Vector2(screenPosition.X,       screenPosition.Y + 65), RenderTextFlags.None, Color.OrangeRed);
                         Render.Text("Y: "            + obj.ServerPosition.Z, new Vector2(screenPosition.X + 100, screenPosition.Y + 65), RenderTextFlags.None, Color.OrangeRed);
+
+                        if (obj.Type == GameObjectType.obj_AI_Minion)
+                        {
+                            var minionUnit = (Obj_AI_Minion)obj;
+                            Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 80), RenderTextFlags.None, Color.Yellow);
+                            Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 90), RenderTextFlags.None, Color.Yellow);
+
+                            var minionBuffs = minionUnit.ValidActiveBuffs().ToArray();
+                            for (var i = 0; i < minionBuffs.Length; i++)
+                            {
+                                Render.Text($"{minionUnit.GetRealBuffCount(minionBuffs[i].Name)}x {minionBuffs[i].Name}", new Vector2(screenPosition.X, screenPosition.Y + 100 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
+                            }
+                            break;
+                        }
+
+                        if (!Menu["printobjects"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
 
                         if (obj.Type == GameObjectType.obj_GeneralParticleEmitter)
                         {
