@@ -27,6 +27,11 @@ namespace AIO.Champions
             }
             SpellClass.R.Range = 900f + 300f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level;
 
+            /*foreach (var hero in GameObjects.EnemyHeroes)
+            {
+                Console.WriteLine($"Name: {hero.ChampionName}, IsDead: {hero.IsDead}, IsValid: {hero.IsValid}, IsVisible: {hero.IsVisible}, IsTargetable: {hero.IsTargetable}, IsInvulnerable: {hero.IsInvulnerable}");
+            }*/
+
             if (UtilityClass.Player.IsRecalling())
             {
                 return;

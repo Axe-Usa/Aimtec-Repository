@@ -1029,3 +1029,7 @@ ExorAIO: Revolution Changelog:
 
 7.22.0.10:
   Jhin: Fixed NullRef and some spells not being casted.
+
+7.22.0.11:
+  Kog'Maw: Adjusted Q and R Prediction Values.
+  Taliyah: Adjusted W Prediction Value.
