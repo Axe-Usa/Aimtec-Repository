@@ -36,11 +36,19 @@ namespace AIO.Champions
                     // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
                     if (MenuClass.Spells["r"]["customization"]["nearmouse"].As<MenuBool>().Value)
                     {
-                        SpellClass.R.Cast(validEnemiesInsideCone.MinBy(o => o.Distance(Game.CursorPos)));
+                        var target = validEnemiesInsideCone.MinBy(o => o.Distance(Game.CursorPos));
+                        if (target != null)
+                        {
+                            SpellClass.R.Cast(target);
+                        }
                     }
                     else
                     {
-                        SpellClass.R.Cast(validEnemiesInsideCone.FirstOrDefault());
+                        var target = validEnemiesInsideCone.FirstOrDefault();
+                        if (target != null)
+                        {
+                            SpellClass.R.Cast(validEnemiesInsideCone.FirstOrDefault());
+                        }
                     }
                 }
                 else
@@ -57,18 +65,17 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Value)
             {
                 if (!IsReloading() &&
-                    GameObjects.EnemyHeroes.Any(t => t.Distance(UtilityClass.Player) < UtilityClass.Player.AttackRange) &&
+                    GameObjects.EnemyHeroes.Any(t => t.Distance(UtilityClass.Player) < UtilityClass.Player.GetFullAttackRange(t)) &&
                     MenuClass.Spells["w"]["customization"]["noenemiesaa"].As<MenuBool>().Value)
                 {
                     return;
                 }
 
-                foreach (var target in GameObjects.EnemyHeroes.Where(
-                    t =>
-                        t.HasBuff("jhinespotteddebuff") &&
-                        t.IsValidTarget(SpellClass.W.Range - 150f) &&
-                        !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        MenuClass.Spells["w"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Value))
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                    t.HasBuff("jhinespotteddebuff") &&
+                    t.IsValidTarget(SpellClass.W.Range - 100f) &&
+                    !Invulnerable.Check(t, DamageType.Magical, false) &&
+                    MenuClass.Spells["w"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Value))
                 {
                     if (MenuClass.Spells["w"]["customization"]["onlyslowed"].As<MenuBool>().Value)
                     {

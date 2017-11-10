@@ -1026,3 +1026,6 @@ ExorAIO: Revolution Changelog:
 7.22.0.9:
   Orianna: Cleaned up useless code parts.
   Orianna: Removed W Combo to Self Speedup Option.
+
+7.22.0.10:
+  Jhin: Fixed NullRef and some spells not being casted.
