@@ -1018,3 +1018,7 @@ ExorAIO: Revolution Changelog:
   Taliyah: Totally Fixed E and W Codes Logics.
   Taliyah: Cleaned a lot of trash code.
   Taliyah: Fixed a bug where sometimes she wouldn't cast Q.
+
+7.22.0.8:
+  Taliyah: More Logics polishment.
+  Taliyah: More code cleanup.

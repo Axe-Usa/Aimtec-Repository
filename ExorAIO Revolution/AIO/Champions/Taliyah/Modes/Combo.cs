@@ -90,8 +90,6 @@ namespace AIO.Champions
                 }
             }
 
-            var bestETarget = Extensions.GetBestEnemyHeroTargetInRange(UtilityClass.Player.AttackRange - 50f);
-
             /// <summary>
             ///     The E Combo Logic.
             /// </summary>
@@ -100,6 +98,7 @@ namespace AIO.Champions
                 (SpellClass.W.Ready || !MenuClass.Spells["e"]["customization"]["onlywready"].As<MenuBool>().Enabled) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
+                var bestETarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.E.Range - 100f);
                 if (bestETarget != null &&
                     !Invulnerable.Check(bestETarget, DamageType.Magical))
                 {
@@ -111,7 +110,6 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                (!SpellClass.E.Ready || !MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled || bestETarget == null) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range - 150f);

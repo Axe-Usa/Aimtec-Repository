@@ -67,6 +67,13 @@ namespace AIO.Champions
                     case OrbwalkingMode.Combo:
                         switch (args.Slot)
                         {
+                            case SpellSlot.Q:
+                                if (Game.ClockTime - LastWTime < 0.75)
+                                {
+                                    args.Process = false;
+                                }
+                                break;
+
                             case SpellSlot.W:
                                 if (SpellClass.E.Ready &&
                                     UtilityClass.Player.Mana <
@@ -74,6 +81,10 @@ namespace AIO.Champions
                                         SpellSlot.E.GetManaCost())
                                 {
                                     args.Process = false;
+                                }
+                                else
+                                {
+                                    LastWTime = Game.ClockTime;
                                 }
                                 break;
                         }
@@ -248,7 +259,7 @@ namespace AIO.Champions
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        public void OnPerformCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
             if (sender.IsMe)
             {

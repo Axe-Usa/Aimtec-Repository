@@ -21,6 +21,8 @@ namespace AIO.Champions
     {
         #region Fields
 
+        public double LastWTime;
+
         /// <summary>
         ///     Returns the Boulders' width.
         /// </summary>
