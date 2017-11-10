@@ -1022,3 +1022,7 @@ ExorAIO: Revolution Changelog:
 7.22.0.8:
   Taliyah: More Logics polishment.
   Taliyah: More code cleanup.
+
+7.22.0.9:
+  Orianna: Cleaned up useless code parts.
+  Orianna: Removed W Combo to Self Speedup Option.

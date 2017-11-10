@@ -85,7 +85,6 @@ namespace AIO.Champions
                     MenuClass.W2 = new Menu("customization", "Customization:");
                     {
                         //MenuClass.W2.Add(new MenuSeperator("separator1", "General settings:"));
-                        MenuClass.W2.Add(new MenuBool("speedw", "Use W to speed Orianna up while chasing in combo", false));
                         //MenuClass.W2.Add(new MenuSeperator("separator2"));
                         //MenuClass.W2.Add(new MenuSeperator("separator3", "Laneclear Options:"));
                         MenuClass.W2.Add(new MenuSlider("laneclear", "Laneclear / if hittable minions >= x%", 4, 1, 10));

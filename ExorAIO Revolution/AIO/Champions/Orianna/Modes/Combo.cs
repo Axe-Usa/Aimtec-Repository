@@ -30,7 +30,6 @@ namespace AIO.Champions
             ///     The W Combo Logic.
             /// </summary>
             if (SpellClass.W.Ready &&
-                !UtilityClass.Player.GetSpell(SpellSlot.W).State.HasFlag(SpellState.Surpressed) &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
@@ -89,8 +88,7 @@ namespace AIO.Champions
                             (Vector2)ally.ServerPosition.Extend((Vector3)BallPosition, ally.Distance((Vector3)BallPosition) + 30f),
                             SpellClass.E.Width);
 
-                        if (GameObjects.EnemyHeroes.Any(
-                            t =>
+                        if (GameObjects.EnemyHeroes.Any(t =>
                                 t.IsValidTarget() &&
                                 !Invulnerable.Check(t, DamageType.Magical) &&
                                 allyToBallRectangle.IsInside((Vector2)t.ServerPosition)))
@@ -112,8 +110,7 @@ namespace AIO.Champions
                 if (bestTarget != null)
                 {
                     if (SpellClass.E.Ready &&
-                        bestTarget.Distance((Vector3)BallPosition) >=
-                            bestTarget.Distance(UtilityClass.Player) + 100f &&
+                        bestTarget.Distance((Vector3)BallPosition) >= bestTarget.Distance(UtilityClass.Player) &&
                         MenuClass.E2["gaine"].As<MenuBool>().Enabled)
                     {
                         SpellClass.E.CastOnUnit(UtilityClass.Player);
@@ -122,24 +119,6 @@ namespace AIO.Champions
 
                     SpellClass.Q.GetPredictionInput(bestTarget).From = (Vector3)BallPosition;
                     SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
-                }
-            }
-
-            /// <summary>
-            ///     The Speedup W Logic.
-            /// </summary>
-            if (SpellClass.W.Ready &&
-                !UtilityClass.Player.HasBuff("orianahaste") &&
-                MenuClass.Spells["w"]["customization"]["speedw"].As<MenuBool>().Enabled)
-            {
-                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range + 300f);
-                if (bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                    !Invulnerable.Check(bestTarget, DamageType.Magical))
-                {
-                    if (UtilityClass.Player.Distance((Vector3)BallPosition) < SpellClass.W.Width)
-                    {
-                        SpellClass.W.Cast();
-                    }
                 }
             }
         }
