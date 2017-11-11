@@ -1040,3 +1040,8 @@ ExorAIO: Revolution Changelog:
 
 7.22.0.13:
   Orianna: Fixed Spells not being used when the ball was attached to an ally.
+
+7.22.1.0:
+  AIO: Improved Not Supported champion warning message on console.
+  AIO: Some code cleanup.
+  Quinn: Released.

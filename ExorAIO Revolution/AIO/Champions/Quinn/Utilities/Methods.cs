@@ -6,7 +6,7 @@ namespace AIO.Champions
     /// <summary>
     ///     The methods class.
     /// </summary>
-    internal partial class Ezreal
+    internal partial class Quinn
     {
         #region Public Methods and Operators
 
@@ -16,11 +16,12 @@ namespace AIO.Champions
         public void Methods()
         {
             Game.OnUpdate += OnUpdate;
+            ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
             ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
-            ImplementationClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
             Render.OnPresent += OnPresent;
-            Obj_AI_Base.OnProcessAutoAttack += OnProcessAutoAttack;
             Gapcloser.OnGapcloser += OnGapcloser;
+            Obj_AI_Base.OnPerformCast += OnPerformCast;
+            //AttackableUnit.OnLeaveVisible += OnLeaveVisibility;
         }
 
         #endregion

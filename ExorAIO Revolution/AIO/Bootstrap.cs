@@ -24,21 +24,24 @@ namespace AIO
                 var type = Type.GetType(pluginName, true);
                 if (type != null)
                 {
-                    Console.WriteLine("Loading new instance of " + type.Name);
                     Activator.CreateInstance(type);
                 }
             }
             catch (Exception e)
             {
-                if (e is TargetInvocationException)
+                switch (e)
                 {
-                    Console.WriteLine("Error occurred while trying to load " + UtilityClass.Player.ChampionName);
-                    Console.WriteLine(e);
-                }
-                if (e is TypeLoadException)
-                {
-                    Console.WriteLine("Champion not supported " + UtilityClass.Player.ChampionName);
-                    Bools.IsChampionSupported = false;
+                    case TargetInvocationException _:
+                        Console.WriteLine("ExorAIO: Error occurred while trying to load " + UtilityClass.Player.ChampionName);
+                        Console.WriteLine(e);
+                        break;
+                    case TypeLoadException _:
+                        for (var i = 1; i < 10; i++)
+                        {
+                            Console.WriteLine($"ExorAIO: Champion {UtilityClass.Player.ChampionName} is NOT supported yet.");
+                        }
+                        Bools.IsChampionSupported = false;
+                        break;
                 }
             }
         }

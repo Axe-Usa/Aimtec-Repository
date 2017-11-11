@@ -257,6 +257,15 @@ namespace AIO.Utilities
                 }
             },
             {
+                "Quinn", new Dictionary<SpellSlot, int[]>
+                {
+                    {SpellSlot.Q, new []{50, 55, 60, 65, 70}},
+                    {SpellSlot.W, new []{0, 0, 0, 0, 0}},
+                    {SpellSlot.E, new []{50, 50, 50, 50, 50}},
+                    {SpellSlot.R, new []{100, 50, 0}}
+                }
+            },
+            {
                 "Sivir", new Dictionary<SpellSlot, int[]>
                 {
                     {SpellSlot.Q, new []{70, 80, 90, 100, 110}},
