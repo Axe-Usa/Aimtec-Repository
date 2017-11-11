@@ -16,7 +16,7 @@ namespace AimDev
     {
         #region Static Fields
 
-        public static double LastSpellTime;
+        public static double LastSpellTime = 0;
         public static Menu Menu;
         public static Menu SubMenu;
 
@@ -160,13 +160,16 @@ namespace AimDev
                         Render.Text("X: "            + baseUnit.ServerPosition.X, new Vector2(screenPosition.X,       screenPosition.Y + 95), RenderTextFlags.None, Color.OrangeRed);
                         Render.Text("Y: "            + baseUnit.ServerPosition.Z, new Vector2(screenPosition.X + 100, screenPosition.Y + 95), RenderTextFlags.None, Color.OrangeRed);
 
-                        Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 115), RenderTextFlags.None, Color.Yellow);
-                        Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 130), RenderTextFlags.None, Color.Yellow);
-
-                        var buffs = baseUnit.ValidActiveBuffs().ToArray();
-                        for (var i = 0; i < buffs.Length; i++)
+                        var unitBuffs = baseUnit.ValidActiveBuffs().ToArray();
+                        if (unitBuffs.Length > 0)
                         {
-                            Render.Text(baseUnit.GetRealBuffCount(buffs[i].Name) + "x " + buffs[i].Name, new Vector2(screenPosition.X, screenPosition.Y + 115 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
+                            Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 115), RenderTextFlags.None, Color.Yellow);
+                            Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 125), RenderTextFlags.None, Color.Yellow);
+
+                            for (var i = 0; i < unitBuffs.Length; i++)
+                            {
+                                Render.Text(baseUnit.GetRealBuffCount(unitBuffs[i].Name) + "x " + unitBuffs[i].Name, new Vector2(screenPosition.X, screenPosition.Y + 135 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
+                            }
                         }
                         break;
 
@@ -204,13 +207,16 @@ namespace AimDev
                             Render.Text($"ToggleState: {heroUnit.SpellBook.GetSpell(summonerSpellSlots[i]).ToggleState}",        new Vector2(screenPosition.X + 200, screenPosition.Y + summonerSpellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
                         }
 
-                        Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 280), RenderTextFlags.None, Color.Yellow);
-                        Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 290), RenderTextFlags.None, Color.Yellow);
-
                         var heroBuffs = heroUnit.ValidActiveBuffs().ToArray();
-                        for (var i = 0; i < heroBuffs.Length; i++)
+                        if (heroBuffs.Length > 0)
                         {
-                            Render.Text($"{heroUnit.GetRealBuffCount(heroBuffs[i].Name)}x {heroBuffs[i].Name}", new Vector2(screenPosition.X, screenPosition.Y + 300 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
+                            Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 280), RenderTextFlags.None, Color.Yellow);
+                            Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 290), RenderTextFlags.None, Color.Yellow);
+
+                            for (var i = 0; i < heroBuffs.Length; i++)
+                            {
+                                Render.Text($"{heroUnit.GetRealBuffCount(heroBuffs[i].Name)}x {heroBuffs[i].Name}", new Vector2(screenPosition.X, screenPosition.Y + 300 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
+                            }
                         }
                         break;
 
@@ -229,13 +235,16 @@ namespace AimDev
                         if (obj.Type == GameObjectType.obj_AI_Minion)
                         {
                             var minionUnit = (Obj_AI_Minion)obj;
-                            Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 80), RenderTextFlags.None, Color.Yellow);
-                            Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 90), RenderTextFlags.None, Color.Yellow);
-
                             var minionBuffs = minionUnit.ValidActiveBuffs().ToArray();
-                            for (var i = 0; i < minionBuffs.Length; i++)
+                            if (minionBuffs.Length > 0)
                             {
-                                Render.Text($"{minionUnit.GetRealBuffCount(minionBuffs[i].Name)}x {minionBuffs[i].Name}", new Vector2(screenPosition.X, screenPosition.Y + 100 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
+                                Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 95), RenderTextFlags.None, Color.Yellow);
+                                Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 105), RenderTextFlags.None, Color.Yellow);
+
+                                for (var i = 0; i < minionBuffs.Length; i++)
+                                {
+                                    Render.Text($"{minionUnit.GetRealBuffCount(minionBuffs[i].Name)}x {minionBuffs[i].Name}", new Vector2(screenPosition.X, screenPosition.Y + 115 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
+                                }
                             }
                             break;
                         }
