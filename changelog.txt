@@ -1033,3 +1033,7 @@ ExorAIO: Revolution Changelog:
 7.22.0.11:
   Kog'Maw: Adjusted Q and R Prediction Values.
   Taliyah: Adjusted W Prediction Value.
+
+7.22.0.12:
+  Kog'Maw: Improved R Logic.
+  Kog'Maw: Code cleanup.

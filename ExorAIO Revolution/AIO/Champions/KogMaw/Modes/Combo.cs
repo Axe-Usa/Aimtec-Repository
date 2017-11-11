@@ -35,30 +35,30 @@ namespace AIO.Champions
             ///     The R Combo Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
-                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value
-                    >= UtilityClass.Player.GetRealBuffCount("kogmawlivingartillerycost") &&
-                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled)
+                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Enabled &&
+                MenuClass.Spells["r"]["combo"].As<MenuSliderBool>().Value >=
+                    UtilityClass.Player.GetRealBuffCount("kogmawlivingartillerycost"))
             {
-                if (IsUsingBioArcaneBarrage() &&
-                    MenuClass.Miscellaneous["onlyroutw"].As<MenuBool>().Enabled)
+                foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range).Where(t =>
+                    t.HealthPercent() <= 40 &&
+                    !Invulnerable.Check(t, DamageType.Magical) &&
+                    MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                 {
-                    return;
-                }
-
-                foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.R.Range))
-                {
-                    if (target.IsValidAutoRange() &&
-                        MenuClass.Miscellaneous["onlyroutaarange"].As<MenuBool>().Enabled)
+                    if (target.IsValidTarget(UtilityClass.Player.GetFullAttackRange(target)))
                     {
-                        return;
+                        if (MenuClass.Miscellaneous["onlyroutaarange"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
+
+                        if (IsUsingBioArcaneBarrage() &&
+                            MenuClass.Miscellaneous["onlyroutw"].As<MenuBool>().Enabled)
+                        {
+                            return;
+                        }
                     }
 
-                    if (target.HealthPercent() <= 40 &&
-                        !Invulnerable.Check(target, DamageType.Magical) &&
-                        MenuClass.Spells["r"]["whitelist"][target.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                    {
-                        SpellClass.R.Cast(target);
-                    }
+                    SpellClass.R.Cast(target);
                 }
             }
         }
