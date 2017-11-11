@@ -1037,3 +1037,6 @@ ExorAIO: Revolution Changelog:
 7.22.0.12:
   Kog'Maw: Improved R Logic.
   Kog'Maw: Code cleanup.
+
+7.22.0.13:
+  Orianna: Fixed Spells not being used when the ball was attached to an ally.
