@@ -47,6 +47,14 @@ namespace AIO.Utilities
         public static Obj_AI_Hero Player => ObjectManager.GetLocalPlayer();
 
         /// <summary>
+        ///     List of the Pet names.
+        /// </summary>
+        public static readonly string[] PetList =
+        {
+            "Tibbers", "YorickBigGhoul"
+        };
+
+        /// <summary>
         ///     Spells that are attacks even if they don't have the "attack" word in their name.
         /// </summary>
         public static readonly string[] Attacks =

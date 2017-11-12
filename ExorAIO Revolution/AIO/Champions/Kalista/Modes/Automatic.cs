@@ -114,31 +114,6 @@ namespace AIO.Champions
                 {
                     SpellClass.E.Cast();
                 }
-
-                /// <summary>
-                ///     The E Jungleclear Logic.
-                /// </summary>
-                if (UtilityClass.Player.Level >=
-                        MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Value &&
-                    MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Enabled)
-                {
-                    foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Where(m =>
-                        IsPerfectRendTarget(m) &&
-                        m.GetRealHealth() <= GetTotalRendDamage(m)))
-                    {
-                        if (UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
-                            MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
-                        {
-                            SpellClass.E.Cast();
-                        }
-
-                        if (!UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
-                            MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
-                        {
-                            SpellClass.E.Cast();
-                        }
-                    }
-                }
             }
         }
 

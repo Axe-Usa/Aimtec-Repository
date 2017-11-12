@@ -48,6 +48,38 @@ namespace AIO.Utilities
         }
 
         /// <summary>
+        ///     Gets the valid enemy pet targets in the game.
+        /// </summary>
+        public static List<Obj_AI_Minion> GetEnemyPets()
+        {
+            return GetEnemyPetsInRange(float.MaxValue);
+        }
+
+        /// <summary>
+        ///     Gets the valid enemy pets in the game inside a determined range.
+        /// </summary>
+        public static List<Obj_AI_Minion> GetEnemyPetsInRange(float range)
+        {
+            return ObjectManager.Get<Obj_AI_Minion>().Where(h => h.IsValidTarget(range) && UtilityClass.PetList.Contains(h.Name)).ToList();
+        }
+
+        /// <summary>
+        ///     Gets the valid ally pet targets in the game.
+        /// </summary>
+        public static List<Obj_AI_Minion> GetAllyPets()
+        {
+            return GetAllyPetsInRange(float.MaxValue);
+        }
+
+        /// <summary>
+        ///     Gets the valid ally pets in the game inside a determined range.
+        /// </summary>
+        public static List<Obj_AI_Minion> GetAllyPetsInRange(float range)
+        {
+            return ObjectManager.Get<Obj_AI_Minion>().Where(h => h.IsValidTarget(range, true) && UtilityClass.PetList.Contains(h.Name)).ToList();
+        }
+
+        /// <summary>
         ///     Gets the valid ally heroes targets in the game.
         /// </summary>
         public static List<Obj_AI_Hero> GetAllyHeroesTargets()

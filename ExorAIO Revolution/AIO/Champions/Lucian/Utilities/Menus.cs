@@ -58,7 +58,6 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.Q3 = new Menu("q2", "Use Extended Q in:");
                 {
-                    MenuClass.Q3.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q3.Add(new MenuBool("killsteal", "Killsteal"));
                     MenuClass.Q3.Add(new MenuSliderBool("mixed", "Harass / if Mana >= %", true, 50, 0, 99));
                     MenuClass.Q3.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= %", true, 50, 0, 99));

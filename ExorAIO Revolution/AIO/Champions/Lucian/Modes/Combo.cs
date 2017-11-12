@@ -22,32 +22,7 @@ namespace AIO.Champions
         public void Combo()
         {
             /// <summary>
-            ///     The Extended Q Combo Logic.
-            /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q2"]["combo"].As<MenuBool>().Enabled)
-            {
-                var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
-                    .FirstOrDefault(t =>
-                        !Invulnerable.Check(t) &&
-                        t.Distance(UtilityClass.Player) > UtilityClass.Player.GetFullAttackRange(t));
-                if (target != null)
-                {
-                    foreach (var minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range))
-                    {
-                        var polygon = QRectangle(minion);
-                        if (minion.NetworkId != target.NetworkId &&
-                            polygon.IsInside((Vector2)target.ServerPosition) &&
-                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
-                        {
-                            SpellClass.Q.CastOnUnit(minion);
-                        }
-                    }
-                }
-            }
-
-            /// <summary>
-            ///     The E Combo Logic.
+            ///     The E Engager Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["engage"].As<MenuBool>().Enabled)

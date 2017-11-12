@@ -25,8 +25,8 @@ namespace AIO.Champions
             /// <summary>
             ///     Orbwalk on minions.
             /// </summary>
-            var minion = Extensions.GetAllGenericMinionsTargetsInRange(UtilityClass.Player.AttackRange)
-                .Where(m => m.IsValidSpellTarget(UtilityClass.Player.GetFullAttackRange(m)))
+            var minion = ObjectManager.Get<Obj_AI_Minion>()
+                .Where(m => m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m)))
                 .OrderBy(s => s.GetRealBuffCount("kalistaexpungemarker"))
                 .MinBy(o => o.Health);
             if (minion != null &&
@@ -40,9 +40,6 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.Mana >=
-                    SpellSlot.Q.GetManaCost() +
-                    SpellSlot.E.GetManaCost() &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
