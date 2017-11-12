@@ -1055,3 +1055,7 @@ ExorAIO: Revolution Changelog:
 7.22.1.2:
   Orianna: Fixed E Spam after last update.
   Orianna: Added R Killsteal Whitelist.
+
+7.22.1.3:
+  AIO: Fixed strange Console Spam.
+  Quinn: Will no longer use Q while in R stance.

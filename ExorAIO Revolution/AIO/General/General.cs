@@ -25,52 +25,51 @@ namespace AIO
         /// <param name="args">The <see cref="PostAttackEventArgs" /> instance containing the event data.</param>
         public static void OnPostAttack(object sender, PostAttackEventArgs args)
         {
-            if (args.Target.IsBuilding())
+            if (!UtilityClass.Player.IsMelee || args.Target.IsBuilding())
             {
                 return;
             }
 
             var hydraItems = new[] { ItemId.TitanicHydra, ItemId.RavenousHydra, ItemId.Tiamat };
-            if (MenuClass.Hydra != null &&
-                UtilityClass.Player.Inventory.Slots.Any(t => t.SlotTaken && hydraItems.Contains(t.ItemId)))
+            if (MenuClass.Hydra != null)
             {
-                switch (ImplementationClass.IOrbwalker.Mode)
-                {
-                    case OrbwalkingMode.Combo:
-                        if (!MenuClass.Hydra["combo"].As<MenuBool>().Enabled)
-                        {
-                            return;
-                        }
-                        break;
-                    case OrbwalkingMode.Mixed:
-                        if (!MenuClass.Hydra["mixed"].As<MenuBool>().Enabled)
-                        {
-                            return;
-                        }
-                        break;
-                    case OrbwalkingMode.Laneclear:
-                        if (!MenuClass.Hydra["laneclear"].As<MenuBool>().Enabled)
-                        {
-                            return;
-                        }
-                        break;
-                    case OrbwalkingMode.Lasthit:
-                        if (!MenuClass.Hydra["lasthit"].As<MenuBool>().Enabled)
-                        {
-                            return;
-                        }
-                        break;
-                    default:
-                        if (!MenuClass.Hydra["manual"].As<MenuBool>().Enabled)
-                        {
-                            return;
-                        }
-                        break;
-                }
-
-                var hydraSlot = UtilityClass.Player.Inventory.Slots.FirstOrDefault(s => hydraItems.Contains(s.ItemId));
+                var hydraSlot = UtilityClass.Player.Inventory.Slots.FirstOrDefault(s => s.SlotTaken && hydraItems.Contains(s.ItemId));
                 if (hydraSlot != null)
                 {
+                    switch (ImplementationClass.IOrbwalker.Mode)
+                    {
+                        case OrbwalkingMode.Combo:
+                            if (!MenuClass.Hydra["combo"].As<MenuBool>().Enabled)
+                            {
+                                return;
+                            }
+                            break;
+                        case OrbwalkingMode.Mixed:
+                            if (!MenuClass.Hydra["mixed"].As<MenuBool>().Enabled)
+                            {
+                                return;
+                            }
+                            break;
+                        case OrbwalkingMode.Laneclear:
+                            if (!MenuClass.Hydra["laneclear"].As<MenuBool>().Enabled)
+                            {
+                                return;
+                            }
+                            break;
+                        case OrbwalkingMode.Lasthit:
+                            if (!MenuClass.Hydra["lasthit"].As<MenuBool>().Enabled)
+                            {
+                                return;
+                            }
+                            break;
+                        default:
+                            if (!MenuClass.Hydra["manual"].As<MenuBool>().Enabled)
+                            {
+                                return;
+                            }
+                            break;
+                    }
+
                     var hydraSpellSlot = hydraSlot.SpellSlot;
                     if (hydraSpellSlot != SpellSlot.Unknown &&
                         UtilityClass.Player.SpellBook.GetSpell(hydraSpellSlot).State == SpellState.Ready)
