@@ -115,6 +115,11 @@ namespace AIO.Utilities
         public static Menu WhiteList5 { get; set; }
 
         /// <summary>
+        ///     Gets or sets the sixth Whitelist menu.
+        /// </summary>
+        public static Menu WhiteList6 { get; set; }
+
+        /// <summary>
         ///     Gets or sets the first Anti-Gapcloser menu.
         /// </summary>
         public static Menu Gapcloser { get; set; }

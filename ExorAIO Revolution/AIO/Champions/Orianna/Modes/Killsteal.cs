@@ -61,9 +61,11 @@ namespace AIO.Champions
             ///     The KillSteal R Logic.
             /// </summary>
             if (SpellClass.R.Ready &&
+                MenuClass.Spells["r"]["killstealwhitelist"] != null &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
                 foreach (var enemy in GameObjects.EnemyHeroes.Where(t =>
+                    MenuClass.Spells["r"]["killstealwhitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled &&
                     t.IsValidTarget(SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius, false, false, (Vector3)BallPosition) &&
                     SpellClass.R.GetPrediction(t).CastPosition.Distance((Vector3)BallPosition) < SpellClass.R.Width - t.BoundingRadius - SpellClass.R.Delay * t.BoundingRadius))
                 {

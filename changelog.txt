@@ -1051,3 +1051,7 @@ ExorAIO: Revolution Changelog:
   AIO: Fixed a critical error where some champions like lucian and jinx would not work correctly, this also includes many other champions.
   AIO: Code cleanup.
   Orianna: Slightly better Q prediction values.
+
+7.22.1.2:
+  Orianna: Fixed E Spam after last update.
+  Orianna: Added R Killsteal Whitelist.

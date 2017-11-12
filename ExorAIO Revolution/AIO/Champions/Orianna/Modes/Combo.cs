@@ -110,6 +110,7 @@ namespace AIO.Champions
                 if (bestTarget != null)
                 {
                     if (SpellClass.E.Ready &&
+                        !UtilityClass.Player.HasBuff("orianaghostself") &&
                         bestTarget.Distance((Vector3)BallPosition) >= bestTarget.Distance(UtilityClass.Player) &&
                         MenuClass.E2["gaine"].As<MenuBool>().Enabled)
                     {

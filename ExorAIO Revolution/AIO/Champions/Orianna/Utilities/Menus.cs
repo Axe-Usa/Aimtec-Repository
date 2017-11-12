@@ -192,10 +192,10 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "No ally champions found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Protect Allies Menu not needed."));
                     }
 
-                    if (GameObjects.AllyHeroes.Any())
+                    if (GameObjects.AllyHeroes.Any(a => !a.IsMe))
                     {
                         /// <summary>
                         ///     Sets the whitelist menu for the Engagers E.
@@ -211,7 +211,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        MenuClass.E.Add(new MenuSeperator("exseparator", "No ally champions found, no need for a Whitelist Menu."));
+                        MenuClass.E.Add(new MenuSeperator("exseparator", "Engagers Menu not needed."));
                     }
 
                     /// <summary>
@@ -241,6 +241,26 @@ namespace AIO.Champions
                     else
                     {
                         MenuClass.R.Add(new MenuSeperator("separator", "AoE / Not enough enemies found"));
+                    }
+                    MenuClass.R.Add(new MenuSeperator("separator2"));
+
+                    if (GameObjects.EnemyHeroes.Any())
+                    {
+                        /// <summary>
+                        ///     Sets the whitelist menu for the Killsteal R.
+                        /// </summary>
+                        MenuClass.WhiteList6 = new Menu("killstealwhitelist", "Killsteal: Whitelist");
+                        {
+                            foreach (var enemy in GameObjects.EnemyHeroes)
+                            {
+                                MenuClass.WhiteList6.Add(new MenuBool(enemy.ChampionName.ToLower(), "Killsteal: " + enemy.ChampionName));
+                            }
+                        }
+                        MenuClass.R.Add(MenuClass.WhiteList6);
+                    }
+                    else
+                    {
+                        MenuClass.R.Add(new MenuSeperator("exseparator", "Whitelist Menu not needed."));
                     }
                 }
                 MenuClass.Spells.Add(MenuClass.R);
