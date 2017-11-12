@@ -13,15 +13,6 @@ namespace AIO.Utilities
     /// </summary>
     internal static class Bools
     {
-        #region Static Fields
-
-        /// <returns>
-        ///     true if the champion is supported by the AIO; otherwise, false.
-        /// </returns>
-        public static bool IsChampionSupported = true;
-
-        #endregion
-
         #region Public Methods and Operators
 
         /// <summary>

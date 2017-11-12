@@ -1045,3 +1045,9 @@ ExorAIO: Revolution Changelog:
   AIO: Improved Not Supported champion warning message on console.
   AIO: Some code cleanup.
   Quinn: Released.
+
+7.22.1.1:
+  AIO: Improved Champion Loaded and Not supported warning messages.
+  AIO: Fixed a critical error where some champions like lucian and jinx would not work correctly, this also includes many other champions.
+  AIO: Code cleanup.
+  Orianna: Slightly better Q prediction values.

@@ -25,6 +25,7 @@ namespace AIO
                 if (type != null)
                 {
                     Activator.CreateInstance(type);
+                    Console.WriteLine($"ExorAIO: Revolution - {UtilityClass.Player.ChampionName} Loaded.");
                 }
             }
             catch (Exception e)
@@ -36,11 +37,10 @@ namespace AIO
                         Console.WriteLine(e);
                         break;
                     case TypeLoadException _:
-                        for (var i = 1; i < 10; i++)
+                        for (var i = 1; i < 30; i++)
                         {
-                            Console.WriteLine($"ExorAIO: Champion {UtilityClass.Player.ChampionName} is NOT supported yet.");
+                            Console.WriteLine($"ExorAIO: Revolution - {UtilityClass.Player.ChampionName} is NOT supported yet.");
                         }
-                        Bools.IsChampionSupported = false;
                         break;
                 }
             }

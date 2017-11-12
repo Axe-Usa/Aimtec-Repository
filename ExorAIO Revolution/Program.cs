@@ -1,7 +1,6 @@
 ﻿
-using System;
 using Aimtec.SDK.Events;
-using AIO.Utilities;
+using Aimtec.SDK.Util;
 
 #pragma warning disable 1587
 namespace AIO
@@ -23,11 +22,13 @@ namespace AIO
         /// </summary>
         private static void OnStart()
         {
-            General.Menu();
-            General.Methods();
+            DelayAction.Queue(3000, () =>
+            {
+                General.Menu();
+                General.Methods();
 
-            Bootstrap.LoadChampion();
-            Console.WriteLine("ExorAIO: Revolution - " + UtilityClass.Player.ChampionName + (Bools.IsChampionSupported ? " Loaded." : " Not supported."));
+                Bootstrap.LoadChampion();
+            });
         }
 
         #endregion
