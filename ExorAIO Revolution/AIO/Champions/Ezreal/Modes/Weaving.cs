@@ -37,7 +37,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.Cast(heroTarget);
+                SpellClass.Q.Cast(SpellClass.Q.GetPrediction(heroTarget).CastPosition);
                 return;
             }
 
@@ -63,7 +63,7 @@ namespace AIO.Champions
                     }
                 }
 
-                SpellClass.W.Cast(heroTarget);
+                SpellClass.W.Cast(SpellClass.W.GetPrediction(heroTarget).CastPosition);
             }
         }
 

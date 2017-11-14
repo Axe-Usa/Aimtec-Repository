@@ -27,30 +27,22 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.E.Ready)
             {
-                foreach (var target in GameObjects.EnemyHeroes)
+                var buffList = new[] {"jaxcounterstrike", "kogmawicathiansurprise"};
+                foreach (var buff in buffList)
                 {
-                    var buff = target.GetBuff("jaxcounterstrike");
-                    if (buff != null)
+                    foreach (var target in GameObjects.EnemyHeroes)
                     {
-                        if (buff.GetRemainingBuffTime() <= 350 &&
-                            target.Distance(UtilityClass.Player) < 300 + UtilityClass.Player.BoundingRadius &&
-                            MenuClass.Spells["e"]["whitelist"][$"{target.ChampionName.ToLower()}.{buff.Name.ToLower()}"].As<MenuBool>().Enabled)
+                        var getBuff = target.GetBuff(buff);
+                        if (getBuff != null)
                         {
-                            SpellClass.E.Cast();
+                            if (getBuff.GetRemainingBuffTime() <= 350 &&
+                                target.Distance(UtilityClass.Player) < 300 + UtilityClass.Player.BoundingRadius &&
+                                MenuClass.Spells["e"]["whitelist"][$"{target.ChampionName.ToLower()}.{buff.ToLower()}"].As<MenuBool>().Enabled)
+                            {
+                                SpellClass.E.Cast();
+                            }
+                            break;
                         }
-                        break;
-                    }
-
-                    var buff2 = target.GetBuff("kogmawicathiansurprise");
-                    if (buff2 != null)
-                    {
-                        if (buff2.GetRemainingBuffTime() <= 350 &&
-                            target.Distance(UtilityClass.Player) < 300 + UtilityClass.Player.BoundingRadius &&
-                            MenuClass.Spells["e"]["whitelist"][$"{target.ChampionName.ToLower()}.{buff2.Name.ToLower()}"].As<MenuBool>().Enabled)
-                        {
-                            SpellClass.E.Cast();
-                        }
-                        break;
                     }
                 }
             }
@@ -71,7 +63,7 @@ namespace AIO.Champions
             switch (sender.Type)
             {
                 case GameObjectType.obj_AI_Hero:
-                    if (Invulnerable.Check(ObjectManager.GetLocalPlayer(), DamageType.Magical, false))
+                    if (Invulnerable.Check(UtilityClass.Player, DamageType.Magical, false))
                     {
                         return;
                     }
@@ -92,8 +84,8 @@ namespace AIO.Champions
                             if (Bools.IsAutoAttack(args.SpellData.Name) || args.SpellData.Name.Equals("GangplankQProceed"))
                             {
                                 var target = (Obj_AI_Minion)args.Target;
-                                if ((int)target.GetRealHealth() == 1 &&
-                                    target.Distance(UtilityClass.Player) < 450 &&
+                                if ((int)target.GetRealHealth() <= 2 &&
+                                    target.Distance(UtilityClass.Player) <= 450 &&
                                     target.UnitSkinName.Equals("gangplankbarrel"))
                                 {
                                     SpellClass.E.Cast();

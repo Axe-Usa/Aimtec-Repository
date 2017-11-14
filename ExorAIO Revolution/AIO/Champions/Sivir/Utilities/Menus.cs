@@ -166,31 +166,42 @@ namespace AIO.Champions
                                             $"{enemy.ChampionName.ToLower()}.udyrbearattack",
                                             $"Shield: {enemy.ChampionName}'s UdyrBearAttack (E)"));
                                 }
+                            }
+                        }
 
-                                string[] excludedSpellsList = { "KatarinaE", "nautiluspiercinggaze" };
-                                string[] assassinList = { "Akali", "Leblanc", "Talon" };
+                        if (GameObjects.EnemyHeroes.Any(x => Gapcloser.Spells.Any(spell => x.ChampionName == spell.ChampionName)))
+                        {
+                            /// <summary>
+                            ///     Sets the menu for the Anti-Gapcloser E.
+                            /// </summary>
+                            MenuClass.Gapcloser = new Menu("gapcloser", "Anti-Gapcloser");
+                            {
+                                MenuClass.Gapcloser.Add(new MenuBool("enabled", "Enable"));
+                                MenuClass.Gapcloser.Add(new MenuSeperator(string.Empty));
+                                MenuClass.E.Add(MenuClass.Gapcloser);
 
-                                foreach (var spell in SpellDatabase.Get().Where(s =>
-                                    !excludedSpellsList.Contains(s.SpellName) &&
-                                    s.ChampionName.Equals(enemy.ChampionName)))
+                                foreach (var enemy in GameObjects.EnemyHeroes.Where(x => Gapcloser.Spells.Any(spell =>
+                                    x.ChampionName == spell.ChampionName &&
+                                    spell.SpellType == Gapcloser.Type.Targeted)))
                                 {
-                                    if (spell.CastType != null)
+                                    MenuClass.SubGapcloser = new Menu(enemy.ChampionName.ToLower(), enemy.ChampionName);
                                     {
-                                        if (enemy.IsMelee &&
-                                            spell.CastType.Contains(CastType.Activate) &&
-                                            spell.SpellType.HasFlag(SpellType.Activated) &&
-                                            ImplementationClass.IOrbwalker.IsReset(spell.SpellName) || spell.CastType.Contains(CastType.EnemyChampions) &&
-                                            (spell.SpellType.HasFlag(SpellType.Targeted) || spell.SpellType.HasFlag(SpellType.TargetedMissile)))
+                                        foreach (var spell in Gapcloser.Spells.Where(x =>
+                                            x.ChampionName == enemy.ChampionName &&
+                                            x.SpellType == Gapcloser.Type.Targeted))
                                         {
-                                            MenuClass.WhiteList.Add(
-                                                new MenuBool(
-                                                    $"{enemy.ChampionName.ToLower()}.{spell.SpellName.ToLower()}",
-                                                    $"Shield: {enemy.ChampionName}'s {spell.SpellName} ({spell.Slot})"
-                                                    + (assassinList.Contains(enemy.ChampionName) ? "[May not work]" : "")));
+                                            MenuClass.SubGapcloser.Add(new MenuBool(
+                                                $"{enemy.ChampionName.ToLower()}.{spell.SpellName.ToLower()}",
+                                                $"Slot: {spell.Slot} ({spell.SpellName})"));
                                         }
                                     }
+                                    MenuClass.Gapcloser.Add(MenuClass.SubGapcloser);
                                 }
                             }
+                        }
+                        else
+                        {
+                            MenuClass.E.Add(new MenuSeperator(string.Empty, "Anti-Gapcloser not needed"));
                         }
 
                         MenuClass.E.Add(MenuClass.WhiteList);

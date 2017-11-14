@@ -941,7 +941,7 @@ namespace AIO.Utilities
                 return;
             }
 
-            foreach (var needToDeleteValue in Gapclosers.Where(x => Game.TickCount - x.Value.StartTick > 2000 + Game.Ping).ToList())
+            foreach (var needToDeleteValue in Gapclosers.Where(x => Game.TickCount - x.Value.StartTick > 1500 + Game.Ping).ToList())
             {
                 Gapclosers.Remove(needToDeleteValue.Key);
             }

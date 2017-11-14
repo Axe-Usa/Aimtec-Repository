@@ -94,7 +94,7 @@ namespace AIO.Champions
             ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
-                (!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled) &&
+                (!SpellClass.W.Ready || !MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled || MenuClass.Spells["pattern"].As<MenuList>().Value == 1) &&
                 (SpellClass.W.Ready || !MenuClass.Spells["e"]["customization"]["onlywready"].As<MenuBool>().Enabled) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
@@ -121,11 +121,11 @@ namespace AIO.Champions
                         case 0:
                             if (!IsNearWorkedGround())
                             {
-                                SpellClass.Q.Cast(bestTarget);
+                                SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                             }
                             break;
                         case 1:
-                            SpellClass.Q.Cast(bestTarget);
+                            SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                             break;
                     }
                 }

@@ -95,6 +95,45 @@ namespace AIO.Champions
         }
 
         /// <summary>
+        ///     Fired on an incoming gapcloser.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Gapcloser.GapcloserArgs" /> instance containing the event data.</param>
+        public void OnGapcloser(Obj_AI_Hero sender, Gapcloser.GapcloserArgs args)
+        {
+            if (UtilityClass.Player.IsDead)
+            {
+                return;
+            }
+
+            var enabledOption = MenuClass.Gapcloser["enabled"];
+            if (enabledOption == null || !enabledOption.As<MenuBool>().Enabled)
+            {
+                return;
+            }
+
+            if (sender == null || !sender.IsEnemy || args.Type != Gapcloser.Type.Targeted)
+            {
+                return;
+            }
+
+            var spellOption = MenuClass.SubGapcloser[$"{sender.ChampionName.ToLower()}.{args.SpellName.ToLower()}"];
+            if (spellOption == null || !spellOption.As<MenuBool>().Enabled)
+            {
+                return;
+            }
+
+            /// <summary>
+            ///     The Anti-Gapcloser E.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                args.Target.IsMe)
+            {
+                SpellClass.E.Cast();
+            }
+        }
+
+        /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
         public void OnUpdate()

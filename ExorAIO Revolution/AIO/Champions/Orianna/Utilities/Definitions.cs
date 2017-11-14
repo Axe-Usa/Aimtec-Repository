@@ -46,6 +46,7 @@ namespace AIO.Champions
             var possiblePosition2 = GameObjects.AllyHeroes.FirstOrDefault(a =>
                     !a.IsMe &&
                     a.ValidActiveBuffs().Any(b =>
+                        b.Caster.IsMe &&
                         b.Name.Equals("orianaghost")));
             if (possiblePosition2 != null)
             {
@@ -76,6 +77,7 @@ namespace AIO.Champions
             var possiblePosition2 = GameObjects.AllyHeroes.FirstOrDefault(a =>
                     !a.IsMe &&
                     a.ValidActiveBuffs().Any(b =>
+                        b.Caster.IsMe &&
                         b.Name.Equals("orianaghost")));
             if (possiblePosition2 != null)
             {

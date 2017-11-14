@@ -19,6 +19,7 @@ namespace AIO.Champions
             ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
             Render.OnPresent += OnPresent;
             Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
+            Gapcloser.OnGapcloser += OnGapcloser;
         }
 
         #endregion
