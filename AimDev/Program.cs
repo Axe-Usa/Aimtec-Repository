@@ -134,8 +134,6 @@ namespace AimDev
         /// </summary>
         private static void OnUpdate()
         {
-            //Console.WriteLine($"Total: {Game.ClockTime - LastSpellTime}");
-
             if (!Menu["showobjects"].As<MenuBool>().Enabled)
             {
                 return;
@@ -192,8 +190,11 @@ namespace AimDev
                         var spellSlots = new[] { SpellSlot.Q, SpellSlot.W, SpellSlot.E, SpellSlot.R };
                         for (var i = 0; i < spellSlots.Length; i++)
                         {
-                            Render.Text($"({spellSlots[i]}): {heroUnit.SpellBook.GetSpell(spellSlots[i]).Name}",  new Vector2(screenPosition.X,       screenPosition.Y + spellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
-                            Render.Text($"ToggleState: {heroUnit.SpellBook.GetSpell(spellSlots[i]).ToggleState}", new Vector2(screenPosition.X + 200, screenPosition.Y + spellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
+                            var slot = spellSlots[i];
+                            var spell = heroUnit.SpellBook.GetSpell(slot);
+                            Render.Text($"({slot}): {spell.Name}",           new Vector2(screenPosition.X,       screenPosition.Y + spellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
+                            Render.Text($"ToggleState: {spell.ToggleState}", new Vector2(screenPosition.X + 200, screenPosition.Y + spellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
+                            Render.Text($"Ammo: {spell.Ammo}",               new Vector2(screenPosition.X + 300, screenPosition.Y + spellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
                         }
 
                         Render.Text("SummonerSpells:", new Vector2(screenPosition.X, screenPosition.Y + 220), RenderTextFlags.None, Color.Yellow);
@@ -203,8 +204,11 @@ namespace AimDev
                         var summonerSpellSlots = new[] { SpellSlot.Summoner1, SpellSlot.Summoner2 };
                         for (var i = 0; i < summonerSpellSlots.Length; i++)
                         {
-                            Render.Text($"({summonerSpellSlots[i]}): {heroUnit.SpellBook.GetSpell(summonerSpellSlots[i]).Name}", new Vector2(screenPosition.X,       screenPosition.Y + summonerSpellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
-                            Render.Text($"ToggleState: {heroUnit.SpellBook.GetSpell(summonerSpellSlots[i]).ToggleState}",        new Vector2(screenPosition.X + 200, screenPosition.Y + summonerSpellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
+                            var slot = summonerSpellSlots[i];
+                            var spell = heroUnit.SpellBook.GetSpell(slot);
+                            Render.Text($"({slot}): {spell.Name}",           new Vector2(screenPosition.X,       screenPosition.Y + summonerSpellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
+                            Render.Text($"ToggleState: {spell.ToggleState}", new Vector2(screenPosition.X + 200, screenPosition.Y + summonerSpellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
+                            Render.Text($"Ammo: {spell.Ammo}",               new Vector2(screenPosition.X + 300, screenPosition.Y + summonerSpellLength + 15 * i), RenderTextFlags.None, Color.OrangeRed);
                         }
 
                         var heroBuffs = heroUnit.ValidActiveBuffs().ToArray();
