@@ -1,6 +1,7 @@
 
 using Aimtec;
 using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -30,7 +31,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
 
@@ -46,7 +47,7 @@ namespace AIO.Champions
                 {
                     if (IsHoldingForceOfWillObject())
                     {
-                        SpellClass.W.Cast(bestTarget);
+                        SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(SpellClass.W.GetPrediction(bestTarget).CastPosition, bestTarget.BoundingRadius));
                     }
                 }
             }

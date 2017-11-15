@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
+using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
 
 #pragma warning disable 1587
@@ -34,6 +35,31 @@ namespace AIO.Utilities
         {
             SpellSlot.Summoner1,
             SpellSlot.Summoner2
+        };
+
+        /// <summary>
+        ///     Gets the spellstates.
+        /// </summary>
+        public static SpellState[] SpellStates =
+        {
+            SpellState.Cooldown,
+            SpellState.Disabled,
+            SpellState.NoMana,
+            SpellState.NotLearned,
+            SpellState.Surpressed
+        };
+
+        /// <summary>
+        ///     Gets the tear-like items.
+        /// </summary>
+        public static uint[] TearLikeItems =
+        {
+            ItemId.Manamune,
+            ItemId.ArchangelsStaff,
+            ItemId.TearoftheGoddess,
+            ItemId.ManamuneQuickCharge,
+            ItemId.ArchangelsStaffQuickCharge,
+            ItemId.TearoftheGoddessQuickCharge
         };
 
         /// <summary>

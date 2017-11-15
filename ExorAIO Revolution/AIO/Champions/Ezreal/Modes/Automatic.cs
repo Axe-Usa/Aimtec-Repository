@@ -47,7 +47,7 @@ namespace AIO.Champions
             ///     The Tear Stacking Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                UtilityClass.Player.HasTearLikeItem() &&
+                UtilityClass.Player.IsTearLikeItemReady() &&
                 UtilityClass.Player.CountEnemyHeroesInRange(1500f) == 0 &&
                 ImplementationClass.IOrbwalker.Mode == OrbwalkingMode.None &&
                 !Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range).Any() &&

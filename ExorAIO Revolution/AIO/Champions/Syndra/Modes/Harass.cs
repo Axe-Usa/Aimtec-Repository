@@ -43,7 +43,7 @@ namespace AIO.Champions
                     .FirstOrDefault(c => MenuClass.Spells["q"]["whitelist"][c.ChampionName.ToLower()].As<MenuBool>().Enabled);
                 if (bestTarget != null)
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
         }

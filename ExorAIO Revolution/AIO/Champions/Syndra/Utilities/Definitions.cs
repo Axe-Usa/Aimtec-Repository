@@ -1,6 +1,4 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
-
-
 // ReSharper disable LoopCanBeConvertedToQuery
 
 using System.Collections.Generic;
@@ -191,10 +189,7 @@ namespace AIO.Champions
                 }
                 else
                 {
-                    if (bestTarget.IsValidTarget(SpellClass.W.Range))
-                    {
-                        SpellClass.W.Cast(bestTarget);
-                    }
+                    SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(SpellClass.W.GetPrediction(bestTarget).CastPosition, bestTarget.BoundingRadius));
                 }
             }
         }

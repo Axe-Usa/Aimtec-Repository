@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
-using Aimtec.SDK.Damage;
 using Aimtec.SDK.Events;
 using Aimtec.SDK.Extensions;
 
@@ -30,16 +29,7 @@ namespace AIO.Utilities
         /// <param name="spell">The spell.</param>
         public static bool CanUseSpell(Spell spell)
         {
-            var blackListedStates = new[]
-            {
-                SpellState.Cooldown,
-                SpellState.Disabled,
-                SpellState.NoMana,
-                SpellState.NotLearned,
-                SpellState.Surpressed
-            };
-
-            return blackListedStates.All(state => !spell.State.HasFlag(state));
+            return UtilityClass.SpellStates.All(state => !spell.State.HasFlag(state));
         }
 
         /// <summary>
@@ -48,16 +38,7 @@ namespace AIO.Utilities
         /// <param name="slot">The spellslot.</param>
         public static bool CanUseSpell(SpellSlot slot)
         {
-            var blackListedStates = new[]
-            {
-                SpellState.Cooldown,
-                SpellState.Disabled,
-                SpellState.NoMana,
-                SpellState.NotLearned,
-                SpellState.Surpressed
-            };
-
-            return blackListedStates.All(state => !UtilityClass.Player.SpellBook.GetSpell(slot).State.HasFlag(state));
+            return UtilityClass.SpellStates.All(state => !UtilityClass.Player.SpellBook.GetSpell(slot).State.HasFlag(state));
         }
 
         /// <summary>
@@ -96,13 +77,31 @@ namespace AIO.Utilities
         /// </summary>
         public static bool HasTearLikeItem(this Obj_AI_Hero unit)
         {
-            return
-                unit.HasItem(ItemId.Manamune) ||
-                unit.HasItem(ItemId.ArchangelsStaff) ||
-                unit.HasItem(ItemId.TearoftheGoddess) ||
-                unit.HasItem(ItemId.ManamuneQuickCharge) ||
-                unit.HasItem(ItemId.ArchangelsStaffQuickCharge) ||
-                unit.HasItem(ItemId.TearoftheGoddessQuickCharge);
+            return UtilityClass.TearLikeItems.Any(p => UtilityClass.Player.HasItem(p));
+        }
+
+        /// <summary>
+        ///     Gets a value indicating whether a determined hero has a stackable item.
+        /// </summary>
+        public static bool IsTearLikeItemReady(this Obj_AI_Hero unit)
+        {
+            if (!UtilityClass.Player.HasTearLikeItem())
+            {
+                return false;
+            }
+
+            var tearLikeItemSlot = UtilityClass.Player.Inventory.Slots.FirstOrDefault(s => s.SlotTaken && UtilityClass.TearLikeItems.Contains(s.ItemId));
+            if (tearLikeItemSlot != null)
+            {
+                var tearLikeItemSpellSlot = tearLikeItemSlot.SpellSlot;
+                if (tearLikeItemSpellSlot != SpellSlot.Unknown &&
+                    !UtilityClass.Player.SpellBook.GetSpell(tearLikeItemSpellSlot).State.HasFlag(SpellState.Cooldown))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

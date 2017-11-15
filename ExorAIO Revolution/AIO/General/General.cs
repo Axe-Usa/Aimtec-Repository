@@ -72,7 +72,7 @@ namespace AIO
 
                     var hydraSpellSlot = hydraSlot.SpellSlot;
                     if (hydraSpellSlot != SpellSlot.Unknown &&
-                        UtilityClass.Player.SpellBook.GetSpell(hydraSpellSlot).State == SpellState.Ready)
+                        UtilityClass.Player.SpellBook.GetSpell(hydraSpellSlot).State.HasFlag(SpellState.Ready))
                     {
                         UtilityClass.Player.SpellBook.CastSpell(hydraSpellSlot);
                     }

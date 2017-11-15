@@ -30,7 +30,7 @@ namespace AIO.Champions
             ///     The R Stacking Manager.
             /// </summary>
             if (UtilityClass.Player.InFountain() &&
-                UtilityClass.Player.HasTearLikeItem() &&
+                UtilityClass.Player.IsTearLikeItemReady() &&
                 UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState == 1 &&
                 MenuClass.Miscellaneous["tear"].As<MenuBool>().Value)
             {
