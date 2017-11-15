@@ -1066,3 +1066,17 @@ ExorAIO: Revolution Changelog:
   Kalista: More consistent orb to minions.
   Kalista: Now Rends Pets too.
   Lucian: Removed Extended Q Combo.
+
+7.22.1.5:
+  Ezreal: Improved Q and W casting, now more frequent.
+  Orianna: Re-added Caster check for E.
+  Quinn: Code cleanup.
+  Sivir: Fixed Kog Passive and Jax E tracking and E usage on them.
+  Sivir: Added E Anti-Gapcloser with menu.
+  Taliyah: Fixed a bug where Taliyah wouldn't cast E or Q when the Pattern was E->W
+
+7.22.1.6:
+  AIO: Now it will not try to stack tear items (like tear or manamune) if the item is on cooldown.
+  Syndra: Code cleared up.
+  Syndra: Improved Spell casting.
+  Quinn: Code cleanup.
