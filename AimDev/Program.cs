@@ -231,23 +231,25 @@ namespace AimDev
 
                     default:
                         Render.Text("Name: "         + obj.Name,             new Vector2(screenPosition.X,       screenPosition.Y + 20), RenderTextFlags.None, Color.OrangeRed);
-                        Render.Text("Type: "         + obj.Type,             new Vector2(screenPosition.X,       screenPosition.Y + 35), RenderTextFlags.None, Color.OrangeRed);
-                        Render.Text("NetworkID: "    + obj.NetworkId,        new Vector2(screenPosition.X,       screenPosition.Y + 50), RenderTextFlags.None, Color.OrangeRed);
-                        Render.Text("X: "            + obj.ServerPosition.X, new Vector2(screenPosition.X,       screenPosition.Y + 65), RenderTextFlags.None, Color.OrangeRed);
-                        Render.Text("Y: "            + obj.ServerPosition.Z, new Vector2(screenPosition.X + 100, screenPosition.Y + 65), RenderTextFlags.None, Color.OrangeRed);
+                        Render.Text("Type: "         + obj.Type,             new Vector2(screenPosition.X,       screenPosition.Y + 50), RenderTextFlags.None, Color.OrangeRed);
+                        Render.Text("NetworkID: "    + obj.NetworkId,        new Vector2(screenPosition.X,       screenPosition.Y + 65), RenderTextFlags.None, Color.OrangeRed);
+                        Render.Text("X: "            + obj.ServerPosition.X, new Vector2(screenPosition.X,       screenPosition.Y + 80), RenderTextFlags.None, Color.OrangeRed);
+                        Render.Text("Y: "            + obj.ServerPosition.Z, new Vector2(screenPosition.X + 100, screenPosition.Y + 80), RenderTextFlags.None, Color.OrangeRed);
 
                         if (obj.Type == GameObjectType.obj_AI_Minion)
                         {
                             var minionUnit = (Obj_AI_Minion)obj;
+                            Render.Text("UnitSkinName: " + minionUnit.UnitSkinName, new Vector2(screenPosition.X, screenPosition.Y + 35), RenderTextFlags.None, Color.OrangeRed);
+
                             var minionBuffs = minionUnit.ValidActiveBuffs().ToArray();
                             if (minionBuffs.Length > 0)
                             {
-                                Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 95), RenderTextFlags.None, Color.Yellow);
-                                Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 105), RenderTextFlags.None, Color.Yellow);
+                                Render.Text("Buffs:", new Vector2(screenPosition.X, screenPosition.Y + 110), RenderTextFlags.None, Color.Yellow);
+                                Render.Text("------", new Vector2(screenPosition.X, screenPosition.Y + 120), RenderTextFlags.None, Color.Yellow);
 
                                 for (var i = 0; i < minionBuffs.Length; i++)
                                 {
-                                    Render.Text($"{minionUnit.GetRealBuffCount(minionBuffs[i].Name)}x {minionBuffs[i].Name}", new Vector2(screenPosition.X, screenPosition.Y + 115 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
+                                    Render.Text($"{minionUnit.GetRealBuffCount(minionBuffs[i].Name)}x {minionBuffs[i].Name}", new Vector2(screenPosition.X, screenPosition.Y + 130 + 12 * i), RenderTextFlags.None, Color.OrangeRed);
                                 }
                             }
                             break;
