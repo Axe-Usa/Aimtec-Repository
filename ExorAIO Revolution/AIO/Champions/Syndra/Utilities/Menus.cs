@@ -114,8 +114,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.E = new Menu("e", "Use E to:");
                 {
-                    MenuClass.E.Add(new MenuBool("combo", "Q -> E / E Spheres to enemy"));
-                    MenuClass.E.Add(new MenuList("catchmode", "Catch out of Q range people with", new[] { "E->Q", "Q->E" }, 0));
+                    MenuClass.E.Add(new MenuBool("combo", "E -> Spheres to enemy"));
                     MenuClass.E.Add(new MenuSeperator("separator"));
 
                     if (GameObjects.EnemyHeroes.Any(x => x.IsMelee))

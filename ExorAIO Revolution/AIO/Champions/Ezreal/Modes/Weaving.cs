@@ -37,7 +37,7 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.Cast(SpellClass.Q.GetPrediction(heroTarget).CastPosition);
+                SpellClass.Q.Cast(heroTarget);
                 return;
             }
 
@@ -52,7 +52,7 @@ namespace AIO.Champions
                 {
                     if (UtilityClass.Player.TotalAbilityDamage < GetMinimumApForApMode() &&
                         UtilityClass.Player.ManaPercent()
-                        > ManaManager.GetNeededMana(SpellClass.W.Slot, buffMenu["logical"]) &&
+                            > ManaManager.GetNeededMana(SpellClass.W.Slot, buffMenu["logical"]) &&
                         buffMenu["logical"].As<MenuSliderBool>().Enabled &&
                         GameObjects.AllyHeroes.Any(a =>
                             !a.IsMe &&
@@ -63,7 +63,7 @@ namespace AIO.Champions
                     }
                 }
 
-                SpellClass.W.Cast(SpellClass.W.GetPrediction(heroTarget).CastPosition);
+                SpellClass.W.Cast(heroTarget);
             }
         }
 

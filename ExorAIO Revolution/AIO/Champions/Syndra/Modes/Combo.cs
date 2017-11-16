@@ -50,10 +50,9 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(t => MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
+                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                    MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                 {
-                    var targetPos = target.ServerPosition;
-
                     /// <summary>
                     ///     The Normal E Combo Logic.
                     /// </summary>
@@ -65,36 +64,8 @@ namespace AIO.Champions
                             if (CanSphereHitUnit(target, sphere) &&
                                 HoldedSphere?.NetworkId != sphere.Key)
                             {
-                                SpellClass.E.Cast(targetPos);
+                                SpellClass.E.Cast(target.ServerPosition);
                                 SelectedDarkSphereNetworkId = sphere.Key;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        /// <summary>
-                        ///     The E Out of range catch Logic.
-                        /// </summary>
-                        if (SpellClass.Q.Ready &&
-                            target.IsValidTarget(1100f) &&
-                            !target.IsValidTarget(SpellClass.Q.Range))
-                        {
-                            if (!SpellClass.W.Ready ||
-                                !target.IsValidTarget(SpellClass.W.Range))
-                            {
-                                var qPosition = UtilityClass.Player.ServerPosition.Extend(targetPos, SpellClass.Q.Range - 125f);
-                                switch (MenuClass.Spells["e"]["catchmode"].As<MenuList>().Value)
-                                {
-                                    case 0:
-                                        SpellClass.E.Cast(targetPos);
-                                        UtilityClass.LastTick = Game.TickCount;
-                                        SpellClass.Q.Cast(qPosition);
-                                        break;
-                                    case 1:
-                                        SpellClass.Q.Cast(qPosition);
-                                        SpellClass.E.Cast(targetPos);
-                                        break;
-                                }
                             }
                         }
                     }
