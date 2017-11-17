@@ -116,9 +116,54 @@ namespace AIO.Champions
                 sender.IsMe &&
                 ImplementationClass.IOrbwalker.Mode != OrbwalkingMode.None)
             {
-                if (args.Animation.Equals("Spell1") || args.Animation.Equals("Spell2"))
+                switch (args.Animation)
                 {
-                    UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
+                    case "Spell1":
+                    case "Spell2":
+                        UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Called on animation trigger.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
+        public void OnPerformCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            if (sender != null &&
+                sender.IsMe &&
+                ImplementationClass.IOrbwalker.Mode != OrbwalkingMode.None)
+            {
+                switch (args.SpellSlot)
+                {
+                    case SpellSlot.Q:
+                    case SpellSlot.W:
+                        UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Called on animation trigger.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
+        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            if (sender != null &&
+                sender.IsMe &&
+                ImplementationClass.IOrbwalker.Mode != OrbwalkingMode.None)
+            {
+                switch (args.SpellSlot)
+                {
+                    case SpellSlot.Q:
+                    case SpellSlot.W:
+                        UtilityClass.Player.IssueOrder(OrderType.MoveTo, Game.CursorPos);
+                        break;
                 }
             }
         }

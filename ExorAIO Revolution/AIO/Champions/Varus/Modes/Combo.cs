@@ -46,24 +46,24 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready)
             {
-                var heroTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.ChargedMaxRange);
+                var heroTarget = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q.ChargedMaxRange).MaxBy(GetBlightStacks);
                 if (heroTarget != null)
                 {
-                    if (!Invulnerable.Check(heroTarget) &&
-                        MenuClass.Spells["q"]["combolong"].As<MenuBool>().Enabled &&
-                        MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled &&
-                        (!heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)) || IsChargingPiercingArrow()))
-                    {
-                        PiercingArrowLogicalCast(heroTarget);
-                    }
-
                     if (IsChargingPiercingArrow() &&
-                        MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
+                        !heroTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(heroTarget)))
                     {
-                        if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
-                            GetBlightStacks(heroTarget) >= MenuClass.Spells["e"]["customization"]["combostacks"].As<MenuSlider>().Value)
+                        if (MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                         {
                             SpellClass.Q.Cast(heroTarget);
+                        }
+                    }
+                    else
+                    {
+                        if (!Invulnerable.Check(heroTarget) &&
+                            MenuClass.Spells["q"]["combolong"].As<MenuBool>().Enabled &&
+                            MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                        {
+                            PiercingArrowLogicalCast(heroTarget);
                         }
                     }
                 }

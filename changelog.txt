@@ -1080,3 +1080,12 @@ ExorAIO: Revolution Changelog:
   Syndra: Code cleared up.
   Syndra: Improved Spell casting.
   Quinn: Code cleanup.
+
+7.22.1.7:
+  Syndra: Removed E->Q and polished up code, this should fix many bugs related to her.
+  Ezreal: Readded Hitchances.
+
+7.22.1.8:
+  Varus: Improved Logics.
+  Varus: Added Invulnerability checks.
+  Varus: Fixed Q sometimes getting stuck at charging.

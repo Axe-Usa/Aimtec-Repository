@@ -32,6 +32,7 @@ namespace AIO.Champions
             ///     The E Weaving Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
+                !Invulnerable.Check(heroTarget) &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
                 if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
@@ -45,6 +46,7 @@ namespace AIO.Champions
             ///     The Q Weaving Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
+                !Invulnerable.Check(heroTarget) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 if (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned) ||
