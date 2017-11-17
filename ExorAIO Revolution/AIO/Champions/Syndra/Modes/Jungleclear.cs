@@ -42,16 +42,18 @@ namespace AIO.Champions
             {
                 if (!IsHoldingForceOfWillObject())
                 {
-                    var obj = ForceOfWillObject();
-                    if (obj.IsValid &&
+                    var obj = GetForceOfWillObject();
+                    if (obj != null &&
+                        obj.IsValid &&
                         obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
                     {
                         SpellClass.W.CastOnUnit(obj);
+                        return;
                     }
                 }
                 else
                 {
-                    SpellClass.W.Cast(jungleTarget);
+                    SpellClass.W.Cast(jungleTarget.ServerPosition);
                 }
             }
 

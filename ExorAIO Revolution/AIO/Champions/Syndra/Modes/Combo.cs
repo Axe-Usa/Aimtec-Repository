@@ -41,33 +41,43 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                InitializeWLogic(false);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range);
+                if (bestTarget != null &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical))
+                {
+                    if (!IsHoldingForceOfWillObject())
+                    {
+                        var obj = GetForceOfWillObject();
+                        if (obj != null &&
+                            obj.IsValid &&
+                            obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
+                        {
+                            SpellClass.W.CastOnUnit(obj);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        SpellClass.W.Cast(bestTarget.ServerPosition);
+                    }
+                }
             }
 
             /// <summary>
-            ///     The E Logics.
+            ///     The E Combo Logic.
             /// </summary>
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                foreach (var target in GameObjects.EnemyHeroes.Where(t =>
+                foreach (var target in Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.E.Range).Where(t =>
                     MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                 {
-                    /// <summary>
-                    ///     The Normal E Combo Logic.
-                    /// </summary>
-                    if (HoldedSphere != null &&
-                        target.IsValidTarget(SpellClass.E.Range))
+                    foreach (var sphere in DarkSpheres.Where(s =>
+                        CanSphereHitUnit(target, s) &&
+                        s.Key != HoldedSphere?.NetworkId))
                     {
-                        foreach (var sphere in DarkSpheres)
-                        {
-                            if (CanSphereHitUnit(target, sphere) &&
-                                HoldedSphere?.NetworkId != sphere.Key)
-                            {
-                                SpellClass.E.Cast(target.ServerPosition);
-                                SelectedDarkSphereNetworkId = sphere.Key;
-                            }
-                        }
+                        SelectedDarkSphereNetworkId = sphere.Key;
+                        SpellClass.E.Cast(target.ServerPosition);
                     }
                 }
             }

@@ -6,7 +6,6 @@ using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
-using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
 #pragma warning disable 1587
@@ -65,7 +64,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the best Force of Will object.
         /// </summary>
-        public GameObject ForceOfWillObject()
+        public GameObject GetForceOfWillObject()
         {
             var possibleTarget1 = GameObjects.JungleLarge.FirstOrDefault(m => m.IsValidSpellTarget(SpellClass.W.Range));
             if (possibleTarget1 != null)
@@ -169,32 +168,6 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Returns the W Logic code.
-        /// </summary>
-        public void InitializeWLogic(bool addWhitelist)
-        {
-            var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range + 200f);
-            if (bestTarget != null &&
-                !Invulnerable.Check(bestTarget, DamageType.Magical) &&
-                (!addWhitelist || MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled))
-            {
-                if (!IsHoldingForceOfWillObject())
-                {
-                    var obj = ForceOfWillObject();
-                    if (obj.IsValid &&
-                        obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
-                    {
-                        SpellClass.W.CastOnUnit(obj);
-                    }
-                }
-                else
-                {
-                    SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(SpellClass.W.GetPrediction(bestTarget).CastPosition, bestTarget.BoundingRadius));
-                }
-            }
-        }
-
-        /// <summary>
         ///     The Sphere Scatter Rectangle.
         /// </summary>
         public Vector2Geometry.Rectangle DarkSphereScatterRectangle(KeyValuePair<int, Vector3> sphere)
@@ -202,7 +175,7 @@ namespace AIO.Champions
             return new Vector2Geometry.Rectangle(
                            (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, SpellClass.Q.Width*2),
                            (Vector2)sphere.Value.Extend(UtilityClass.Player.Position, -1050f-SpellClass.Q.Width/2+UtilityClass.Player.Distance(sphere.Value)),
-                           SpellClass.Q.Width-25f);
+                           SpellClass.Q.Width);
         }
 
         /// <summary>

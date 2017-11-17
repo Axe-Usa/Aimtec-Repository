@@ -1089,3 +1089,9 @@ ExorAIO: Revolution Changelog:
   Varus: Improved Logics.
   Varus: Added Invulnerability checks.
   Varus: Fixed Q sometimes getting stuck at charging.
+
+7.22.1.9:
+  Syndra: Fixed W Combo.
+  Syndra: Fixed E Usage.
+  Syndra: Fixed Nullref.
+  Syndra: Code cleanup.

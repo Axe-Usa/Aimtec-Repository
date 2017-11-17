@@ -1,5 +1,6 @@
 
 using System.Linq;
+using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -28,7 +29,27 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["harass"]) &&
                 MenuClass.Spells["w"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                InitializeWLogic(true);
+                var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.W.Range + 200f);
+                if (bestTarget != null &&
+                    !Invulnerable.Check(bestTarget, DamageType.Magical) &&
+                    MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
+                {
+                    if (!IsHoldingForceOfWillObject())
+                    {
+                        var obj = GetForceOfWillObject();
+                        if (obj != null &&
+                            obj.IsValid &&
+                            obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
+                        {
+                            SpellClass.W.CastOnUnit(obj);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        SpellClass.W.Cast(bestTarget.ServerPosition);
+                    }
+                }
             }
 
             /// <summary>
