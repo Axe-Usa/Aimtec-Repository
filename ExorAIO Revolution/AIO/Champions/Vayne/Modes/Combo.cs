@@ -51,9 +51,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2)
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
-
-                const int threshold = 60;
-                const int condemnPushDistance = 410;
+                const int condemnPushDistance = 475;
 
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
@@ -63,25 +61,26 @@ namespace AIO.Champions
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
                     var targetPos = target.ServerPosition;
-                    var predPosition = SpellClass.E.GetPrediction(target).CastPosition;
-                    for (var i = threshold; i < condemnPushDistance; i += 10)
+                    for (var i = UtilityClass.Player.BoundingRadius; i < condemnPushDistance; i += 10)
                     {
-                        if (!targetPos.Extend(playerPos, -i).IsWall(true) ||
-                            !targetPos.Extend(playerPos, -i-threshold).IsWall(true))
+                        if (targetPos.Extend(playerPos, -i).IsWall(true) &&
+                            targetPos.Extend(playerPos, -i-target.BoundingRadius).IsWall(true))
                         {
-                            continue;
-                        }
-
-                        if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
-                        {
-                            if (!predPosition.Extend(playerPos, -i).IsWall(true) ||
-                                !predPosition.Extend(playerPos, -i-threshold).IsWall(true))
+                            if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
                             {
-                                continue;
+                                var predPoint = targetPos.Extend(target.Path.FirstOrDefault(), -(target.MoveSpeed * SpellClass.E.Delay));
+                                if (target.IsImmobile(SpellClass.E.Delay*2) ||
+                                    predPoint.Extend(playerPos, -i).IsWall(true) &&
+                                    predPoint.Extend(playerPos, -i-target.BoundingRadius).IsWall(true))
+                                {
+                                    SpellClass.E.CastOnUnit(target);
+                                }
+                            }
+                            else
+                            {
+                                SpellClass.E.CastOnUnit(target);
                             }
                         }
-
-                        SpellClass.E.CastOnUnit(target);
                     }
                 }
             }

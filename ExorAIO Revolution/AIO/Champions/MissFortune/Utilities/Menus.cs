@@ -193,7 +193,7 @@ namespace AIO.Champions
                 /// </summary>
                 MenuClass.R = new Menu("r", "Use R to:");
                 {
-                    MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
+                    MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R", false));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
                     if (GameObjects.EnemyHeroes.Any())

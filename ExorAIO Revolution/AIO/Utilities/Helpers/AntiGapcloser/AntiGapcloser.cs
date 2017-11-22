@@ -844,7 +844,8 @@ namespace AIO.Utilities
                     ChampionName = "Vayne",
                     Slot = SpellSlot.Q,
                     SpellName = "vaynetumble",
-                    SpellType = Type.SkillShot
+                    SpellType = Type.SkillShot,
+                    Range = 300f
                 });
 
             #endregion
@@ -985,7 +986,9 @@ namespace AIO.Utilities
                 var spell = Spells.FirstOrDefault(e => e.SpellName == argsName);
                 unit.EndPosition = spell.IsReversedDash
                     ? args.Start.Extend(args.End, -spell.PushBackDistance)
-                    : args.End;
+                    : Math.Abs(spell.Range) > 0
+                        ? unit.Unit.ServerPosition.Extend(args.End, spell.Range)
+                        : args.End;
             }
             else
             {
@@ -1019,6 +1022,8 @@ namespace AIO.Utilities
             public bool IsReversedDash { get; set; }
 
             public int PushBackDistance { get; set; }
+
+            public float Range { get; set; }
 
             #endregion
         }

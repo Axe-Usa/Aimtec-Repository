@@ -192,7 +192,7 @@ namespace AIO.Champions
                     //MenuClass.R.Add(new MenuSeperator("separator3", "You don't have to press both Spacebar and the Semi-Automatic key."));
                     //MenuClass.R.Add(new MenuSeperator("separator4", "It automatically orbwalks while using his R, so just press the key."));
 
-                    MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R"));
+                    MenuClass.R.Add(new MenuBool("bool", "Semi-Automatic R", false));
                     MenuClass.R.Add(new MenuKeyBind("key", "Key:", KeyCode.T, KeybindType.Press));
 
                     if (GameObjects.EnemyHeroes.Any())

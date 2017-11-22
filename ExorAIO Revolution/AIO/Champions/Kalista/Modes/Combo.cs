@@ -26,7 +26,7 @@ namespace AIO.Champions
             ///     Orbwalk on minions.
             /// </summary>
             var minion = ObjectManager.Get<Obj_AI_Minion>()
-                .Where(m => m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m)))
+                .Where(m => m.IsValidSpellTarget(UtilityClass.Player.GetFullAttackRange(m)))
                 .OrderBy(s => s.GetRealBuffCount("kalistaexpungemarker"))
                 .MinBy(o => o.Health);
             if (minion != null &&

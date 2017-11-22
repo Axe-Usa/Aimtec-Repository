@@ -1095,3 +1095,10 @@ ExorAIO: Revolution Changelog:
   Syndra: Fixed E Usage.
   Syndra: Fixed Nullref.
   Syndra: Code cleanup.
+
+7.23.0.0:
+  Vayne: Improved "Exory Perfect" Condemn type.
+  Varus: R will not whiff anymore.
+  Miss Fortune: Semi-Automatic R Off by default.
+  Lucian: Semi-Automatic R Off by default.
+  Kalista: Will now only try to attack valid objects.

@@ -40,7 +40,7 @@ namespace AIO.Champions
             {
                 var bestTarget = GameObjects.EnemyHeroes
                     .Where(t =>
-                        t.IsValidTarget(SpellClass.R.Range) &&
+                        t.IsValidTarget(SpellClass.R.Range-150f) &&
                         !Invulnerable.Check(t, DamageType.Magical, false))
                     .MinBy(t2 => t2.CountEnemyHeroesInRange(550f));
 
@@ -59,7 +59,7 @@ namespace AIO.Champions
                 MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
             {
                 var bestTarget = GameObjects.EnemyHeroes.Where(t =>
-                        t.IsValidTarget(SpellClass.R.Range) &&
+                        t.IsValidTarget(SpellClass.R.Range-150f) &&
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
                         MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled)
                     .MinBy(o => o.GetRealHealth());
