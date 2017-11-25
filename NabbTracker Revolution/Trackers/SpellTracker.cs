@@ -2,7 +2,6 @@ using System;
 using System.Drawing;
 using System.Linq;
 using Aimtec;
-using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 
 namespace NabbTracker
@@ -41,7 +40,8 @@ namespace NabbTracker
                     continue;
                 }
 
-                if (hero.IsAlly &&
+                if (!hero.IsMe &&
+                    hero.IsAlly &&
                     !MenuClass.SpellTracker["allies"].As<MenuBool>().Enabled)
                 {
                     continue;

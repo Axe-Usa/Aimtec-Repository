@@ -41,7 +41,8 @@ namespace NabbTracker
                     continue;
                 }
 
-                if (hero.IsAlly &&
+                if (!hero.IsMe &&
+                    hero.IsAlly &&
                     !MenuClass.ExpTracker["allies"].As<MenuBool>().Enabled)
                 {
                     continue;
