@@ -18,9 +18,10 @@ namespace NabbTracker
         /// </summary>
         public static void Initialize()
         {
-            foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(a =>
-                !a.IsMe &&
-                a.IsValidTarget(allyIsValidTarget: true)))
+            foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(h =>
+                !h.IsMe &&
+                !h.IsDead &&
+                h.IsVisible))
             {
                 if (hero.IsEnemy &&
                     !MenuClass.AttackRangeTracker["enemies"].As<MenuBool>().Enabled)

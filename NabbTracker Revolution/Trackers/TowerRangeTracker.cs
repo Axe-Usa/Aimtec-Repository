@@ -18,7 +18,9 @@ namespace NabbTracker
         /// </summary>
         public static void Initialize()
         {
-            foreach (var tower in ObjectManager.Get<Obj_AI_Turret>().Where(t => t.IsValidTarget(allyIsValidTarget: true)))
+            foreach (var tower in ObjectManager.Get<Obj_AI_Turret>().Where(t =>
+                !t.IsDead &&
+                t.IsVisible))
             {
                 if (tower.IsEnemy &&
                     !MenuClass.TowerRangeTracker["enemies"].As<MenuBool>().Enabled)

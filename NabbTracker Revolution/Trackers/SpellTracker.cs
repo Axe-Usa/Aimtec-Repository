@@ -20,7 +20,8 @@ namespace NabbTracker
         public static void Initialize()
         {
             foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(h =>
-                h.IsValidTarget(allyIsValidTarget: true) &&
+                !h.IsDead &&
+                h.IsVisible &&
                 Math.Abs(h.FloatingHealthBarPosition.X) > 0))
             {
                 if (hero.Name.Equals("Target Dummy"))
