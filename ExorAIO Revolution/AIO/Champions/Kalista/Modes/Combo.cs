@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -43,20 +44,21 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
-                if (bestTarget != null &&
-                    !Invulnerable.Check(bestTarget))
+                if (bestTarget != null)
                 {
-                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
-                    if (collisions.Any())
+                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects
+                        .Where(c => Extensions.GetAllGenericUnitTargets().Contains(c));
+                    var objAiBases = collisions as IList<Obj_AI_Base> ?? collisions.ToList();
+                    if (objAiBases.Any())
                     {
-                        if (collisions.All(c => Extensions.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
+                        if (objAiBases.All(c => c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
                         {
-                            SpellClass.Q.Cast(bestTarget);
+                            SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                         }
                     }
                     else
                     {
-                        SpellClass.Q.Cast(bestTarget);
+                        SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                     }
                 }
             }

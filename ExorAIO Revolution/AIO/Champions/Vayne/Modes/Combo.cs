@@ -52,16 +52,17 @@ namespace AIO.Champions
             {
                 var playerPos = UtilityClass.Player.ServerPosition;
                 const int condemnPushDistance = 475;
+                const int threshold = 50;
 
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
+                        t.IsValidTarget(SpellClass.E.Range) &&
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        t.IsValidTarget(SpellClass.E.Range+t.BoundingRadius) &&
                         !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
                     var targetPos = target.ServerPosition;
-                    for (var i = UtilityClass.Player.BoundingRadius; i < condemnPushDistance; i += 10)
+                    for (var i = UtilityClass.Player.BoundingRadius; i < condemnPushDistance-threshold; i += 10)
                     {
                         if (targetPos.Extend(playerPos, -i).IsWall(true) &&
                             targetPos.Extend(playerPos, -i-target.BoundingRadius).IsWall(true))

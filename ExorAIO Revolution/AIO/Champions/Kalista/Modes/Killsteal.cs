@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -33,17 +34,19 @@ namespace AIO.Champions
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
-                    if (collisions.Any())
+                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects
+                        .Where(c => Extensions.GetAllGenericUnitTargets().Contains(c));
+                    var objAiBases = collisions as IList<Obj_AI_Base> ?? collisions.ToList();
+                    if (objAiBases.Any())
                     {
-                        if (collisions.All(c => Extensions.GetAllGenericUnitTargets().Contains(c) && c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
+                        if (objAiBases.All(c => c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
                         {
-                            SpellClass.Q.Cast(bestTarget);
+                            SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                         }
                     }
                     else
                     {
-                        SpellClass.Q.Cast(bestTarget);
+                        SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                     }
                 }
             }
@@ -54,7 +57,9 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                if (GameObjects.EnemyHeroes.Any(t => IsPerfectRendTarget(t) && t.GetRealHealth() < GetTotalRendDamage(t)))
+                if (GameObjects.EnemyHeroes.Any(t =>
+                        IsPerfectRendTarget(t) &&
+                        t.GetRealHealth() < GetTotalRendDamage(t)))
                 {
                     SpellClass.E.Cast();
                 }

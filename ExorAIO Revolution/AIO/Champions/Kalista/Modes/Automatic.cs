@@ -46,7 +46,7 @@ namespace AIO.Champions
                 /// </summary>
                 if (SoulBound.CountEnemyHeroesInRange(800f) > 0 &&
                     SoulBound.HealthPercent() <=
-                    MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Value &&
+                        MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Value &&
                     MenuClass.Spells["r"]["lifesaver"].As<MenuSliderBool>().Enabled)
                 {
                     SpellClass.R.Cast();

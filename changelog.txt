@@ -1102,3 +1102,7 @@ ExorAIO: Revolution Changelog:
   Miss Fortune: Semi-Automatic R Off by default.
   Lucian: Semi-Automatic R Off by default.
   Kalista: Will now only try to attack valid objects.
+
+7.23.0.1:
+  Kalista: Improved Q Usage.
+  Vayne: Final Condemn Tweaks.
