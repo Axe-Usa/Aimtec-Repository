@@ -20,12 +20,21 @@ namespace NabbTracker
         {
             foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(a =>
                 !a.IsMe &&
-                !a.IsDead &&
-                a.IsVisible &&
-                    (a.IsEnemy && MenuClass.AttackRangeTracker["enemies"].As<MenuBool>().Enabled ||
-                    a.IsAlly && MenuClass.AttackRangeTracker["allies"].As<MenuBool>().Enabled)))
+                a.IsValidTarget(allyIsValidTarget: true)))
             {
-                var attackRange = hero.AttackRange;
+                if (hero.IsEnemy &&
+                    !MenuClass.AttackRangeTracker["enemies"].As<MenuBool>().Enabled)
+                {
+                    continue;
+                }
+
+                if (hero.IsAlly &&
+                    !MenuClass.AttackRangeTracker["allies"].As<MenuBool>().Enabled)
+                {
+                    continue;
+                }
+
+                var attackRange = hero.AttackRange+hero.BoundingRadius;
                 Render.Circle(hero.Position, attackRange, 30, UtilityClass.Player.Distance(hero) < attackRange
                     ? Colors.GetRealColor(Color.Red)
                     : Colors.GetRealColor(Color.Yellow));

@@ -19,39 +19,54 @@ namespace NabbTracker
         /// </summary>
         public static void Initialize()
         {
-            foreach (var unit in ObjectManager.Get<Obj_AI_Hero>().Where(e =>
-                Math.Abs(e.FloatingHealthBarPosition.X) > 0 &&
-                !e.IsDead &&
-                e.IsVisible &&
-                    (e.IsMe && MenuClass.ExpTracker["me"].As<MenuBool>().Enabled ||
-                    e.IsEnemy && MenuClass.ExpTracker["enemies"].As<MenuBool>().Enabled ||
-                    e.IsAlly && !e.IsMe && MenuClass.ExpTracker["allies"].As<MenuBool>().Enabled))
-            )
+            foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(h =>
+                h.IsValidTarget(allyIsValidTarget: true) &&
+                Math.Abs(h.FloatingHealthBarPosition.X) > 0))
             {
-                if (unit.Name.Equals("Target Dummy"))
+                if (hero.Name.Equals("Target Dummy"))
                 {
-                    return;
+                    continue;
                 }
 
-                var xOffset = (int)unit.FloatingHealthBarPosition.X + UtilityClass.ExpXAdjustment(unit);
-                var yOffset = (int)unit.FloatingHealthBarPosition.Y + UtilityClass.ExpYAdjustment(unit);
-
-                var actualExp = unit.Exp;
-                if (unit.Level > 1)
+                if (hero.IsMe &&
+                    !MenuClass.ExpTracker["me"].As<MenuBool>().Enabled)
                 {
-                    actualExp -= (280 + 80 + 100 * unit.Level) / 2 * (unit.Level - 1);
+                    continue;
                 }
 
-                var neededExp = 180 + 100 * unit.Level;
-                var expPercent = (int)(actualExp / neededExp * 100);
-                if (unit.Level < 18 || UtilityClass.Player.HasBuff("AwesomeBuff") && unit.Level < 30)
+                if (hero.IsEnemy &&
+                    !MenuClass.ExpTracker["enemies"].As<MenuBool>().Enabled)
+                {
+                    continue;
+                }
+
+                if (hero.IsAlly &&
+                    !MenuClass.ExpTracker["allies"].As<MenuBool>().Enabled)
+                {
+                    continue;
+                }
+
+                var xOffset = (int)hero.FloatingHealthBarPosition.X + UtilityClass.ExpXAdjustment(hero);
+                var yOffset = (int)hero.FloatingHealthBarPosition.Y + UtilityClass.ExpYAdjustment(hero);
+
+                var actualExp = hero.Exp;
+                if (hero.Level > 1)
+                {
+                    actualExp -= (280 + 80 + 100 * hero.Level) / 2 * (hero.Level - 1);
+                }
+
+                var levelLimit = hero.HasBuff("AwesomeBuff") ? 30 : 18;
+                if (hero.Level < levelLimit)
                 {
                     Render.Line(xOffset - 76, yOffset + 20, xOffset + 56, yOffset + 20, 7, true, Colors.GetRealColor(Color.Purple));
 
+                    var neededExp = 180 + 100 * hero.Level;
+                    var expPercent = (int)(actualExp / neededExp * 100);
                     if (expPercent > 0)
                     {
                         Render.Line(xOffset - 76, yOffset + 20, xOffset - 76 + (float)(1.32 * expPercent), yOffset + 20, 7, true, Colors.GetRealColor(Color.Red));
                     }
+
                     Render.Text(expPercent > 0 ? expPercent + "%" : "0%", new Vector2(xOffset - 13, yOffset + 17), RenderTextFlags.None, Colors.GetRealColor(Color.Yellow));
                 }
             }
