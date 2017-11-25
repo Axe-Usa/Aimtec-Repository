@@ -58,6 +58,7 @@ namespace AimDev
             Obj_AI_Base.OnProcessAutoAttack += OnProcessAutoAttack;
             Game.OnNotifyAway += OnNotifyAway;
             SpellBook.OnCastSpell += OnCastSpell;
+            Obj_AI_Base.OnPlayAnimation += OnPlayAnimation;
         }
 
         /// <summary>
@@ -89,7 +90,7 @@ namespace AimDev
         /// <summary>
         ///     Called on spell cast.
         /// </summary>
-        /// <param name="sender">The SpellBook.</param>
+        /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="SpellBookCastSpellEventArgs" /> instance containing the event data.</param>
         private static void OnCastSpell(Obj_AI_Base sender, SpellBookCastSpellEventArgs args)
         {
@@ -101,7 +102,22 @@ namespace AimDev
         }
 
         /// <summary>
-        ///     Called on do-cast.
+        ///     Called on animation trigger.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BasePlayAnimationEventArgs" /> instance containing the event data.</param>
+        private static void OnPlayAnimation(Obj_AI_Base sender, Obj_AI_BasePlayAnimationEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine($"Animation Name: {args.Animation}");
+                Console.WriteLine("----------------------------------------------");
+            }
+        }
+
+        /// <summary>
+        ///     Called on process spell cast.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
