@@ -34,7 +34,7 @@ namespace AIO.Champions
                     MenuClass.Spells["q"]["modes"]["harass"].As<MenuList>().Value == 0 &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
         }

@@ -26,10 +26,7 @@ namespace AIO.Champions
         /// </summary>
         public Dictionary<int, Vector3> Feathers = new Dictionary<int, Vector3>();
 
-        /// <summary>
-        ///     Returns true, if the spell should get stopped.
-        /// </summary>
-        public bool Interrupt = true;
+        public float LastCastedETime = 0;
 
         #endregion
 

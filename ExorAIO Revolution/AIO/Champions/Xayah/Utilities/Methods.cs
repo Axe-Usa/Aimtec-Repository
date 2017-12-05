@@ -21,6 +21,7 @@ namespace AIO.Champions
             GameObject.OnCreate += OnCreate;
             GameObject.OnDestroy += OnDestroy;
             Gapcloser.OnGapcloser += OnGapcloser;
+            Obj_AI_Base.OnProcessSpellCast += OnProcessSpellCast;
         }
 
         #endregion

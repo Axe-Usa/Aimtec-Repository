@@ -33,7 +33,7 @@ namespace AIO.Champions
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                     return;
                 }
             }
@@ -49,7 +49,7 @@ namespace AIO.Champions
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.W.Cast(bestTarget);
+                    SpellClass.W.Cast(SpellClass.W.GetPrediction(bestTarget).CastPosition);
                 }
             }
         }

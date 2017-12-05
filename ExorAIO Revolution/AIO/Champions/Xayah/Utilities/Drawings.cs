@@ -45,10 +45,12 @@ namespace AIO.Champions
                     var drawFeatherHitbox = new Vector3Geometry.Rectangle(UtilityClass.Player.Position, drawFeatherPos, SpellClass.E.Width);
 
                     drawFeatherHitbox.Draw(
-                        GameObjects.EnemyHeroes.Any(h => realFeatherHitbox.IsInside((Vector2)h.Position))
-                            ? Color.Blue
-                            : Color.Yellow);
-                    Render.Circle(drawFeatherPos, UtilityClass.Player.BoundingRadius, 5, Color.OrangeRed);
+                        GameObjects.EnemyHeroes.Any(h =>
+                            h.IsValidTarget() &&
+                            realFeatherHitbox.IsInside((Vector2)h.Position))
+                                ? Color.Blue
+                                : Color.Yellow);
+                    Render.Circle(drawFeatherPos, SpellClass.E.Width, 5, Color.OrangeRed);
                 }
             }
 

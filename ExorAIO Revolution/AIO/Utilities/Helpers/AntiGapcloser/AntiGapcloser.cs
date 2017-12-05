@@ -947,7 +947,7 @@ namespace AIO.Utilities
                 Gapclosers.Remove(needToDeleteValue.Key);
             }
 
-            foreach (var args in Gapclosers.Where(x => x.Value.Unit.IsValidTarget()))
+            foreach (var args in Gapclosers.Where(x => x.Value.Unit.IsValidTarget(allyIsValidTarget: true)))
             {
                 OnGapcloser(args.Value.Unit, args.Value);
             }
@@ -955,7 +955,7 @@ namespace AIO.Utilities
 
         private static void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
         {
-            if (!sender.IsValidTarget() || sender.Type != GameObjectType.obj_AI_Hero)
+            if (!sender.IsValidTarget(allyIsValidTarget: true) || sender.Type != GameObjectType.obj_AI_Hero)
             {
                 return;
             }
@@ -971,10 +971,9 @@ namespace AIO.Utilities
                 Gapclosers.Add(sender.NetworkId, new GapcloserArgs());
             }
 
-            var heroSender = (Obj_AI_Hero)sender;
             var unit = Gapclosers[sender.NetworkId];
 
-            unit.Unit = heroSender;
+            unit.Unit = (Obj_AI_Hero)sender;
             unit.Slot = args.SpellSlot;
             unit.Target = args.Target as AttackableUnit;
             unit.Type = args.Target != null ? Type.Targeted : Type.SkillShot;
@@ -984,11 +983,18 @@ namespace AIO.Utilities
             if (Spells.Any(e => e.SpellName == argsName))
             {
                 var spell = Spells.FirstOrDefault(e => e.SpellName == argsName);
-                unit.EndPosition = spell.IsReversedDash
-                    ? args.Start.Extend(args.End, -spell.PushBackDistance)
-                    : Math.Abs(spell.Range) > 0
-                        ? unit.Unit.ServerPosition.Extend(args.End, spell.Range)
-                        : args.End;
+                if (spell.IsReversedDash)
+                {
+                    unit.EndPosition = args.Start.Extend(args.End, -spell.PushBackDistance);
+                }
+                else if (Math.Abs(spell.Range) > 0)
+                {
+                    unit.EndPosition = unit.Unit.ServerPosition.Extend(args.End, spell.Range);
+                }
+                else
+                {
+                    unit.EndPosition = args.End;
+                }
             }
             else
             {

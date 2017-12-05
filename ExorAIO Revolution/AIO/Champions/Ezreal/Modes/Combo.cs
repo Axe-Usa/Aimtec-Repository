@@ -31,7 +31,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     UtilityClass.Player.TotalAbilityDamage >= GetMinimumApForApMode())
                 {
-                    SpellClass.W.Cast(bestTarget);
+                    SpellClass.W.Cast(SpellClass.W.GetPrediction(bestTarget).CastPosition);
                 }
             }
 
@@ -46,7 +46,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget) &&
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                 }
             }
         }

@@ -67,12 +67,17 @@ namespace AIO.Champions
         /// </summary>
         public bool IsPerfectRendTarget(Obj_AI_Base unit)
         {
+            var spellRange = SpellClass.E.Range;
             var orbTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
-            if (unit.IsValidSpellTarget(
-                    orbTarget != null &&
-                    orbTarget.NetworkId == unit.NetworkId
-                        ? SpellClass.E.Range
-                        : SpellClass.Q.Range) &&
+
+            if (orbTarget != null &&
+                orbTarget.NetworkId != unit.NetworkId &&
+                orbTarget.IsValidSpellTarget(SpellClass.E.Range))
+            {
+                spellRange = SpellClass.Q.Range;
+            }
+
+            if (unit.IsValidSpellTarget(spellRange) &&
                 unit.HasBuff("kalistaexpungemarker"))
             {
                 switch (unit.Type)

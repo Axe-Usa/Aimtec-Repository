@@ -123,7 +123,6 @@ namespace AIO.Champions
                     ///     The W Combo Logic.
                     /// </summary>
                     if (SpellClass.W.Ready &&
-                        heroTarget.IsValidTarget(SpellClass.W.Range) &&
                         MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                     {
                         SpellClass.W.Cast(heroTarget);
@@ -164,7 +163,6 @@ namespace AIO.Champions
                     ///     The W Combo Logic.
                     /// </summary>
                     if (SpellClass.W.Ready &&
-                        heroTarget.IsValidTarget(SpellClass.W.Range) &&
                         MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                     {
                         SpellClass.W.Cast(heroTarget);
@@ -181,7 +179,6 @@ namespace AIO.Champions
                     ///     The W Combo Logic.
                     /// </summary>
                     if (SpellClass.W.Ready &&
-                        heroTarget.IsValidTarget(SpellClass.W.Range) &&
                         MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
                     {
                         SpellClass.W.Cast(heroTarget);

@@ -111,6 +111,24 @@ namespace AIO.Champions
         }
 
         /// <summary>
+        ///     Called while processing spellcast operations.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
+        public void OnProcessSpellCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
+        {
+            if (sender.IsMe)
+            {
+                switch (args.SpellSlot)
+                {
+                    case SpellSlot.E:
+                        LastCastedETime = Game.ClockTime;
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
         ///     Fired on an incoming gapcloser.
         /// </summary>
         /// <param name="sender">The sender.</param>

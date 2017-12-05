@@ -23,6 +23,7 @@ namespace AIO.Champions
         public void Automatic()
         {
             ImplementationClass.IOrbwalker.AttackingEnabled = !IsFlying();
+            ImplementationClass.IOrbwalker.MovingEnabled = Game.ClockTime - LastCastedETime >= 0.55;
 
             if (UtilityClass.Player.IsRecalling())
             {
@@ -42,8 +43,7 @@ namespace AIO.Champions
             /// <summary>
             ///     The Automatic R Orbwalking.
             /// </summary>
-            if (MenuClass.Spells["r"]["bool"].As<MenuBool>().Enabled &&
-                MenuClass.Spells["r"]["key"].As<MenuKeyBind>().Enabled)
+            if (IsFlying())
             {
                 DelayAction.Queue(100 + Game.Ping, () =>
                     {

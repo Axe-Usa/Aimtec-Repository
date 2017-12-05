@@ -1106,3 +1106,13 @@ ExorAIO: Revolution Changelog:
 7.23.0.1:
   Kalista: Improved Q Usage.
   Vayne: Final Condemn Tweaks.
+  
+7.23.0.2:
+  Ezreal: Finally fixed Q and W usage, now it will never wait to use them.
+  Kalista: Fixed E not being used in extremely rare cases.
+  Lucian: Code cleanup.
+  Orianna: E on Engagers should now work properly.
+  Quinn: Fixed Q Usage.
+  Quinn: Will no longer try to R in base if enemies near.
+  Xayah: Tweaked Feathers usage.
+
