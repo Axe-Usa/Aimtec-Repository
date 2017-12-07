@@ -1116,3 +1116,5 @@ ExorAIO: Revolution Changelog:
   Quinn: Will no longer try to R in base if enemies near.
   Xayah: Tweaked Feathers usage.
 
+7.24.0.0
+  AIO: Updated healthbar drawing positions to 7.24.

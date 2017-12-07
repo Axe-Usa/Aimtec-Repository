@@ -60,7 +60,7 @@ namespace AIO.Utilities
         /// </summary>
         public static int SxOffset(Obj_AI_Hero target)
         {
-            return SpecialChampions.Contains(target.ChampionName) ? 1 : 10;
+            return SpecialChampions.Contains(target.ChampionName) ? 33 : 30;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace AIO.Utilities
         /// </summary>
         public static int SyOffset(Obj_AI_Hero target)
         {
-            return SpecialChampions.Contains(target.ChampionName) ? 3 : 20;
+            return SpecialChampions.Contains(target.ChampionName) ? 7 : 2;
         }
 
         #endregion
