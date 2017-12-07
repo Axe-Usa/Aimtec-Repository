@@ -14,7 +14,7 @@ namespace NabbTracker
         /// <summary>
         ///     A list of the names of the champions who have a different healthbar type.
         /// </summary>
-        public static readonly List<string> SpecialChampions = new List<string> { "Annie", "Jhin", "Corki" };
+        public static readonly List<string> SpecialChampions = new List<string> { "Annie", "Jhin", "Corki", "Xayah" };
 
         /// <summary>
         ///     Gets the Player.
