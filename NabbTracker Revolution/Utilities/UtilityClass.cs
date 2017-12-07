@@ -14,7 +14,7 @@ namespace NabbTracker
         /// <summary>
         ///     A list of the names of the champions who have a different healthbar type.
         /// </summary>
-        public static readonly List<string> SpecialChampions = new List<string> { "Annie", "Jhin" };
+        public static readonly List<string> SpecialChampions = new List<string> { "Annie", "Jhin", "Corki" };
 
         /// <summary>
         ///     Gets the Player.
@@ -132,7 +132,6 @@ namespace NabbTracker
                 case "summonerbarrier":      return "Barrier";
                 case "summonerboost":        return "Cleanse";
                 case "summonermana":         return "Clarity";
-                case "summonerclairvoyance": return "Clairvoyance";
                 case "summonersnowball":     return "Mark";
                 default:
                     return "Smite";
