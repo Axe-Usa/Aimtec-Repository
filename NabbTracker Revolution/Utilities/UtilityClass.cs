@@ -46,33 +46,6 @@ namespace NabbTracker
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The Exp Healthbars X coordinate adjustment.
-        /// </summary>
-        public static int ExpXAdjustment(Obj_AI_Hero target)
-        {
-            return SpecialChampions.Contains(target.ChampionName) ? 77 : 85;
-        }
-
-        /// <summary>
-        ///     The Spells Healthbars Y coordinate adjustment.
-        /// </summary>
-        public static int ExpYAdjustment(Obj_AI_Hero target)
-        {
-            if (SpecialChampions.Contains(target.ChampionName))
-            {
-                return MenuClass.Miscellaneous["name"].Enabled ? -62 : -45;
-            }
-
-            return target.IsMe
-                       ? MenuClass.Miscellaneous["name"].Enabled
-                             ? -56
-                             : -37
-                       : MenuClass.Miscellaneous["name"].Enabled
-                           ? -48
-                           : -29;
-        }
-
-        /// <summary>
         ///     The cooldown of a determined spell of a determined unit.
         /// </summary>
         public static string GetUnitSpellCooldown(Obj_AI_Hero unit, int spell)
@@ -194,16 +167,38 @@ namespace NabbTracker
         }
 
         /// <summary>
+        ///     The Exp Healthbars X coordinate adjustment.
+        /// </summary>
+        public static int ExpXAdjustment(Obj_AI_Hero target)
+        {
+            return 85;
+        }
+
+        /// <summary>
+        ///     The Spells Healthbars Y coordinate adjustment.
+        /// </summary>
+        public static int ExpYAdjustment(Obj_AI_Hero target)
+        {
+            if (SpecialChampions.Contains(target.ChampionName))
+            {
+                return MenuClass.Miscellaneous["name"].Enabled ? -65 : -45;
+            }
+
+            return target.IsMe
+                       ? MenuClass.Miscellaneous["name"].Enabled
+                             ? -56
+                             : -37
+                       : MenuClass.Miscellaneous["name"].Enabled
+                           ? -48
+                           : -29;
+        }
+
+        /// <summary>
         ///     The Spells Healthbars X coordinate adjustment.
         /// </summary>
         public static int SpellXAdjustment(Obj_AI_Hero target)
         {
-            if (SpecialChampions.Contains(target.ChampionName))
-            {
-                return target.IsMe ? 34 : 17;
-            }
-
-            return target.IsMe ? 55 : 10;
+            return 40;
         }
 
         /// <summary>
@@ -213,10 +208,10 @@ namespace NabbTracker
         {
             if (SpecialChampions.Contains(target.ChampionName))
             {
-                return 25;
+                return 40;
             }
 
-            return target.IsMe ? 25 : 35;
+            return 25;
         }
 
         /// <summary>
@@ -224,7 +219,7 @@ namespace NabbTracker
         /// </summary>
         public static int SummonerSpellXAdjustment(Obj_AI_Hero target)
         {
-            return SpecialChampions.Contains(target.ChampionName) ? 2 : 10;
+            return 28;
         }
 
         /// <summary>
@@ -234,16 +229,10 @@ namespace NabbTracker
         {
             if (SpecialChampions.Contains(target.ChampionName))
             {
-                return MenuClass.Miscellaneous["name"].Enabled ? -32 : -14;
+                return MenuClass.Miscellaneous["name"].Enabled ? -35 : -15;
             }
 
-            return target.IsMe
-                       ? MenuClass.Miscellaneous["name"].Enabled
-                             ? -24
-                             : -6
-                       : MenuClass.Miscellaneous["name"].Enabled
-                           ? -20
-                           : -4;
+            return MenuClass.Miscellaneous["name"].Enabled ? -30 : -15;
         }
 
         #endregion
