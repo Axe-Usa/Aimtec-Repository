@@ -183,34 +183,7 @@ namespace NabbTracker
                 return MenuClass.Miscellaneous["name"].Enabled ? -65 : -45;
             }
 
-            return target.IsMe
-                       ? MenuClass.Miscellaneous["name"].Enabled
-                             ? -56
-                             : -37
-                       : MenuClass.Miscellaneous["name"].Enabled
-                           ? -48
-                           : -29;
-        }
-
-        /// <summary>
-        ///     The Spells Healthbars X coordinate adjustment.
-        /// </summary>
-        public static int SpellXAdjustment(Obj_AI_Hero target)
-        {
-            return 40;
-        }
-
-        /// <summary>
-        ///     The Spells Healthbars Y coordinate adjustment.
-        /// </summary>
-        public static int SpellYAdjustment(Obj_AI_Hero target)
-        {
-            if (SpecialChampions.Contains(target.ChampionName))
-            {
-                return 40;
-            }
-
-            return 25;
+            return MenuClass.Miscellaneous["name"].Enabled ? -60 : -45;
         }
 
         /// <summary>
@@ -232,6 +205,27 @@ namespace NabbTracker
             }
 
             return MenuClass.Miscellaneous["name"].Enabled ? -30 : -15;
+        }
+
+        /// <summary>
+        ///     The Spells Healthbars X coordinate adjustment.
+        /// </summary>
+        public static int SpellXAdjustment(Obj_AI_Hero target)
+        {
+            return 40;
+        }
+
+        /// <summary>
+        ///     The Spells Healthbars Y coordinate adjustment.
+        /// </summary>
+        public static int SpellYAdjustment(Obj_AI_Hero target)
+        {
+            if (SpecialChampions.Contains(target.ChampionName))
+            {
+                return 40;
+            }
+
+            return 25;
         }
 
         #endregion
