@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
-using Aimtec.SDK.Extensions;
 
 #pragma warning disable 1587
 
@@ -444,20 +443,7 @@ namespace AIO.Utilities
         /// </returns>
         public static float GetRealHealth(this Obj_AI_Base unit)
         {
-            var hero = unit as Obj_AI_Hero;
-            if (hero == null)
-            {
-                return unit.Health;
-            }
-
-            var debuffer = 0f;
-            if (hero.ChampionName.Equals("Blitzcrank") &&
-                !hero.HasBuff("BlitzcrankManaBarrierCD"))
-            {
-                debuffer += hero.Mana / 2;
-            }
-
-            return unit.Health + unit.PhysicalShield + debuffer;
+            return unit.Health + unit.PhysicalShield;
         }
 
         #endregion

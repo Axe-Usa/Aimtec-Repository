@@ -40,6 +40,10 @@ namespace AIO.Utilities
                             {
                                 IsShield = true,
                             },
+                        new InvulnerableEntry("BlitzcrankManaBarrierCD")
+                            {
+                                ChampionName = "Blitzcrank"
+                            },
                         new InvulnerableEntry("FioraW")
                             {
                                 ChampionName = "Fiora"
