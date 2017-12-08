@@ -62,7 +62,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     GetFrostBiteDamage(bestTarget) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.E.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                 }
             }
         }

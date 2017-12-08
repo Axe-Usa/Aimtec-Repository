@@ -58,7 +58,7 @@ namespace AIO.Champions
                 if (Extensions.GetEnemyLaneMinionsTargets().Count(t => t.IsValidTarget() && !polygon.IsOutside((Vector2)t.ServerPosition))
                     >= MenuClass.Spells["e"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
-                    SpellClass.E.CastOnUnit(UtilityClass.Player);
+                    UtilityClass.CastOnUnit(SpellClass.E, UtilityClass.Player);
                 }
             }
 

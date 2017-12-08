@@ -40,7 +40,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.CastOnUnit(jungleTarget);
+                UtilityClass.CastOnUnit(SpellClass.E, jungleTarget);
                 return;
             }
 

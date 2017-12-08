@@ -32,7 +32,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E, IsWhiplashEmpowered() ? DamageStage.Empowered : DamageStage.Default) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.E.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                 }
             }
 

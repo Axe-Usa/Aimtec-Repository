@@ -252,6 +252,7 @@
     <Compile Include="AIO\Champions\Sivir\Modes\Lasthit.cs" />
     <Compile Include="AIO\Champions\Sivir\Modes\Weaving.cs" />
     <Compile Include="AIO\Champions\Sivir\Sivir.cs" />
+    <Compile Include="AIO\Champions\Vayne\Utilities\Definitions.cs" />
     <Compile Include="AIO\Utilities\Helpers\AntiGapcloser\AntiGapcloser.cs" />
     <Compile Include="AIO\Utilities\Helpers\Geometry\Vector2Geometry.cs" />
     <Compile Include="AIO\Utilities\Helpers\SpellDatabase\Data.cs" />

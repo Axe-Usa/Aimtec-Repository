@@ -35,7 +35,7 @@ namespace AIO.Champions
                     return;
                 }
 
-                SpellClass.Q.CastOnUnit(bestTarget);
+                UtilityClass.CastOnUnit(SpellClass.Q, bestTarget);
             }
         }
 

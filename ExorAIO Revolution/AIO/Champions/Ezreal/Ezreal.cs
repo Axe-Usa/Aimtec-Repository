@@ -108,7 +108,7 @@ namespace AIO.Champions
                         return;
                 }
 
-                SpellClass.W.CastOnUnit(senderAlly);
+                UtilityClass.CastOnUnit(SpellClass.W, senderAlly);
             }
         }
 

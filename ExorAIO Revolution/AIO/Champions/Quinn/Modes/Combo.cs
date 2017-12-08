@@ -48,7 +48,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     !Invulnerable.Check(bestTarget))
                 {
-                    SpellClass.E.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                 }
             }
         }

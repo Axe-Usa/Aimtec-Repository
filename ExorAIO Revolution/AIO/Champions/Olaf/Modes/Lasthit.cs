@@ -29,7 +29,7 @@ namespace AIO.Champions
                     (m.UnitSkinName.Contains("Siege") || m.UnitSkinName.Contains("Super")) &&
                     m.GetRealHealth() < UtilityClass.Player.GetSpellDamage(m, SpellSlot.E)))
                 {
-                    SpellClass.E.CastOnUnit(minion);
+                    UtilityClass.CastOnUnit(SpellClass.E, minion);
                 }
             }
         }

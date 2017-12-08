@@ -53,7 +53,7 @@ namespace AIO.Champions
                         >= MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Value ||
                     UtilityClass.Player.GetSpellDamage(jungleTarget, SpellSlot.E) >= jungleTarget.GetRealHealth())
                 {
-                    SpellClass.E.CastOnUnit(jungleTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, jungleTarget);
                 }
             }
 

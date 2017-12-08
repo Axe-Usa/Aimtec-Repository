@@ -119,11 +119,11 @@ namespace AIO.Champions
                         case 0:
                             if (IsChilled(bestTarget))
                             {
-                                SpellClass.E.CastOnUnit(bestTarget);
+                                UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                             }
                             break;
                         case 1:
-                            SpellClass.E.CastOnUnit(bestTarget);
+                            UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                             break;
                     }
                 }

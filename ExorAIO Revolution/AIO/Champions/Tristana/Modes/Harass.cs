@@ -47,7 +47,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["harass"].As<MenuSliderBool>().Enabled &&
                 MenuClass.Spells["e"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {
-                SpellClass.E.CastOnUnit(heroTarget);
+                UtilityClass.CastOnUnit(SpellClass.E, heroTarget);
             }
         }
 

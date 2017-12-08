@@ -31,7 +31,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     GetTotalNoxianGuillotineDamage(bestTarget) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.R.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
                 }
             }
 

@@ -66,7 +66,7 @@ namespace AIO.Champions
 
                 if (!polygon.IsOutside((Vector2)jungleTarget.ServerPosition))
                 {
-                    SpellClass.E.CastOnUnit(UtilityClass.Player);
+                    UtilityClass.CastOnUnit(SpellClass.E, UtilityClass.Player);
                 }
             }
 

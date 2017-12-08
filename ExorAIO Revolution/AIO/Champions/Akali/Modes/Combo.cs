@@ -34,7 +34,7 @@ namespace AIO.Champions
                     !heroTarget.HasBuff("AkaliMota") &&
                     !Invulnerable.Check(heroTarget, DamageType.Magical))
                 {
-                    SpellClass.Q.CastOnUnit(heroTarget);
+                    UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);
                 }
             }
 
@@ -108,7 +108,7 @@ namespace AIO.Champions
 
                     if (MenuClass.Spells["r"]["whitelist"][heroTarget.ChampionName.ToLower()].Enabled)
                     {
-                        SpellClass.R.CastOnUnit(heroTarget);
+                        UtilityClass.CastOnUnit(SpellClass.R, heroTarget);
                     }
                 }
                 else
@@ -130,7 +130,7 @@ namespace AIO.Champions
 
                         if (bestMinion != null)
                         {
-                            SpellClass.R.CastOnUnit(bestMinion);
+                            UtilityClass.CastOnUnit(SpellClass.R, bestMinion);
                         }
                     }
                 }

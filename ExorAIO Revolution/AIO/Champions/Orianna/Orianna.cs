@@ -123,13 +123,13 @@ namespace AIO.Champions
                         case Gapcloser.Type.Targeted:
                             if (args.Target.IsMe)
                             {
-                                SpellClass.E.CastOnUnit(UtilityClass.Player);
+                                UtilityClass.CastOnUnit(SpellClass.E, UtilityClass.Player);
                             }
                             break;
                         default:
                             if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
                             {
-                                SpellClass.E.CastOnUnit(UtilityClass.Player);
+                                UtilityClass.CastOnUnit(SpellClass.E, UtilityClass.Player);
                             }
                             else
                             {
@@ -142,7 +142,7 @@ namespace AIO.Champions
 
                                 if (bestAlly != null)
                                 {
-                                    SpellClass.E.CastOnUnit(bestAlly);
+                                    UtilityClass.CastOnUnit(SpellClass.E, bestAlly);
                                 }
                             }
                             break;
@@ -167,7 +167,7 @@ namespace AIO.Champions
                                 t.IsValidTarget(SpellClass.R.Width - SpellClass.R.Delay * t.BoundingRadius, false, false, args.EndPosition)) >= MenuClass.Spells["r"]["aoe"].As<MenuSliderBool>().Value &&
                             MenuClass.Spells["e"]["engagerswhitelist"][sender.ChampionName.ToLower()].As<MenuBool>().Enabled)
                         {
-                            SpellClass.E.CastOnUnit(sender);
+                            UtilityClass.CastOnUnit(SpellClass.E, sender);
                         }
                     }
                 }
@@ -215,7 +215,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["protectwhitelist"][target.ChampionName.ToLower()].As<MenuSliderBool>().Enabled &&
                 target.HealthPercent() <= MenuClass.Spells["e"]["protectwhitelist"][target.ChampionName.ToLower()].As<MenuSliderBool>().Value)
             {
-                SpellClass.E.CastOnUnit(target);
+                UtilityClass.CastOnUnit(SpellClass.E, target);
             }
         }
 

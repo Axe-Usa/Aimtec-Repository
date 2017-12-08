@@ -62,7 +62,7 @@ namespace AIO.Champions
                 if (bestTarget != null &&
                     GetTotalUnleashedPowerDamage(bestTarget) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.R.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
                 }
             }
         }

@@ -47,7 +47,7 @@ namespace AIO.Champions
                         obj.IsValid &&
                         obj.Distance(UtilityClass.Player) < SpellClass.W.Range)
                     {
-                        SpellClass.W.CastOnUnit(obj);
+                        UtilityClass.CastOnUnit(SpellClass.W, obj);
                         return;
                     }
                 }

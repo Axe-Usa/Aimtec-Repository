@@ -21,7 +21,6 @@ namespace AIO.Champions
             return player.GetSpellDamage(unit, SpellSlot.E) +
                    player.GetSpellDamage(unit, SpellSlot.E, DamageStage.Buff);
         }
-
         /// <summary>
         ///     Returns true if the target is a perfectly valid expunge target.
         /// </summary>

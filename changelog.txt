@@ -1121,3 +1121,8 @@ ExorAIO: Revolution Changelog:
 
 7.24.0.1:
   AIO: Added Xayah and Corki to special healthbar drawings positions.
+
+7.24.0.2:
+  AIO: Fixed targetted spells not being casted if the enemy was at the edge of the range.
+
+  

@@ -50,37 +50,45 @@ namespace AIO.Champions
                 !UtilityClass.Player.IsDashing() &&
                 MenuClass.Spells["e"]["emode"].As<MenuList>().Value != 2)
             {
-                var playerPos = UtilityClass.Player.ServerPosition;
                 const int condemnPushDistance = 475;
                 const int threshold = 50;
 
                 foreach (var target in
                     GameObjects.EnemyHeroes.Where(t =>
+                        !t.IsDashing() &&
                         t.IsValidTarget(SpellClass.E.Range) &&
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
                         !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
-                    var targetPos = target.ServerPosition;
                     for (var i = UtilityClass.Player.BoundingRadius; i < condemnPushDistance-threshold; i += 10)
                     {
-                        if (targetPos.Extend(playerPos, -i).IsWall(true) &&
-                            targetPos.Extend(playerPos, -i-target.BoundingRadius).IsWall(true))
+                        switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
                         {
-                            if (MenuClass.Spells["e"]["emode"].As<MenuList>().Value == 0)
-                            {
-                                var predPoint = targetPos.Extend(target.Path.FirstOrDefault(), -(target.MoveSpeed * SpellClass.E.Delay));
-                                if (target.IsImmobile(SpellClass.E.Delay*2) ||
-                                    predPoint.Extend(playerPos, -i).IsWall(true) &&
-                                    predPoint.Extend(playerPos, -i-target.BoundingRadius).IsWall(true))
+                            case 0:
+                                if (IsPerfectWallPosition(target.ServerPosition, target, UtilityClass.Player.ServerPosition, i))
                                 {
-                                    SpellClass.E.CastOnUnit(target);
+                                    if (target.IsImmobile(SpellClass.E.Delay))
+                                    {
+                                        UtilityClass.CastOnUnit(SpellClass.E, target);
+                                        break;
+                                    }
+
+                                    var predPoint = SpellClass.E.GetPrediction(target).CastPosition;
+                                    if (IsPerfectWallPosition(predPoint, target, UtilityClass.Player.ServerPosition, i))
+                                    {
+                                        UtilityClass.CastOnUnit(SpellClass.E, target);
+                                        break;
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                SpellClass.E.CastOnUnit(target);
-                            }
+                                break;
+
+                            default:
+                                if (IsPerfectWallPosition(target.ServerPosition, target, UtilityClass.Player.ServerPosition, i))
+                                {
+                                    UtilityClass.CastOnUnit(SpellClass.E, target);
+                                }
+                                break;
                         }
                     }
                 }

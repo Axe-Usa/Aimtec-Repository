@@ -53,7 +53,7 @@ namespace AIO.Champions
                     .MinBy(o => o.Distance(UtilityClass.Player));
                 if (bestTarget != null)
                 {
-                    SpellClass.R.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
                 }
             }
         }

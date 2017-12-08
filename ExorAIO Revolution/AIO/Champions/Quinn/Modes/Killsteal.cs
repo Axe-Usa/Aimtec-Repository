@@ -50,7 +50,7 @@ namespace AIO.Champions
                     !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                     UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
                 {
-                    SpellClass.E.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                 }
             }
         }

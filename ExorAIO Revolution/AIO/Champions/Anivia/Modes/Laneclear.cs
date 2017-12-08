@@ -69,7 +69,7 @@ namespace AIO.Champions
                     minions.Contains(target) &&
                     UtilityClass.Player.GetSpellDamage(target, SpellSlot.E, DamageStage.Empowered) >= target.Health)
                 {
-                    SpellClass.E.CastOnUnit(target);
+                    UtilityClass.CastOnUnit(SpellClass.E, target);
                 }
             }
 

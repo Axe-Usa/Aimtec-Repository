@@ -49,7 +49,7 @@ namespace AIO.Champions
                 var turretTarget = target as Obj_AI_Turret;
                 if (turretTarget != null)
                 {
-                    SpellClass.E.CastOnUnit(turretTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, turretTarget);
                 }
             }
         }

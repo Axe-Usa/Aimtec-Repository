@@ -24,6 +24,7 @@ namespace AIO.Champions
             ///     The Q Combo Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
+                UtilityClass.Player.HasBuff("asheqcastready") &&
                 GameObjects.EnemyHeroes.Any(t => t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {

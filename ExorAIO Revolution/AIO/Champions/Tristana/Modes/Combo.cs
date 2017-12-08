@@ -43,7 +43,7 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled &&
                 MenuClass.Spells["e"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
             {
-                SpellClass.E.Cast(heroTarget);
+                UtilityClass.CastOnUnit(SpellClass.E, heroTarget);
             }
         }
 

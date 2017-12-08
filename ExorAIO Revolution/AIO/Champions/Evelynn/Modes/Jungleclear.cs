@@ -43,7 +43,7 @@ namespace AIO.Champions
                 if (UtilityClass.JungleList.Contains(targetName) &&
                     MenuClass.Spells["w"]["whitelist"][targetName].As<MenuBool>().Enabled)
                 {
-                    SpellClass.W.CastOnUnit(jungleTarget);
+                    UtilityClass.CastOnUnit(SpellClass.W, jungleTarget);
                     return;
                 }
             }
@@ -60,7 +60,7 @@ namespace AIO.Champions
                         > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                     MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
                 {
-                    SpellClass.E.CastOnUnit(jungleTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, jungleTarget);
                 }
             }
 
@@ -84,7 +84,7 @@ namespace AIO.Champions
                 }
                 else
                 {
-                    SpellClass.Q.CastOnUnit(jungleTarget);
+                    UtilityClass.CastOnUnit(SpellClass.Q, jungleTarget);
                 }
             }
 
@@ -97,7 +97,7 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
                 MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
-                SpellClass.E.CastOnUnit(jungleTarget);
+                UtilityClass.CastOnUnit(SpellClass.E, jungleTarget);
             }
         }
 

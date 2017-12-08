@@ -70,7 +70,7 @@ namespace AIO.Champions
                     {
                         if (minion.GetRealHealth() <= GetFrostBiteDamage(minion))
                         {
-                            SpellClass.E.CastOnUnit(minion);
+                            UtilityClass.CastOnUnit(SpellClass.E, minion);
                         }
                     }
                     break;

@@ -183,13 +183,13 @@ namespace AIO.Champions
                     case Gapcloser.Type.Targeted:
                         if (args.Target.IsMe)
                         {
-                            SpellClass.R.CastOnUnit(sender);
+                            UtilityClass.CastOnUnit(SpellClass.R, sender);
                         }
                         break;
                     default:
                         if (args.EndPosition.Distance(UtilityClass.Player.ServerPosition) <= UtilityClass.Player.AttackRange)
                         {
-                            SpellClass.R.CastOnUnit(sender);
+                            UtilityClass.CastOnUnit(SpellClass.R, sender);
                         }
                         break;
                 }

@@ -66,7 +66,7 @@ namespace AIO.Champions
 
                     if (bestAlly != null)
                     {
-                        SpellClass.E.CastOnUnit(bestAlly);
+                        UtilityClass.CastOnUnit(SpellClass.E, bestAlly);
                     }
                 }
 
@@ -93,7 +93,7 @@ namespace AIO.Champions
                                 !Invulnerable.Check(t, DamageType.Magical) &&
                                 allyToBallRectangle.IsInside((Vector2)t.ServerPosition)))
                         {
-                            SpellClass.E.CastOnUnit(ally);
+                            UtilityClass.CastOnUnit(SpellClass.E, ally);
                             return;
                         }
                     }
@@ -114,7 +114,7 @@ namespace AIO.Champions
                         bestTarget.Distance((Vector3)BallPosition) >= bestTarget.Distance(UtilityClass.Player) &&
                         MenuClass.E2["gaine"].As<MenuBool>().Enabled)
                     {
-                        SpellClass.E.CastOnUnit(UtilityClass.Player);
+                        UtilityClass.CastOnUnit(SpellClass.E, UtilityClass.Player);
                         return;
                     }
 

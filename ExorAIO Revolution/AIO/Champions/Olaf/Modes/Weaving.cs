@@ -40,7 +40,7 @@ namespace AIO.Champions
                         >= MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Value ||
                     UtilityClass.Player.GetSpellDamage(heroTarget, SpellSlot.E) >= heroTarget.GetRealHealth())
                 {
-                    SpellClass.E.CastOnUnit(heroTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, heroTarget);
                 }
             }
 

@@ -35,7 +35,7 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["combo"].As<MenuBool>().Enabled)
             {
-                if (!UtilityClass.Player.HasBuff("asheqattack") ||
+                if (!UtilityClass.Player.HasBuff("AsheQAttack") ||
                     !MenuClass.Spells["w"]["customization"]["nowflurry"].As<MenuBool>().Enabled)
                 {
                     SpellClass.W.Cast(heroTarget);

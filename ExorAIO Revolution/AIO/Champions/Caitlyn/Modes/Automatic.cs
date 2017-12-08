@@ -97,7 +97,7 @@ namespace AIO.Champions
                     .MinBy(o => o.GetRealHealth());
                 if (bestTarget != null)
                 {
-                    SpellClass.R.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
                 }
             }
         }

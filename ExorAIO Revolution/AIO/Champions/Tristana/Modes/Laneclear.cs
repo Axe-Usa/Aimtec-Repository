@@ -40,7 +40,7 @@ namespace AIO.Champions
 
                 if (idealMinion != null)
                 {
-                    SpellClass.E.CastOnUnit(idealMinion);
+                    UtilityClass.CastOnUnit(SpellClass.E, idealMinion);
                 }
             }
 

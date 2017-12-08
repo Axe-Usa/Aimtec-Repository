@@ -47,7 +47,7 @@ namespace AIO.Champions
                         if (LoveTapTargetNetworkId == enemy.NetworkId ||
                             GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition)))
                         {
-                            SpellClass.Q.CastOnUnit(minion);
+                            UtilityClass.CastOnUnit(SpellClass.Q, minion);
                         }
                     }
                 }

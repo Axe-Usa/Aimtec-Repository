@@ -113,7 +113,7 @@ namespace AIO.Champions
                     if (SpellClass.Q.Ready &&
                         MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                     {
-                        SpellClass.Q.CastOnUnit(heroTarget);
+                        UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);
                         return;
                     }
                     break;
@@ -140,7 +140,7 @@ namespace AIO.Champions
                     if (SpellClass.Q.Ready &&
                         MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                     {
-                        SpellClass.Q.CastOnUnit(heroTarget);
+                        UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);
                         return;
                     }
                     break;
@@ -193,7 +193,7 @@ namespace AIO.Champions
                     if (SpellClass.Q.Ready &&
                         MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
                     {
-                        SpellClass.Q.CastOnUnit(heroTarget);
+                        UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);
                     }
                     break;
             }

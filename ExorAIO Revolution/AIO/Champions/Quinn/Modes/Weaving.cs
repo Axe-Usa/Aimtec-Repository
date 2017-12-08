@@ -35,7 +35,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.E.CastOnUnit(heroTarget);
+                UtilityClass.CastOnUnit(SpellClass.E, heroTarget);
                 return;
             }
 

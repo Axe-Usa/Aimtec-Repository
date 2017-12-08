@@ -102,7 +102,7 @@ namespace AIO.Champions
                 if (bestTarget.IsValidTarget() &&
                     !Invulnerable.Check(bestTarget, DamageType.Magical, false))
                 {
-                    SpellClass.Q.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.Q, bestTarget);
                 }
             }
 

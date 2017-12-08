@@ -33,7 +33,7 @@ namespace AIO.Champions
                     if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) +
                         (IsCharged(bestTarget) ? GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
                     {
-                        SpellClass.R.CastOnUnit(bestTarget);
+                        UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
                     }
                 }
             }

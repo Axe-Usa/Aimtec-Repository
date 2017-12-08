@@ -36,7 +36,7 @@ namespace AIO.Champions
                         !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
                         UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
                     {
-                        SpellClass.Q.CastOnUnit(bestTarget);
+                        UtilityClass.CastOnUnit(SpellClass.Q, bestTarget);
                     }
                 }
 
@@ -57,7 +57,7 @@ namespace AIO.Champions
                                 polygon.IsInside((Vector2)bestTarget.ServerPosition) &&
                                 polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(bestTarget).CastPosition))
                             {
-                                SpellClass.Q.CastOnUnit(minion);
+                                UtilityClass.CastOnUnit(SpellClass.Q, minion);
                             }
                         }
                     }

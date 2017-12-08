@@ -34,7 +34,7 @@ namespace AIO.Champions
                         .Any(m2 => m2 != m && QCone(m).IsInside((Vector2)m2.ServerPosition)));
                 if (bestMinion != null)
                 {
-                    SpellClass.Q.CastOnUnit(bestMinion);
+                    UtilityClass.CastOnUnit(SpellClass.Q, bestMinion);
                 }
             }
 

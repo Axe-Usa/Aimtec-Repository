@@ -62,7 +62,7 @@ namespace AIO.Champions
                         }
                     }
 
-                    SpellClass.E.CastOnUnit(jungleTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, jungleTarget);
                 }
             }
 

@@ -446,6 +446,21 @@ namespace AIO.Utilities
             return unit.Health + unit.PhysicalShield;
         }
 
+        /// <summary>
+        ///     Casts the spell on unit.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public static bool CastOnUnit(this Aimtec.SDK.Spell spell, GameObject obj)
+        {
+            if (!spell.Ready || MenuGUI.IsChatOpen() || MenuGUI.IsShopOpen())
+            {
+                return false;
+            }
+
+            return Player.SpellBook.CastSpell(spell.Slot, obj);
+        }
+
         #endregion
     }
 }

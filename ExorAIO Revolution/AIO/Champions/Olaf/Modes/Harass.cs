@@ -54,7 +54,7 @@ namespace AIO.Champions
                             MenuClass.Spells["e"]["harass"].As<MenuSliderBool>().Value ||
                         UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
                     {
-                        SpellClass.E.CastOnUnit(bestTarget);
+                        UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                     }
                 }
             }

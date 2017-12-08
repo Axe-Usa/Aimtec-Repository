@@ -93,7 +93,7 @@ namespace AIO.Champions
                     UtilityClass.Player.GetSpellDamage(heroTarget, SpellSlot.E) +
                     (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(heroTarget, SpellSlot.W) : 0) >= heroTarget.GetRealHealth())
                 {
-                    SpellClass.E.CastOnUnit(heroTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, heroTarget);
                 }
             }
         }

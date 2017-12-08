@@ -43,7 +43,7 @@ namespace AIO.Champions
                             polygon.IsInside((Vector2)target.ServerPosition) &&
                             polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
                         {
-                            SpellClass.Q.CastOnUnit(minion);
+                            UtilityClass.CastOnUnit(SpellClass.Q, minion);
                         }
                     }
                 }

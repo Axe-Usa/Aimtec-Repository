@@ -160,7 +160,7 @@ namespace AIO.Champions
                     case Gapcloser.Type.Targeted:
                         if (args.Target.IsMe)
                         {
-                            SpellClass.E.CastOnUnit(sender);
+                            UtilityClass.CastOnUnit(SpellClass.E, sender);
                         }
                         break;
                     default:

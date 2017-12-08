@@ -36,7 +36,7 @@ namespace AIO.Champions
                 heroTarget.IsValidTarget(SpellClass.Q.Range) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.CastOnUnit(heroTarget);
+                UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);
             }
 
             /// <summary>

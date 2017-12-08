@@ -44,7 +44,7 @@ namespace AIO.Champions
                             polygon.IsInside((Vector2)target.ServerPosition) &&
                             polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
                         {
-                            SpellClass.Q.CastOnUnit(minion);
+                            UtilityClass.CastOnUnit(SpellClass.Q, minion);
                         }
                     }
                 }
@@ -81,7 +81,7 @@ namespace AIO.Champions
                 var farmLocation = SpellClass.Q2.GetLineFarmLocation(Extensions.GetEnemyLaneMinionsTargets(), SpellClass.Q2.Width);
                 if (farmLocation.MinionsHit >= MenuClass.Spells["q"]["customization"]["laneclear"].As<MenuSlider>().Value)
                 {
-                    SpellClass.Q.CastOnUnit(farmLocation.FirstMinion);
+                    UtilityClass.CastOnUnit(SpellClass.Q, farmLocation.FirstMinion);
                     return;
                 }
                 */

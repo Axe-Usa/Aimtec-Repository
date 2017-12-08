@@ -50,7 +50,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget, DamageType.Magical) &&
                     MenuClass.Spells["e"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.E.CastOnUnit(bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                 }
             }
         }

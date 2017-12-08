@@ -34,7 +34,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(heroTarget, DamageType.Magical) &&
                     MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.Q.CastOnUnit(heroTarget);
+                    UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);
                 }
             }
 

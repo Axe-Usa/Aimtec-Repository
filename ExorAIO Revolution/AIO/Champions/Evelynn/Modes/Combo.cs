@@ -68,7 +68,7 @@ namespace AIO.Champions
                             }
                             else
                             {
-                                SpellClass.Q.CastOnUnit(bestTarget);
+                                UtilityClass.CastOnUnit(SpellClass.Q, bestTarget);
                             }
                         }
                     }
@@ -93,12 +93,12 @@ namespace AIO.Champions
                     {
                         if (IsFullyAllured(bestTarget) || !MenuClass.Spells["e"]["onlyiffullyallured"].As<MenuBool>().Enabled)
                         {
-                            SpellClass.E.CastOnUnit(bestTarget);
+                            UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                         }
                     }
                     else
                     {
-                        SpellClass.E.CastOnUnit(bestTarget);
+                        UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                     }
                 }
             }

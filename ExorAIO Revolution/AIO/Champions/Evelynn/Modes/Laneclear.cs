@@ -37,7 +37,7 @@ namespace AIO.Champions
                     }
                     else
                     {
-                        SpellClass.Q.CastOnUnit(minion);
+                        UtilityClass.CastOnUnit(SpellClass.Q, minion);
                     }
                 }
             }
@@ -53,7 +53,7 @@ namespace AIO.Champions
                 var minion = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.E.Range).FirstOrDefault(m => m.Name.Contains("Siege") || m.Name.Contains("Super"));
                 if (minion != null)
                 {
-                    SpellClass.E.CastOnUnit(minion);
+                    UtilityClass.CastOnUnit(SpellClass.E, minion);
                 }
             }
         }

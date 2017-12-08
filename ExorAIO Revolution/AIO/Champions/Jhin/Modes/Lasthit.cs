@@ -37,7 +37,7 @@ namespace AIO.Champions
                 {
                     if (minion.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q))
                     {
-                        SpellClass.Q.CastOnUnit(minion);
+                        UtilityClass.CastOnUnit(SpellClass.Q, minion);
                     }
                 }
             }

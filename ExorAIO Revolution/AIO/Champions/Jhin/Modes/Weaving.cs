@@ -35,7 +35,7 @@ namespace AIO.Champions
                 !HasFourthShot() &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.CastOnUnit(heroTarget);
+                UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);
                 return;
             }
 
@@ -70,7 +70,7 @@ namespace AIO.Champions
                 HasFourthShot() &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
-                SpellClass.Q.CastOnUnit(heroTarget);
+                UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);
             }
         }
 
