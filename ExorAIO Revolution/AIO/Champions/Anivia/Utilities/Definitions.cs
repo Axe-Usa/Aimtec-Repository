@@ -31,6 +31,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the total missile damage on a determined unit.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public double GetFrostBiteDamage(Obj_AI_Base unit)
         {
             var player = UtilityClass.Player;
@@ -42,6 +43,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is marked by Q or R, else false.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool IsChilled(Obj_AI_Base unit)
         {
             return unit.HasBuff("chilled");

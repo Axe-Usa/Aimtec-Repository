@@ -449,6 +449,7 @@ namespace AIO.Utilities
         /// <summary>
         ///     Casts the spell on unit.
         /// </summary>
+        /// <param name="spell">The spell.</param>
         /// <param name="obj">The object.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool CastOnUnit(this Aimtec.SDK.Spell spell, GameObject obj)

@@ -27,14 +27,6 @@ namespace AIO.Champions
         {
             foreach (var axe in ObjectManager.Get<GameObject>().Where(o => o != null && o.IsValid))
             {
-                if (axe.IsValid)
-                {
-                    if (Axes.Any(o => o.Key == axe.NetworkId))
-                    {
-                        Axes.Remove(axe.NetworkId);
-                    }
-                }
-
                 switch (axe.Name)
                 {
                     case "Olaf_Base_Q_Axe_Ally.troy":

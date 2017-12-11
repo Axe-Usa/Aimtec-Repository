@@ -27,6 +27,7 @@ namespace AIO.Champions
         /// <summary>
         ///     The Q Rectangle.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public Vector2Geometry.Rectangle QRectangle(Obj_AI_Base unit)
         {
             return new Vector2Geometry.Rectangle(

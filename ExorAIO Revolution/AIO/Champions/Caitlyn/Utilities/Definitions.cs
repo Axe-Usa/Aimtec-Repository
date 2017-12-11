@@ -34,6 +34,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets an enemy's last Trap time.
         /// </summary>
+        /// <param name="networkId">The networkId.</param>
         public double GetLastEnemyTrapTime(int networkId)
         {
             return EnemyTrapData.FirstOrDefault(k => k.Key == networkId).Value;
@@ -42,6 +43,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if an enemy can be trapped, else, false.
         /// </summary>
+        /// <param name="hero">The hero.</param>
         public bool CanTrap(Obj_AI_Hero hero)
         {
             return Game.TickCount - GetLastEnemyTrapTime(hero.NetworkId) >= 4000 - SpellClass.W.Delay * 1000;
@@ -50,6 +52,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Updates an enemy's last Trap time.
         /// </summary>
+        /// <param name="networkId">The networkId.</param>
         public void UpdateEnemyTrapTime(int networkId)
         {
             EnemyTrapData[networkId] = Game.TickCount;

@@ -21,7 +21,9 @@ namespace AIO.Champions
         public int GetMinimumApForApMode()
         {
             var menuOption = MenuClass.Spells["w"]["apmode"].As<MenuSliderBool>();
-            return menuOption.Enabled ? menuOption.Value : menuOption.MaxValue;
+            return menuOption.Enabled
+                ? menuOption.Value
+                : menuOption.MaxValue;
         }
 
         #endregion

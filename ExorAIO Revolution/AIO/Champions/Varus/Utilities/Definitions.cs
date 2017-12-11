@@ -25,6 +25,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns Q Charging Logic;
         /// </summary>
+        /// <param name="target">The target.</param>
         public static void PiercingArrowLogicalCast(Obj_AI_Base target)
         {
             if (!IsChargingPiercingArrow() &&
@@ -50,6 +51,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the real Q Damage;
         /// </summary>
+        /// <param name="target">The target.</param>
         public static double GetRealPiercingArrowDamage(Obj_AI_Base target)
         {
             return
@@ -60,6 +62,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the real E Damage;
         /// </summary>
+        /// <param name="target">The target.</param>
         public static double GetRealHailOfArrowsDamage(Obj_AI_Base target)
         {
             return
@@ -70,6 +73,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the real R Damage;
         /// </summary>
+        /// <param name="target">The target.</param>
         public static double GetRealChainOfCorruptionDamage(Obj_AI_Base target)
         {
             return
@@ -80,6 +84,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the number of Blight Stacks a determined target has;
         /// </summary>
+        /// <param name="target">The target.</param>
         public int GetBlightStacks(Obj_AI_Base target)
         {
             return target.GetRealBuffCount("VarusWDebuff");

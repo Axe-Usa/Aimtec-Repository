@@ -16,6 +16,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is Allured.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool IsAllured(Obj_AI_Base unit)
         {
             return unit.HasBuff("EvelynnW");
@@ -24,6 +25,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is fully Allured.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool IsFullyAllured(Obj_AI_Base unit)
         {
             if (unit.HasBuff("EvelynnW"))

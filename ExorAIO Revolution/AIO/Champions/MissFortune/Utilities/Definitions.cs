@@ -58,6 +58,7 @@ namespace AIO.Champions
         /// <returns>
         ///     Gets the Q Cone on a determined target unit.
         /// </returns>
+        /// <param name="target">The target.</param>
         public Vector2Geometry.Sector QCone(Obj_AI_Base target)
         {
             var targetPos = target.ServerPosition;
@@ -71,6 +72,7 @@ namespace AIO.Champions
         /// <returns>
         ///     Gets the Q Cone on a determined target unit.
         /// </returns>
+        /// <param name="target">The target.</param>
         public Vector3Geometry.Sector DrawQCone(Obj_AI_Base target)
         {
             var targetPos = target.Position;

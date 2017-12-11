@@ -40,6 +40,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is marked by the passive, else, false.
         /// </summary>
+        /// <param name="target">The target.</param>
         public bool IsVulnerable(Obj_AI_Base target)
         {
             return target.HasBuff("QuinnW");

@@ -21,6 +21,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the total missile damage on a determined unit.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public double GetMissileDamage(Obj_AI_Base unit)
         {
             var player = UtilityClass.Player;

@@ -60,6 +60,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if there are any worked grounds in a determined range from the player.
         /// </summary>
+        /// <param name="range">The range.</param>
         public bool AnyTerrainInRange(float range)
         {
             return CountTerrainsInRange(range) > 0;
@@ -68,6 +69,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the number of worked grounds in a determined range from the player.
         /// </summary>
+        /// <param name="range">The range.</param>
         public int CountTerrainsInRange(float range)
         {
             return WorkedGrounds.Count(o => o.Value.Distance(UtilityClass.Player.Position) <= range);
@@ -123,6 +125,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the position the target would have after being pulled by W.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public Vector3 GetUnitPositionAfterPull(Obj_AI_Base unit)
         {
             var targetPred = SpellClass.W.GetPrediction(unit).CastPosition;
@@ -132,6 +135,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the position the target would have after being pushed by W.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public Vector3 GetUnitPositionAfterPush(Obj_AI_Base unit)
         {
             var targetPred = SpellClass.W.GetPrediction(unit).CastPosition;
@@ -141,6 +145,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the position the target would have after being pushed by W, based on the user's option preference.
         /// </summary>
+        /// <param name="target">The target.</param>
         public Vector3 GetTargetPositionAfterW(Obj_AI_Hero target)
         {
             var position = new Vector3();
@@ -188,10 +193,9 @@ namespace AIO.Champions
                 ///     Ignore Target If Possible.
                 /// </summary>
                 case 4:
-                    if (!GameObjects.EnemyHeroes.Any(
-                            t =>
-                                t.IsValidTarget(SpellClass.W.Range) &&
-                                MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
+                    if (!GameObjects.EnemyHeroes.Any(t =>
+                            t.IsValidTarget(SpellClass.W.Range) &&
+                            MenuClass.Spells["w"]["selection"][t.ChampionName.ToLower()].As<MenuList>().Value < 3))
                     {
                         if (UtilityClass.Player.Distance(GetUnitPositionAfterPull(target)) >= 200f)
                         {

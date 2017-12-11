@@ -25,7 +25,8 @@ namespace AIO.Champions
             /// <summary>
             ///     The E Jungleclear Logic.
             /// </summary>
-            if (UtilityClass.Player.Level >=
+            if (SpellClass.E.Ready &&
+                UtilityClass.Player.Level >=
                     MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Value &&
                 MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Enabled)
             {
@@ -38,8 +39,7 @@ namespace AIO.Champions
                     {
                         SpellClass.E.Cast();
                     }
-
-                    if (!UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
+                    else if (!UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
                         MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
                     {
                         SpellClass.E.Cast();
@@ -67,8 +67,6 @@ namespace AIO.Champions
             {
                 SpellClass.Q.Cast(jungleTarget);
             }
-
-
         }
 
         #endregion

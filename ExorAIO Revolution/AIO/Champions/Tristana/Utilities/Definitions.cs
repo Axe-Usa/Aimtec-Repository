@@ -19,6 +19,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is affected by the E charge, else, false.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool IsCharged(Obj_AI_Base unit)
         {
             return unit.HasBuff("TristanaECharge");
@@ -27,6 +28,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the total explosion damage on a determined unit.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public double GetTotalExplosionDamage(Obj_AI_Base unit)
         {
             var player = UtilityClass.Player;
@@ -37,6 +39,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is a perfectly valid charge target.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool IsPerfectChargeTarget(Obj_AI_Base unit)
         {
             if (IsCharged(unit) &&

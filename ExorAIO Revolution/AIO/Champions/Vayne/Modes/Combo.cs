@@ -74,11 +74,10 @@ namespace AIO.Champions
                                         break;
                                     }
 
-                                    var predPoint = SpellClass.E.GetPrediction(target).CastPosition;
-                                    if (IsPerfectWallPosition(predPoint, target, UtilityClass.Player.ServerPosition, i))
+                                    var estimatedPosition = EstimatedPosition(target, SpellClass.E.Delay);
+                                    if (IsPerfectWallPosition(estimatedPosition, target, UtilityClass.Player.ServerPosition, i))
                                     {
                                         UtilityClass.CastOnUnit(SpellClass.E, target);
-                                        break;
                                     }
                                 }
                                 break;

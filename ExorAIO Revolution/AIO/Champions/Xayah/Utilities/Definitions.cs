@@ -43,6 +43,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target unit can be hit by any feather.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool CanFeathersHitUnit(Obj_AI_Base unit)
         {
             return CountFeathersHitOnUnit(unit) > 0;
@@ -51,6 +52,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns the number of feathers which can hit the target unit.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public int CountFeathersHitOnUnit(Obj_AI_Base unit)
         {
             var hit = 0;
@@ -78,6 +80,8 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the real Damage the E spell would deal to a determined enemy unit.
         /// </summary>
+        /// <param name="unit">The unit.</param>
+        /// <param name="feathers">The number of feathers.</param>
         public double GetPerfectFeatherDamage(Obj_AI_Base unit, int feathers)
         {
             double damage = 0;
@@ -94,6 +98,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is a perfectly valid rend target.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool IsPerfectFeatherTarget(Obj_AI_Base unit)
         {
             if (unit.IsValidTarget() &&

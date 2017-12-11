@@ -55,6 +55,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the total rend damage on a determined unit.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public double GetTotalRendDamage(Obj_AI_Base unit)
         {
             var player = UtilityClass.Player;
@@ -65,6 +66,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is a perfectly valid rend target.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool IsPerfectRendTarget(Obj_AI_Base unit)
         {
             var spellRange = SpellClass.E.Range;

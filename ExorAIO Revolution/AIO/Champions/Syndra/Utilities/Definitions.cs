@@ -41,6 +41,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the 'obj' object is a DarkSphere, else false.
         /// </summary>
+        /// <param name="obj">The object.</param>
         public bool IsDarkSphere(GameObject obj)
         {
             switch (obj.Name)
@@ -94,6 +95,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target unit can be hit by any sphere.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool CanSpheresHitUnit(Obj_AI_Base unit)
         {
             foreach (var sphere in DarkSpheres)
@@ -118,6 +120,8 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target unit can be hit by a determined sphere.
         /// </summary>
+        /// <param name="unit">The unit.</param>
+        /// <param name="sphere">The sphere.</param>
         public bool CanSphereHitUnit(Obj_AI_Base unit, KeyValuePair<int, Vector3> sphere)
         {
             var targetPos = (Vector2)unit.ServerPosition;
@@ -139,6 +143,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Gets the real Damage the R spell would deal to a determined enemy hero.
         /// </summary>
+        /// <param name="target">The target.</param>
         public double GetTotalUnleashedPowerDamage(Obj_AI_Hero target)
         {
             var player = UtilityClass.Player;
@@ -149,6 +154,7 @@ namespace AIO.Champions
         /// <summary>
         ///     Returns true if the target is a perfectly valid stunnable target.
         /// </summary>
+        /// <param name="unit">The unit.</param>
         public bool IsPerfectSphereTarget(Obj_AI_Base unit)
         {
             if (unit.IsValidTarget() &&
@@ -170,6 +176,7 @@ namespace AIO.Champions
         /// <summary>
         ///     The Sphere Scatter Rectangle.
         /// </summary>
+        /// <param name="sphere">The sphere.</param>
         public Vector2Geometry.Rectangle DarkSphereScatterRectangle(KeyValuePair<int, Vector3> sphere)
         {
             return new Vector2Geometry.Rectangle(
@@ -181,6 +188,7 @@ namespace AIO.Champions
         /// <summary>
         ///     The Scatter the Weak Cone.
         /// </summary>
+        /// <param name="targetPos">The target position.</param>
         public Vector2Geometry.Sector ScatterTheWeakCone(Vector3 targetPos)
         {
             return new Vector2Geometry.Sector(

@@ -95,7 +95,10 @@ namespace AIO.Champions
 
                     MenuClass.E.Add(new MenuBool("killsteal", "KillSteal"));
                     MenuClass.E.Add(new MenuBool("ondeath", "Before death"));
+                    MenuClass.E.Add(new MenuSeperator("separator"));
                     MenuClass.E.Add(new MenuBool("harass", "Harass with minions"));
+                    MenuClass.E.Add(new MenuBool("dontharassslowed", "^ Don't Harass already slowed enemies"));
+                    MenuClass.E.Add(new MenuSeperator("separator2"));
                     MenuClass.E.Add(new MenuBool("lasthit", "Lasthit"));
                     MenuClass.E.Add(new MenuSliderBool("laneclear", "Laneclear / If killable minions >= x", true, 1, 1, 5));
                     MenuClass.E.Add(new MenuSliderBool("junglesteal", "Junglesteal / If Level >=", true, 2, 1, 18));
