@@ -1125,4 +1125,8 @@ ExorAIO: Revolution Changelog:
 7.24.0.2:
   AIO: Fixed targetted spells not being casted if the enemy was at the edge of the range.
 
-  
+7.24.0.3:
+  AIO; Added some missing documentation.
+  Kalista: Added option to not Harass already slowed targets with minions.
+  Kalista: Fixed jungle monsters' healthbar damage drawings' positions.
+  Vayne: Condemn check test.

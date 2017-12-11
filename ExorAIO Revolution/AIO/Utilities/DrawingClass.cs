@@ -45,7 +45,7 @@ namespace AIO.Utilities
                                                                                          new JungleHpBarOffset { UnitSkinName = "SRU_Red", Width = 139, Height = 4, XOffset = 10, YOffset = 24 },
                                                                                          new JungleHpBarOffset { UnitSkinName = "SRU_Blue", Width = 140, Height = 4, XOffset = 10, YOffset = 24 },
                                                                                          new JungleHpBarOffset { UnitSkinName = "SRU_Gromp", Width = 90, Height = 2, XOffset = 2, YOffset = 7 },
-                                                                                         new JungleHpBarOffset { UnitSkinName = "Sru_Crab", Width = 90, Height = 2, XOffset = 1, YOffset = 5 },
+                                                                                         new JungleHpBarOffset { UnitSkinName = "Sru_Crab", Width = 60, Height = 2, XOffset = 0, YOffset = 5 },
                                                                                          new JungleHpBarOffset { UnitSkinName = "SRU_Krug", Width = 72, Height = 2, XOffset = 1, YOffset = 7 },
                                                                                          new JungleHpBarOffset { UnitSkinName = "SRU_Razorbeak", Width = 90, Height = 2, XOffset = 1, YOffset = 7 },
                                                                                          new JungleHpBarOffset { UnitSkinName = "SRU_Murkwolf", Width = 90, Height = 2, XOffset = 1, YOffset = 7 }
