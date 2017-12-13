@@ -1130,3 +1130,6 @@ ExorAIO: Revolution Changelog:
   Kalista: Added option to not Harass already slowed targets with minions.
   Kalista: Fixed jungle monsters' healthbar damage drawings' positions.
   Vayne: Condemn check test.
+
+7.24.0.4:
+  Akali: Fixed E Harass Nullref.

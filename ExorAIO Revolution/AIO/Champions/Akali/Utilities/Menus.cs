@@ -57,7 +57,7 @@ namespace AIO.Champions
                 MenuClass.Spells.Add(MenuClass.Q);
 
                 /// <summary>
-                ///     Sets the menu for the Q.
+                ///     Sets the menu for the W.
                 /// </summary>
                 MenuClass.W = new Menu("w", "Use W to:");
                 {
