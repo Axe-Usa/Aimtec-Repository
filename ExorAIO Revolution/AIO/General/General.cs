@@ -176,6 +176,22 @@ namespace AIO
                         return;
                     }
 
+                    if (ObjectManager.Get<GameObject>().Any(o =>
+                        o.Type == GameObjectType.obj_GeneralParticleEmitter &&
+                        o.Name == "Perks_ManaflowBand_Buff" &&
+                        o.Distance(UtilityClass.Player) <= 75))
+                    {
+                        return;
+                    }
+
+                    if (ObjectManager.Get<GameObject>().Any(o =>
+                        o.Type == GameObjectType.obj_GeneralParticleEmitter &&
+                        o.Name == "Perks_LastResort_Buf" &&
+                        o.Distance(UtilityClass.Player) <= 75))
+                    {
+                        return;
+                    }
+
                     var spellCost =
                         championSpellManaCosts[slot][UtilityClass.Player.GetSpell(slot).Level - 1];
                     var mana = UtilityClass.Player.Mana;

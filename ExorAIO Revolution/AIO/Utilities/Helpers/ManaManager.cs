@@ -26,6 +26,22 @@ namespace AIO.Utilities
                 return 0;
             }
 
+            if (ObjectManager.Get<GameObject>().Any(o =>
+                    o.Type == GameObjectType.obj_GeneralParticleEmitter &&
+                    o.Name == "Perks_ManaflowBand_Buff" &&
+                    o.Distance(UtilityClass.Player) <= 75))
+            {
+                return 0;
+            }
+
+            if (ObjectManager.Get<GameObject>().Any(o =>
+                    o.Type == GameObjectType.obj_GeneralParticleEmitter &&
+                    o.Name == "Perks_LastResort_Buf" &&
+                    o.Distance(UtilityClass.Player) <= 75))
+            {
+                return 0;
+            }
+
             var spellData = UtilityClass.ManaCostArray.FirstOrDefault(v => v.Key == UtilityClass.Player.ChampionName);
             var cost = spellData.Value[slot][UtilityClass.Player.GetSpell(slot).Level - 1];
             return

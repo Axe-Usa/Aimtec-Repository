@@ -40,8 +40,7 @@ namespace AIO.Champions
                 foreach (var feather in Feathers)
                 {
                     var drawFeatherPos = feather.Value.FixHeight();
-                    var boundingRadius = GameObjects.EnemyHeroes.MinBy(t => t.Distance(feather.Value)).BoundingRadius;
-                    var realFeatherHitbox = new Vector2Geometry.Rectangle((Vector2)UtilityClass.Player.ServerPosition, (Vector2)drawFeatherPos, SpellClass.E.Width + boundingRadius - SpellClass.E.Delay * boundingRadius);
+                    var realFeatherHitbox = new Vector2Geometry.Rectangle((Vector2)UtilityClass.Player.ServerPosition, (Vector2)drawFeatherPos, SpellClass.E.Width);
                     var drawFeatherHitbox = new Vector3Geometry.Rectangle(UtilityClass.Player.Position, drawFeatherPos, SpellClass.E.Width);
 
                     drawFeatherHitbox.Draw(
