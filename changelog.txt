@@ -1137,3 +1137,6 @@ ExorAIO: Revolution Changelog:
 7.24.0.5:
   AIO: Will now ignore Manamanagers and Spell Limiters when ManaflowBand or Presence of Mind runes are active.
   Xayah: Faster E Usage.
+  
+7.24.0.6:
+  Corki: Fixed E Nullref.
