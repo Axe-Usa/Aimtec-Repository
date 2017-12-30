@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Damage.JSON;
@@ -28,11 +29,11 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E, IsWhiplashEmpowered() ? DamageStage.Empowered : DamageStage.Default) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.E.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.E, IsWhiplashEmpowered() ? DamageStage.Empowered : DamageStage.Default) >= t.GetRealHealth()))
                 {
-                    UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, target);
+                    break;
                 }
             }
 
@@ -42,11 +43,11 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R, bestTarget.HealthPercent() < 30 ? DamageStage.Empowered : DamageStage.Default) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.R.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.R, t.HealthPercent() < 30 ? DamageStage.Empowered : DamageStage.Default) >= t.GetRealHealth()))
                 {
-                    SpellClass.R.Cast(bestTarget);
+                    SpellClass.R.Cast(target.ServerPosition);
+                    break;
                 }
             }
         }

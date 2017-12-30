@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -29,13 +30,12 @@ namespace AIO.Champions
                 !IsUsingBehindEnemyLines() &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    !t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)) &&
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) + UtilityClass.Player.GetAutoAttackDamage(t) >= t.GetRealHealth()))
                 {
-                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
-                    return;
+                    SpellClass.Q.Cast(target);
+                    break;
                 }
             }
 
@@ -45,12 +45,12 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.E.Range).Where(t =>
+                    !t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)) &&
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.E) + UtilityClass.Player.GetAutoAttackDamage(t) >= t.GetRealHealth()))
                 {
-                    UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, target);
+                    break;
                 }
             }
         }

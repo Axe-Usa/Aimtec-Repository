@@ -1,6 +1,8 @@
 
 using System.Linq;
 using Aimtec;
+using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -30,8 +32,12 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 var bestMinion = Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q.Range)
+                    .Where(m => m.Health < UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q))
                     .FirstOrDefault(m => Extensions.GetEnemyLaneMinionsTargetsInRange(SpellClass.Q2.Range)
-                        .Any(m2 => m2 != m && QCone(m).IsInside((Vector2)m2.ServerPosition)));
+                     .Any(m2 =>
+                        m2.NetworkId != m.NetworkId &&
+                        QCone(m).IsInside((Vector2)m2.ServerPosition) &&
+                        m2.Health < UtilityClass.Player.GetSpellDamage(m2, SpellSlot.Q, DamageStage.Empowered) + GetMinionLoveTapDamageMultiplier()));
                 if (bestMinion != null)
                 {
                     UtilityClass.CastOnUnit(SpellClass.Q, bestMinion);

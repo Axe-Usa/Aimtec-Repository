@@ -49,7 +49,7 @@ namespace AIO.Champions
                             GlacialStorm != null &&
                             !GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.R.Width, false, true, GlacialStorm.Position) &&
+                                t.IsValidTarget(SpellClass.R.Width, checkRangeFrom: GlacialStorm.Position) &&
                                 MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                         {
                             SpellClass.R.Cast();
@@ -86,7 +86,7 @@ namespace AIO.Champions
                             FlashFrost != null &&
                             !GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position) &&
+                                t.IsValidTarget(SpellClass.Q.Width, checkRangeFrom: FlashFrost.Position) &&
                                 MenuClass.Spells["q"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
                         {
                             SpellClass.Q.Cast();

@@ -1,6 +1,5 @@
 
 using Aimtec;
-using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
@@ -33,7 +32,6 @@ namespace AIO.Champions
             ///     The Q Weaving Logic.
             /// </summary>
             if (SpellClass.Q.Ready &&
-                heroTarget.IsValidTarget(SpellClass.Q.Range) &&
                 MenuClass.Spells["q"]["combo"].As<MenuBool>().Enabled)
             {
                 UtilityClass.CastOnUnit(SpellClass.Q, heroTarget);

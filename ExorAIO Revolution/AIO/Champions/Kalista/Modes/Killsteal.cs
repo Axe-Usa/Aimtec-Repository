@@ -1,9 +1,7 @@
 
-using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
-using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -29,28 +27,35 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
                 {
-                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects
-                        .Where(c => Extensions.GetAllGenericUnitTargets().Contains(c));
-                    var objAiBases = collisions as IList<Obj_AI_Base> ?? collisions.ToList();
-                    if (objAiBases.Any())
+                    var collisions = SpellClass.Q.GetPrediction(target).CollisionObjects
+                        .Where(c => Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.Q.Range).Contains(c))
+                        .ToList();
+                    if (collisions.Any())
                     {
-                        if (objAiBases.All(c => c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
+                        if (collisions.All(c =>
+                            c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
                         {
-                            SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
+                            SpellClass.Q.Cast(SpellClass.Q.GetPrediction(target).CastPosition);
+                            break;
                         }
                     }
                     else
                     {
-                        SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
+                        SpellClass.Q.Cast(SpellClass.Q.GetPrediction(target).CastPosition);
+                        break;
                     }
                 }
             }
+        }
 
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void RendKillsteal()
+        {
             /// <summary>
             ///     The KillSteal E Logic.
             /// </summary>

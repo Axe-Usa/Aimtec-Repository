@@ -29,33 +29,37 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)))
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    !t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t))))
                 {
-                    var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects;
+                    var collisions = SpellClass.Q.GetPrediction(target).CollisionObjects
+                        .Where(c => Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.Q.Range).Contains(c))
+                        .ToList();
                     if (collisions.Any())
                     {
-                        if (bestTarget.HasBuff("caitlynyordletrapsight"))
+                        if (target.HasBuff("caitlynyordletrapsight"))
                         {
-                            if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q, DamageStage.SecondForm) >= bestTarget.GetRealHealth())
+                            if (UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q, DamageStage.SecondForm) >= target.GetRealHealth())
                             {
-                                SpellClass.Q.Cast(bestTarget);
+                                SpellClass.Q.Cast(target);
+                                break;
                             }
                         }
                         else
                         {
-                            if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                            if (UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q) >= target.GetRealHealth())
                             {
-                                SpellClass.Q.Cast(bestTarget);
+                                SpellClass.Q.Cast(target);
+                                break;
                             }
                         }
                     }
                     else
                     {
-                        if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q, DamageStage.SecondForm) >= bestTarget.GetRealHealth())
+                        if (UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q, DamageStage.SecondForm) >= target.GetRealHealth())
                         {
-                            SpellClass.Q.Cast(bestTarget);
+                            SpellClass.Q.Cast(target);
+                            break;
                         }
                     }
                 }

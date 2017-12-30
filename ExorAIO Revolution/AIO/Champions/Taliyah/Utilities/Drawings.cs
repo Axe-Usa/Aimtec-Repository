@@ -16,7 +16,7 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Initializes drawings.
+        ///     Initializes the drawings.
         /// </summary>
         public void Drawings()
         {

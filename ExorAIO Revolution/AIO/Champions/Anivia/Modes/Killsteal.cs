@@ -28,27 +28,24 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null)
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
                 {
                     switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
                     {
                         case 1:
-                            if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
-                            {
-                                SpellClass.Q.Cast(bestTarget);
-                            }
-                            break;
-                        case 2:
-                            if (FlashFrost != null &&
-                                GameObjects.EnemyHeroes.Any(t =>
-                                    t.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position) &&
-                                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth()))
-                            {
-                                SpellClass.Q.Cast();
-                            }
+                            SpellClass.Q.Cast(target);
                             break;
                     }
+                    break;
+                }
+
+                if (FlashFrost != null &&
+                    GameObjects.EnemyHeroes.Any(t =>
+                        t.IsValidTarget(SpellClass.Q.Width, checkRangeFrom: FlashFrost.Position) &&
+                        UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
+                {
+                    SpellClass.Q.Cast();
                 }
             }
 
@@ -58,11 +55,11 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    GetFrostBiteDamage(bestTarget) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.E.Range).Where(t =>
+                    GetFrostBiteDamage(t) >= t.GetRealHealth()))
                 {
-                    UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.E, target);
+                    break;
                 }
             }
         }

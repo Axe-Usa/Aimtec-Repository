@@ -23,63 +23,29 @@ namespace AIO.Champions
         public void Harass()
         {
             /// <summary>
-            ///     The Q Mixed Harass Logics.
+            ///     The Q Mixed Harass Logic.
             /// </summary>
-            if (SpellClass.Q.Ready)
+            if (SpellClass.Q.Ready &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q2"]["harass"]) &&
+                MenuClass.Spells["q2"]["harass"].As<MenuSliderBool>().Enabled)
             {
-                /// <summary>
-                ///     The Normal Q Harass Logic.
-                /// </summary>
-                var orbTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-                if (orbTarget != null)
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q2.Range).Where(t => MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
-                    var heroTarget = orbTarget as Obj_AI_Hero;
-                    if (heroTarget != null)
-                    {
-                        if (UtilityClass.Player.ManaPercent()
-                                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]) &&
-                            MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
-                        {
-                            if (!Invulnerable.Check(heroTarget) &&
-                                MenuClass.Spells["q"]["whitelist"][heroTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
-                            {
-                                SpellClass.E.Cast(heroTarget);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    /// <summary>
-                    ///     The Extended Q Harass Logic.
-                    /// </summary>
-                    if (UtilityClass.Player.ManaPercent()
-                            > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q2"]["harass"]) &&
-                        MenuClass.Spells["q2"]["harass"].As<MenuSliderBool>().Enabled)
-                    {
-                        var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
-                        unitsToIterate = MenuClass.Spells["q2"]["customization"]["harass"].As<MenuBool>().Enabled
-                            ? unitsToIterate.Where(m => m.Health <= UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
-                            : unitsToIterate;
+                    var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
+                        .Where(m => !m.IsMoving && QCone(m).IsInside((Vector2)target.ServerPosition))
+                        .OrderBy(m => m.Health)
+                        .ToList();
 
-                        foreach (var enemy in GameObjects.EnemyHeroes.Where(t =>
-                            t.IsValidTarget(SpellClass.Q2.Range) &&
-                            MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled))
-                        {
-                            foreach (var minion in unitsToIterate
-                                .OrderBy(t => t.Health)
-                                .Where(m =>
-                                    QCone(m).IsInside((Vector2)enemy.ServerPosition) &&
-                                    QCone(m).IsInside((Vector2)SpellClass.Q2.GetPrediction(enemy).CastPosition)))
-                            {
-                                var polygon = QCone(minion);
-                                if (LoveTapTargetNetworkId == enemy.NetworkId ||
-                                    GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition)))
-                                {
-                                    UtilityClass.CastOnUnit(SpellClass.Q, minion);
-                                }
-                            }
-                        }
+                    var killableUnitsToIterate = unitsToIterate
+                        .Where(m => m.GetRealHealth() < GetRealMissFortuneDamage(UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q), m))
+                        .ToList();
+
+                    var realUnitsToIterate = killableUnitsToIterate.Any() && MenuClass.Spells["q2"]["customization"]["harass"].As<MenuBool>().Enabled ? killableUnitsToIterate : unitsToIterate;
+                    foreach (var minion in realUnitsToIterate)
+                    {
+                        UtilityClass.CastOnUnit(SpellClass.Q, minion);
+                        break;
                     }
                 }
             }

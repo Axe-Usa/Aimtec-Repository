@@ -105,7 +105,6 @@ namespace AIO.Champions
                     //MenuClass.E.Add(new MenuSeperator("separator"));
                     //MenuClass.E.Add(new MenuSeperator("separator1", "It will cast E if there are any minions with"));
                     //MenuClass.E.Add(new MenuSeperator("separator2", "stacks the orbwalker cannot reach in time to kill them."));
-                    MenuClass.E.Add(new MenuBool("farmhelper", "FarmHelper"));
                 }
                 MenuClass.Spells.Add(MenuClass.E);
 

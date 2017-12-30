@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Linq;
 using Aimtec;
-using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -18,7 +17,7 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Initializes the menus.
+        ///     Initializes the drawings.
         /// </summary>
         public void Drawings()
         {
@@ -40,21 +39,17 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Drawings["qcone"].As<MenuBool>().Enabled)
                 {
-                    var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
-                    foreach (var obj in unitsToIterate)
+                    foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q2.Range))
                     {
-                        foreach (var target in ObjectManager.Get<Obj_AI_Hero>().Where(t =>
-                            t.IsEnemy &&
-                            !Invulnerable.Check(t) &&
-                            t.NetworkId != obj.NetworkId &&
-                            t.IsValidTarget(SpellClass.Q2.Range)))
+                        var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
+                            .Where(m => !m.IsMoving && QCone(m).IsInside((Vector2)target.ServerPosition))
+                            .OrderBy(m => m.Health)
+                            .ToList();
+                        foreach (var minion in unitsToIterate)
                         {
-                            DrawQCone(obj).Draw(
-                                QCone(obj).IsInside((Vector2)target.ServerPosition) &&
-                                QCone(obj).IsInside((Vector2)SpellClass.Q.GetPrediction(target).CastPosition) &&
-                                (target.NetworkId == LoveTapTargetNetworkId || GameObjects.EnemyMinions.All(m => QCone(obj).IsOutside((Vector2)m.ServerPosition)))
-                                    ? Color.Green
-                                    : Color.Red);
+                            DrawQCone(minion).Draw(QCone(minion).IsInside((Vector2)target.ServerPosition) && MenuClass.Spells["q2"]["whitelist"][target.ChampionName.ToLower()].Enabled
+                                ? Color.Green
+                                : Color.Red);
                         }
                     }
                 }

@@ -108,6 +108,30 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             Drawings();
+
+            /// <summary>
+            ///     Initializes the Killsteal events.
+            /// </summary>
+            BladeCallerKillsteal();
+
+            /// <summary>
+            ///     Initializes the Automatic events.
+            /// </summary>
+            BladeCallerAutomatic();
+
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (ImplementationClass.IOrbwalker.Mode)
+            {
+                case OrbwalkingMode.Combo:
+                    BladeCallerCombo();
+                    break;
+                case OrbwalkingMode.Laneclear:
+                    BladeCallerLaneclear();
+                    BladeCallerJungleclear();
+                    break;
+            }
         }
 
         /// <summary>
@@ -189,11 +213,6 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            /// <summary>
-            ///     Initializes the Killsteal events.
-            /// </summary>
-            Killsteal();
 
             if (ImplementationClass.IOrbwalker.IsWindingUp)
             {

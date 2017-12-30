@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Damage.JSON;
@@ -27,11 +28,11 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    GetTotalNoxianGuillotineDamage(bestTarget) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.R.Range).Where(t =>
+                    GetTotalNoxianGuillotineDamage(t) >= t.GetRealHealth()))
                 {
-                    UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.R, target);
+                    break;
                 }
             }
 
@@ -41,11 +42,8 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q, IsValidBladeTarget(bestTarget)
-                        ? DamageStage.Empowered
-                        : DamageStage.Default) >= bestTarget.GetRealHealth())
+                if (Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Any(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q, IsValidBladeTarget(t) ? DamageStage.Empowered : DamageStage.Default) >= t.GetRealHealth()))
                 {
                     SpellClass.Q.Cast();
                 }

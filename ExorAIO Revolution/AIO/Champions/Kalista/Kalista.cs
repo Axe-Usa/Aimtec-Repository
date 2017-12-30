@@ -1,6 +1,5 @@
 
 using System.Linq;
-using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.Orbwalking;
@@ -43,28 +42,6 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Called on non killable minion.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="NonKillableMinionEventArgs" /> instance containing the event data.</param>
-        public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
-        {
-            var minion = args.Target as Obj_AI_Minion;
-            if (minion == null)
-            {
-                return;
-            }
-
-            if (SpellClass.E.Ready &&
-                IsPerfectRendTarget(minion) &&
-                minion.GetRealHealth() <= GetTotalRendDamage(minion) &&
-                MenuClass.Spells["e"]["farmhelper"].As<MenuBool>().Enabled)
-            {
-                SpellClass.E.Cast();
-            }
-        }
-
-        /// <summary>
         ///     Called on pre attack.
         /// </summary>
         /// <param name="sender">The object.</param>
@@ -95,6 +72,36 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             Drawings();
+
+            /// <summary>
+            ///     Initializes the Killsteal events.
+            /// </summary>
+            RendKillsteal();
+
+            /// <summary>
+            ///     Initializes the Automatic events.
+            /// </summary>
+            RendAutomatic();
+
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (ImplementationClass.IOrbwalker.Mode)
+            {
+                case OrbwalkingMode.Combo:
+                    RendCombo();
+                    break;
+                case OrbwalkingMode.Mixed:
+                    RendHarass();
+                    break;
+                case OrbwalkingMode.Laneclear:
+                    RendLaneclear();
+                    RendJungleclear();
+                    break;
+                case OrbwalkingMode.Lasthit:
+                    RendLasthit();
+                    break;
+            }
         }
 
         #endregion

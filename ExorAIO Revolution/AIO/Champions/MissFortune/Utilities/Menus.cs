@@ -33,7 +33,6 @@ namespace AIO.Champions
                 {
                     MenuClass.Q.Add(new MenuBool("combo", "Combo"));
                     MenuClass.Q.Add(new MenuBool("killsteal", "Killsteal"));
-                    MenuClass.Q.Add(new MenuSliderBool("harass", "Harass / if Mana >= %", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("laneclear", "Laneclear / if Mana >= x%", true, 50, 0, 99));
                     MenuClass.Q.Add(new MenuSliderBool("jungleclear", "Jungleclear / if Mana >= x%", true, 50, 0, 99));
 

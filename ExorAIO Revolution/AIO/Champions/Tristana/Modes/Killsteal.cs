@@ -27,14 +27,11 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.R.GetBestKillableHeroes(DamageType.Magical).FirstOrDefault(t => MenuClass.Spells["r"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled);
-                if (bestTarget != null)
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.R.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.R) + (IsCharged(t) ? GetTotalExplosionDamage(t) : 0) >= t.GetRealHealth()))
                 {
-                    if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) +
-                        (IsCharged(bestTarget) ? GetTotalExplosionDamage(bestTarget) : 0) >= bestTarget.GetRealHealth())
-                    {
-                        UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
-                    }
+                    UtilityClass.CastOnUnit(SpellClass.R, target);
+                    break;
                 }
             }
         }

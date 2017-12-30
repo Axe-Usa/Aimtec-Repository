@@ -37,7 +37,13 @@ namespace AIO.Champions
                     }
                 }
             }
+        }
 
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void BladeCallerCombo()
+        {
             /// <summary>
             ///     The E Combo Logic.
             /// </summary>
@@ -45,8 +51,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Enabled)
             {
                 if (GameObjects.EnemyHeroes.Any(t =>
-                        IsPerfectFeatherTarget(t) &&
-                        CountFeathersHitOnUnit(t) >= MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Value))
+                    IsPerfectFeatherTarget(t) &&
+                    CountFeathersHitOnUnit(t) >= MenuClass.Spells["e"]["combo"].As<MenuSliderBool>().Value))
                 {
                     SpellClass.E.Cast();
                 }

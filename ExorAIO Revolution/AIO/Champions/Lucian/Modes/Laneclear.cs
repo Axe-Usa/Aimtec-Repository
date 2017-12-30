@@ -30,21 +30,17 @@ namespace AIO.Champions
                     > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q2"]["laneclear"]) &&
                 MenuClass.Spells["q2"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
-                var target = Extensions.GetBestEnemyHeroesTargetsInRange(SpellClass.Q2.Range)
-                    .FirstOrDefault(t =>
-                        !Invulnerable.Check(t) &&
-                        t.Distance(UtilityClass.Player) > UtilityClass.Player.GetFullAttackRange(t) &&
-                        MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled);
-                if (target != null)
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q2.Range).Where(t =>
+                    !t.IsValidTarget(SpellClass.Q.Range) &&
+                    MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
                     foreach (var minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range))
                     {
-                        var polygon = QRectangle(minion);
                         if (minion.NetworkId != target.NetworkId &&
-                            polygon.IsInside((Vector2)target.ServerPosition) &&
-                            polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(target).CastPosition))
+                            QRectangle(minion).IsInside((Vector2)target.ServerPosition))
                         {
                             UtilityClass.CastOnUnit(SpellClass.Q, minion);
+                            break;
                         }
                     }
                 }

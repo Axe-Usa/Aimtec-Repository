@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -31,6 +32,27 @@ namespace AIO.Champions
                     bestTarget.CountEnemyHeroesInRange(SpellClass.W.Width) >= MenuClass.Spells["w"]["aoe"].As<MenuSliderBool>().Value)
                 {
                     SpellClass.W.Cast(bestTarget);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void ExpungeCombo()
+        {
+            /// <summary>
+            ///     The Automatic Enemy E Logic.
+            /// </summary>
+            if (MenuClass.Spells["e"]["logical"].As<MenuSliderBool>().Enabled)
+            {
+                if (GameObjects.EnemyHeroes.Any(t =>
+                    !Invulnerable.Check(t) &&
+                    t.IsValidTarget(SpellClass.E.Range) &&
+                    t.GetRealBuffCount("twitchdeadlyvenom") >=
+                    MenuClass.Spells["e"]["logical"].As<MenuSliderBool>().Value))
+                {
+                    SpellClass.E.Cast();
                 }
             }
         }

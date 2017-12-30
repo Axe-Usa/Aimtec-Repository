@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -27,15 +28,12 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical, includeBoundingRadius: true);
-                if (bestTarget != null)
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.E.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.E) +
+                    (t.GetBuffCount("vaynesilvereddebuff") == 2 ? UtilityClass.Player.GetSpellDamage(t, SpellSlot.W) : 0) >= t.GetRealHealth()))
                 {
-                    var shouldIncludeWDamage = bestTarget.GetBuffCount("vaynesilvereddebuff") == 2;
-                    if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) +
-                        (shouldIncludeWDamage ? UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) : 0) >= bestTarget.GetRealHealth())
-                    {
-                        UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
-                    }
+                    UtilityClass.CastOnUnit(SpellClass.E, target);
+                    break;
                 }
             }
         }

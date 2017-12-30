@@ -1,6 +1,8 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
+using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -26,11 +28,12 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R) * 2 >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.R.Range).Where(t =>
+                    !t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)) &&
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.R)*2 >= t.GetRealHealth()))
                 {
-                    UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.R, target);
+                    break;
                 }
             }
 
@@ -40,9 +43,7 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
+                if (Extensions.GetBestSortedTargetsInRange(SpellClass.E.Range).Any(t => UtilityClass.Player.GetSpellDamage(t, SpellSlot.E) >= t.GetRealHealth()))
                 {
                     SpellClass.E.Cast();
                 }
@@ -54,11 +55,12 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    !t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)) &&
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
                 {
-                    UtilityClass.CastOnUnit(SpellClass.Q, bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.Q, target);
+                    break;
                 }
             }
         }

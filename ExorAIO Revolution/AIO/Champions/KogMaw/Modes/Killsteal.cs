@@ -1,7 +1,7 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
-using Aimtec.SDK.Damage.JSON;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -28,12 +28,11 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) > bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(target);
+                    break;
                 }
             }
 
@@ -43,12 +42,11 @@ namespace AIO.Champions
             if (SpellClass.E.Ready &&
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.E.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.E) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.E.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.E) >= t.GetRealHealth()))
                 {
-                    SpellClass.E.Cast(bestTarget);
+                    SpellClass.E.Cast(target);
+                    break;
                 }
             }
 
@@ -60,12 +58,11 @@ namespace AIO.Champions
                     >= UtilityClass.Player.GetRealBuffCount("kogmawlivingartillerycost") &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuSliderBool>().Enabled)
             {
-                var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.R, bestTarget.HealthPercent() < 40 ? DamageStage.Empowered : DamageStage.Default) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.R.Range).Where(t =>
+                    GetTotalLivingArtilleryDamage(t) >= t.GetRealHealth()))
                 {
-                    SpellClass.R.Cast(bestTarget);
+                    SpellClass.R.Cast(target);
+                    break;
                 }
             }
         }

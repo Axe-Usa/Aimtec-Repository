@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -27,11 +28,11 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
                 {
-                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
+                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(target).CastPosition);
+                    break;
                 }
             }
 
@@ -41,13 +42,12 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.W.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.W) >= t.GetRealHealth()))
                 {
                     if (IsHoldingForceOfWillObject())
                     {
-                        SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(SpellClass.W.GetPrediction(bestTarget).CastPosition, bestTarget.BoundingRadius));
+                        SpellClass.W.Cast(UtilityClass.Player.ServerPosition.Extend(SpellClass.W.GetPrediction(target).CastPosition, target.BoundingRadius));
                     }
                 }
             }
@@ -58,11 +58,11 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    GetTotalUnleashedPowerDamage(bestTarget) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.R.Range).Where(t =>
+                    GetTotalUnleashedPowerDamage(t) >= t.GetRealHealth()))
                 {
-                    UtilityClass.CastOnUnit(SpellClass.R, bestTarget);
+                    UtilityClass.CastOnUnit(SpellClass.R, target);
+                    break;
                 }
             }
         }

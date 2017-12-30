@@ -119,7 +119,7 @@ namespace AIO.Champions
         /// <param name="args">The <see cref="NonKillableMinionEventArgs" /> instance containing the event data.</param>
         public void OnNonKillableMinion(object sender, NonKillableMinionEventArgs args)
         {
-            var minion = (Obj_AI_Minion)args.Target;
+            var minion = args.Target as Obj_AI_Minion;
             if (minion == null)
             {
                 return;

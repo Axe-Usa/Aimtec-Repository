@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -31,12 +32,11 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
                 {
-                    var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
-                    if (bestTarget != null &&
-                        !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                        UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                    foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                        UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
                     {
-                        UtilityClass.CastOnUnit(SpellClass.Q, bestTarget);
+                        UtilityClass.CastOnUnit(SpellClass.Q, target);
+                        break;
                     }
                 }
 
@@ -45,19 +45,17 @@ namespace AIO.Champions
                 /// </summary>
                 if (MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
                 {
-                    var bestTarget = SpellClass.Q2.GetBestKillableHero(DamageType.Physical);
-                    if (bestTarget != null &&
-                        !bestTarget.IsValidTarget(SpellClass.Q.Range) &&
-                        UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) >= bestTarget.GetRealHealth())
+                    foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q2.Range).Where(t =>
+                        !t.IsValidTarget(SpellClass.Q.Range) &&
+                        UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
                     {
                         foreach (var minion in Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range))
                         {
-                            var polygon = QRectangle(minion);
-                            if (minion.NetworkId != bestTarget.NetworkId &&
-                                polygon.IsInside((Vector2)bestTarget.ServerPosition) &&
-                                polygon.IsInside((Vector2)SpellClass.Q2.GetPrediction(bestTarget).CastPosition))
+                            if (minion.NetworkId != target.NetworkId &&
+                                QRectangle(minion).IsInside((Vector2)target.ServerPosition))
                             {
                                 UtilityClass.CastOnUnit(SpellClass.Q, minion);
+                                break;
                             }
                         }
                     }
@@ -70,12 +68,11 @@ namespace AIO.Champions
             if (SpellClass.W.Ready &&
                 MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.W.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.W) >= t.GetRealHealth()))
                 {
-                    SpellClass.W.Cast(bestTarget);
+                    SpellClass.W.Cast(target);
+                    break;
                 }
             }
         }

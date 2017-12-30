@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Damage.JSON;
@@ -28,13 +29,13 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) +
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q, DamageStage.WayBack) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    !t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)) &&
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) +
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q, DamageStage.WayBack) >= t.GetRealHealth()))
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(target);
+                    break;
                 }
             }
         }

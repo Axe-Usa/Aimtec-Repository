@@ -19,6 +19,13 @@ namespace AIO.Champions
         /// </summary>
         public void Killsteal()
         {
+        }
+
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void BladeCallerKillsteal()
+        {
             /// <summary>
             ///     The KillSteal E Logic.
             /// </summary>
@@ -26,8 +33,8 @@ namespace AIO.Champions
                 MenuClass.Spells["e"]["killsteal"].As<MenuBool>().Enabled)
             {
                 if (GameObjects.EnemyHeroes.Any(h =>
-                        IsPerfectFeatherTarget(h) &&
-                        h.GetRealHealth() < GetPerfectFeatherDamage(h, CountFeathersHitOnUnit(h))))
+                    IsPerfectFeatherTarget(h) &&
+                    h.GetRealHealth() < GetPerfectFeatherDamage(h, CountFeathersHitOnUnit(h))))
                 {
                     SpellClass.E.Cast();
                 }

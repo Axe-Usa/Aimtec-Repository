@@ -2,7 +2,6 @@
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
-using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -28,27 +27,22 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q2"]["combo"].As<MenuBool>().Enabled)
             {
-                var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
-                unitsToIterate = MenuClass.Spells["q2"]["customization"]["combo"].As<MenuBool>().Enabled
-                    ? unitsToIterate.Where(m => m.Health <= UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
-                    : unitsToIterate;
-
-                foreach (var enemy in GameObjects.EnemyHeroes.Where(t =>
-                    t.IsValidTarget(SpellClass.Q2.Range) &&
-                    MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled))
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q2.Range).Where(t => MenuClass.Spells["q2"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
-                    foreach (var minion in unitsToIterate
-                        .OrderBy(t => t.Health)
-                        .Where(m =>
-                            QCone(m).IsInside((Vector2)enemy.ServerPosition) &&
-                            QCone(m).IsInside((Vector2)SpellClass.Q2.GetPrediction(enemy).CastPosition)))
+                    var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
+                        .Where(m => !m.IsMoving && QCone(m).IsInside((Vector2)target.ServerPosition))
+                        .OrderBy(m => m.Health)
+                        .ToList();
+
+                    var killableUnitsToIterate = unitsToIterate
+                        .Where(m => m.GetRealHealth() < GetRealMissFortuneDamage(UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q), m))
+                        .ToList();
+
+                    var realUnitsToIterate = killableUnitsToIterate.Any() && MenuClass.Spells["q2"]["customization"]["combo"].As<MenuBool>().Enabled ? killableUnitsToIterate : unitsToIterate;
+                    foreach (var minion in realUnitsToIterate)
                     {
-                        var polygon = QCone(minion);
-                        if (LoveTapTargetNetworkId == enemy.NetworkId ||
-                            GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition)))
-                        {
-                            UtilityClass.CastOnUnit(SpellClass.Q, minion);
-                        }
+                        UtilityClass.CastOnUnit(SpellClass.Q, minion);
+                        break;
                     }
                 }
             }

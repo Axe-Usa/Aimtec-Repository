@@ -90,40 +90,21 @@ namespace AIO.Champions
                     SpellClass.W.Cast(loc);
                 }
             }
+        }
 
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void RendAutomatic()
+        {
             /// <summary>
             ///     The Automatic E Logics.
             /// </summary>
-            if (SpellClass.E.Ready)
+            if (SpellClass.E.Ready &&
+                MenuClass.Spells["e"]["ondeath"].As<MenuBool>().Enabled &&
+                ImplementationClass.IHealthPrediction.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
             {
-                /// <summary>
-                ///     The E Before death Logic.
-                /// </summary>
-                if (MenuClass.Spells["e"]["ondeath"].As<MenuBool>().Enabled &&
-                    ImplementationClass.IHealthPrediction.GetPrediction(UtilityClass.Player, 1000 + Game.Ping) <= 0)
-                {
-                    SpellClass.E.Cast();
-                }
-
-                /// <summary>
-                ///     The E Minion Harass Logic.
-                /// </summary>
-                if (Extensions.GetEnemyLaneMinionsTargets().Any(m =>
-                        IsPerfectRendTarget(m) &&
-                        m.GetRealHealth() <= GetTotalRendDamage(m)) &&
-                    MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled)
-                {
-                    foreach (var enemy in GameObjects.EnemyHeroes.Where(IsPerfectRendTarget))
-                    {
-                        if (enemy.HasBuffOfType(BuffType.Slow) &&
-                            MenuClass.Spells["e"]["dontharassslowed"].As<MenuBool>().Enabled)
-                        {
-                            continue;
-                        }
-
-                        SpellClass.E.Cast();
-                    }
-                }
+                SpellClass.E.Cast();
             }
         }
 

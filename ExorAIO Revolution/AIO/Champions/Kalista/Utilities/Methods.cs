@@ -18,7 +18,6 @@ namespace AIO.Champions
             Game.OnUpdate += OnUpdate;
             ImplementationClass.IOrbwalker.PreAttack += OnPreAttack;
             Render.OnPresent += OnPresent;
-            ImplementationClass.IOrbwalker.OnNonKillableMinion += OnNonKillableMinion;
         }
 
         #endregion

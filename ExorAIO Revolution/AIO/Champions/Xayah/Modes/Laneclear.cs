@@ -50,7 +50,13 @@ namespace AIO.Champions
                     SpellClass.W.Cast();
                 }
             }
+        }
 
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void BladeCallerLaneclear()
+        {
             /// <summary>
             ///     The Laneclear E Logic.
             /// </summary>

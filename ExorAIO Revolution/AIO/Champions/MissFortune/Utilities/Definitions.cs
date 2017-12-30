@@ -1,6 +1,7 @@
 ﻿// ReSharper disable ArrangeMethodOrOperatorBody
 
 using Aimtec;
+using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
 using AIO.Utilities;
 
@@ -48,11 +49,31 @@ namespace AIO.Champions
         }
 
         /// <returns>
-        ///     Returns the passive damage multiplier against heroes.
+        ///     Returns the passive damage multiplier against non-minion units.
         /// </returns>
-        public float GetHeroLoveTapDamageMultiplier()
+        public float GetGenericLoveTapDamageMultiplier()
         {
             return (float)GetMinionLoveTapDamageMultiplier() * 2;
+        }
+
+        /// <returns>
+        ///     Returns the passive damage multiplier against a target.
+        /// </returns>
+        public double GetLoveTapDamage(Obj_AI_Base target)
+        {
+            return LoveTapTargetNetworkId != target.NetworkId
+                ? target is Obj_AI_Minion
+                    ? GetMinionLoveTapDamageMultiplier()
+                    : GetGenericLoveTapDamageMultiplier()
+                : 0;
+        }
+
+        /// <returns>
+        ///     Returns the real damage.
+        /// </returns>
+        public double GetRealMissFortuneDamage(double amount, Obj_AI_Base target)
+        {
+            return amount + UtilityClass.Player.CalculateDamage(target, DamageType.Physical, GetLoveTapDamage(target));
         }
 
         /// <returns>

@@ -17,7 +17,7 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Initializes the menus.
+        ///     Initializes the drawings.
         /// </summary>
         public void Drawings()
         {

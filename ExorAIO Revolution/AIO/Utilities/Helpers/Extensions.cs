@@ -4,7 +4,6 @@ using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using Aimtec.SDK.TargetSelector;
-using Spell = Aimtec.SDK.Spell;
 
 namespace AIO.Utilities
 {
@@ -140,33 +139,31 @@ namespace AIO.Utilities
         /// </summary>
         public static Obj_AI_Hero GetBestEnemyHeroTargetInRange(float range)
         {
-            Obj_AI_Hero target = null;
-
             var selectedTarget = TargetSelector.GetSelectedTarget();
-            if (selectedTarget != null)
+            if (selectedTarget != null &&
+                selectedTarget.IsValidTarget(range))
             {
-                target = selectedTarget;
+                return selectedTarget;
             }
 
-            var orbTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget() as Obj_AI_Hero;
-            if (orbTarget != null)
+            var orbTarget = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
+            if (orbTarget is Obj_AI_Hero hero &&
+                orbTarget.IsValidTarget(range))
             {
-                target = orbTarget;
+                return hero;
             }
 
             var tsTarget = ImplementationClass.ITargetSelector.GetTarget(range);
             if (tsTarget != null)
             {
-                target = tsTarget;
+                return tsTarget;
             }
 
-            if (target.IsValidTarget() &&
-                !Invulnerable.Check(target))
+            var lastTarget = GameObjects.EnemyHeroes.FirstOrDefault(t => t.IsValidTarget(range) && !t.IsZombie() && !Invulnerable.Check(t));
+            // ReSharper disable once ConvertIfStatementToReturnStatement
+            if (lastTarget != null)
             {
-                if (!target.IsZombie())
-                {
-                    return target;
-                }
+                return lastTarget;
             }
 
             return null;
@@ -175,23 +172,33 @@ namespace AIO.Utilities
         /// <summary>
         ///     Gets the best valid killable enemy hero target in the game inside a determined range.
         /// </summary>
-        public static Obj_AI_Hero GetBestKillableHero(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false, bool includeBoundingRadius = false)
+        public static Obj_AI_Hero GetBestSortedTarget(
+            DamageType damageType = DamageType.True,
+            bool ignoreShields = false,
+            bool includeBoundingRadius = false)
         {
-            var target = ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range).FirstOrDefault(t => !t.IsZombie() && !Invulnerable.Check(t, damageType, ignoreShields));
-            if (target != null)
-            {
-                return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range + (includeBoundingRadius ? target.BoundingRadius : 0)).FirstOrDefault(t => !t.IsZombie() && !Invulnerable.Check(t, damageType, ignoreShields));
-            }
-
-            return null;
+            var target = ImplementationClass.ITargetSelector.GetOrderedTargets(float.MaxValue)
+                .FirstOrDefault(t =>
+                    !t.IsZombie() &&
+                    !Invulnerable.Check(t, damageType, ignoreShields));
+            return target;
         }
 
         /// <summary>
         ///     Gets the best valid killable enemy heroes targets in the game inside a determined range.
         /// </summary>
-        public static IEnumerable<Obj_AI_Hero> GetBestKillableHeroes(this Spell spell, DamageType damageType = DamageType.True, bool ignoreShields = false)
+        public static IEnumerable<Obj_AI_Hero> GetBestSortedTargetsInRange(
+            float range,
+            DamageType damageType = DamageType.True,
+            bool ignoreShields = false,
+            bool includeBoundingRadius = false)
         {
-            return ImplementationClass.ITargetSelector.GetOrderedTargets(spell.Range).Where(t => !t.IsZombie() && !Invulnerable.Check(t, damageType, ignoreShields));
+            range = range + (includeBoundingRadius ? UtilityClass.Player.BoundingRadius : 0);
+            var targets = ImplementationClass.ITargetSelector.GetOrderedTargets(range)
+                .Where(t =>
+                    !t.IsZombie() &&
+                    !Invulnerable.Check(t, damageType, ignoreShields));
+            return targets;
         }
 
         /// <summary>

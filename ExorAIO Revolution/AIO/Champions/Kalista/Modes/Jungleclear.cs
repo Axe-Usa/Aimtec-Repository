@@ -22,31 +22,6 @@ namespace AIO.Champions
         /// </summary>
         public void Jungleclear()
         {
-            /// <summary>
-            ///     The E Jungleclear Logic.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                UtilityClass.Player.Level >=
-                    MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Value &&
-                MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Enabled)
-            {
-                foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Where(m =>
-                    IsPerfectRendTarget(m) &&
-                    m.GetRealHealth() <= GetTotalRendDamage(m)))
-                {
-                    if (UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
-                        MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
-                    {
-                        SpellClass.E.Cast();
-                    }
-                    else if (!UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
-                        MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
-                    {
-                        SpellClass.E.Cast();
-                    }
-                }
-            }
-
             var jungleTarget = ObjectManager.Get<Obj_AI_Minion>()
                 .Where(m => Extensions.GetGenericJungleMinionsTargets().Contains(m))
                 .MinBy(m => m.Distance(UtilityClass.Player));
@@ -66,6 +41,37 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast(jungleTarget);
+            }
+        }
+
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void RendJungleclear()
+        {
+            /// <summary>
+            ///     The E Jungleclear Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                UtilityClass.Player.Level >=
+                    MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Value &&
+                MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Enabled)
+            {
+                foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Where(m =>
+                    IsPerfectRendTarget(m) &&
+                    m.GetRealHealth() <= GetTotalRendDamage(m)))
+                {
+                    if (UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
+                        MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.E.Cast();
+                    }
+                    else if (!UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
+                             MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.E.Cast();
+                    }
+                }
             }
         }
 

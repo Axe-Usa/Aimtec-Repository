@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -29,14 +30,11 @@ namespace AIO.Champions
                 UtilityClass.Player.CountEnemyHeroesInRange(SpellClass.Q.Range) < 3 &&
                 MenuClass.Spells["w"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.W.GetBestKillableHero(DamageType.Physical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(SpellClass.Q2.Range))
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.W.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.W) >= t.GetRealHealth()))
                 {
-                    if (UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.W) >= bestTarget.GetRealHealth())
-                    {
-                        SpellClass.W.Cast(bestTarget);
-                    }
+                    SpellClass.W.Cast(target);
+                    break;
                 }
             }
         }

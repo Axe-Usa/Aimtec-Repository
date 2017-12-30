@@ -34,23 +34,6 @@ namespace AIO.Champions
             }
 
             /// <summary>
-            ///     The Jungleclear E Logics.
-            /// </summary>
-            if (SpellClass.E.Ready &&
-                UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
-                MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
-            {
-                if (Extensions.GetGenericJungleMinionsTargets().Any(
-                    h => IsPerfectFeatherTarget(h) &&
-                         h.GetRealHealth() < GetPerfectFeatherDamage(h, CountFeathersHitOnUnit(h))))
-                {
-                    SpellClass.E.Cast();
-                    return;
-                }
-            }
-
-            /// <summary>
             ///     The Jungleclear Q Logics.
             /// </summary>
             if (SpellClass.Q.Ready &&
@@ -70,6 +53,28 @@ namespace AIO.Champions
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.W.Cast();
+            }
+        }
+
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void BladeCallerJungleclear()
+        {
+            /// <summary>
+            ///     The Jungleclear E Logics.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                UtilityClass.Player.ManaPercent()
+                    > ManaManager.GetNeededMana(SpellClass.E.Slot, MenuClass.Spells["e"]["jungleclear"]) &&
+                MenuClass.Spells["e"]["jungleclear"].As<MenuSliderBool>().Enabled)
+            {
+                if (Extensions.GetGenericJungleMinionsTargets().Any(h =>
+                        IsPerfectFeatherTarget(h) &&
+                        h.GetRealHealth() < GetPerfectFeatherDamage(h, CountFeathersHitOnUnit(h))))
+                {
+                    SpellClass.E.Cast();
+                }
             }
         }
 

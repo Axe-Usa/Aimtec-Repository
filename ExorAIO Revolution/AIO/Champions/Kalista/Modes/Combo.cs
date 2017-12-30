@@ -1,5 +1,4 @@
 
-using System.Collections.Generic;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
@@ -47,11 +46,11 @@ namespace AIO.Champions
                 if (bestTarget != null)
                 {
                     var collisions = SpellClass.Q.GetPrediction(bestTarget).CollisionObjects
-                        .Where(c => Extensions.GetAllGenericUnitTargets().Contains(c));
-                    var objAiBases = collisions as IList<Obj_AI_Base> ?? collisions.ToList();
-                    if (objAiBases.Any())
+                        .Where(c => Extensions.GetAllGenericMinionsTargetsInRange(SpellClass.Q.Range).Contains(c))
+                        .ToList();
+                    if (collisions.Any())
                     {
-                        if (objAiBases.All(c => c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
+                        if (collisions.All(c => c.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(c, SpellSlot.Q)))
                         {
                             SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                         }
@@ -60,6 +59,27 @@ namespace AIO.Champions
                     {
                         SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void RendCombo()
+        {
+            /// <summary>
+            ///     The E Combo Minion Harass Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                Extensions.GetEnemyLaneMinionsTargets().Any(m =>
+                    IsPerfectRendTarget(m) &&
+                    m.GetRealHealth() <= GetTotalRendDamage(m)) &&
+                MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled)
+            {
+                if (GameObjects.EnemyHeroes.Where(IsPerfectRendTarget).Any(enemy => !enemy.HasBuffOfType(BuffType.Slow) || !MenuClass.Spells["e"]["dontharassslowed"].As<MenuBool>().Enabled))
+                {
+                    SpellClass.E.Cast();
                 }
             }
         }

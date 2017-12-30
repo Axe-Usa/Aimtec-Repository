@@ -1,4 +1,5 @@
 ﻿
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Extensions;
@@ -37,7 +38,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.W.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.W.Slot, MenuClass.Spells["w"]["jungleclear"]) &&
                 MenuClass.Spells["w"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 if (jungleTarget.GetRealBuffCount("TwitchDeadlyVenom") <= 3)
@@ -52,10 +53,41 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["jungleclear"]) &&
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 SpellClass.Q.Cast();
+            }
+        }
+
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void ExpungeJungleclear()
+        {
+            /// <summary>
+            ///     The E Jungleclear Logic.
+            /// </summary>
+            if (UtilityClass.Player.Level >=
+                    MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Value &&
+                MenuClass.Spells["e"]["junglesteal"].As<MenuSliderBool>().Enabled)
+            {
+                foreach (var minion in Extensions.GetGenericJungleMinionsTargets().Where(m =>
+                    IsPerfectExpungeTarget(m) &&
+                    m.GetRealHealth() <= GetTotalExpungeDamage(m)))
+                {
+                    if (UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
+                        MenuClass.Spells["e"]["whitelist"][minion.UnitSkinName].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.E.Cast();
+                    }
+
+                    if (!UtilityClass.JungleList.Contains(minion.UnitSkinName) &&
+                        MenuClass.General["junglesmall"].As<MenuBool>().Enabled)
+                    {
+                        SpellClass.E.Cast();
+                    }
+                }
             }
         }
 

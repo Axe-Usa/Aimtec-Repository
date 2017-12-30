@@ -53,6 +53,27 @@ namespace AIO.Champions
             }
         }
 
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void RendHarass()
+        {
+            /// <summary>
+            ///     The E Minion Harass Logic.
+            /// </summary>
+            if (SpellClass.E.Ready &&
+                Extensions.GetEnemyLaneMinionsTargets().Any(m =>
+                    IsPerfectRendTarget(m) &&
+                    m.GetRealHealth() <= GetTotalRendDamage(m)) &&
+                MenuClass.Spells["e"]["harass"].As<MenuBool>().Enabled)
+            {
+                if (GameObjects.EnemyHeroes.Where(IsPerfectRendTarget).Any(enemy => !enemy.HasBuffOfType(BuffType.Slow) || !MenuClass.Spells["e"]["dontharassslowed"].As<MenuBool>().Enabled))
+                {
+                    SpellClass.E.Cast();
+                }
+            }
+        }
+
         #endregion
     }
 }

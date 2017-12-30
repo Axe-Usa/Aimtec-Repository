@@ -47,7 +47,7 @@ namespace AIO.Champions
                         if (GlacialStorm != null &&
                             !GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
-                                t.IsValidTarget(SpellClass.R.Width, false, true, GlacialStorm.Position)))
+                                t.IsValidTarget(SpellClass.R.Width, checkRangeFrom: GlacialStorm.Position)))
                         {
                             SpellClass.R.Cast();
                         }
@@ -96,7 +96,7 @@ namespace AIO.Champions
                         if (FlashFrost != null &&
                             GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical, false) &&
-                                t.IsValidTarget(SpellClass.Q.Width, false, true, FlashFrost.Position)))
+                                t.IsValidTarget(SpellClass.Q.Width, checkRangeFrom: FlashFrost.Position)))
                         {
                             SpellClass.Q.Cast();
                         }

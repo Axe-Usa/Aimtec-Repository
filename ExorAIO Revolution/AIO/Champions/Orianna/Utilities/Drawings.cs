@@ -16,7 +16,7 @@ namespace AIO.Champions
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Loads the range drawings.
+        ///     Initializes the drawings.
         /// </summary>
         public void Drawings()
         {

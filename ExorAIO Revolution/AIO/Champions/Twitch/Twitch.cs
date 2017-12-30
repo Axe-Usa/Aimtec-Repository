@@ -101,6 +101,29 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             Drawings();
+
+            /// <summary>
+            ///     Initializes the Killsteal events.
+            /// </summary>
+            ExpungeKillsteal();
+
+            /// <summary>
+            ///     Initializes the Automatic events.
+            /// </summary>
+            ExpungeAutomatic();
+
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (ImplementationClass.IOrbwalker.Mode)
+            {
+                case OrbwalkingMode.Combo:
+                    ExpungeCombo();
+                    break;
+                case OrbwalkingMode.Laneclear:
+                    ExpungeJungleclear();
+                    break;
+            }
         }
 
         /// <summary>
@@ -178,11 +201,6 @@ namespace AIO.Champions
             {
                 return;
             }
-
-            /// <summary>
-            ///     Initializes the Automatic actions.
-            /// </summary>
-            Automatic();
 
             /// <summary>
             ///     Initializes the orbwalkingmodes.

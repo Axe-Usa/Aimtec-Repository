@@ -1,6 +1,8 @@
 
+using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
+using Aimtec.SDK.Damage.JSON;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -27,12 +29,12 @@ namespace AIO.Champions
             if (SpellClass.Q.Ready &&
                 MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.Q.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    UtilityClass.Player.GetSpellDamage(bestTarget, SpellSlot.Q) > bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range).Where(t =>
+                    !t.IsValidTarget(UtilityClass.Player.GetFullAttackRange(t)) &&
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q) >= t.GetRealHealth()))
                 {
-                    SpellClass.Q.Cast(bestTarget);
+                    SpellClass.Q.Cast(target);
+                    break;
                 }
             }
 
@@ -42,12 +44,11 @@ namespace AIO.Champions
             if (SpellClass.R.Ready &&
                 MenuClass.Spells["r"]["killsteal"].As<MenuBool>().Enabled)
             {
-                var bestTarget = SpellClass.R.GetBestKillableHero(DamageType.Magical);
-                if (bestTarget != null &&
-                    !bestTarget.IsValidTarget(UtilityClass.Player.GetFullAttackRange(bestTarget)) &&
-                    GetMissileDamage(bestTarget) >= bestTarget.GetRealHealth())
+                foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.R.Range).Where(t =>
+                    UtilityClass.Player.GetSpellDamage(t, SpellSlot.R, HasBigOne() ? DamageStage.Empowered : DamageStage.Default) >= t.GetRealHealth()))
                 {
-                    SpellClass.R.Cast(bestTarget);
+                    SpellClass.R.Cast(target);
+                    break;
                 }
             }
         }

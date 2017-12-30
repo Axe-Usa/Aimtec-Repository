@@ -3,7 +3,6 @@ using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Damage.JSON;
-using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
 
@@ -24,35 +23,42 @@ namespace AIO.Champions
         public void Killsteal()
         {
             /// <summary>
-            ///     The Q Killsteal Logic.
+            ///     The Q Killsteal Logics.
             /// </summary>
-            if (SpellClass.Q.Ready &&
-                MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
+            if (SpellClass.Q.Ready)
             {
-                var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range);
-                foreach (var enemy in GameObjects.EnemyHeroes.Where(t =>
-                    t.IsValidTarget(SpellClass.Q2.Range) &&
-                    t.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q, DamageStage.Empowered)))
+                if (MenuClass.Spells["q"]["killsteal"].As<MenuBool>().Enabled)
                 {
-                    var damageStage = enemy.GetRealHealth() <= UtilityClass.Player.GetSpellDamage(enemy, SpellSlot.Q)
-                        ? DamageStage.Default
-                        : DamageStage.Empowered;
-
-                    unitsToIterate = damageStage == DamageStage.Empowered
-                        ? unitsToIterate.Where(m => m.Health <= UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q)).ToList()
-                        : unitsToIterate;
-
-                    foreach (var minion in unitsToIterate
-                        .OrderBy(t => t.Health)
-                        .Where(m =>
-                            QCone(m).IsInside((Vector2)enemy.ServerPosition) &&
-                            QCone(m).IsInside((Vector2)SpellClass.Q2.GetPrediction(enemy).CastPosition)))
+                    foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q.Range)
+                        .Where(t => GetRealMissFortuneDamage(UtilityClass.Player.GetSpellDamage(t, SpellSlot.Q), t) >= t.GetRealHealth()))
                     {
-                        var polygon = QCone(minion);
-                        if (LoveTapTargetNetworkId == enemy.NetworkId ||
-                            GameObjects.EnemyMinions.All(m => polygon.IsOutside((Vector2)m.ServerPosition)))
+                        UtilityClass.CastOnUnit(SpellClass.Q, target);
+                        break;
+                    }
+                }
+
+                if (MenuClass.Spells["q2"]["killsteal"].As<MenuBool>().Enabled)
+                {
+                    foreach (var target in Extensions.GetBestSortedTargetsInRange(SpellClass.Q2.Range))
+                    {
+                        var unitsToIterate = Extensions.GetAllGenericUnitTargetsInRange(SpellClass.Q.Range)
+                            .Where(m => !m.IsMoving && QCone(m).IsInside((Vector2)target.ServerPosition))
+                            .OrderBy(m => m.Health)
+                            .ToList();
+
+                        var killableUnitsToIterate = unitsToIterate
+                            .Where(m => m.GetRealHealth() < GetRealMissFortuneDamage(UtilityClass.Player.GetSpellDamage(m, SpellSlot.Q), m))
+                            .ToList();
+
+                        var realUnitsToIterate = killableUnitsToIterate.Any() ? killableUnitsToIterate : unitsToIterate;
+                        foreach (var minion in realUnitsToIterate)
                         {
-                            UtilityClass.CastOnUnit(SpellClass.Q, minion);
+                            var damageToMinion = GetRealMissFortuneDamage(UtilityClass.Player.GetSpellDamage(minion, SpellSlot.Q), minion);
+                            if (target.GetRealHealth() < GetRealMissFortuneDamage(UtilityClass.Player.GetSpellDamage(target, SpellSlot.Q, damageToMinion >= minion.GetRealHealth() ? DamageStage.Empowered : DamageStage.Default), target))
+                            {
+                                UtilityClass.CastOnUnit(SpellClass.Q, minion);
+                                break;
+                            }
                         }
                     }
                 }

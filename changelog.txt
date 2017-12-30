@@ -1135,8 +1135,21 @@ ExorAIO: Revolution Changelog:
   Akali: Fixed E Harass Nullref.
 
 7.24.0.5:
-  AIO: Will now ignore Manamanagers and Spell Limiters when ManaflowBand or Presence of Mind runes are active.
+  AIO: Will now ignore Manamanagers and Spell Limiters when ManaflowBand or Presence of Mind runes' buffs are active.
   Xayah: Faster E Usage.
   
 7.24.0.6:
   Corki: Fixed E Nullref.
+
+7.24.0.7:
+  AIO: Reworked Killsteal Logics entirely.
+  AIO: Some champions stopped casting at times, it has been fixed.
+  AIO: Removed useless code and general polishing.
+  Anivia: Fixed Q explosion check, also better R check.
+  Ezreal: Fixed Nullref.
+  Miss Fortune: Completely reworked the Q Bounce Logics.
+  Miss Fortune: Removed Normal Q Harass (Extended Q Harass is still there)
+  Kog'Maw: Fixed R Killsteal damage calculation.
+  Kalista: Faster E usage.
+  Twitch: Faster E usage + Improved code.
+  Xayah: Faster E usage.

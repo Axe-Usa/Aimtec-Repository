@@ -17,6 +17,13 @@ namespace AIO.Champions
         /// </summary>
         public void Lasthit()
         {
+        }
+
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void RendLasthit()
+        {
             /// <summary>
             ///     The E Lasthit Logics.
             /// </summary>

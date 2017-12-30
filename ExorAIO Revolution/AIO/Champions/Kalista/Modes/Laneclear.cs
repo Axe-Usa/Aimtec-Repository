@@ -25,7 +25,7 @@ namespace AIO.Champions
             /// </summary>
             if (SpellClass.Q.Ready &&
                 UtilityClass.Player.ManaPercent()
-                    > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
+                > ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["laneclear"]) &&
                 MenuClass.Spells["q"]["laneclear"].As<MenuSliderBool>().Enabled)
             {
                 /*
@@ -36,7 +36,13 @@ namespace AIO.Champions
                 }
                 */
             }
+        }
 
+        /// <summary>
+        ///     Fired as fast as possible.
+        /// </summary>
+        public void RendLaneclear()
+        {
             /// <summary>
             ///     The E Laneclear Logics.
             /// </summary>

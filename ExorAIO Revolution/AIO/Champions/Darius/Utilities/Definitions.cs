@@ -1,6 +1,4 @@
-﻿// ReSharper disable ArrangeMethodOrOperatorBody
-
-
+﻿
 using Aimtec;
 using Aimtec.SDK.Damage;
 using Aimtec.SDK.Damage.JSON;
