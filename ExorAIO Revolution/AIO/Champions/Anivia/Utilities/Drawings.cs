@@ -55,6 +55,24 @@ namespace AIO.Champions
             {
                 Render.Circle(UtilityClass.Player.Position, SpellClass.R.Range, 30, Color.Red);
             }
+
+            /// <summary>
+            ///     Loads the Q width drawing.
+            /// </summary>
+            if (FlashFrost != null &&
+                MenuClass.Drawings["flashfrost"].As<MenuBool>().Enabled)
+            {
+                Render.Circle(FlashFrost.Position, SpellClass.Q.Width, 30, Color.Blue);
+            }
+
+            /// <summary>
+            ///     Loads the R width drawing.
+            /// </summary>
+            if (GlacialStorm != null &&
+                MenuClass.Drawings["glacialstorm"].As<MenuBool>().Enabled)
+            {
+                Render.Circle(GlacialStorm.Position, SpellClass.R.Width, 30, Color.Blue);
+            }
         }
 
         #endregion

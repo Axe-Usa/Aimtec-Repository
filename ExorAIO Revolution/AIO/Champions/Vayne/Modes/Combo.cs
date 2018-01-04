@@ -42,7 +42,13 @@ namespace AIO.Champions
                     }
                 }
             }
+        }
 
+        /// <summary>
+        ///     Fired as soon as possible.
+        /// </summary>
+        public void CondemnCombo()
+        {
             /// <summary>
             ///     The E Stun Logic.
             /// </summary>
@@ -58,10 +64,9 @@ namespace AIO.Champions
                         !t.IsDashing() &&
                         t.IsValidTarget(SpellClass.E.Range) &&
                         !Invulnerable.Check(t, DamageType.Magical, false) &&
-                        !t.IsValidTarget(UtilityClass.Player.BoundingRadius) &&
                         MenuClass.Spells["e"]["whitelist"][t.ChampionName.ToLower()].Enabled))
                 {
-                    for (var i = UtilityClass.Player.BoundingRadius; i < condemnPushDistance-threshold; i += 10)
+                    for (var i = UtilityClass.Player.BoundingRadius; i < condemnPushDistance - threshold; i += 10)
                     {
                         switch (MenuClass.Spells["e"]["emode"].As<MenuList>().Value)
                         {

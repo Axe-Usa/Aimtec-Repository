@@ -207,6 +207,8 @@ namespace AIO.Champions
                 MenuClass.Drawings.Add(new MenuBool("w", "W Range", false));
                 MenuClass.Drawings.Add(new MenuBool("e", "E Range", false));
                 MenuClass.Drawings.Add(new MenuBool("r", "R Range", false));
+                MenuClass.Drawings.Add(new MenuBool("flashfrost", "Flash Frost Width"));
+                MenuClass.Drawings.Add(new MenuBool("glacialstorm", "Glacial Storm Width"));
             }
             MenuClass.Root.Add(MenuClass.Drawings);
         }

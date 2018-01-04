@@ -123,6 +123,16 @@ namespace AIO.Champions
             ///     Initializes the drawings.
             /// </summary>
             Drawings();
+
+            /// <summary>
+            ///     Initializes the orbwalkingmodes.
+            /// </summary>
+            switch (ImplementationClass.IOrbwalker.Mode)
+            {
+                case OrbwalkingMode.Combo:
+                    CondemnCombo();
+                    break;
+            }
         }
 
         /// <summary>

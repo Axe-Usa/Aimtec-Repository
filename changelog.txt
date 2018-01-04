@@ -1153,3 +1153,7 @@ ExorAIO: Revolution Changelog:
   Kalista: Faster E usage.
   Twitch: Faster E usage + Improved code.
   Xayah: Faster E usage.
+  
+7.24.0.8:
+  Anivia: Added Q and R Width Drawings.
+  Anivia: Fixed Q explosion.

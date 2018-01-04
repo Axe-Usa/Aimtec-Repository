@@ -220,14 +220,9 @@ namespace AIO.Utilities
                 return false;
             }
 
-            if (unit.ValidActiveBuffs().Any(b =>
-                    b.IsHardCC() &&
-                    b.GetRemainingBuffTime() >= minTime))
-            {
-                return true;
-            }
-
-            return false;
+            return unit.ValidActiveBuffs().Any(b =>
+                b.IsHardCC() &&
+                b.GetRemainingBuffTime() >= minTime);
         }
 
         /// <returns>

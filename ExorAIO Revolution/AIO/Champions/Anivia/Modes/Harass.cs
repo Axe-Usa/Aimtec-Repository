@@ -32,7 +32,7 @@ namespace AIO.Champions
                     ManaManager.GetNeededMana(SpellClass.R.Slot, MenuClass.Spells["r"]["harass"]);
                 switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState)
                 {
-                    case 1:
+                    case 1 when GlacialStorm == null:
                         var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.R.Range);
                         if (bestTarget != null)
                         {
@@ -44,9 +44,8 @@ namespace AIO.Champions
                             }
                         }
                         break;
-                    case 2:
+                    case 2 when GlacialStorm != null:
                         if (!manaCheck ||
-                            GlacialStorm != null &&
                             !GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
                                 t.IsValidTarget(SpellClass.R.Width, checkRangeFrom: GlacialStorm.Position) &&
@@ -69,7 +68,7 @@ namespace AIO.Champions
                     ManaManager.GetNeededMana(SpellClass.Q.Slot, MenuClass.Spells["q"]["harass"]);
                 switch (UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).ToggleState)
                 {
-                    case 1:
+                    case 1 when FlashFrost == null:
                         var bestTarget = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q.Range);
                         if (bestTarget != null)
                         {
@@ -81,10 +80,8 @@ namespace AIO.Champions
                             }
                         }
                         break;
-                    case 2:
-                        if (!manaCheck ||
-                            FlashFrost != null &&
-                            !GameObjects.EnemyHeroes.Any(t =>
+                    case 2 when FlashFrost != null:
+                        if (!GameObjects.EnemyHeroes.Any(t =>
                                 !Invulnerable.Check(t, DamageType.Magical) &&
                                 t.IsValidTarget(SpellClass.Q.Width, checkRangeFrom: FlashFrost.Position) &&
                                 MenuClass.Spells["q"]["whitelist"][t.ChampionName.ToLower()].As<MenuBool>().Enabled))
@@ -110,11 +107,8 @@ namespace AIO.Champions
                 {
                     switch (MenuClass.Spells["e"]["modes"]["harass"].As<MenuList>().Value)
                     {
-                        case 0:
-                            if (IsChilled(bestTarget))
-                            {
-                                UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
-                            }
+                        case 0 when IsChilled(bestTarget):
+                            UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
                             break;
                         case 1:
                             UtilityClass.CastOnUnit(SpellClass.E, bestTarget);
