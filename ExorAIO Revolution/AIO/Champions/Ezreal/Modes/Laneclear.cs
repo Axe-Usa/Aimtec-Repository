@@ -36,7 +36,7 @@ namespace AIO.Champions
                         (m.GetRealHealth() > UtilityClass.Player.GetAutoAttackDamage(m) || !m.IsValidTarget(UtilityClass.Player.GetFullAttackRange(m))));
                 if (minionTarget != null)
                 {
-                    SpellClass.Q.Cast(minionTarget.ServerPosition);
+                    SpellClass.Q.Cast(minionTarget);
                 }
             }
         }

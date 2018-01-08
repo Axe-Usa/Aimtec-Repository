@@ -33,7 +33,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget) &&
                     MenuClass.Spells["q"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
+                    SpellClass.Q.Cast(bestTarget);
                 }
             }
 
@@ -50,7 +50,7 @@ namespace AIO.Champions
                     !Invulnerable.Check(bestTarget) &&
                     MenuClass.Spells["w"]["whitelist"][bestTarget.ChampionName.ToLower()].As<MenuBool>().Enabled)
                 {
-                    SpellClass.W.Cast(SpellClass.W.GetPrediction(bestTarget).CastPosition);
+                    SpellClass.W.Cast(bestTarget);
                 }
             }
         }

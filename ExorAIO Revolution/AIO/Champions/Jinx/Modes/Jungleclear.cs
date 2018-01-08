@@ -7,6 +7,7 @@ using Aimtec.SDK.Orbwalking;
 using AIO.Utilities;
 
 #pragma warning disable 1587
+
 namespace AIO.Champions
 {
     /// <summary>
@@ -27,6 +28,10 @@ namespace AIO.Champions
             if (!jungleTarget.IsValidTarget() ||
                 !Extensions.GetGenericJungleMinionsTargets().Contains(jungleTarget))
             {
+                if (IsUsingFishBones())
+                {
+                    SpellClass.Q.Cast();
+                }
                 return;
             }
 
@@ -37,8 +42,7 @@ namespace AIO.Champions
                 MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Enabled)
             {
                 var manaPercent = UtilityClass.Player.ManaPercent();
-                var minionsInRange = Extensions.GetGenericJungleMinionsTargets().Count(m =>
-                        m.Distance(jungleTarget) < SplashRange);
+                var minionsInRange = Extensions.GetGenericJungleMinionsTargets().Count(m => m.Distance(jungleTarget) <= SplashRange);
                 var jungleClearMinMinions = MenuClass.Spells["q"]["customization"]["jungleclear"].As<MenuSlider>().Value;
                 var jungleClearManaManager = MenuClass.Spells["q"]["jungleclear"].As<MenuSliderBool>().Value;
 

@@ -1,5 +1,4 @@
 
-using Aimtec;
 using Aimtec.SDK.Extensions;
 using Aimtec.SDK.Menu.Components;
 using AIO.Utilities;
@@ -23,7 +22,7 @@ namespace AIO.Champions
             /// <summary>
             ///     The Q Harass Logic.
             /// </summary>
-            var bestTargetQ = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range);
+            var bestTargetQ = Extensions.GetBestEnemyHeroTargetInRange(SpellClass.Q2.Range+60f);
             if (SpellClass.Q.Ready &&
                 bestTargetQ != null &&
                 MenuClass.Spells["q"]["harass"].As<MenuSliderBool>().Enabled)
@@ -47,8 +46,7 @@ namespace AIO.Champions
                         SpellClass.Q.Cast();
                     }
 
-                    if (bestTargetDistanceToPlayer > SpellClass.Q.Range &&
-                        bestTargetDistanceToPlayer <= SpellClass.Q2.Range + 200)
+                    if (bestTargetDistanceToPlayer > SpellClass.Q.Range + bestTargetQ.BoundingRadius)
                     {
                         SpellClass.Q.Cast();
                     }
@@ -61,26 +59,11 @@ namespace AIO.Champions
                         return;
                     }
 
-                    var target = ImplementationClass.IOrbwalker.GetOrbwalkingTarget();
-                    if (!(target is Obj_AI_Hero))
+                    if (minEnemies != null &&
+                        enemiesInSplashRange < minEnemies.As<MenuSlider>().Value &&
+                        bestTargetDistanceToPlayer <= SpellClass.Q.Range + bestTargetQ.BoundingRadius)
                     {
                         SpellClass.Q.Cast();
-                        return;
-                    }
-
-                    if (bestTargetDistanceToPlayer < SpellClass.Q.Range)
-                    {
-                        if (minEnemies != null)
-                        {
-                            if (enemiesInSplashRange < minEnemies.As<MenuSlider>().Value)
-                            {
-                                SpellClass.Q.Cast();
-                            }
-                        }
-                        else
-                        {
-                            SpellClass.Q.Cast();
-                        }
                     }
                 }
             }

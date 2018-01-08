@@ -1,4 +1,5 @@
 
+using System;
 using System.Linq;
 using Aimtec;
 using Aimtec.SDK.Extensions;
@@ -29,6 +30,8 @@ namespace AIO.Champions
                 return;
             }
 
+            Console.WriteLine($"Q Range: {SpellClass.Q.Range}, Distance: {ImplementationClass.IOrbwalker.GetOrbwalkingTarget()?.Distance(UtilityClass.Player)}");
+
             /// <summary>
             ///     The Force Pow Pow Logic. 
             /// </summary>
@@ -48,7 +51,7 @@ namespace AIO.Champions
             {
                 foreach (var target in GameObjects.EnemyHeroes.Where(t =>
                     t.IsImmobile(SpellClass.E.Delay) &&
-                    t.Distance(UtilityClass.Player) < SpellClass.E.Range))
+                    t.Distance(UtilityClass.Player) <= SpellClass.E.Range))
                 {
                     SpellClass.E.Cast(target.ServerPosition);
                 }

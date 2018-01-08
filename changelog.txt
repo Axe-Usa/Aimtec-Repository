@@ -1157,3 +1157,7 @@ ExorAIO: Revolution Changelog:
 7.24.0.8:
   Anivia: Added Q and R Width Drawings.
   Anivia: Fixed Q explosion.
+
+7.24.0.9:
+  Jinx: Final works on the Q switch Logic.
+  Ezreal: Q Casting on minions should be fixed.
