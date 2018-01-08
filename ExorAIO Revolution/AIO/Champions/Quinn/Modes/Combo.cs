@@ -31,7 +31,7 @@ namespace AIO.Champions
                     switch (MenuClass.Spells["q"]["modes"]["combo"].As<MenuList>().Value)
                     {
                         case 1:
-                            SpellClass.Q.Cast(SpellClass.Q.GetPrediction(bestTarget).CastPosition);
+                            SpellClass.Q.Cast(bestTarget);
                             break;
                     }
                 }

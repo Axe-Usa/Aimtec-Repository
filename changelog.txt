@@ -1161,3 +1161,4 @@ ExorAIO: Revolution Changelog:
 7.24.0.9:
   Jinx: Final works on the Q switch Logic.
   Ezreal: Q Casting on minions should be fixed.
+  Quinn: Q Casting on minions should be fixed. 
