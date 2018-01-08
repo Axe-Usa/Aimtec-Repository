@@ -176,20 +176,6 @@ namespace AIO.Champions
         }
 
         /// <summary>
-        ///     Called while processing spellcast operations.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="args">The <see cref="Obj_AI_BaseMissileClientDataEventArgs" /> instance containing the event data.</param>
-        public void OnPerformCast(Obj_AI_Base sender, Obj_AI_BaseMissileClientDataEventArgs args)
-        {
-            if (sender.IsMe &&
-                args.SpellSlot == SpellSlot.E)
-            {
-                ImplementationClass.IOrbwalker.ResetAutoAttackTimer();
-            }
-        }
-
-        /// <summary>
         ///     Fired when the game is updated.
         /// </summary>
         public void OnUpdate()

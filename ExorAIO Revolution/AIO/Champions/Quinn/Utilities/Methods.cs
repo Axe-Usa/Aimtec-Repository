@@ -20,7 +20,6 @@ namespace AIO.Champions
             ImplementationClass.IOrbwalker.PostAttack += OnPostAttack;
             Render.OnPresent += OnPresent;
             Gapcloser.OnGapcloser += OnGapcloser;
-            Obj_AI_Base.OnPerformCast += OnPerformCast;
             //AttackableUnit.OnLeaveVisible += OnLeaveVisibility;
         }
 
