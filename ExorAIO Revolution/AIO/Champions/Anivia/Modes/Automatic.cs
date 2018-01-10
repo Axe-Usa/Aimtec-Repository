@@ -29,9 +29,9 @@ namespace AIO.Champions
             /// <summary>
             ///     The R Stacking Manager.
             /// </summary>
-            if (UtilityClass.Player.InFountain() &&
+            if (SpellClass.R.ToggleState == 1 &&
+                UtilityClass.Player.InFountain() &&
                 UtilityClass.Player.IsTearLikeItemReady() &&
-                UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).ToggleState == 1 &&
                 MenuClass.Miscellaneous["tear"].As<MenuBool>().Value)
             {
                 SpellClass.R.Cast(UtilityClass.Player.ServerPosition.Extend(Game.CursorPos, SpellClass.R.Range));

@@ -21,16 +21,8 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-            if (!UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).State.HasFlag(SpellState.NotLearned))
-            {
-                SpellClass.W.Range = UtilityClass.Player.BoundingRadius + new[] { 630, 650, 670, 690, 710 }[UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).Level - 1];
-            }
-            SpellClass.R.Range = 900f + 300f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Level;
-
-            /*foreach (var hero in GameObjects.EnemyHeroes)
-            {
-                Console.WriteLine($"Name: {hero.ChampionName}, IsDead: {hero.IsDead}, IsValid: {hero.IsValid}, IsVisible: {hero.IsVisible}, IsTargetable: {hero.IsTargetable}, IsInvulnerable: {hero.IsInvulnerable}");
-            }*/
+            SpellClass.W.Range = 610 + 20 * SpellClass.W.Level;
+            SpellClass.R.Range = 900f + 300f * SpellClass.R.Level;
 
             if (UtilityClass.Player.IsRecalling())
             {

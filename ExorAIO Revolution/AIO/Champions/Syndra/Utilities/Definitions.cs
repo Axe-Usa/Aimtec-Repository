@@ -59,7 +59,7 @@ namespace AIO.Champions
         /// </summary>
         public bool IsHoldingForceOfWillObject()
         {
-            return UtilityClass.Player.SpellBook.GetSpell(SpellSlot.W).ToggleState == 2;
+            return SpellClass.W.ToggleState == 2;
         }
 
         /// <summary>

@@ -59,7 +59,7 @@ namespace AIO.Champions
         /// </returns>
         public bool IsUltimateShooting()
         {
-            return UtilityClass.Player.SpellBook.GetSpell(SpellSlot.R).Name.Equals("JhinRShot");
+            return SpellClass.R.Name.Equals("JhinRShot");
         }
 
         /// <summary>

@@ -23,7 +23,7 @@ namespace AIO.Champions
         /// </summary>
         public void Automatic()
         {
-            SpellClass.Q2.Range = SpellClass.Q.Range + 50f + 25f * UtilityClass.Player.SpellBook.GetSpell(SpellSlot.Q).Level;
+            SpellClass.Q2.Range = SpellClass.Q.Range + 50f + 25f * SpellClass.Q.Level;
 
             if (UtilityClass.Player.IsRecalling())
             {

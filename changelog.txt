@@ -1167,3 +1167,6 @@ ExorAIO: Revolution Changelog:
   Ezreal: Should use Q more often now.
   Quinn: Should use Q more often now.
   Quinn: Removed useless code.
+
+8.1.0.0:
+  AIO: Extensions usage and code cleanup.
